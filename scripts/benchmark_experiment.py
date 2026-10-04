@@ -34,7 +34,9 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import tempfile
 import time
+from contextlib import nullcontext
 from pathlib import Path
 
 import numpy as np
@@ -46,6 +48,10 @@ import numpy as np
 os.environ.setdefault("LSA_NO_TRUNCATE", "1")
 
 from lsa.codelength import default_l_max
+from lsa.concentration_baselines import (
+    absolute_discounting_predictive,
+    dirichlet_mixture_predictive,
+)
 from lsa.estimators import (
     add_half,
     add_one,
@@ -102,7 +108,18 @@ def make_targets(d: int) -> dict:
 
 def kl_bits(p: np.ndarray, q: np.ndarray) -> float:
     mask = p > 0
-    return float(np.sum(p[mask] * np.log2(p[mask] / q[mask])))
+    with np.errstate(divide="ignore", invalid="ignore"):
+        return float(np.sum(p[mask] * np.log2(p[mask] / q[mask])))
+
+
+def finite_mean(values):
+    return float(np.mean(values)) if np.all(np.isfinite(values)) else None
+
+
+def finite_stderr(values):
+    if not np.all(np.isfinite(values)):
+        return None
+    return float(np.std(values, ddof=1) / np.sqrt(len(values))) if len(values) > 1 else 0.0
 
 
 def main() -> None:
@@ -123,7 +140,19 @@ def main() -> None:
     parser.add_argument("--jobs", type=int, default=1)
     parser.add_argument("--out", required=True)
     parser.add_argument("--cache-dir", default=None)
+    parser.add_argument("--transient-cache", action="store_true",
+                        help="delete disposable moment tables after each sample")
+    parser.add_argument("--checkpoint", action="store_true",
+                        help="save each completed cell and resume matching runs")
+    parser.add_argument("--include-zero", action="store_true",
+                        help="include fixed uniform L=0 with equal depth prior weight")
+    parser.add_argument("--extra-baselines", action="store_true",
+                        help="add AD and Dir-tau to the comparison")
     args = parser.parse_args()
+    classical = dict(CLASSICAL)
+    if args.extra_baselines:
+        classical.update(absolute_discounting=absolute_discounting_predictive,
+                         dir_tau=dirichlet_mixture_predictive)
 
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -148,11 +177,25 @@ def main() -> None:
         targets = {k: targets[k] for k in keep}
 
     estimator_names = (
-        list(CLASSICAL)
+        list(classical)
         + ["oracle"]
         + [f"lsa_L{L}" for L in fixed_depths]
         + ["lsa_avg"]
     )
+    checkpoint_dir = out_dir / "cells"
+    if args.checkpoint:
+        checkpoint_dir.mkdir(exist_ok=True)
+        config = {"d": d, "n_values": n_values, "trials": args.trials,
+                  "l_max": l_max, "fixed_depths": fixed_depths,
+                  "targets": list(targets), "seed": args.seed,
+                  "estimators": estimator_names, "include_zero": args.include_zero,
+                  "no_truncate": os.environ.get("LSA_NO_TRUNCATE")}
+        config_file = checkpoint_dir / "config.json"
+        if config_file.exists() and json.loads(config_file.read_text()) != config:
+            raise SystemExit("checkpoint configuration mismatch; use a new --out")
+        config_file.write_text(json.dumps(config, indent=2))
+    if args.transient_cache:
+        cache_dir.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     results: dict = {}
     total_cells = len(targets) * len(n_values) * args.trials
@@ -168,21 +211,41 @@ def main() -> None:
             p = target(rng) if callable(target) else target
             for n in n_values:
                 counts = rng.multinomial(n, p)
-                for name, rule in CLASSICAL.items():
+                checkpoint_file = checkpoint_dir / f"{target_name}_{trial}_{n}.npz"
+                if args.checkpoint and checkpoint_file.exists():
+                    with np.load(checkpoint_file, allow_pickle=False) as saved:
+                        for name, loss in zip(estimator_names, saved["losses"], strict=True):
+                            per_n[n][name].append(float(loss))
+                        posteriors[n].append(saved["posterior"].copy())
+                    done += 1
+                    continue
+                for name, rule in classical.items():
                     per_n[n][name].append(kl_bits(p, rule(counts)))
                 per_n[n]["oracle"].append(
                     kl_bits(p, natural_oracle(counts, p))
                 )
-                pred = lsa_predictive_by_count(
-                    counts, d=d, l_max=l_max,
-                    cache_dir=cache_dir, jobs=args.jobs,
-                )
+                cache_context = (tempfile.TemporaryDirectory(dir=cache_dir,
+                                 prefix="cell-") if args.transient_cache
+                                 else nullcontext(cache_dir))
+                with cache_context as cell_cache:
+                    pred = lsa_predictive_by_count(
+                        counts, d=d, l_max=l_max,
+                        cache_dir=cell_cache, jobs=args.jobs,
+                        include_zero=args.include_zero,
+                    )
                 for L in fixed_depths:
                     per_n[n][f"lsa_L{L}"].append(
                         kl_bits(p, pred.q_hat(counts, depth=L))
                     )
                 per_n[n]["lsa_avg"].append(kl_bits(p, pred.q_hat(counts)))
                 posteriors[n].append(pred.posterior)
+                if args.checkpoint:
+                    temporary = checkpoint_file.with_suffix(".tmp")
+                    with temporary.open("wb") as stream:
+                        np.savez(stream, losses=[per_n[n][name][-1]
+                                 for name in estimator_names],
+                                 posterior=pred.posterior)
+                    temporary.replace(checkpoint_file)
                 done += 1
             print(
                 f"[{time.time()-t0:7.0f}s] {target_name:>14} "
@@ -193,16 +256,20 @@ def main() -> None:
         results[target_name] = {
             "n_values": n_values,
             "mean": {
-                name: [float(np.mean(per_n[n][name])) for n in n_values]
+                name: [finite_mean(per_n[n][name]) for n in n_values]
                 for name in estimator_names
             },
             "stderr": {
                 name: [
-                    float(np.std(per_n[n][name], ddof=1)
-                          / np.sqrt(args.trials)) if args.trials > 1 else 0.0
+                    finite_stderr(per_n[n][name])
                     for n in n_values
                 ]
                 for name in estimator_names
+            },
+            "nonfinite_trials": {
+                name: [{"infinite": int(np.isinf(per_n[n][name]).sum()),
+                        "undefined": int(np.isnan(per_n[n][name]).sum())}
+                       for n in n_values] for name in estimator_names
             },
             "mean_posterior": {
                 str(n): list(np.mean(np.asarray(posteriors[n]), axis=0))
@@ -215,6 +282,8 @@ def main() -> None:
         "n_values": n_values,
         "trials": args.trials,
         "l_max": l_max,
+        "include_zero": args.include_zero,
+        "depths": list(range(0 if args.include_zero else 1, l_max + 1)),
         "fixed_depths": fixed_depths,
         "c_star": C_STAR,
         "seed": args.seed,
@@ -225,7 +294,7 @@ def main() -> None:
         "targets": results,
     }
     out_file = out_dir / "results.json"
-    out_file.write_text(json.dumps(payload, indent=2))
+    out_file.write_text(json.dumps(payload, indent=2, allow_nan=False))
     print(f"written: {out_file} ({time.time()-t0:.0f}s total)", flush=True)
 
 

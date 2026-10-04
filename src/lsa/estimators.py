@@ -173,7 +173,9 @@ class LsaPredictive:
     one particular symbol with that count under the depth-``L`` mixture;
     ``avg_by_count`` is the same for the depth-averaged predictor
     (posterior-weighted over ``L = 1 .. l_max``); ``posterior[L-1]`` is the
-    posterior weight of depth ``L`` given the sample.
+    posterior weight of depth ``L`` given the sample. With ``include_zero``
+    enabled, the posterior starts at depth zero instead, and ``by_count[0]``
+    is the fixed uniform predictor.
     """
 
     d: int
@@ -181,6 +183,7 @@ class LsaPredictive:
     by_count: Mapping[int, Mapping[int, float]]
     avg_by_count: Mapping[int, float]
     posterior: tuple[float, ...]
+    include_zero: bool = False  # posterior starts at L=0 when enabled
 
     def q_hat(self, counts: np.ndarray, depth: int | None = None) -> np.ndarray:
         """The full assignment over the alphabet behind ``counts``.
@@ -211,6 +214,7 @@ def lsa_predictive_by_count(
     cache_dir: str | Path | None = None,
     jobs: int = 1,
     include_unseen: bool = True,
+    include_zero: bool = False,
 ) -> LsaPredictive:
     """Exact LSA predictives from a count profile (Appendix B).
 
@@ -220,6 +224,8 @@ def lsa_predictive_by_count(
     (Section 3.1); the depth-averaged predictive weights each depth by its
     posterior given the sample.  Everything is evaluated exactly by the
     machinery of Appendix B; no sequential simulation is involved.
+    ``include_zero`` adds the fixed uniform component with equal prior weight
+    and sequence evidence d**(-n), without changing positive-depth kernels.
     """
 
     if l_max is None:
@@ -255,12 +261,20 @@ def lsa_predictive_by_count(
         for L in range(1, l_max + 1):
             by_count.setdefault(L, {})[c] = float(ratios[L - 1])
         avg_by_count[c] = float(np.dot(posterior, ratios))
+    if include_zero:
+        posterior = np.asarray(base_result.with_uniform().posterior)
+        w0 = posterior[0]
+        for c in cs:
+            by_count.setdefault(0, {})[c] = 1.0 / d
+            ratios = np.array([by_count[L][c] for L in range(1, l_max + 1)])
+            avg_by_count[c] = float(w0 / d + np.dot(posterior[1:], ratios))
     return LsaPredictive(
         d=d,
         l_max=l_max,
         by_count=by_count,
         avg_by_count=avg_by_count,
         posterior=tuple(float(w) for w in posterior),
+        include_zero=include_zero,
     )
 
 

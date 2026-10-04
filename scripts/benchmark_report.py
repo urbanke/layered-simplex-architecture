@@ -58,8 +58,12 @@ def main() -> None:
     fixed = [f"lsa_L{L}" for L in results["fixed_depths"]]
     order = ["add_one", "add_half", "braess_sauer", "ristad",
              "good_turing", "oracle", *fixed, "lsa_avg"]
+    order += [key for key in ["absolute_discounting", "dir_tau"] if key in results["estimators"]]
     pretty = dict(PRETTY)
+    pretty.update(absolute_discounting="AD", dir_tau="Dir-tau")
     style = dict(STYLE)
+    style.update(absolute_discounting=dict(color="black", marker="x"),
+                 dir_tau=dict(color="tab:green", marker="+"))
     for i, name in enumerate(fixed):
         pretty[name] = f"LSA L={name[5:]}"
         style[name] = FIXED_STYLE[i % len(FIXED_STYLE)]
@@ -104,6 +108,9 @@ def main() -> None:
     # ----- Table 5 (largest n) -----
     n_last = n_values[-1]
     header = ["target", *[pretty[name] for name in order]]
+    comparisons = [key for key in ("good_turing", "dir_tau")
+                   if "dir_tau" in results["estimators"]]
+    header += [f"LSA change vs {pretty[key]} (%)" for key in comparisons]
     lines = ["\t".join(header)]
     print(f"\nTable 5 at n = {n_last:,} (mean KL in bits):")
     print(f"{'target':>16} " + " ".join(f"{pretty[o][:10]:>11}" for o in order))
@@ -111,9 +118,23 @@ def main() -> None:
     for target in targets:
         block = results["targets"][target]
         vals = [block["mean"][name][-1] for name in order]
-        max_err = max(max_err, *[block["stderr"][name][-1] for name in order])
-        lines.append("\t".join([target, *[f"{v:.6g}" for v in vals]]))
-        print(f"{target:>16} " + " ".join(f"{v:>11.4g}" for v in vals))
+        max_err = max([max_err] + [block["stderr"][name][-1] for name in order
+                                   if block["stderr"][name][-1] is not None])
+        def format_value(name, value, block=block):
+            if value is not None:
+                return f"{value:.6g}"
+            status = block["nonfinite_trials"][name][-1]
+            return "undefined" if status["undefined"] else "infinite"
+        formatted = [format_value(name, value) for name, value in zip(order, vals)]
+        changes = []
+        for comparator in comparisons:
+            baseline = block["mean"][comparator][-1]
+            lsa = block["mean"]["lsa_avg"][-1]
+            change = (100 * (lsa / baseline - 1)
+                      if lsa is not None and baseline is not None and baseline > 0 else None)
+            changes.append(f"{change:+.1f}%" if change is not None else "undefined")
+        lines.append("\t".join([target, *formatted, *changes]))
+        print(f"{target:>16} " + " ".join(f"{v:>11}" for v in formatted))
     (out_dir / "table5.tsv").write_text("\n".join(lines) + "\n")
     print(f"largest standard error: {max_err:.4g} bits")
     print(f"table: {out_dir / 'table5.tsv'}")
@@ -129,7 +150,8 @@ def main() -> None:
         cells = []
         for n in show_n:
             post = np.asarray(block["mean_posterior"][str(n)], dtype=float)
-            top = [(L + 1, w) for L, w in enumerate(post) if w >= 0.05]
+            top = [(L, w) for L, w in zip(
+                results.get("depths", range(1, len(post) + 1)), post) if w >= 0.05]
             top.sort(key=lambda t: -t[1])
             cells.append(", ".join(f"L={L}: {w:.2f}" for L, w in top))
         lines.append("\t".join([target, *cells]))

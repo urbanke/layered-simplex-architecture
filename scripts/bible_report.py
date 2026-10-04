@@ -39,6 +39,8 @@ STYLE = {
     "braess_sauer": dict(color="tab:cyan", marker="^"),
     "ristad": dict(color="tab:pink", marker="D"),
     "good_turing": dict(color="tab:blue", marker="o"),
+    "absolute_discounting": dict(color="black", marker="x"),
+    "dir_tau": dict(color="tab:green", marker="+"),
     "lsa_avg": dict(color="tab:red", marker="*", linewidth=1.6),
 }
 
@@ -60,8 +62,24 @@ def main() -> None:
     if not checkpoints:
         raise SystemExit("no common checkpoints between the two runs")
 
+    if unigram["d"] != baselines["d"]:
+        raise SystemExit("alphabet sizes do not match")
+    for n in checkpoints:
+        if abs(lsa_rows[n]["empirical_entropy_bits"] - base_rows[n]["empirical_entropy_bits"]) > 1e-9:
+            raise SystemExit("prefix entropies do not match")
+    columns = list(COLUMNS)
+    for key, label in [("absolute_discounting", "AD"), ("dir_tau", "Dir-tau")]:
+        if key in baselines["methods"]:
+            columns.append((key, label))
+
+    def cell(base, key):
+        value = base[key + "_redundancy"]
+        if value is None:
+            return base[key + "_diagnostics"]["status"]
+        return f"{value:.3f}"
+
     # ----- Table 7 -----
-    header = ["n", "distinct", "H_n", *[label for _, label in COLUMNS],
+    header = ["n", "distinct", "H_n", *[label for _, label in columns],
               "LSA avg", "posterior mode"]
     lines = ["\t".join(header)]
     print(" ".join(f"{h:>10}" for h in header))
@@ -71,7 +89,7 @@ def main() -> None:
         cells = [
             f"{n:,}", f"{lsa['distinct_types']:,}",
             f"{lsa['empirical_entropy_bits']:.2f}",
-            *[f"{base[key + '_redundancy']:.3f}" for key, _ in COLUMNS],
+            *[cell(base, key) for key, _ in columns],
             f"{lsa['redundancy_bits_per_token']:.3f}",
             f"L = {lsa['posterior_mode_depth']}",
         ]
@@ -79,13 +97,22 @@ def main() -> None:
         print(" ".join(f"{c:>10}" for c in cells))
     (out_dir / "table7.tsv").write_text("\n".join(lines) + "\n")
     print(f"table: {out_dir / 'table7.tsv'}")
+    if "absolute_discounting" in baselines["methods"]:
+        (out_dir / "baseline_notes.txt").write_text(
+            "AD uses c1/(c1+2*c2), uniform empty history, and uniform unseen mass. "
+            "Infinite/undefined entries are not clipped or replaced. "
+            "See absolute_discounting_diagnostics in baseline results.json.\n"
+            "Dir-tau averages per-coordinate beta=2**j, j=-24,...,4, with equal prior weights.\n"
+        )
 
     # ----- Figure 7 -----
     fig, (ax_a, ax_b) = plt.subplots(1, 2, figsize=(9.4, 3.4))
 
     ns = np.asarray(checkpoints, dtype=float)
-    for key, label in COLUMNS:
+    for key, label in columns:
         red = [base_rows[n][key + "_redundancy"] for n in checkpoints]
+        if not any(x is not None and np.isfinite(x) for x in red):
+            continue  # Undefined/infinite AD remains explicit in the table.
         ax_a.plot(ns, red, label=label, markersize=4, **STYLE[key])
     ax_a.plot(ns, [lsa_rows[n]["redundancy_bits_per_token"]
                    for n in checkpoints],
@@ -98,7 +125,7 @@ def main() -> None:
     ax_a.legend(fontsize=7, frameon=False)
 
     l_max = unigram["l_max"]
-    depths = np.arange(1, l_max + 1)
+    depths = np.asarray(unigram.get("depths", list(range(1, l_max + 1))))
     for n in checkpoints:
         lsa = lsa_rows[n]
         by_depth = np.asarray(lsa["bits_per_token_by_depth"], dtype=float)

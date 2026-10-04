@@ -139,6 +139,35 @@
       "outputs": ["console pass/fail table"],
       "expected": "expected/paper_values.json: appendix_c_tolerances",
       "runtime": "validation ~15 min at full scale; test suite ~10 min"
+    },
+    {
+      "id": "submission_table1",
+      "paper_item": "Revised submission Table 1",
+      "description": "Competitive benchmark at n=1000, d=10000; equal depth prior L=0..80; AD and Dir-tau",
+      "commands": [
+        "python scripts/submission_tables.py --table 1 --jobs 8"
+      ],
+      "smoke": "python scripts/submission_tables.py --table 1 --smoke --jobs 2",
+      "outputs": [
+        "output/submission_tables/table1/table1.tsv",
+        "output/submission_tables/table1/results.json"
+      ],
+      "runtime": "minutes to hours; warm tables are reused"
+    },
+    {
+      "id": "submission_table2",
+      "paper_item": "Revised submission Table 2",
+      "description": "Original Bible prefixes at d=100000; include L=0, AD, Dir-tau",
+      "commands": [
+        "python scripts/submission_tables.py --table 2 --jobs 8"
+      ],
+      "smoke": "python scripts/submission_tables.py --table 2 --smoke --jobs 2",
+      "outputs": [
+        "output/submission_tables/table2/table2.tsv",
+        "output/submission_tables/table2/lsa/results.json",
+        "output/submission_tables/table2/baselines/results.json"
+      ],
+      "runtime": "about one hour on a cold table store"
     }
   ],
   "not_included": [],

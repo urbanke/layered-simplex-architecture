@@ -27,6 +27,11 @@ from pathlib import Path
 
 import numpy as np
 
+from lsa.concentration_baselines import (
+    BETA_EXPONENTS,
+    absolute_discounting_codelengths,
+    dirichlet_mixture_codelength_bits,
+)
 from lsa.corpus import load_tokens
 from lsa.estimators import sequential_codelength_bits
 
@@ -41,6 +46,8 @@ def main() -> None:
     parser.add_argument("--checkpoints", required=True,
                         help="comma-separated prefix lengths ('all' allowed)")
     parser.add_argument("--out", required=True)
+    parser.add_argument("--extra-baselines", action="store_true",
+                        help="add unregularized AD and Dir-tau")
     args = parser.parse_args()
 
     out_dir = Path(args.out)
@@ -88,18 +95,34 @@ def main() -> None:
             f"{bits[n]/n - entropies[n]:.3f}@{n}" for n in checkpoints
         ) + f"   ({time.time()-t0:.0f}s)", flush=True)
 
+    methods = list(METHODS)
+    if args.extra_baselines:
+        methods += ["absolute_discounting", "dir_tau"]
+        ad = absolute_discounting_codelengths(ids, args.d, checkpoints)
+        for n in checkpoints:
+            row = rows[str(n)]
+            counts = np.bincount(ids[:n], minlength=args.d)
+            bits = dirichlet_mixture_codelength_bits(counts, args.d)
+            row["dir_tau_bits_per_token"] = bits / n
+            row["dir_tau_redundancy"] = bits / n - entropies[n]
+            row["absolute_discounting_diagnostics"] = ad[n]
+            cost = ad[n]["bits"]
+            row["absolute_discounting_bits_per_token"] = cost / n if cost is not None else None
+            row["absolute_discounting_redundancy"] = cost / n - entropies[n] if cost is not None else None
+
     payload = {
         "corpus": args.corpus,
         "d": args.d,
         "checkpoints": checkpoints,
-        "methods": METHODS,
+        "methods": methods,
+        "dir_tau_beta_exponents": list(BETA_EXPONENTS) if args.extra_baselines else None,
         "note": "redundancy = sequential codelength per token minus the "
                 "empirical unigram entropy of the coded prefix, in bits",
         "rows": rows,
         "seconds": time.time() - t0,
     }
     out_file = out_dir / "results.json"
-    out_file.write_text(json.dumps(payload, indent=2))
+    out_file.write_text(json.dumps(payload, indent=2, allow_nan=False))
     print(f"written: {out_file}", flush=True)
 
 

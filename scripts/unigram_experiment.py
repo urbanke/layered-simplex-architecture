@@ -55,6 +55,8 @@ def main() -> None:
     parser.add_argument(
         "--jobs", type=int, default=1, help="parallel table-build workers"
     )
+    parser.add_argument("--include-zero", action="store_true",
+                        help="include fixed uniform L=0 with equal depth prior weight")
     args = parser.parse_args()
 
     out_dir = Path(args.out)
@@ -110,6 +112,8 @@ def main() -> None:
     )
     for n in checkpoints:
         result = results[n]
+        if args.include_zero:
+            result = result.with_uniform()
         h_n = entropies[n]
         rows.append(
             {
@@ -122,11 +126,11 @@ def main() -> None:
                 "redundancy_bits_per_token": result.bits_per_token - h_n,
                 "posterior_mode_depth": result.posterior_mode,
                 "posterior_top3": sorted(
-                    ((L + 1, w) for L, w in enumerate(result.posterior)),
+                    zip(result.depths, result.posterior),
                     key=lambda t: -t[1],
                 )[:3],
                 "bits_per_token_by_depth": [
-                    result.bits_per_token_at_depth(L) for L in range(1, l_max + 1)
+                    result.bits_per_token_at_depth(L) for L in result.depths
                 ],
             }
         )
@@ -142,6 +146,8 @@ def main() -> None:
         "corpus": str(args.corpus),
         "d": args.d,
         "l_max": l_max,
+        "include_zero": args.include_zero,
+        "depths": list(range(0 if args.include_zero else 1, l_max + 1)),
         "c_star_note": "L_max = round(2 c* ln d), c* = 1/(1 - EulerGamma)",
         "laguerre_order": args.laguerre_order,
         "seconds": time.time() - t0,

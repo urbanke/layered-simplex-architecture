@@ -15,7 +15,7 @@ from __future__ import annotations
 import math
 import os
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Iterable, Mapping
 
@@ -64,6 +64,24 @@ class DepthAveragedCodelength:
     l_max: int
     log2_q_by_depth: tuple[float, ...]  # index L-1 -> log2 q_lambda(L)
     log2_q_avg: float
+    include_zero: bool = False
+
+    @property
+    def depths(self) -> tuple[int, ...]:
+        return tuple(range(0 if self.include_zero else 1, self.l_max + 1))
+
+    def with_uniform(self) -> DepthAveragedCodelength:
+        """Equal prior over 0..L_max; L=0 has sequence probability d**(-n).
+
+        Positive-depth likelihoods keep their original indexing. Idempotent.
+        """
+        if self.include_zero:
+            return self
+        log_uniform = -self.n * math.log2(self.d)
+        log_sum = np.logaddexp2(log_uniform,
+                               self.log2_q_avg + math.log2(self.l_max))
+        return replace(self, include_zero=True,
+                       log2_q_avg=float(log_sum - math.log2(self.l_max + 1)))
 
     @property
     def bits_per_token(self) -> float:
@@ -74,15 +92,21 @@ class DepthAveragedCodelength:
         """Posterior weight of each depth given the data (uniform prior)."""
 
         log_q = np.array(self.log2_q_by_depth)
+        if self.include_zero:
+            log_q = np.r_[-self.n * math.log2(self.d), log_q]
         w = np.exp((log_q - np.max(log_q)) * math.log(2.0))
         w /= w.sum()
         return tuple(float(x) for x in w)
 
     @property
     def posterior_mode(self) -> int:
-        return 1 + int(np.argmax(self.log2_q_by_depth))
+        return self.depths[int(np.argmax(self.posterior))]
 
     def bits_per_token_at_depth(self, L: int) -> float:
+        if L == 0:
+            return math.log2(self.d)
+        if not 1 <= L <= self.l_max:
+            raise ValueError("depth outside 0..l_max")
         return -self.log2_q_by_depth[L - 1] / self.n
 
 
