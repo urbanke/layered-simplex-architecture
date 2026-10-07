@@ -1,0 +1,9 @@
+{
+  "utc": "2026-10-07T19:57:54.943456+00:00",
+  "superseded_job": "40152959",
+  "replacement_job": "40160952",
+  "reason": "Increase allocated wall time from 12 to24hours after full-depth Bible refinement timing showed the previous limit was too short. New job started and output verified before cancelling old job. All scientific source, cases and settings remain unchanged.",
+  "superseded_output": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-001/depth",
+  "replacement_output": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-002/depth",
+  "superseded_record_preserved": true
+}

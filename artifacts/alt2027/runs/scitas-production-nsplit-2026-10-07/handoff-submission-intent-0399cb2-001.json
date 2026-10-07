@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-07T20:01:25.206055+00:00",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--dependency=afterany:40160952:40160238:40158600:40162027",
+    "/scratch/urbanke/lsa-alt2027/setup/jed-admission-and-launch-0399cb2.sbatch"
+  ],
+  "source_commit": "0399cb28b973e5550fcbcbce082e8d36c95c2e1e",
+  "handoff_manifest_sha256": "2c3301a096b4c92a967199ee3e6ecff619cfdac91fce7b772abd4180eda0d571",
+  "dependencies": {
+    "depth_refinement": "40160952",
+    "sample_size_timing_array": "40160238",
+    "spectrum_timing": "40158600",
+    "final_regressions": "40162027"
+  },
+  "production_started": false
+}

@@ -1,5 +1,7 @@
 # Queued ALT production handoff — 7 October 2026
 
+**Superseded before execution.** Gate 40159544 was cancelled with zero elapsed time; production did not start. The replacement is the [sample-size split handoff](../scitas-production-nsplit-2026-10-07/README.md), gate 40162230 on frozen source 0399cb2. The original submission snapshot below is retained.
+
 Slurm job **40159544** is queued behind the remaining depth validation
 (job 40152959) and throughput pilot array (40158582). It runs the explicit
 numerical-admission and scheduling checks when those jobs finish. Only passed

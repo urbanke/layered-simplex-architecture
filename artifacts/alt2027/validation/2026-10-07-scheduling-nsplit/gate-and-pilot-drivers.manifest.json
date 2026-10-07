@@ -1,0 +1,60 @@
+{
+  "archive": {
+    "bytes": 157558,
+    "file": "gate-and-pilot-drivers.tar.gz",
+    "sha256": "1bc0853c15ba343db0600864de508b26f5114990ba643c65d11f8d0761c0a5d9"
+  },
+  "checks": "Nine synthetic checks passed; real incomplete Linux evidence returns pending with exact plan hash; independent source, sample identity, queue and resource model review passed.",
+  "created_utc": "2026-10-07T20:01:44.399925+00:00",
+  "files": {
+    "bible-serial-calibration-projection.json": {
+      "bytes": 1442,
+      "sha256": "a284c0959bdc60c71988662b43867091839ce0d1e15c38f7c91284c7878b5a92"
+    },
+    "check-assessment-nsplit.py": {
+      "bytes": 10850,
+      "sha256": "537820ea2c2fe83867ceeb13d21ea5bda38ae29a86d473bee3ba83db84189ba3"
+    },
+    "live-pending-assessment.json": {
+      "bytes": 2211,
+      "sha256": "b76a63ba28f86239e60ce9441a5546781a170ffe681683ef4c45d7568e009d91"
+    },
+    "pilot.py": {
+      "bytes": 6483,
+      "sha256": "d92b9b417643964cd5df0cec6aed5ed0bb4883f663b075d56f8b7b9b06a12cda"
+    },
+    "pilot.sbatch": {
+      "bytes": 850,
+      "sha256": "db6780974a9a114c53d15301ee719c1c61c0470fe44fc51d8fe79b678dea3f9c"
+    },
+    "scheduling-assessment-nsplit.py": {
+      "bytes": 19575,
+      "sha256": "e9efc0a034b8f97b0482d7a2d89d8ae384d8a717471d2eb9310db032a7d4a393"
+    },
+    "submission.json": {
+      "bytes": 1837,
+      "sha256": "7b8af07a8074a83ccbe543c060e803bea9167aaf099603f9d491f5e3b3e75529"
+    },
+    "synthetic-checks-v2.json": {
+      "bytes": 1855,
+      "sha256": "d90fba5d2da404a8ae053f4266cfa69a7d0bfc812fa7bf21dff4811cbb9441c0"
+    },
+    "synthetic-fixture-plan.json": {
+      "bytes": 17199487,
+      "sha256": "e76da0de8e03b7441c2492fd97046b7e5dee074775749692c7bac58ccf88c272"
+    }
+  },
+  "plan_sha256": "0a12bbad6948e427319319f5d74a494b7bb67aa1e8f455d0f1eeee159b62eae6",
+  "production_source_commit": "0399cb28b973e5550fcbcbce082e8d36c95c2e1e",
+  "purpose": "scheduling evidence; not numerical production admission",
+  "remote_results": "jed:/scratch/urbanke/lsa-alt2027/runs/throughput-nsplit-f0a5ebd-20261007-001",
+  "scheduling_script_sha256": "e9efc0a034b8f97b0482d7a2d89d8ae384d8a717471d2eb9310db032a7d4a393",
+  "schema_version": 1,
+  "slurm": {
+    "late_replay": "40158709",
+    "nsplit_pilot_array": "40160238",
+    "spectrum_pilot": "40158582_2"
+  },
+  "source_commit_pilots": "f0a5ebd0a57d46caeb9bf45407c062f37b8d64bc",
+  "status": "gate_verified_pilots_pending"
+}

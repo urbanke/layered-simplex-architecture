@@ -1,0 +1,237 @@
+{
+  "archive_checks": {
+    "copied_files": "source/destination sizes and SHA-256 verified",
+    "handoff_input_hashes": "all eight verified before copy",
+    "plan": "exact original bytes after gzip round trip; deterministic mtime 0",
+    "scheduling_archive": "all nine members verified against preserved manifest"
+  },
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--dependency=afterany:40160952:40160238:40158600:40162027",
+    "/scratch/urbanke/lsa-alt2027/setup/jed-admission-and-launch-0399cb2.sbatch"
+  ],
+  "copied_payloads": {
+    "depth-resource-supersession-20261007.json": {
+      "bytes": 666,
+      "sha256": "21887bafe62e40d42b8ebd4c8907713da0449a9077c54aa9abb7e52aecaeb00a",
+      "source_path": "output/alt2027/scitas-setup-20261007/depth-resource-supersession-20261007.json"
+    },
+    "evidence-index-0399cb2.json": {
+      "bytes": 671,
+      "sha256": "3ad67b892344955a181aa221868d16e1d9a1e698404ed4018a105f1cd7010c00",
+      "source_path": "output/alt2027/scitas-setup-20261007/evidence-index-0399cb2.json"
+    },
+    "handoff-inputs-0399cb2.json": {
+      "bytes": 932,
+      "sha256": "2c3301a096b4c92a967199ee3e6ecff619cfdac91fce7b772abd4180eda0d571",
+      "source_path": "output/alt2027/scitas-setup-20261007/handoff-inputs-0399cb2.json"
+    },
+    "handoff-scheduler-0399cb2-001.stderr": {
+      "bytes": 1408,
+      "sha256": "411160895ae607521fc5c0d4e8c584fc1354934850e2dec19cd66564ccfdeb6c",
+      "source_path": "output/alt2027/scitas-setup-20261007/handoff-scheduler-0399cb2-001.stderr"
+    },
+    "handoff-scheduler-0399cb2-001.stdout": {
+      "bytes": 9,
+      "sha256": "c6885c02bd35f3be82f67b1721fabb83f02fb09ac1c1ddfda44d4ff5473feef2",
+      "source_path": "output/alt2027/scitas-setup-20261007/handoff-scheduler-0399cb2-001.stdout"
+    },
+    "handoff-submission-0399cb2-001.json": {
+      "bytes": 3155,
+      "sha256": "5c004b04c80b816a51225d16291a0367c2a9c6c6a5c6dc22b49c6a70f6939200",
+      "source_path": "output/alt2027/scitas-setup-20261007/handoff-submission-0399cb2-001.json"
+    },
+    "handoff-submission-intent-0399cb2-001.json": {
+      "bytes": 613,
+      "sha256": "a43d8e271d746633c647f0ed3da3417d52bcb8f3bccc4daec0ba287ff6ae6eda",
+      "source_path": "output/alt2027/scitas-setup-20261007/handoff-submission-intent-0399cb2-001.json"
+    },
+    "jed-admission-and-launch-0399cb2.sbatch": {
+      "bytes": 1007,
+      "sha256": "1e9468e504fb59d7a0fcfd0cd4e05b1fa748235eff0192814d643620fcbcf239",
+      "source_path": "output/alt2027/scitas-setup-20261007/jed-admission-and-launch-0399cb2.sbatch"
+    },
+    "jed-depth-24h.sbatch": {
+      "bytes": 3260,
+      "sha256": "e8f142785f482e3b5aecb368d209e1074306493409823f28669ad0aba37c1e1b",
+      "source_path": "output/alt2027/scitas-setup-20261007/jed-depth-24h.sbatch"
+    },
+    "jed-engine.json": {
+      "bytes": 10509,
+      "sha256": "1aab2916b7dabc9a84c405497717c01f05572039349bfc7344c5cdaad935214c",
+      "source_path": "output/alt2027/scitas-setup-20261007/jed-engine.json"
+    },
+    "jed-final-regressions-0399cb2.sbatch": {
+      "bytes": 1011,
+      "sha256": "8df202d2f20c4774d15b25812621266c726d60b68a2f40218d061954b3f3ee9c",
+      "source_path": "output/alt2027/scitas-setup-20261007/jed-final-regressions-0399cb2.sbatch"
+    },
+    "jed-postprocess-0399cb2.sbatch": {
+      "bytes": 10500,
+      "sha256": "21659bbe072d9b07f756cdde1bf057e29a9a73868db560b10ac119dc784c0448",
+      "source_path": "output/alt2027/scitas-setup-20261007/jed-postprocess-0399cb2.sbatch"
+    },
+    "jed-production-0399cb2.sbatch": {
+      "bytes": 3062,
+      "sha256": "f344dc09b8340e249f7ff50a5c238f9bf3611cb2c6b4377961a6b0f80d175390",
+      "source_path": "output/alt2027/scitas-setup-20261007/jed-production-0399cb2.sbatch"
+    },
+    "launch-when-ready-0399cb2.py": {
+      "bytes": 8192,
+      "sha256": "0cc4a5ba48904385b6ab85024cba9790367fdb33634569cb898f0729110df76e",
+      "source_path": "output/alt2027/scitas-setup-20261007/launch-when-ready-0399cb2.py"
+    },
+    "previous-handoff-superseded-before-execution.json": {
+      "bytes": 497,
+      "sha256": "298420a96d8bc0669eaff205e31fa18496aa08e0b864e916aabc06f54a28d13c",
+      "source_path": "artifacts/alt2027/runs/scitas-production-2026-10-07/superseded-before-execution.json"
+    },
+    "production-plan-0399cb2-nsplit.json.gz": {
+      "bytes": 140074,
+      "encoding": "gzip, filename empty, mtime 0",
+      "sha256": "6b983d1db674339203a7d514697d41165e31ec2caf1adadfd88ed506ba8ebd9c",
+      "source_path": "output/alt2027/scitas-setup-20261007/production-plan-0399cb2-nsplit.json",
+      "uncompressed_bytes": 17199487,
+      "uncompressed_sha256": "e76da0de8e03b7441c2492fd97046b7e5dee074775749692c7bac58ccf88c272"
+    },
+    "scheduling-assessment-nsplit.py": {
+      "bytes": 19575,
+      "sha256": "e9efc0a034b8f97b0482d7a2d89d8ae384d8a717471d2eb9310db032a7d4a393",
+      "source_path": "output/alt2027/scitas-setup-20261007/scheduling-assessment-nsplit.py"
+    },
+    "scheduling-evidence/README.txt": {
+      "bytes": 3002,
+      "sha256": "6cf04ff298b3202e0d1dbc9b8add1144663710de15eb09c5931a71f4f98c3792",
+      "source_path": "artifacts/alt2027/validation/2026-10-07-scheduling-nsplit/README.txt"
+    },
+    "scheduling-evidence/gate-and-pilot-drivers.manifest.json": {
+      "bytes": 2424,
+      "sha256": "fe38b53d66835a2ae30caab095f5723dc1a0a510f90e5e8d67c8248db8b041e9",
+      "source_path": "artifacts/alt2027/validation/2026-10-07-scheduling-nsplit/gate-and-pilot-drivers.manifest.json"
+    },
+    "scheduling-evidence/gate-and-pilot-drivers.tar.gz": {
+      "bytes": 157558,
+      "sha256": "1bc0853c15ba343db0600864de508b26f5114990ba643c65d11f8d0761c0a5d9",
+      "source_path": "artifacts/alt2027/validation/2026-10-07-scheduling-nsplit/gate-and-pilot-drivers.tar.gz"
+    },
+    "scheduling-evidence/primary-heavy-structural-detail.json": {
+      "bytes": 4845,
+      "sha256": "17df96628ca1e9821e61e2307b62f023e9588de33d916e84b3a4364178c17b38",
+      "source_path": "output/alt2027/scitas-throughput-f0a5ebd-20261007/primary-heavy-structural-detail.json"
+    },
+    "scheduling-evidence/primary-heavy-structural-projection.json": {
+      "bytes": 2461,
+      "sha256": "efc41ababa38161b456a493efcf23fd751be52a9856b598a864cbc587700ee97",
+      "source_path": "output/alt2027/scitas-throughput-f0a5ebd-20261007/primary-heavy-structural-projection.json"
+    },
+    "scheduling-evidence/synthetic-checks-earlier.json": {
+      "bytes": 1718,
+      "sha256": "54131460fd393b305945b79b6ce82aa83873a19467920e4a08eef2b065c0cffa",
+      "source_path": "output/alt2027/scitas-throughput-nsplit-f0a5ebd-20261007/synthetic-checks.json"
+    },
+    "source-0399cb2-incremental.bundle": {
+      "bytes": 2155029,
+      "sha256": "27d6174ed193c8187c750849a6fab5a456b6b6a72e0ee6e911710b3d1137b113",
+      "source_path": "output/alt2027/scitas-setup-20261007/source-0399cb2-incremental.bundle"
+    }
+  },
+  "created_utc": "2026-10-07T20:04:49.442602+00:00",
+  "dependencies": {
+    "depth_refinement": "40160952",
+    "final_regressions": "40162027",
+    "sample_size_timing_array": "40160238",
+    "spectrum_timing": "40158600"
+  },
+  "dependency_type": "afterany; passed numerical admission and scheduling assessments still required",
+  "evidence": {
+    "chain": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-001/chain",
+    "depth": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-002/depth",
+    "kernel": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-001/kernel",
+    "power": "/scratch/urbanke/lsa-alt2027/runs/calibration-f0a5ebd0a57d46caeb9bf45407c062f37b8d64bc-001/power",
+    "prior": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-001/prior",
+    "regressions": "/scratch/urbanke/lsa-alt2027/runs/regressions-0399cb28b973e5550fcbcbce082e8d36c95c2e1e-001"
+  },
+  "handoff_manifest_sha256": "2c3301a096b4c92a967199ee3e6ecff619cfdac91fce7b772abd4180eda0d571",
+  "job_id": "40162230",
+  "plan": {
+    "archive": "production-plan-0399cb2-nsplit.json.gz",
+    "archive_sha256": "6b983d1db674339203a7d514697d41165e31ec2caf1adadfd88ed506ba8ebd9c",
+    "batch_size": 20,
+    "block_size": 20,
+    "canonical_sha256": "0a12bbad6948e427319319f5d74a494b7bb67aa1e8f455d0f1eeee159b62eae6",
+    "factorial_block_size": 500,
+    "file_bytes": 17199487,
+    "file_sha256": "e76da0de8e03b7441c2492fd97046b7e5dee074775749692c7bac58ccf88c272",
+    "jobs_by_experiment": {
+      "architecture": 1,
+      "benchmark_powers": 550,
+      "benchmark_primary": 4400,
+      "bible": 1,
+      "bible_secondary": 1,
+      "depth_scaling": 150,
+      "factorial": 1000,
+      "spectrum": 1650,
+      "validation": 1
+    },
+    "planned_jobs": 7754,
+    "sampling_preservation": "Full original sampling_n_values, global trial IDs and target seeds retained; only primary execution partition changed.",
+    "split_benchmark_n": true
+  },
+  "production_started": false,
+  "protocol_sha256": "b6c1791fd937cea878a9f49ad616ff48bccbd6bf840e6cc99d5346d57cc67de0",
+  "purpose": "production handoff record; not a completed production Run",
+  "remote_paths": {
+    "merged": "/scratch/urbanke/lsa-alt2027/runs/production-0399cb2-001-merged",
+    "postprocessing_records": "/scratch/urbanke/lsa-alt2027/runs/production-0399cb2-001-postprocess",
+    "production": "/scratch/urbanke/lsa-alt2027/runs/production-0399cb2-001",
+    "production_launch": "/scratch/urbanke/lsa-alt2027/runs/production-launch-0399cb2-001",
+    "reports": "/scratch/urbanke/lsa-alt2027/runs/production-0399cb2-001-report"
+  },
+  "resources": {
+    "allowed_nodes": [
+      4,
+      8,
+      16
+    ],
+    "memory_gib_per_node": 440,
+    "postprocessing": {
+      "cpus": 8,
+      "dependency": "afterok of entire production array",
+      "memory_gib": 48,
+      "verified_runs": 10,
+      "walltime_hours": 4
+    },
+    "walltime_hours_per_node": 24,
+    "workers_per_node": 72
+  },
+  "scheduling": {
+    "actual_linux_assessment_status": "pending",
+    "actual_linux_assessment_utc": "2026-10-07T19:59:07.361163+00:00",
+    "completed_assessment_required_before_production": true,
+    "remote_pilots": "jed:/scratch/urbanke/lsa-alt2027/runs/throughput-nsplit-f0a5ebd-20261007-001",
+    "script_sha256": "e9efc0a034b8f97b0482d7a2d89d8ae384d8a717471d2eb9310db032a7d4a393",
+    "snapshot_archive": "scheduling-evidence/gate-and-pilot-drivers.tar.gz",
+    "synthetic_checks": "nine passed; synthetic fixtures are not scientific evidence"
+  },
+  "schema_version": 1,
+  "snapshot_submitted_utc": "2026-10-07T20:01:25.313111+00:00",
+  "source_bundle": {
+    "file": "source-0399cb2-incremental.bundle",
+    "prerequisite_commit": "9ec82bcef549ad593dee5450e974d83de44ddc77",
+    "verification": "git bundle verify passed"
+  },
+  "source_commit": "0399cb28b973e5550fcbcbce082e8d36c95c2e1e",
+  "source_tree_sha256": "71f6646dce8dddc96460ddc56096e8fc1f59503d5354e2a44bf7d0ff72875993",
+  "status": "handoff_queued_production_not_started",
+  "supersession": {
+    "depth_scientific_settings_changed": false,
+    "old_depth_job": "40152959",
+    "old_handoff_elapsed": "00:00:00",
+    "old_handoff_job": "40159544",
+    "old_handoff_state": "CANCELLED",
+    "old_production_started": false,
+    "old_record": "../scitas-production-2026-10-07/",
+    "replacement_depth_job": "40160952"
+  }
+}
