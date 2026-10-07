@@ -27,7 +27,7 @@ from functools import lru_cache
 import numpy as np
 from scipy.integrate import quad_vec
 from scipy.optimize import brentq, minimize_scalar
-from scipy.special import gammaln, logsumexp, roots_legendre
+from scipy.special import eval_legendre, gammaln, logsumexp, roots_legendre
 
 
 class PowerIntegrationError(RuntimeError):
@@ -77,7 +77,17 @@ class PowerProfileResult:
 
 @lru_cache(maxsize=8)
 def _legendre(nodes: int) -> tuple[np.ndarray, np.ndarray]:
-    return roots_legendre(nodes)
+    x, _ = roots_legendre(nodes)
+    # SciPy 1.18 forms weights with a derivative from before its Newton node
+    # correction. That loses enough precision to spoil strict refinement on
+    # some platforms. Evaluate P'_n at the returned nodes before forming the
+    # Legendre weights 2 / ((1-x^2) P'_n(x)^2).
+    derivative = nodes * (eval_legendre(nodes - 1, x)
+                          - x * eval_legendre(nodes, x)) / (1 - x * x)
+    weights = 2 / ((1 - x * x) * derivative * derivative)
+    weights = (weights + weights[::-1]) / 2
+    weights *= 2 / weights.sum()
+    return x, weights
 
 
 def _expm1_minus_x(x):

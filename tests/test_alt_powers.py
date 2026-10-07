@@ -15,6 +15,7 @@ from lsa.alt.powers import (
     PowerEvaluator,
     PowerIntegrationError,
     PowerSettings,
+    _legendre,
     log_scaled_kernel,
 )
 
@@ -56,6 +57,41 @@ def test_w2_zero_kernel_against_independent_closed_form(v):
     expected = math.log(a * math.sqrt(math.pi) * erfcx(a / 2) / 2)
     assert got == pytest.approx(expected, abs=2e-11)
     assert diag["tail_relative_estimate"] < 1e-12
+
+
+@pytest.mark.parametrize("nodes", [32, 64, 128, 256, 512])
+def test_legendre_rule_polynomial_moments(nodes):
+    x, weights = _legendre(nodes)
+    assert np.all(weights > 0)
+    # These integrals are analytic; checking weight sum alone misses the
+    # platform-dependent endpoint weight errors behind the calibration failure.
+    for degree in (2, 20, 50):
+        assert float(weights @ x**degree) == pytest.approx(
+            2 / (degree + 1), rel=0, abs=5e-15)
+
+
+@pytest.mark.parametrize("w,v", [
+    (59, 0.02737464341427795), (80, 0.09115050933976537),
+    (60, 0.031201174682110977), (77, 0.08495046975937914),
+])
+def test_strict_zero_kernel_against_high_precision_exponential_integral(w, v):
+    # Actual SCITAS calibration failures; integrate directly in E coordinates
+    # independently of the production log-coordinate Gauss-Legendre rule.
+    with mp.workdps(60):
+        cutoff = mp.exp(mp.mpf(v))
+        expected = mp.quad(lambda x: mp.exp(-x - (x / cutoff)**w),
+                           [0, cutoff / 2, cutoff * mp.mpf(".9"), cutoff,
+                            cutoff * mp.mpf("1.1"), cutoff * mp.mpf("1.5"),
+                            2 * cutoff])
+        # For E>=2*cutoff, exp(-(E/cutoff)^w)<=exp(-2^w).
+        tail_bound = mp.exp(-mp.power(2, w) - 2 * cutoff)
+        assert tail_bound / expected < mp.mpf("1e-60")
+        actual, diagnostics = log_scaled_kernel(
+            0, w, v, settings=replace(PowerSettings(),
+                                      kernel_log_tolerance=5e-13,
+                                      kernel_tail_drop=48))
+        assert abs(mp.mpf(actual) - mp.log(expected)) < mp.mpf("3e-14")
+        assert diagnostics["refinement_log_difference"] <= 5e-13
 
 
 @pytest.mark.parametrize("r", [0, 1, 2])
