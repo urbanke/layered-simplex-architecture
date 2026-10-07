@@ -36,7 +36,7 @@ record. The sampling/runtime pilot, combined calibration assessment, protocol
 freeze, complete fresh experiment campaign, and manuscript asset integration
 remain subsequent milestones.
 
-The full repository test suite passed 241 tests before the final benchmark batch
-integration; that integration separately passed 15 relevant tests. The full
-appendix validation script passed. Subsequent regression results are recorded in
-the next milestone rather than attributed retroactively to these runs.
+The final integrated revision `d1e4d26` passed all **246 repository tests**,
+including the benchmark batch integration. The full appendix validation script
+passed. The exact logs are `tests-d1e4d26.txt` and `appendix-validation.txt`.
+These regression checks are separate from the archived numerical runs above.

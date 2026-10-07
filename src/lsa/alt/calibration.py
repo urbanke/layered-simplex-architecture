@@ -137,13 +137,26 @@ def execute(suite, config, out, *, repo, engine_config=None, workers=None):
             config = dict(config, workers=workers)
         return run_power_validation(config, out)
     if suite == "depth":
-        return run_parallel_depth(
+        from .depth_validation_assessment import assess_depth_run
+
+        result = run_parallel_depth(
             config,
             out,
             engine_config=engine_config,
             repo=repo,
             workers=workers if workers is not None else config.get("workers", 1),
         )
+        assessed = assess_depth_run(
+            out,
+            Path(out).parent / "depth-assessment",
+            engine_config=engine_config,
+            run_supplemental=True,
+        )
+        return {
+            "status": assessed["status"],
+            "profiles": result,
+            "assessment": assessed,
+        }
     if suite == "chain":
         from .chain_validation import run_chain_validation
         from .depth import DepthEvaluator, StoreConfig

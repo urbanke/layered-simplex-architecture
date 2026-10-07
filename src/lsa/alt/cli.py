@@ -281,6 +281,18 @@ def main(argv=None):
     )
     configure.add_argument("--store-directory", type=Path, required=True)
     configure.add_argument("--out", type=Path, required=True)
+    assess = sub.add_parser(
+        "assess-depth", help="check saved depth profiles and actual refinement"
+    )
+    assess.add_argument("--sources", type=Path, required=True)
+    assess.add_argument("--out", type=Path, required=True)
+    assess.add_argument("--engine-config", type=Path, required=True)
+    assess.add_argument("--config", type=Path)
+    assess.add_argument(
+        "--supplement",
+        action="store_true",
+        help="evaluate finer grids where actual spacing was not halved",
+    )
     for command in ("run", "campaign", "report"):
         p = sub.add_parser(command)
         p.add_argument("--protocol", type=Path, required=True)
@@ -304,6 +316,30 @@ def main(argv=None):
             p.add_argument("--experiment", required=True)
     args = parser.parse_args(argv)
     args.repo = args.repo.resolve()
+    if args.command == "assess-depth":
+        from .depth_validation_assessment import assess_depth_run
+
+        result = assess_depth_run(
+            args.sources,
+            args.out,
+            engine_config=read_json(args.engine_config),
+            run_supplemental=args.supplement,
+            config_path=args.config,
+        )
+        print(
+            json.dumps(
+                {
+                    k: result[k]
+                    for k in (
+                        "status",
+                        "completed_cases_read",
+                        "expected_cases",
+                        "pending_case_ids",
+                    )
+                }
+            )
+        )
+        return {"passed": 0, "failed": 1, "pending": 2}[result["status"]]
     if args.command == "configure-engine":
         from .depth import DepthEvaluator, StoreConfig
 

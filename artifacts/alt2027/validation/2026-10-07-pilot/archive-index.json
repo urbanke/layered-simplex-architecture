@@ -1,0 +1,16 @@
+{
+  "all_archive_payload_checksums_verified": true,
+  "archives": [
+    {
+      "archive": "timing-uncertainty-d1e4d26-001.tar.gz",
+      "bytes": 2545575,
+      "file_count": 106,
+      "manifest": "timing-uncertainty-d1e4d26-001.manifest.json",
+      "manifest_sha256": "a7a01fc022dc6733ce0b50ea302bf8696fc25153210dcc50836e28a6a4b943db",
+      "sha256": "05c7c0eb27faa9c6c3df5e4a37fddcd4f18b50e4adc7f53684403e8a77ddd763"
+    }
+  ],
+  "frozen_checkout_and_original_records_unchanged": true,
+  "production_certified": false,
+  "schema_version": 1
+}

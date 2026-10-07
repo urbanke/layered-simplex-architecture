@@ -93,6 +93,14 @@ The command wrapper records the complete source tree, installed environment,
 inputs and results, rejects changes during execution, and returns failure if a
 declared check fails. Worker sharding preserves each case's seed coordinates.
 
+The depth suite also checks the actual grid spacing saved by each integral.
+Where adaptive retries made both nominal settings equally fine, the assessor
+evaluates another half-step using the same saved profile. It gates both the
+component and mixture loss changes, plus raw probability mass. Existing runs
+can be assessed with `assess-depth --sources DIR --config FILE --engine-config FILE
+--supplement --out NEW_DIR`. An incomplete snapshot lists its pending cases;
+original failures remain visible.
+
 A passed suite supports its saved cases. Production admission additionally
 requires the combined coverage assessment, a frozen protocol, a clean source
 commit, matching engine identity, and complete required checks. Calibration
