@@ -67,7 +67,9 @@ def build_jobs(protocol, block_size, factorial_block_size):
     positive_integer(block_size, "block size")
     positive_integer(factorial_block_size, "factorial block size")
     jobs = []
-    for name, config in protocol["experiments"].items():
+    # Immutable JSON writers sort object keys. Job order must survive a saved
+    # plan's round trip, independently of the input protocol's key order.
+    for name, config in sorted(protocol["experiments"].items()):
         if not re.fullmatch(r"[a-z][a-z0-9_]*", name):
             raise ValueError("unsafe experiment name")
         if any(k in config for k in ("trial_start", "cell_ids", "sampling_n_values")):

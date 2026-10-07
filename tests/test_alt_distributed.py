@@ -187,6 +187,21 @@ def test_partition_covers_each_original_trial_once_and_is_deterministic(repo):
     assert set(actual.values()) == {1}
 
 
+def test_saved_plan_round_trip_preserves_job_order(tmp_path, repo):
+    specification = protocol(all_families=True)
+    plan = plan_for(repo, protocol=specification)
+    path = tmp_path / "plan.json"
+    write_json(path, plan)
+    loaded = read_json(path)
+    assert distributed.validate_plan(loaded) == plan
+    specification["experiments"] = dict(
+        reversed(list(specification["experiments"].items()))
+    )
+    reordered = plan_for(repo, protocol=specification)
+    assert reordered["jobs"] == plan["jobs"]
+    assert canonical_hash(reordered) == canonical_hash(plan)
+
+
 @pytest.mark.parametrize(
     "mutation",
     ["protocol", "missing", "duplicate", "config", "unsafe_id", "unknown_job"],
