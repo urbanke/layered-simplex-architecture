@@ -34,7 +34,8 @@ def _validate_config(kind, config):
             raise ValueError(f'{name} must be nonempty and unique')
 
     integer(config['seed'], 'seed', 0)
-    integer(config['trials'], 'trials', 2)
+    integer(config['trials'], 'trials')
+    integer(config.get('trial_start', 0), 'trial_start', 0)
     unique(config['alphas'], 'alphas')
     if any(not math.isfinite(a) or a < 0 for a in config['alphas']):
         raise ValueError('alphas must be finite and nonnegative')
@@ -78,6 +79,12 @@ def _validate_config(kind, config):
             raise ValueError('unknown depth heuristic offset; no implicit substitution')
     else:
         raise ValueError(f'unknown scaling experiment {kind}')
+    if 'cell_ids' in config:
+        unique(config['cell_ids'], 'cell_ids')
+        for cell_id in config['cell_ids']:
+            integer(cell_id, 'cell_id', 0)
+        if max(config['cell_ids']) >= sum(1 for _ in cells(kind, config)):
+            raise ValueError('cell_ids must refer to the complete original scaling grid')
 
 
 def zipf(d, alpha):
@@ -103,6 +110,7 @@ def rho(c):
 
 
 def cells(kind, config):
+    """The complete original grid, independent of optional shard selectors."""
     if kind == 'spectrum':
         for panel in config['panels']:
             for alpha in config['alphas']:
@@ -122,7 +130,24 @@ def cells(kind, config):
         raise ValueError(f'unknown scaling experiment {kind}')
 
 
+def selected_cells(kind, config):
+    """Return (global cell ID, cell) in the full grid's canonical order.
+
+    A shard keeps the full panels/ds/ns/alphas/c_values and sets ``cell_ids``;
+    filtering those grid fields would define a different sampling protocol.
+    """
+    selected = config.get('cell_ids')
+    return [(cell_id, cell) for cell_id, cell in enumerate(cells(kind, config))
+            if selected is None or cell_id in selected]
+
+
 def run_scaling(kind, config, output_dir, *, evaluator, batch_size=None):
+    """Evaluate a full grid or explicit cell/global-trial shard.
+
+    ``trial_start`` defaults to zero and ``trials`` is this shard's length.
+    Earlier draws are consumed without evaluation to preserve the existing
+    sequential multinomial stream seeded by [seed, global cell ID].
+    """
     _validate_config(kind, config)
     if batch_size is not None and (
         isinstance(batch_size, bool) or not isinstance(batch_size, int) or batch_size < 1
@@ -132,18 +157,21 @@ def run_scaling(kind, config, output_dir, *, evaluator, batch_size=None):
     root.mkdir(parents=True, exist_ok=False)
     write_json(root / 'config.json', {'kind': kind, **config})
     write_json(root / 'execution.json', {'batch_size': batch_size})
-    for cell_id, cell in enumerate(cells(kind, config)):
+    start = config.get('trial_start', 0)
+    for cell_id, cell in selected_cells(kind, config):
         p = zipf(cell['d'], cell['alpha'])
         entropy = float(-np.dot(p[p > 0], np.log2(p[p > 0])))
         np.savez_compressed(root / f'target-{cell_id:04d}.npz', probabilities=p)
         rng = np.random.default_rng([config['seed'], cell_id])
+        for _ in range(start):
+            rng.multinomial(cell['n'], p)
         k_n = expected_discovered(p, cell['n'])
         # Persist the entire common sample set first. A failed numerical
         # evaluation leaves the exact offending profile available for diagnosis
         # and an independently implemented evaluator.
         samples_path = root / f'samples-{cell_id:04d}.jsonl.gz'
         with gzip.open(samples_path, 'xt', encoding='utf8') as samples:
-            for trial in range(config['trials']):
+            for trial in range(start, start + config['trials']):
                 m = rng.multinomial(cell['n'], p)
                 occupied = np.flatnonzero(m)
                 profile = tuple(sorted(map(int, m[occupied]), reverse=True))
@@ -194,17 +222,19 @@ def summarize_scaling(root):
     root = Path(root)
     config = read_json(root / 'config.json')
     _validate_config(config['kind'], config)
-    expected = list(cells(config['kind'], config))
+    expected = selected_cells(config['kind'], config)
     files = sorted(root.glob('trials-*.jsonl.gz'))
-    expected_names = [f'trials-{cell_id:04d}.jsonl.gz' for cell_id in range(len(expected))]
+    expected_names = [f'trials-{cell_id:04d}.jsonl.gz' for cell_id, _ in expected]
     if [path.name for path in files] != expected_names:
         raise ValueError('incomplete or unexpected scaling cell files')
     result = []
-    for cell_id, (path, cell) in enumerate(zip(files, expected, strict=True)):
+    start = config.get('trial_start', 0)
+    for path, (cell_id, cell) in zip(files, expected, strict=True):
         with gzip.open(path, 'rt') as stream:
             rows = [json.loads(line) for line in stream]
-        if len(rows) != config['trials'] or sorted(r['trial'] for r in rows) != list(range(config['trials'])):
+        if len(rows) != config['trials'] or sorted(r['trial'] for r in rows) != list(range(start, start + config['trials'])):
             raise ValueError(f'incomplete trial group {path.name}')
+        rows.sort(key=lambda row: row['trial'])
         for row in rows:
             if row['cell_id'] != cell_id or any(row[key] != value for key, value in cell.items()):
                 raise ValueError(f'trial metadata differs from declared cell in {path.name}')
@@ -215,12 +245,13 @@ def summarize_scaling(root):
         if values.shape != (config['trials'], len(cell['depths'])) or np.any(~np.isfinite(values)) or np.any(~np.isfinite(mixture)):
             raise ValueError(f'invalid regret arrays in {path.name}')
         r = rows[0]
-        means, se = values.mean(axis=0), values.std(axis=0, ddof=1) / math.sqrt(len(rows))
+        means = values.mean(axis=0)
+        se = (values.std(axis=0, ddof=1) / math.sqrt(len(rows))).tolist() if len(rows) > 1 else [None] * len(cell['depths'])
         summary = {k: r[k] for k in ('cell_id', 'd', 'n', 'alpha', 'depths',
                                     'entropy_bits', 'expected_discovered')}
-        summary.update(regret_mean_bits=means.tolist(), regret_se_bits=se.tolist(),
+        summary.update(regret_mean_bits=means.tolist(), regret_se_bits=se,
                        mixture_mean_bits=float(mixture.mean()),
-                       mixture_se_bits=float(mixture.std(ddof=1) / math.sqrt(len(rows))),
+                       mixture_se_bits=float(mixture.std(ddof=1) / math.sqrt(len(rows))) if len(rows) > 1 else None,
                        naming_mean_bits=float(np.mean([r['naming_bits'] for r in rows])),
                        trials=len(rows))
         result.append(summary)
@@ -235,6 +266,8 @@ def report_scaling(source, output_dir):
     root = Path(output_dir)
     root.mkdir(parents=True, exist_ok=False)
     summary = summarize_scaling(source)
+    if len(summary['cells']) != sum(1 for _ in cells(summary['config']['kind'], summary['config'])):
+        raise ValueError('manuscript reports require the complete scaling cell grid; merge shards first')
     write_json(root / 'summary.json', summary)
     config, rows = summary['config'], summary['cells']
     if config['kind'] == 'spectrum':
@@ -333,8 +366,8 @@ def report_scaling(source, output_dir):
                      f'$N={tex_integer(n)}$' for n in [*table_ns, *table_ns]) + r' \\',
                  r'\midrule']
         for alpha in config['alphas']:
-            cells = [alphabet_lookup[alpha, n] for n in table_ns]
-            values = [f"{r['slope']:.2f}" for r in cells] + [f"{r['offset_bits']:.2f}" for r in cells]
+            row_cells = [alphabet_lookup[alpha, n] for n in table_ns]
+            values = [f"{r['slope']:.2f}" for r in row_cells] + [f"{r['offset_bits']:.2f}" for r in row_cells]
             lines.append(f'{alpha:g} & ' + ' & '.join(values) + r' \\')
         lines += [r'\bottomrule', r'\end{tabular}', r'\hfill',
                   r'\begin{tabular}{cc' + 'r' * len(table_ds) + '}', r'\toprule',

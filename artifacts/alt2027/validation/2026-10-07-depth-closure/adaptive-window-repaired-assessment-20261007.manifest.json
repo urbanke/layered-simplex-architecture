@@ -1,0 +1,181 @@
+{
+  "archive": "adaptive-window-repaired-assessment-20261007.tar.gz",
+  "archive_bytes": 222630,
+  "archive_sha256": "d9dd7fc00151e788c09c6876486c2898e63cc47261dc140e9459a5172d470433",
+  "files": {
+    "adaptive-window-repaired-assessment-20261007/extra/assessment-run.py": {
+      "bytes": 631,
+      "sha256": "b19692c7b481670f95fc4aca138543ee2c58cb435b0eb70affb0e25840e0a912"
+    },
+    "adaptive-window-repaired-assessment-20261007/extra/assessment-stdout.log": {
+      "bytes": 10770,
+      "sha256": "2c28a227051d07ceae70ccd86d01da9b008fc752e60d9940c450d00ee2f2bd0b"
+    },
+    "adaptive-window-repaired-assessment-20261007/packaging.json": {
+      "bytes": 720,
+      "sha256": "9f755967f4832053d05b2331969e4392830029f9037e2d294f0fe10a2d5a9d7d"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/assessment-dirichlet_half-n20000.json": {
+      "bytes": 4506,
+      "sha256": "46e37725443ce8bcf81f81660328f6d316c27450d5e0a22531879b092d7f68f0"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/assessment-uniform-n20000.json": {
+      "bytes": 4463,
+      "sha256": "438dacf5445613ba6de587f9ed2f9cfe8a7e6e9881d26c42d8323748de4a2a58"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/implementation.json": {
+      "bytes": 1956,
+      "sha256": "53c498325515567124a1d1fae306368273f1a1ad6d7adf8f84ed93e68b746254"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/input-manifest.json": {
+      "bytes": 9066,
+      "sha256": "ab3d9bdc04d5616af31b14d675decd45605e1e383370e650f80daaa6af6dc4a2"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/config.json": {
+      "bytes": 978,
+      "sha256": "c82abb5eac3b4a10260961eb4a7050423dd3f96ac5b5173d984c3ebb6a3c941a"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-2/case-000.npz": {
+      "bytes": 6781,
+      "sha256": "6b458be513074b112430adb682b4928d79887c6acdd4e7d37cd5fd3cd175be40"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-2/config.json": {
+      "bytes": 620,
+      "sha256": "4166ce5752cc31c8377ee71a7340d941de87cd13e5dcc83044dd1adb0b1e23de"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-2/default-engine.json": {
+      "bytes": 11456,
+      "sha256": "3f7491b5495d7b839d93e7927d4482dd892106bf9d89db88a5cdd6f3b6685d81"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-2/evaluation-000.json.gz": {
+      "bytes": 7611,
+      "sha256": "84f9362f60f9ae3efd1f16e0553c7c12dd8112b4dd1eebdb96bfcd611083d13d"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-2/implementation.json": {
+      "bytes": 178,
+      "sha256": "85496af680a9e2d0e68514b6d9067ad3b5249b10badc4b2d810990cee9531274"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-2/refined-engine.json": {
+      "bytes": 11457,
+      "sha256": "87fc789874fac2b2aa91e54dd59e2e0f1d61f49232895ecbabcb4cce7cbc0fce"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-2/result-000.json": {
+      "bytes": 1030,
+      "sha256": "95231687b642974e288ce489e48a0fda856bbf6635cdeba94151b768adb53c3f"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-3/case-000.npz": {
+      "bytes": 83885,
+      "sha256": "afd16c3d98347754a867a39fadc47116a350a9c59a28e82572e73eee43e35c5f"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-3/config.json": {
+      "bytes": 634,
+      "sha256": "996a4ca1ae893a07af96292aa07197da70515f65f7dace36d6123c8c8102d4e4"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-3/default-engine.json": {
+      "bytes": 11456,
+      "sha256": "3f7491b5495d7b839d93e7927d4482dd892106bf9d89db88a5cdd6f3b6685d81"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-3/evaluation-000.json.gz": {
+      "bytes": 18115,
+      "sha256": "94df8606373157ac19d46c98cfc02e90311837c799339dc4e4bea95418fe29da"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-3/implementation.json": {
+      "bytes": 178,
+      "sha256": "85496af680a9e2d0e68514b6d9067ad3b5249b10badc4b2d810990cee9531274"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-3/refined-engine.json": {
+      "bytes": 11457,
+      "sha256": "87fc789874fac2b2aa91e54dd59e2e0f1d61f49232895ecbabcb4cce7cbc0fce"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/inputs/shard-3/result-000.json": {
+      "bytes": 1051,
+      "sha256": "913bbbb64a9862a775ca7233b05902ead3a80520cdebf88976bd9131de8ce6a0"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/request.json": {
+      "bytes": 10859,
+      "sha256": "e94459958aee4562d0c728aaf15c91d191e97d28c5406d9d57b3fb4d9107748a"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/_vendor/pmwm/__init__.py": {
+      "bytes": 81,
+      "sha256": "f9b6dff640ca43344b6d1d34e291122b189b1b33cfee5f7e2773743c0ba76b6a"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/_vendor/pmwm/_runtime.py": {
+      "bytes": 379,
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/_vendor/pmwm/fast_tables.py": {
+      "bytes": 13306,
+      "sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/_vendor/pmwm/kernel.py": {
+      "bytes": 208,
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/_vendor/pmwm/layered.py": {
+      "bytes": 50645,
+      "sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/_vendor/pmwm/mellin.py": {
+      "bytes": 35303,
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/_vendor/pmwm/provenance.json": {
+      "bytes": 1695,
+      "sha256": "587b633707e3d25c85d53540426a2b944f141c4f9ce72dc155faf69b3a648d06"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/_vendor/pmwm/universal_tables.py": {
+      "bytes": 57599,
+      "sha256": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/depth.py": {
+      "bytes": 34679,
+      "sha256": "e6ce3760a35febf776d7a9fc1fb494f0ea98375af6d72028a0f630bbe383313e"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/depth_validation.py": {
+      "bytes": 8564,
+      "sha256": "0a1e81b33c79a16afd2250e0075de4d594b924c69d853f032c6b6975f158d95f"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/source-capsule/depth_validation_assessment.py": {
+      "bytes": 18527,
+      "sha256": "3439c9e428cd66e8fa3667610dd19ba6cb8bc38ab19666cb09bb0a0078541d20"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/summary.json": {
+      "bytes": 10770,
+      "sha256": "20cf6f96372326ca46171f845903a38982865ad0b85eca54edfe9b647030f7a9"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/supplement-dirichlet_half-n20000-00-engine.json": {
+      "bytes": 11474,
+      "sha256": "debedd78ee13c6439b234d12c21f4bc4748c44ae388dc254b68aa4636eee79a8"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/supplement-dirichlet_half-n20000-00.json.gz": {
+      "bytes": 2070,
+      "sha256": "fc1c44896b8e854d51fe151e5043e93d17e93c24c66aab07f27b2bec5f8b94a4"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/supplement-dirichlet_half-n20000-01-engine.json": {
+      "bytes": 11473,
+      "sha256": "942d4456729f06830b6667c2e6dbb22f33e17fa53367851c5c67df77e195cff9"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/supplement-dirichlet_half-n20000-01.json.gz": {
+      "bytes": 2082,
+      "sha256": "62fba4ab9cf0b2beec47f4f7d8a36ebfa909d0488010ad0586b8bd8c3678a7ca"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/supplement-uniform-n20000-00-engine.json": {
+      "bytes": 11474,
+      "sha256": "debedd78ee13c6439b234d12c21f4bc4748c44ae388dc254b68aa4636eee79a8"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/supplement-uniform-n20000-00.json.gz": {
+      "bytes": 1145,
+      "sha256": "d56b47468dd10484c086f7eca87c7ccd25c3d80cb3a979a34019d43db196dd77"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/supplement-uniform-n20000-01-engine.json": {
+      "bytes": 11473,
+      "sha256": "942d4456729f06830b6667c2e6dbb22f33e17fa53367851c5c67df77e195cff9"
+    },
+    "adaptive-window-repaired-assessment-20261007/run/supplement-uniform-n20000-01.json.gz": {
+      "bytes": 1136,
+      "sha256": "ff30584b89ea9fa5bdd3ae8aeafe1e98b6b64abb7c37fa068ffcc19513ce8234"
+    }
+  },
+  "notes": "Both repaired full-grid cases pass all component/mixture loss and raw-mass gates and actual grid halving. Four supplemental groups; no pending depths. Source hashes unchanged.",
+  "production_admission": false
+}

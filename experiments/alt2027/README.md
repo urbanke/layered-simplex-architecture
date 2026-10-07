@@ -21,11 +21,13 @@ protocol are development checks, with their purpose recorded in every manifest.
    independent calculations, then require KL stability within 1e-5 bits under
    numerical refinement. Store raw normalization errors separately. The 1e-3
    normalization rejection threshold is an engineering guard, not an error bound.
-3. **Timing and uncertainty pilot; protocol freeze.** Keep the current 20 benchmark
-   trials and 40 spectrum/depth profiles initially. The factorial driver supplies
-   5000 profiles per cell. Pilot measured runtime and standard errors before the
-   final freeze. Any agreed trial-count change becomes a new protocol revision;
-   every comparison uses common samples within a trial.
+3. **Timing and uncertainty pilot; protocol freeze.** The completed 20-trial pilot
+   measured runtime, paired uncertainty and rare-trial variation. Protocol v2
+   fixes 1000 trials per primary/power benchmark cell and 1000 profiles per
+   spectrum/depth cell; factorial retains 5000 profiles per cell. Every comparison
+   uses common samples within a trial. Ten disjoint trial blocks provide an
+   additional stability diagnostic, with fixed counts and no stopping based on
+   favorable results. Models, sample-size grids and plot roles are unchanged.
 4. **Fresh production campaign.** Freeze a clean source commit, protocol, locked
    environment, corpus, complete numerical-store hashes, and calibration record.
    Run the retained grids, retaining per-trial records and failed-case diagnostics.
@@ -43,13 +45,13 @@ changes are versioned explicitly so they cannot silently alter completed runs.
 | Family | Current production settings | Saved output / paper role |
 |---|---|---|
 | Architecture | d=24, L=4, seed 7 | all layers and product; fig:lsa TikZ |
-| Depth spectrum | 3 panels, 11 alpha values, 40 profiles; depths through 69/92/138 | 1320 profiles and all evidence; fig:spectrum |
-| Main benchmark | 11 targets, 8 sample sizes, 20 trials; d=10000; L=0..80 | 1760 common samples; tab:bench, fig:orlitsky, tab:posteriors, uniform ablation |
-| Power benchmark | independent 20-trial set; n=1000; powers 0..80 | 220 samples; tab:powers-bench |
+| Depth spectrum | 3 panels, 11 alpha values, 1000 profiles; depths through 69/92/138 | 33000 profiles and all evidence; fig:spectrum |
+| Main benchmark | 11 targets, 8 sample sizes, 1000 trials; d=10000; L=0..80 | 88000 common samples; tab:bench, fig:orlitsky, tab:posteriors, uniform ablation |
+| Power benchmark | independent 1000-trial set; n=1000; powers 0..80 | 11000 samples; tab:powers-bench |
 | Bible | original prefixes plus n=100/500; d=100000; L=0..54 | token IDs, dictionary, per-token baseline losses, profile evidence; tab:bible and controls |
 | Second tokenization | its original corpus and corresponding prefixes | classical and Dirichlet controls |
 | Factorial scaling | 5 d values x 5 N values x 4 alphas, 5000 profiles/cell | 500000 profiles; joint tab:alphabet/tab:data |
-| Depth coefficient | 17 c values, alphas 2/3/4, 40 shared profiles | 120 profiles evaluated at all depths; fig:depth |
+| Depth coefficient | 17 c values, alphas 2/3/4, 1000 shared profiles | 3000 profiles evaluated at all depths; fig:depth |
 | Validation | declared identities and independent comparisons | measured residuals, units and tolerances; appendix validation |
 
 The spectrum uses the same displayed depth selections as the current asset.
@@ -65,6 +67,17 @@ Genuine infinite KL losses and undefined absolute-discounting cases stay distinc
 from finite results. All methods use the same reporting and rounding rules.
 
 ## Commands
+
+For the laptop and Jed, [the distributed launch guide](../../cluster/alt2027/README.md)
+describes pinned environments, compute-node preflight and deterministic jobs.
+`scripts/alt_distributed.py prepare` partitions targets/cells and global trial
+IDs; `work` writes immutable attempts and verified completed jobs; `merge`
+checks complete coverage and reconstructs the normal report input layout.
+Workers may restart with a different allocation without changing any draws.
+Each campaign root binds one runtime; Linux and macOS outputs remain separate.
+The default production partition has 1584 jobs (100-trial blocks, 500 for
+factorial), with 10 laptop workers or up to 72 workers per allocated Jed node.
+Production still requires the combined calibration certificate and frozen source.
 
 From the repository root, after the setup in the main README:
 

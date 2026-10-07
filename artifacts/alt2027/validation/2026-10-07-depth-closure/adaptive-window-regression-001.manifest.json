@@ -1,0 +1,49 @@
+{
+  "archive": "adaptive-window-regression-001.tar.gz",
+  "archive_bytes": 19440,
+  "archive_sha256": "7ebf7e21a8276056028cdd7c0f05985a5c1ce53ec7c207f3fe65f3395261271b",
+  "files": {
+    "adaptive-window-regression-001/execution-source/src/lsa/alt/depth.py": {
+      "bytes": 34679,
+      "sha256": "e6ce3760a35febf776d7a9fc1fb494f0ea98375af6d72028a0f630bbe383313e"
+    },
+    "adaptive-window-regression-001/execution-source/tests/test_alt_depth.py": {
+      "bytes": 18438,
+      "sha256": "49c8758f5f88608a6af5ce43573bf45310701d422f1a33b783ba0c717010ebc6"
+    },
+    "adaptive-window-regression-001/extra/requirements-alt.lock": {
+      "bytes": 418,
+      "sha256": "7b3af636ff5b6a6472445a10f53c6c97da6e7fe3fd3ceea39f101312f811ecc1"
+    },
+    "adaptive-window-regression-001/extra/scripts/validate_appendix_c.py": {
+      "bytes": 8511,
+      "sha256": "794a8e8ecdb2bd344bb0d7a9986144f3fd37f693aaa5b88adb40b75394f40f39"
+    },
+    "adaptive-window-regression-001/packaging.json": {
+      "bytes": 870,
+      "sha256": "9bda00113349c3de7e6549dbae5f2122289b59c9bd98df6fb0d8b89aadbac5bb"
+    },
+    "adaptive-window-regression-001/run/appendix.log": {
+      "bytes": 950,
+      "sha256": "77d5f8b943bc5cc77ff4c8f75bfb5bbc696ac3f7427a0be395e4543003642e40"
+    },
+    "adaptive-window-regression-001/run/pytest-shared-memory.log": {
+      "bytes": 341,
+      "sha256": "460a37470c4e7a176e3870f9c278d89cc96a5dc76cb2189cbacafe285e1ef3ce"
+    },
+    "adaptive-window-regression-001/run/pytest.log": {
+      "bytes": 4968,
+      "sha256": "335040c74726538f663f0041d5b99bc642f116e0b88f4a4f689d6b4717d8516e"
+    },
+    "adaptive-window-regression-001/run/started.json": {
+      "bytes": 1153,
+      "sha256": "133a86314675b5873bb6f21774753234a34361fb6677d12aa062d14a704e75d0"
+    },
+    "adaptive-window-regression-001/run/summary.json": {
+      "bytes": 1193,
+      "sha256": "937bf9adc1b36c805c9e2fd450e6f1b8d5813861b87b5b7456a579ba052464a6"
+    }
+  },
+  "notes": "Full appendix validation and 260 repository tests passed. Initial sandbox shared-memory failure is preserved; the permitted full rerun passed.",
+  "production_admission": false
+}

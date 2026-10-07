@@ -97,6 +97,8 @@ def validate_config(config: Mapping[str, Any]) -> dict[str, Any]:
     for key in ("d", "trials"):
         out[key] = _positive_int(out[key], key)
     out["seed"] = _positive_int(out["seed"], "seed", zero=True)
+    if "trial_start" in out:
+        out["trial_start"] = _positive_int(out["trial_start"], "trial_start", zero=True)
     for key in ("n_values", "depths", "powers"):
         values = [_positive_int(v, key, zero=key != "n_values") for v in out[key]]
         if len(set(values)) != len(values) or values != sorted(values):
@@ -104,6 +106,13 @@ def validate_config(config: Mapping[str, Any]) -> dict[str, Any]:
         out[key] = values
     if not out["n_values"]:
         raise ValueError("n_values must not be empty")
+    if "sampling_n_values" in out:
+        sampling_ns = [_positive_int(n, "sampling_n_values") for n in out["sampling_n_values"]]
+        if not sampling_ns or sampling_ns != sorted(set(sampling_ns)):
+            raise ValueError("sampling_n_values must be nonempty, distinct and sorted")
+        if not set(out["n_values"]) <= set(sampling_ns):
+            raise ValueError("evaluated n_values must belong to the original sampling_n_values")
+        out["sampling_n_values"] = sampling_ns
     for key, allowed in (("targets", TARGET_IDS), ("methods", METHOD_IDS)):
         if not out[key] or len(set(out[key])) != len(out[key]):
             raise ValueError(f"{key} must be nonempty and unique")
@@ -160,10 +169,18 @@ def make_target(name: str, d: int, rng: np.random.Generator) -> np.ndarray:
 
 
 def _sampling_spec(config: Mapping[str, Any]) -> dict[str, Any]:
-    return {key: config[key] for key in (
+    result = {key: config[key] for key in (
         "d", "n_values", "trials", "seed", "sample_set_id", "targets",
         "dirichlet_target_policy", "sample_size_policy",
     )}
+    result.update({key: config[key] for key in ("trial_start", "sampling_n_values") if key in config})
+    return result
+
+
+def trial_ids(config: Mapping[str, Any]) -> range:
+    """Global trial IDs; ``trials`` is the length of this declared shard."""
+    start = _positive_int(config.get("trial_start", 0), "trial_start", zero=True)
+    return range(start, start + _positive_int(config["trials"], "trials"))
 
 
 def prepare_samples(config: Mapping[str, Any], output_dir: str | Path) -> dict[str, Any]:
@@ -171,19 +188,24 @@ def prepare_samples(config: Mapping[str, Any], output_dir: str | Path) -> dict[s
 
     One compressed file per target/trial keeps memory bounded. File hashes and
     RNG coordinates are recorded. Existing artifacts are never overwritten.
+    ``trial_start`` selects global trial IDs without changing their seeds. For
+    n-cell shards, retain the full original grid in ``sampling_n_values``: all
+    its draws consume the same random stream, but only ``n_values`` are saved.
     """
     config = validate_config(config)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=False)
     files = []
     for target in config["targets"]:
-        for trial in range(config["trials"]):
+        for trial in trial_ids(config):
             coordinates = [config["seed"], TARGET_IDS.index(target), trial]
             rng = np.random.default_rng(coordinates)
             p = make_target(target, config["d"], rng)
             arrays = {"target": p}
-            for n in config["n_values"]:
-                arrays[f"counts_{n}"] = rng.multinomial(n, p)
+            for n in config.get("sampling_n_values", config["n_values"]):
+                counts = rng.multinomial(n, p)
+                if n in config["n_values"]:
+                    arrays[f"counts_{n}"] = counts
             path = output_dir / f"{target}-trial-{trial:04d}.npz"
             with path.open("xb") as stream:
                 np.savez_compressed(stream, **arrays)
@@ -193,7 +215,9 @@ def prepare_samples(config: Mapping[str, Any], output_dir: str | Path) -> dict[s
             })
     manifest = {
         "schema_version": 1, "sampling": _sampling_spec(config),
-        "seed_scheme": SEED_SCHEME, "numpy_version": np.__version__, "files": files,
+        "seed_scheme": (SEED_SCHEME if "sampling_n_values" not in config else
+                        SEED_SCHEME.replace("n_values in order", "sampling_n_values in order; save selected n_values")),
+        "numpy_version": np.__version__, "files": files,
     }
     _write_json(output_dir / "manifest.json", manifest)
     return manifest
@@ -347,13 +371,18 @@ def _evaluate_trial(config: Mapping[str, Any], p: np.ndarray, counts: np.ndarray
 
 
 def aggregate_records(records: Sequence[Mapping[str, Any]], config: Mapping[str, Any]) -> dict:
+    config = validate_config(config)
+    expected = {(target, trial, n) for target in config["targets"]
+                for trial in trial_ids(config) for n in config["n_values"]}
+    identities = [(row["target_id"], row["trial"], row["n"]) for row in records]
+    if len(identities) != len(expected) or set(identities) != expected:
+        raise ValueError("incomplete, unexpected or duplicate global benchmark trial identities")
     cells = {}
     for target in config["targets"]:
         cells[target] = {}
         for n in config["n_values"]:
-            trials = [r for r in records if r["target_id"] == target and r["n"] == n]
-            if sorted(r["trial"] for r in trials) != list(range(config["trials"])):
-                raise ValueError(f"incomplete or duplicate trials for {target}, n={n}")
+            trials = sorted((r for r in records if r["target_id"] == target and r["n"] == n),
+                            key=lambda row: row["trial"])
             cell = {"methods": {method: summarize_losses([r["losses"][method] for r in trials])
                                 for method in config["methods"]}}
             pair_names = set(trials[0]["paired_differences"])
@@ -386,7 +415,7 @@ def aggregate_records(records: Sequence[Mapping[str, Any]], config: Mapping[str,
 def _batch_sample_entries(manifest, config):
     """Validate full coverage before evaluating a saved cohort."""
     expected = {(target, trial) for target in config["targets"]
-                for trial in range(config["trials"])}
+                for trial in trial_ids(config)}
     entries = manifest["files"]
     identities = [(entry["target_id"], entry["trial"]) for entry in entries]
     if len(identities) != len(expected) or set(identities) != expected:
@@ -509,10 +538,10 @@ def run_benchmark(config: Mapping[str, Any], output_dir: str | Path, *,
     started = time.perf_counter()
     batching = None
     preparation_stream = None
+    entries = _batch_sample_entries(sample_manifest, config)
     if batch_size is None:
-        saved_trials = _individual_saved_trials(config, samples_dir, sample_manifest["files"])
+        saved_trials = _individual_saved_trials(config, samples_dir, entries)
     else:
-        entries = _batch_sample_entries(sample_manifest, config)
         batching = {"batch_size": batch_size, "cohorts_by_n": 0,
                     "shared_preparation_seconds": 0.0,
                     "timing": "per-trial seconds exclude shared depth preparation; total seconds include it",

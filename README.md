@@ -29,11 +29,16 @@ retained plots and tables. A small end-to-end campaign exercises every family.
 
 The independent kernel, prior/identity, powered-model, and Bible-chain checks
 are archived in [the calibration milestone](artifacts/alt2027/validation/2026-10-07-calibration/README.md).
-The depth-profile refinement checks are running. The runners now share kernel
-preparation across saved sample batches, with verified trial identities.
+The depth-profile refinement checks and the full Bible profile are being closed.
+The runners share kernel preparation across saved sample batches, with verified
+trial identities. Distributed execution preserves those identities across worker
+counts and resumes, then checks every shard before regenerating reports.
 
-The next milestone is completion of the numerical coverage assessment and
-sampling/runtime pilot, followed by the production protocol freeze and fresh runs. The current protocol has status
+The completed sampling/runtime pilot is archived. Protocol v2 increases primary,
+power, spectrum and depth-curve replication to 1000 per cell while retaining
+5000 factorial profiles per cell. The next milestone is completion of the numerical
+coverage assessment and Jed platform checks, followed by the production protocol
+freeze and fresh runs. The current protocol has status
 `implementation`; the runner enforces this distinction. Detailed status and
 commands are in [the campaign guide](experiments/alt2027/README.md).
 

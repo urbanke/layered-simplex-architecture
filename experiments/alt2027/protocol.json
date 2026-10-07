@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "protocol_id": "alt2027-retained-v1",
+  "protocol_id": "alt2027-retained-v2",
   "status": "implementation",
   "manuscript": "manuscript/snapshots/2026-10-07-alt-start/alt.tex",
   "units": {
@@ -11,13 +11,14 @@
     "benchmark_seeds": "New recorded seeds; historical cloud seeds unavailable.",
     "benchmark_target_draws": "Dirichlet target redrawn per trial, shared across n; common counts across every method.",
     "primary_and_powers": "Independent sample sets, matching the current distinct table entries.",
-    "factorial_trials": "5000 profiles per cell, from historical factorial driver configuration; pilot precedes production freeze.",
+    "factorial_trials": "5000 profiles per cell; retained in revision2.",
     "depth_alphas": "2,3,4 reproduce the visible current depth plot. Prose also mentions 1.5; reconcile in final manuscript revision.",
     "naming_cost": "Use the same saved profiles as regret, as described in current manuscript.",
     "depth_heuristic": "Historical plotted offset B(alpha)=alpha*log2(e)-2, rho capped at one above c*. Record explicitly.",
     "fit": "Free OLS slope/intercept for alphabet table; caption also invokes slope-one reference. Keep measured slope and intercept.",
     "normalization": "Retain raw sums; reject discrepancy >1e-3 before normalization. Engineering rejection threshold, not accuracy certification.",
-    "calibration": "Required before production: independent/refinement evidence checks over full domain; predictive KL changes <=1e-5 bits, below printed precision. Individual checks retain units."
+    "calibration": "Required before production: independent/refinement evidence checks over full domain; predictive KL changes <=1e-5 bits, below printed precision. Individual checks retain units.",
+    "replication": "1000 trials per primary/power benchmark cell and 1000 profiles per spectrum/depth-curve cell; retain 5000 profiles per factorial cell. Fixed counts, common samples within comparisons, no outcome-dependent stopping."
   },
   "experiments": {
     "architecture": {
@@ -93,7 +94,7 @@
         2.7,
         3
       ],
-      "trials": 40,
+      "trials": 1000,
       "seed": 20260401,
       "artifact": "fig:spectrum"
     },
@@ -109,7 +110,7 @@
         14000,
         20000
       ],
-      "trials": 20,
+      "trials": 1000,
       "seed": 2026100701,
       "sample_set_id": "primary",
       "targets": [
@@ -262,7 +263,7 @@
       "n_values": [
         1000
       ],
-      "trials": 20,
+      "trials": 1000,
       "seed": 2026100702,
       "sample_set_id": "powers",
       "targets": [
@@ -726,7 +727,7 @@
         5.5,
         6
       ],
-      "trials": 40,
+      "trials": 1000,
       "seed": 20260402,
       "heuristic_offset": "alpha_log2_e_minus_2",
       "artifact": "fig:depth"
@@ -797,5 +798,19 @@
     "posterior_broad_min_depths": 5,
     "posterior_individual_min_weight": 0.05,
     "uniform_floor": 1e-14
+  },
+  "sampling_status": "frozen_2026-10-07",
+  "revision_note": "Uniform increase in replication after the paired uncertainty pilot and author instruction to prioritize solid results using laptop and SCITAS resources; model and plot scope unchanged.",
+  "uncertainty": {
+    "trial_blocks": 10,
+    "reporting": "Preserve per-trial paired differences and nonfinite outcomes; report Monte Carlo SEs symmetrically, plus diagnostics across ten disjoint blocks.",
+    "sampling_rule": "The global trial and cell IDs determine random streams; machine, job assignment, completion order and worker count do not."
+  },
+  "resources": {
+    "laptop_workers": 10,
+    "scitas_workers_per_node": 72,
+    "scitas_initial_nodes": 4,
+    "numerical_threads_per_worker": 1,
+    "note": "Validate the numerical environment on SCITAS compute nodes before its production campaign; keep platform records explicit."
   }
 }

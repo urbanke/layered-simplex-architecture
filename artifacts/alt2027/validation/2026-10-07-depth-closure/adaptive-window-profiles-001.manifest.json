@@ -1,0 +1,153 @@
+{
+  "archive": "adaptive-window-profiles-001.tar.gz",
+  "archive_bytes": 272982,
+  "archive_sha256": "8c6f67b877a363b614ed485f0633da58fad8d23d8c9bba35878edbc099d2a830",
+  "files": {
+    "adaptive-window-profiles-001/execution-source/src/lsa/alt/_vendor/pmwm/__init__.py": {
+      "bytes": 81,
+      "sha256": "f9b6dff640ca43344b6d1d34e291122b189b1b33cfee5f7e2773743c0ba76b6a"
+    },
+    "adaptive-window-profiles-001/execution-source/src/lsa/alt/_vendor/pmwm/_runtime.py": {
+      "bytes": 379,
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    },
+    "adaptive-window-profiles-001/execution-source/src/lsa/alt/_vendor/pmwm/fast_tables.py": {
+      "bytes": 13306,
+      "sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "adaptive-window-profiles-001/execution-source/src/lsa/alt/_vendor/pmwm/kernel.py": {
+      "bytes": 208,
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    "adaptive-window-profiles-001/execution-source/src/lsa/alt/_vendor/pmwm/layered.py": {
+      "bytes": 50645,
+      "sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "adaptive-window-profiles-001/execution-source/src/lsa/alt/_vendor/pmwm/mellin.py": {
+      "bytes": 35303,
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    "adaptive-window-profiles-001/execution-source/src/lsa/alt/_vendor/pmwm/universal_tables.py": {
+      "bytes": 57599,
+      "sha256": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
+    },
+    "adaptive-window-profiles-001/execution-source/src/lsa/alt/depth.py": {
+      "bytes": 34679,
+      "sha256": "e6ce3760a35febf776d7a9fc1fb494f0ea98375af6d72028a0f630bbe383313e"
+    },
+    "adaptive-window-profiles-001/extra/requirements-alt.lock": {
+      "bytes": 418,
+      "sha256": "7b3af636ff5b6a6472445a10f53c6c97da6e7fe3fd3ceea39f101312f811ecc1"
+    },
+    "adaptive-window-profiles-001/packaging.json": {
+      "bytes": 1575,
+      "sha256": "4756b562df15ff6f8200b076aec3ba20bd448780097538f36bb9d70e6bfc20f2"
+    },
+    "adaptive-window-profiles-001/run/adaptive35/dirichlet_half-n20000.json": {
+      "bytes": 34866,
+      "sha256": "a96cf5bb68a4ebb5ba7fc83af71986b51559a876e0b4fd2686a282d27ba035c1"
+    },
+    "adaptive-window-profiles-001/run/adaptive35/engine.json": {
+      "bytes": 11456,
+      "sha256": "3f7491b5495d7b839d93e7927d4482dd892106bf9d89db88a5cdd6f3b6685d81"
+    },
+    "adaptive-window-profiles-001/run/adaptive35/uniform-n20000.json": {
+      "bytes": 12707,
+      "sha256": "2767835ca5fa4c2a8c5e3ec0e8a8e8429a2f4abca41dc3298c75f2156b76c674"
+    },
+    "adaptive-window-profiles-001/run/adaptive35/zipf_1.5-n1000.json": {
+      "bytes": 21189,
+      "sha256": "63b087fa93a29e6912eadf05b57b56364debc38a5d0bed08dfde459173cb0bfb"
+    },
+    "adaptive-window-profiles-001/run/case-000.npz": {
+      "bytes": 70136,
+      "sha256": "52006a9dd5cd08ebefb44a9a270792fd5e6f3b1b89c256102bedbda13f99b1e4"
+    },
+    "adaptive-window-profiles-001/run/case-002.npz": {
+      "bytes": 6781,
+      "sha256": "6b458be513074b112430adb682b4928d79887c6acdd4e7d37cd5fd3cd175be40"
+    },
+    "adaptive-window-profiles-001/run/case-003.npz": {
+      "bytes": 83885,
+      "sha256": "afd16c3d98347754a867a39fadc47116a350a9c59a28e82572e73eee43e35c5f"
+    },
+    "adaptive-window-profiles-001/run/environment.json": {
+      "bytes": 773,
+      "sha256": "63e1af3f61d096d8b42a78daf55024a33725cd5d6b0e882578e4dad53f6ddb0b"
+    },
+    "adaptive-window-profiles-001/run/files.json": {
+      "bytes": 3434,
+      "sha256": "06572ef5c240084feec513b24f0162af25d0439035f152f8d133d7b063ad1e4f"
+    },
+    "adaptive-window-profiles-001/run/fixed35/engine.json": {
+      "bytes": 11454,
+      "sha256": "09a02406f21a788ce08151659027c5b944718bac917d0d5a93d5665109e43541"
+    },
+    "adaptive-window-profiles-001/run/fixed35/zipf_1.5-n1000.json": {
+      "bytes": 21186,
+      "sha256": "1736ee9a4c43effb2f758bcbc50056b9846eb4bbe1b5a95c13fa865afcfe2f2e"
+    },
+    "adaptive-window-profiles-001/run/fixed60/dirichlet_half-n20000.json": {
+      "bytes": 34059,
+      "sha256": "272c723ed341e35f69359ba42857b421e8aef0511f62f576c319fa2415d67d3b"
+    },
+    "adaptive-window-profiles-001/run/fixed60/engine.json": {
+      "bytes": 11452,
+      "sha256": "f58156cfbdb6e690c419f6d8643cc859f0e478fd42c7983cff86b13f3ba87c5c"
+    },
+    "adaptive-window-profiles-001/run/fixed60/uniform-n20000.json": {
+      "bytes": 12420,
+      "sha256": "2afb05e5e0726b7e2f5d1060d53a1425af49fa0d1a97547d428b541151d6ee28"
+    },
+    "adaptive-window-profiles-001/run/fixed60/zipf_1.5-n1000.json": {
+      "bytes": 21069,
+      "sha256": "4660240b8b466064278001cd3ca045fc4d6cd7b459645161c60d633a8070a634"
+    },
+    "adaptive-window-profiles-001/run/fixed80/dirichlet_half-n20000.json": {
+      "bytes": 33991,
+      "sha256": "650fda84301985bd435120de34f4d6f40570ee809a3c43a75b22d3bee4867a4b"
+    },
+    "adaptive-window-profiles-001/run/fixed80/engine.json": {
+      "bytes": 11452,
+      "sha256": "a6c64c16313fc679a84c6cbf68965d7870d8bcc3b8f85a95e5de0fd9f55f3bbb"
+    },
+    "adaptive-window-profiles-001/run/fixed80/uniform-n20000.json": {
+      "bytes": 12439,
+      "sha256": "18c80d27956139a53b69e0e003011e38d76889f4b19441d824e0e57625a780c4"
+    },
+    "adaptive-window-profiles-001/run/fixed80/zipf_1.5-n1000.json": {
+      "bytes": 21028,
+      "sha256": "f85ab5e04127a669fb57390399111d939b043333c0c2af0b9ad51549672cf97f"
+    },
+    "adaptive-window-profiles-001/run/refined80/dirichlet_half-n20000.json": {
+      "bytes": 34027,
+      "sha256": "e85ad9dbbf6a6fad87ca561b52f818eff67ce68e057c90a31bbafaf3630d5597"
+    },
+    "adaptive-window-profiles-001/run/refined80/engine.json": {
+      "bytes": 11451,
+      "sha256": "6c650c6eab18d9e633474c4500d3653c58157ee7bd12ab2802f72a676bd91411"
+    },
+    "adaptive-window-profiles-001/run/refined80/uniform-n20000.json": {
+      "bytes": 12445,
+      "sha256": "570ca58a99af8a9a1d4814de637cbc4d7012a0505469d85cb768009dc623de23"
+    },
+    "adaptive-window-profiles-001/run/refined80/zipf_1.5-n1000.json": {
+      "bytes": 21057,
+      "sha256": "064d93b14a2fbeec0794df67ddf285532615d9b8b48de7bc3ed0c37a7c4df6fa"
+    },
+    "adaptive-window-profiles-001/run/source-start.json": {
+      "bytes": 873,
+      "sha256": "c5b55665f934bb6dad9c93c428958dbcff076f383a0825850e36d11d47acb42a"
+    },
+    "adaptive-window-profiles-001/run/summary.json": {
+      "bytes": 5148,
+      "sha256": "c60e31641b2c7c5a0be1dbc442319f82beadf4603675583f2eb39b7c5edc179a"
+    },
+    "adaptive-window-profiles-001/run/validation.py": {
+      "bytes": 6102,
+      "sha256": "6b6a86fd1a9d89a6e0ebd6d701653e878c1d284753ca0d2dde723f146ac69ddb"
+    }
+  },
+  "notes": "Three saved profiles at L=80; expanded-window checks plus a previously passing profile. Original 27-case failures remain visible in their separate assessment.",
+  "production_admission": false
+}
