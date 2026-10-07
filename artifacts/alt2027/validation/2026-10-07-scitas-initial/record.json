@@ -1,0 +1,60 @@
+{
+  "production_admission": false,
+  "purpose": "platform_validation",
+  "runs": [
+    {
+      "archive": "kernel-40152955.tar.gz",
+      "archive_bytes": 120693,
+      "archive_sha256": "c1309711ba738526b259c7bc5a695205cd82fe81a9564c94a72cd439aeac3e1f",
+      "check_status": "passed",
+      "job_id": "40152955",
+      "run_manifest_sha256": "821885996cdacb73189c8324647a97d0cd300fa0c71042c2dc3ab9aacee71570",
+      "run_status": "complete",
+      "source_commit": "cc1524a636a5f1996b4fbff1668c477ed0e989b8",
+      "source_tree_sha256": "cefc1852613bb1397a881790a7a769e75425e41c437c270eecfa9fbaec7a364d",
+      "suite": "kernel",
+      "verified_members": 13
+    },
+    {
+      "archive": "prior-40152956.tar.gz",
+      "archive_bytes": 89866,
+      "archive_sha256": "297407cdf455c6f63eabbf32ae12ee4086a0ffdecac5e970298020587a617c20",
+      "check_status": "passed",
+      "job_id": "40152956",
+      "run_manifest_sha256": "378ed1dec1f67921e238ed5095c67edf37e273519651fa244b9432ea3aa383f2",
+      "run_status": "complete",
+      "source_commit": "cc1524a636a5f1996b4fbff1668c477ed0e989b8",
+      "source_tree_sha256": "cefc1852613bb1397a881790a7a769e75425e41c437c270eecfa9fbaec7a364d",
+      "suite": "prior",
+      "verified_members": 31
+    },
+    {
+      "archive": "chain-40152957.tar.gz",
+      "archive_bytes": 1367470,
+      "archive_sha256": "b4126407737b625cbf12e647ef4f4f53efd0fe71df54cdc8f79612648a3df480",
+      "check_status": "passed",
+      "job_id": "40152957",
+      "run_manifest_sha256": "9118fbb403e3ee3db38f1d5e4d905fb6de9ad5dc0506c964a45ae179d9443629",
+      "run_status": "complete",
+      "source_commit": "cc1524a636a5f1996b4fbff1668c477ed0e989b8",
+      "source_tree_sha256": "cefc1852613bb1397a881790a7a769e75425e41c437c270eecfa9fbaec7a364d",
+      "suite": "chain",
+      "verified_members": 13
+    },
+    {
+      "archive": "power-40152958.tar.gz",
+      "archive_bytes": 1039616,
+      "archive_sha256": "957e57bc19638b4183ec9c9ab88976099829ec585e40ff096a34957de4971af2",
+      "check_status": "failed",
+      "job_id": "40152958",
+      "run_manifest_sha256": "f094c2de34bd8c3fd8a1084c85e93ec40754bd083f67ff579ea66d93a827e88d",
+      "run_status": "failed",
+      "source_commit": "cc1524a636a5f1996b4fbff1668c477ed0e989b8",
+      "source_tree_sha256": "cefc1852613bb1397a881790a7a769e75425e41c437c270eecfa9fbaec7a364d",
+      "suite": "power",
+      "verified_members": 44
+    }
+  ],
+  "scientific_source_capsule": "../2026-10-07-distributed/scientific-source-cc1524a.tar.gz",
+  "verification": "Every original and extracted Run inventory verified, plus every compressed member size and SHA-256. Failed power Run intentionally verified with require_complete=False."
+}
