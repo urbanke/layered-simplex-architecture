@@ -16,6 +16,7 @@ recorded during execution. Public durable retrieval remains a release task.
 | Original completed-case assessment | 26 of 27 declared cases read; 24 pass all component/mixture loss and mass gates after 23 supplemental grid groups; two original depth-80 upper-window failures retained; full Bible case pending in this snapshot |
 | Repaired cases and grid assessment | Both original failed profiles pass at all eight declared depths; four supplemental groups complete actual grid halving, with component/mixture loss and raw-mass gates passed |
 | Adaptive-window profiles | Three saved profiles at depth 80; the two failing profiles agree with fixed upper windows 60/80 and finer quadrature; a previously passing profile is bitwise unchanged |
+| Full Bible completion | All 55 depths on the saved 915,860-token profile pass default/refined and actual-grid-halving checks; component and mixture codelength gates pass; independent assembly and provenance verification passed |
 | Expanded-window kernel checks | All 16 independent high-precision checks pass at depth 80, counts 0/1/9/40, and log-grid coordinates through 80; maximum direct residual 2.88e-13 nats |
 | Adaptive-window regression | Full appendix script and 260 tests pass; initial sandbox shared-memory errors and successful permitted rerun are both preserved |
 
@@ -46,9 +47,17 @@ The latter matches the implementation committed in
 `06d393de43b7e8348d6594fa3143f737eb7d1537`; packaging records distinguish this
 later commit observation from the source hashes measured by the validation runs.
 
-The full Bible profile (`n=915860`, `d=100000`, depths 0–54) is being completed
-from its saved sample in a separate immutable run, with default/refined evidence
-and actual-grid-halving supplements checkpointed per depth. Its results will
-receive a separate completion record. The combined coverage assessment,
-post-integration regression checks, sampling/runtime pilot, protocol freeze,
-and fresh production campaign remain subsequent acceptance work.
+The full Bible profile (`n=915860`, `d=100000`, depths 0–54) is complete from
+its saved original sample, with default/refined evidence and actual-grid-halving
+supplements checkpointed per depth. The maximum final component codelength
+change is **5.164e-13 bits/token**;
+the mixture change is **1.467e-14 bits/token**.
+The independent verifier checked all checkpoint/engine identities, source/input
+hashes, diagnostic ordering, analytic endpoints, full-grid posterior and mixture
+assembly, and actual grid spacings. The final closed-process manifest explicitly
+supersedes the driver's provisional stdout hash. `finite-case-coverage.json`
+indexes passing evidence for all 27 declared cases across the original and repaired
+implementations; it preserves that source distinction and is not an admission
+certificate. Production admission requires a separate combined assessment bound
+to the frozen source, protocol, execution environment, and complete required
+checks. The runtime/sampling decisions and fresh campaign are recorded separately.

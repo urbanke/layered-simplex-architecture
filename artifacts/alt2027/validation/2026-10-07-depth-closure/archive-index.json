@@ -37,6 +37,15 @@
       "run_id": "adaptive-window-repaired-cases-20261007"
     },
     {
+      "archive": "bible-full-original-parallel-20261007.tar.gz",
+      "archive_bytes": 352564,
+      "archive_sha256": "8c3ce3266e4986a8d9942fc1a41fb296d5046f2b2a41d5d4aca0b575746fc13e",
+      "manifest": "bible-full-original-parallel-20261007.manifest.json",
+      "manifest_sha256": "759d2a45148283cf90b84d34763b4f5019d22c99f88c89fcdfb0e4764648aa5d",
+      "production_admission": false,
+      "run_id": "bible-full-original-parallel-20261007"
+    },
+    {
       "archive": "depth-assessment-final-original-20261007.tar.gz",
       "archive_bytes": 14053525,
       "archive_sha256": "0fbedf31087d3327fb2b79e9fea91045814e188b517407c7265b3d0e68e48adc",
@@ -55,6 +64,31 @@
       "run_id": "window-kernel-spots-001"
     }
   ],
+  "bible_completion": {
+    "depths": 55,
+    "independent_verification": "passed",
+    "measurements": {
+      "final": {
+        "maximum_codelength_difference_bits_per_token": 5.16402386688712e-13,
+        "maximum_evidence_difference_bits": 4.729522898727238e-07,
+        "mixture_codelength_difference_bits_per_token": 1.4670522349111138e-14
+      },
+      "original": {
+        "maximum_codelength_difference_bits_per_token": 5.41342274682201e-13,
+        "maximum_evidence_difference_bits": 4.957937356904405e-07,
+        "mixture_codelength_difference_bits_per_token": 5.721503716153343e-14
+      },
+      "supplemental": {
+        "maximum_codelength_difference_bits_per_token": 4.034393646005563e-13,
+        "maximum_evidence_difference_bits": 3.6949397646306543e-07,
+        "mixture_codelength_difference_bits_per_token": 7.188555951064457e-14
+      }
+    },
+    "source_unchanged": true,
+    "status": "passed",
+    "summary_archive": "bible-full-original-parallel-20261007.tar.gz"
+  },
+  "finite_case_coverage": "finite-case-coverage.json",
   "original_assessment": {
     "completed_cases": 26,
     "expected_cases": 27,
@@ -62,6 +96,7 @@
       "uniform-n20000",
       "dirichlet_half-n20000"
     ],
+    "note": "Immutable historical snapshot; later records close the repaired and missing cases.",
     "passed_cases": 24,
     "pending_cases": [
       "bible-915860"
@@ -79,5 +114,5 @@
     "supplemental_groups": 4
   },
   "schema_version": 1,
-  "status": "finite_original_assessment_and_repaired_cases_full_bible_pending"
+  "status": "finite_depth_cases_complete_production_not_admitted"
 }
