@@ -77,7 +77,8 @@ Workers may restart with a different allocation without changing any draws.
 Each campaign root binds one runtime; Linux and macOS outputs remain separate.
 The default production partition has 1584 jobs (100-trial blocks, 500 for
 factorial), with 10 laptop workers or up to 72 workers per allocated Jed node.
-Production still requires the combined calibration certificate and frozen source.
+The protocol is frozen. Production requires the combined calibration
+certificate and clean source commit; SCITAS calibration is in progress.
 
 From the repository root, after the setup in the main README:
 
@@ -107,9 +108,9 @@ pinned store identity, and the adapter cannot build or modify the store.
 Production additionally requires protocol status `frozen`, a clean source tree,
 and `--calibration FILE`. A passed calibration must bind the protocol, source-tree
 hash, complete per-experiment engine hash (including powered settings), runtime,
-and covered experiment IDs, with `required_checks_complete=true`. The current
-validation driver deliberately produces partial status until the remaining
-checks are completed; it cannot certify itself from a smoke run.
+and covered experiment IDs, with `required_checks_complete=true`. The validation
+evidence must cover every required suite before the combined
+certificate is issued.
 
 ## Declared validation work
 

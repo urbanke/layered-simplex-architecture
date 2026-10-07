@@ -1,0 +1,8 @@
+{
+  "archive": "quadrature-diagnosis.tar.gz",
+  "sha256": "1e32ec0cb7bc2e5ad2c859d24711a587766ba18bcf2499df6c6010d77529ec77",
+  "bytes": 137893,
+  "file_count": 26,
+  "source_failed": "cc1524a636a5f1996b4fbff1668c477ed0e989b8",
+  "source_repair": "f0a5ebd0a57d46caeb9bf45407c062f37b8d64bc"
+}

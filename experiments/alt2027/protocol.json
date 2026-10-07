@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "protocol_id": "alt2027-retained-v2",
-  "status": "implementation",
+  "status": "frozen",
   "manuscript": "manuscript/snapshots/2026-10-07-alt-start/alt.tex",
   "units": {
     "log_evidence": "nats",

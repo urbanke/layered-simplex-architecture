@@ -29,18 +29,20 @@ retained plots and tables. A small end-to-end campaign exercises every family.
 
 The independent kernel, prior/identity, powered-model, and Bible-chain checks
 are archived in [the calibration milestone](artifacts/alt2027/validation/2026-10-07-calibration/README.md).
-The depth-profile refinement checks and the full Bible profile are being closed.
+All 27 declared depth-profile cases, including the full Bible at all 55 depths,
+now have passed refinement evidence in the [depth milestone](artifacts/alt2027/validation/2026-10-07-depth-closure/README.md).
 The runners share kernel preparation across saved sample batches, with verified
 trial identities. Distributed execution preserves those identities across worker
 counts and resumes, then checks every shard before regenerating reports.
 
 The completed sampling/runtime pilot is archived. Protocol v2 increases primary,
 power, spectrum and depth-curve replication to 1000 per cell while retaining
-5000 factorial profiles per cell. The next milestone is completion of the numerical
-coverage assessment and Jed platform checks, followed by the production protocol
-freeze and fresh runs. The current protocol has status
-`implementation`; the runner enforces this distinction. Detailed status and
-commands are in [the campaign guide](experiments/alt2027/README.md).
+5000 factorial profiles per cell. The experiment protocol is frozen at these
+settings. Jed kernel, prior and
+Bible-chain checks have passed; depth refinement and the corrected power
+calibration are running. Combined numerical admission gates the production
+launch. Detailed status and commands are in
+[the campaign guide](experiments/alt2027/README.md).
 
 ## Code setup
 
