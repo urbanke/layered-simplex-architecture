@@ -1,0 +1,42 @@
+{
+  "calibration_results_included": false,
+  "capsules": [
+    {
+      "bytes": 3275884,
+      "file_count": 180,
+      "manifest": "scientific-source-cc1524a.manifest.json",
+      "path": "scientific-source-cc1524a.tar.gz",
+      "scope": "Exact 178-file scientific source from clean cc1524a smoke execution; excludes artifacts/output as source_identity does.",
+      "sha256": "94cd7e490182db14ca717524d40ee4cd36323c171aa8f12ef6145d222e6c6c15",
+      "uncompressed_bytes": 4778049
+    },
+    {
+      "bytes": 1454629,
+      "file_count": 889,
+      "manifest": "distributed-smoke-cc1524a.manifest.json",
+      "path": "distributed-smoke-cc1524a.tar.gz",
+      "scope": "All 62 completed smoke jobs, their controller/specification records, nine merged experiments, and the completed report run.",
+      "sha256": "6fac96a528533652d1d717980cf0e07432e94ef596a099fea44b6c3489b4d28f",
+      "uncompressed_bytes": 10148111
+    },
+    {
+      "bytes": 24008,
+      "file_count": 14,
+      "manifest": "scitas-preflight-and-regressions.manifest.json",
+      "path": "scitas-preflight-and-regressions.tar.gz",
+      "scope": "Saved regression/appendix logs, failed and passed Slurm preflight logs, the passed preflight JSON records, and preparation configurations. No calibration result claims.",
+      "sha256": "3a95e8cdd02556a5ada20d7bf1561918ec4996cacf2fde326a1c7a2aa4979f93",
+      "uncompressed_bytes": 79205
+    }
+  ],
+  "excluded_bulk": "excluded-bulk.json",
+  "milestone": "2026-10-07-distributed-smoke-and-scitas-preflight",
+  "preflight_verification": "preflight-verification.json",
+  "production_results": false,
+  "purpose": "smoke_and_environment_validation",
+  "schema_version": 1,
+  "source_commit": "cc1524a636a5f1996b4fbff1668c477ed0e989b8",
+  "source_identity": "source-identity.json",
+  "source_tree_sha256": "cefc1852613bb1397a881790a7a769e75425e41c437c270eecfa9fbaec7a364d",
+  "verification": "verification.json"
+}

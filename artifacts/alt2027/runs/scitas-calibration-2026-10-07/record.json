@@ -1,0 +1,23 @@
+{
+  "files_sha256": {
+    "calibration-job-index.json": "5b9ff5317a9093ce208d2f374736c2d1dadd93ebd7a64418c848feb05ba91f81",
+    "jed-calibration.sbatch": "f8d46072142b47574e4f8834aed958b0842f421a0296a5fe2c3f32b63b8b5ecc",
+    "jed-kernel-validation.json": "e96584c19eed18e5a0ce43bac7036f0de9eb3b95a42f5d17fd4a0bdbf83c2c85",
+    "probe-exact-subset.manifest.json": "54a0820f442b8b580d269bda72009e4c3e6f645cd407ec155802c1b6cdb5a9c3"
+  },
+  "notes": [
+    "Source and output directories are separate from the existing project checkout and store.",
+    "The kernel cases differ from the committed kernel specification only in host-local store paths.",
+    "The reference subset contains exact copies of the requested three levels; its complete file hashes are recorded.",
+    "Slurm job identities record submission; each suite is accepted only after its complete Run and result are verified.",
+    "Scratch is working storage; durable publication archives remain a release milestone."
+  ],
+  "preflight_job": "40152660",
+  "preflight_status": "passed",
+  "production_admission": false,
+  "purpose": "platform_validation",
+  "remote_checkout": "/scratch/urbanke/lsa-alt2027/checkouts/cc1524a636a5f1996b4fbff1668c477ed0e989b8",
+  "remote_output": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-001",
+  "remote_python": "/home/urbanke/venvs/alt2027-py313-20261007/bin/python",
+  "source_commit": "cc1524a636a5f1996b4fbff1668c477ed0e989b8"
+}
