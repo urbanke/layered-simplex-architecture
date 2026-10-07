@@ -1,0 +1,62 @@
+{
+  "archive": {
+    "bytes": 11023,
+    "file": "gate-and-pilot-drivers.tar.gz",
+    "sha256": "3b153e8057cf92b77c667bfd2f6cff1ed4b5dd09534355cd4401a6171a002e3c"
+  },
+  "checks": "Seven synthetic checks passed; real incomplete Linux evidence returns pending with exact plan hash; independent source, settings, queue and formula review passed.",
+  "files": {
+    "check-assessment.py": {
+      "bytes": 7626,
+      "sha256": "137abe75e020f2262148da6a2f9b49c96f5c7d01d23a6a8b76da480f992c7e17"
+    },
+    "incomplete-directory-smoke.json": {
+      "bytes": 844,
+      "sha256": "545546fa6ffb200ea71cf9ad8827317f3553ec97b39741c4907b9292ab8717ba"
+    },
+    "pilot.py": {
+      "bytes": 4032,
+      "sha256": "83066d07e6b0ae17a81b144fac6c73136e8710b4bceaf08c5fa1384e8c039efa"
+    },
+    "pilot.sbatch": {
+      "bytes": 867,
+      "sha256": "26c548f6c02f0e517c679d7582bb5d9eac577fd161d6f8fe6397ce381ee325c3"
+    },
+    "sampling-startup.py": {
+      "bytes": 2588,
+      "sha256": "3e0bc370ae4b4e66cbbb8e9d85ca8be44811e8ab0a7945a6680fa5f2b98389f8"
+    },
+    "sampling-startup.sbatch": {
+      "bytes": 762,
+      "sha256": "5b9a3719af92c16e5d564e710a13755faa7de797d8d3ad5ec94e657eb25ca811"
+    },
+    "sampling-submission.json": {
+      "bytes": 417,
+      "sha256": "ddba0be8cdf8fbada2811f56d850cf015c44a59ec84d942dca81be5a2ec51294"
+    },
+    "scheduling-assessment.py": {
+      "bytes": 15977,
+      "sha256": "c0c206a03b64677c8209046745b208d32479c14dfcc73758a82cd65df50051fa"
+    },
+    "submission.json": {
+      "bytes": 727,
+      "sha256": "1f4f9b840cc9dae18dd888507633d87a8859794ab971ed6e9201e84a53e44bd3"
+    },
+    "synthetic-checks.json": {
+      "bytes": 1569,
+      "sha256": "f19bfc7b44d88509450af03c96c607a877a239db7c45d8062e10d6d93a7fdf4c"
+    }
+  },
+  "plan_sha256": "d5a337662543663845d6b2ead796a14c05d5589e5f5930eab9c2315d4b98d17f",
+  "production_source_commit": "9ec82bcef549ad593dee5450e974d83de44ddc77",
+  "purpose": "scheduling evidence; not numerical production admission",
+  "remote_results": "jed:/scratch/urbanke/lsa-alt2027/runs/throughput-f0a5ebd-20261007-001",
+  "scheduling_script_sha256": "c0c206a03b64677c8209046745b208d32479c14dfcc73758a82cd65df50051fa",
+  "schema_version": 1,
+  "slurm": {
+    "late_replay": "40158709",
+    "pilot_array": "40158582"
+  },
+  "source_commit_pilots": "f0a5ebd0a57d46caeb9bf45407c062f37b8d64bc",
+  "status": "gate_verified_pilots_pending"
+}

@@ -1,0 +1,13 @@
+{
+  "source_commit": "9ec82bcef549ad593dee5450e974d83de44ddc77",
+  "files_sha256": {
+    "launch-when-ready-9ec82bc.py": "da0ea18933c3c8cb9b06bc2a5c876cfb9ccf8813db8bfb210e22f67c657cedd5",
+    "scheduling-assessment.py": "c0c206a03b64677c8209046745b208d32479c14dfcc73758a82cd65df50051fa",
+    "jed-admission-and-launch-9ec82bc.sbatch": "e74f451fbc9bff210f2484af2c38ff1804af9d34afe097b875daf234853826fd",
+    "jed-production-9ec82bc.sbatch": "e8589e99daf23942f7aa29eb7592bd7891d136c243e81a6a01c77fa5ea51c182",
+    "jed-postprocess-9ec82bc.sbatch": "03f7945eb90405aa97c33634dde116f97a5170f31921c825514627fe4e273104",
+    "production-plan-9ec82bc-block20.json": "adcf81dfc17af3c6415b252a5f39f7deb7734553d697378fc4fb64d976af528c",
+    "jed-engine.json": "1aab2916b7dabc9a84c405497717c01f05572039349bfc7344c5cdaad935214c",
+    "evidence-index-9ec82bc.json": "60dd8b92659d9cb8f4f434a5048e9eeb62301d3a519bfc891b28eaa36c038ea7"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "status": "submitted",
+  "job_id": "40159544",
+  "dependencies": [
+    "40152959",
+    "40158582"
+  ],
+  "dependency_type": "afterany with explicit successful evidence gates",
+  "source_commit": "9ec82bcef549ad593dee5450e974d83de44ddc77",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--dependency=afterany:40152959:40158582",
+    "/scratch/urbanke/lsa-alt2027/setup/jed-admission-and-launch-9ec82bc.sbatch"
+  ],
+  "handoff_inputs_sha256": "9ffe0243c73a963caae10246fb60e55c69be995d5208f93a30f4237b101f5108"
+}

@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "mocked_scheduler": true,
+  "exit_code": 17,
+  "stdout": "mock-cancel:123456\n",
+  "stderr": "Controller failed with status 17; cancelling this production array.\n"
+}
