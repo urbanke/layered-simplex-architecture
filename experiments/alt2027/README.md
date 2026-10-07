@@ -75,8 +75,10 @@ IDs; `work` writes immutable attempts and verified completed jobs; `merge`
 checks complete coverage and reconstructs the normal report input layout.
 Workers may restart with a different allocation without changing any draws.
 Each campaign root binds one runtime; Linux and macOS outputs remain separate.
-The default production partition has 1584 jobs (100-trial blocks, 500 for
-factorial), with 10 laptop workers or up to 72 workers per allocated Jed node.
+The selected production partition has 7754 jobs: 20-trial blocks, separate
+primary sample sizes (`--split-benchmark-n`), and 500-profile factorial blocks.
+The original complete sampling grid and global trial IDs are preserved. Resource
+limits remain 10 laptop workers or up to 72 workers per allocated Jed node.
 The protocol is frozen. Production requires the combined calibration
 certificate and clean source commit; SCITAS calibration is in progress.
 

@@ -88,7 +88,7 @@ def protocol(*, all_targets=False, all_families=False):
     return result
 
 
-def build_plan(protocol, repo):
+def build_plan(protocol, repo, *, split_benchmark_n=False):
     from lsa.alt.distributed import make_plan
 
     return make_plan(
@@ -99,6 +99,7 @@ def build_plan(protocol, repo):
         block_size=2,
         factorial_block_size=2,
         batch_size=2,
+        split_benchmark_n=split_benchmark_n,
     )
 
 
@@ -126,10 +127,10 @@ def engine_record(name):
     return result
 
 
-def create_shards(tmp_path, repo, specification):
+def create_shards(tmp_path, repo, specification, *, split_benchmark_n=False):
     from lsa.alt.distributed import job_protocol, runtime_identity
 
-    plan = build_plan(specification, repo)
+    plan = build_plan(specification, repo, split_benchmark_n=split_benchmark_n)
     root = tmp_path / "runs"
     root.mkdir()
     write_json(root / "runtime.json", runtime_identity(plan))
@@ -180,9 +181,14 @@ def reseal(path):
     (path / "manifest.json").write_text(json.dumps(manifest))
 
 
-def test_merge_matches_unsharded_records_and_existing_reports(tmp_path, repo):
+@pytest.mark.parametrize("split_benchmark_n", [False, True])
+def test_merge_matches_unsharded_records_and_existing_reports(
+    tmp_path, repo, split_benchmark_n
+):
     specification = protocol(all_targets=True, all_families=True)
-    plan, runs = create_shards(tmp_path, repo, specification)
+    plan, runs = create_shards(
+        tmp_path, repo, specification, split_benchmark_n=split_benchmark_n
+    )
     merged = tmp_path / "merged"
     result = merge_campaign(plan, runs, merged, repo=repo)
     assert set(result["experiments"]) == set(specification["experiments"])
@@ -215,6 +221,12 @@ def test_merge_matches_unsharded_records_and_existing_reports(tmp_path, repo):
                 == read_json(direct / "samples/manifest.json")["sampling"]
             )
             for entry in read_json(data / "samples/manifest.json")["files"]:
+                expected_fragments = (
+                    len(config["n_values"])
+                    if split_benchmark_n and name == "benchmark_primary"
+                    else 1
+                )
+                assert len(entry["source_samples"]) == expected_fragments
                 with (
                     np.load(data / "samples" / entry["path"]) as a,
                     np.load(direct / "samples" / entry["path"]) as b,

@@ -57,6 +57,9 @@ are deliberately narrow:
   evidence.
 - Admission orchestration, launcher and test changes do not invalidate a
   numerical suite. They require fresh regression evidence.
+- Changes to `distributed.py` require new regression evidence. The numerical
+  suites execute their own fixed specifications and can reuse their evidence
+  when their scientific dependencies remain identical.
 - A change to `powers.py` or `power_validation.py` invalidates power and regression
   evidence. Kernel, prior, depth and chain evidence can be reused when every other
   scientific input remains identical.
@@ -116,13 +119,16 @@ export ALT_OUT=/scratch/urbanke/alt2027-production-001
   --repo "$ALT_REPO" \
   --protocol "$ALT_REPO/experiments/alt2027/protocol.json" \
   --purpose production --engine-config "$ALT_ENGINE_CONFIG" \
-  --block-size 20 --factorial-block-size 500 --batch-size 20 \
+  --block-size 20 --factorial-block-size 500 --batch-size 20 --split-benchmark-n \
   --out "$ALT_PLAN"
 ```
 
 Twenty-trial blocks keep the longest measured power work below the scheduler
-wall-time limit with room for its paired depth comparisons. They create 3,904
-jobs with unchanged global trials and a 500-profile factorial block. The measured
+wall-time limit with room for its paired depth comparisons. Splitting the primary benchmark by sample size creates 7,754
+jobs with unchanged global trials, a 20-profile numerical cohort and a
+500-profile factorial block. Every primary shard consumes the complete original
+sampling grid before selecting its own sample size, and merging checks identical
+targets and complete sample-size coverage for each trial. The measured
 throughput pilot determines final node count and resource requests.
 
 Only after admission passes should the production array be submitted using

@@ -49,6 +49,7 @@ ORCHESTRATION_FILES = {
     "tests/test_alt_admission.py",
 }
 POWER_FILES = {"src/lsa/alt/powers.py", "src/lsa/alt/power_validation.py"}
+EXECUTION_FILES = {"src/lsa/alt/distributed.py"}
 
 
 def normalized_specification(suite, config):
@@ -77,6 +78,8 @@ def source_reuse(suite, saved, current, repo):
             reason = "launch_wrapper_not_executed_by_this_numerical_suite"
         elif suite != "regressions" and name in ORCHESTRATION_FILES:
             reason = "admission_orchestration_only"
+        elif suite != "regressions" and name in EXECUTION_FILES:
+            reason = "distributed_partition_not_executed_by_this_numerical_suite"
         elif suite != "regressions" and name.startswith("tests/"):
             reason = "test_source_not_executed_by_this_numerical_suite"
         elif suite not in ("power", "regressions") and name in POWER_FILES:

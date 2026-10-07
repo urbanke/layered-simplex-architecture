@@ -135,11 +135,16 @@ def snapshot(path):
     return {str(p.relative_to(path)): sha256(p) for p in path.rglob("*") if p.is_file()}
 
 
-def test_partition_covers_each_original_trial_once_and_is_deterministic(repo):
+@pytest.mark.parametrize("split_benchmark_n", [False, True])
+def test_partition_covers_each_original_trial_once_and_is_deterministic(
+    repo, split_benchmark_n
+):
     specification = protocol(all_families=True)
     saved = copy.deepcopy(specification)
-    plan = plan_for(repo, protocol=specification)
-    assert plan == plan_for(repo, protocol=specification)
+    plan = plan_for(repo, protocol=specification, split_benchmark_n=split_benchmark_n)
+    assert plan == plan_for(
+        repo, protocol=specification, split_benchmark_n=split_benchmark_n
+    )
     assert specification == saved
     assert distributed.validate_plan(plan) == plan
     ids = [job["id"] for job in plan["jobs"]]
@@ -169,6 +174,8 @@ def test_partition_covers_each_original_trial_once_and_is_deterministic(repo):
                 config["sampling_n_values"]
                 == specification["experiments"][name]["n_values"]
             )
+            if split_benchmark_n and name == "benchmark_primary":
+                assert len(config["n_values"]) == 1
             for target in config["targets"]:
                 for trial in range(
                     config["trial_start"], config["trial_start"] + config["trials"]
@@ -187,9 +194,10 @@ def test_partition_covers_each_original_trial_once_and_is_deterministic(repo):
     assert set(actual.values()) == {1}
 
 
-def test_saved_plan_round_trip_preserves_job_order(tmp_path, repo):
+@pytest.mark.parametrize("split_benchmark_n", [False, True])
+def test_saved_plan_round_trip_preserves_job_order(tmp_path, repo, split_benchmark_n):
     specification = protocol(all_families=True)
-    plan = plan_for(repo, protocol=specification)
+    plan = plan_for(repo, protocol=specification, split_benchmark_n=split_benchmark_n)
     path = tmp_path / "plan.json"
     write_json(path, plan)
     loaded = read_json(path)
@@ -197,9 +205,85 @@ def test_saved_plan_round_trip_preserves_job_order(tmp_path, repo):
     specification["experiments"] = dict(
         reversed(list(specification["experiments"].items()))
     )
-    reordered = plan_for(repo, protocol=specification)
+    reordered = plan_for(
+        repo, protocol=specification, split_benchmark_n=split_benchmark_n
+    )
     assert reordered["jobs"] == plan["jobs"]
     assert canonical_hash(reordered) == canonical_hash(plan)
+
+
+def test_n_split_changes_only_primary_partition_and_accepts_legacy_plans(repo):
+    specification = protocol(all_families=True)
+    original = plan_for(repo, protocol=specification)
+    legacy = copy.deepcopy(original)
+    del legacy["split_benchmark_n"]
+    assert distributed.validate_plan(legacy) == legacy
+    split = plan_for(repo, protocol=specification, split_benchmark_n=True)
+    assert split["protocol"] == original["protocol"]
+    assert split["protocol_sha256"] == original["protocol_sha256"]
+    assert split["batch_size"] == original["batch_size"]
+    assert [j for j in split["jobs"] if j["experiment"] != "benchmark_primary"] == [
+        j for j in original["jobs"] if j["experiment"] != "benchmark_primary"
+    ]
+    split["split_benchmark_n"] = False
+    with pytest.raises(ValueError, match="exact declared partition"):
+        distributed.validate_plan(split)
+
+
+@pytest.mark.parametrize("value", [None, 0, 1, "true", [], {}])
+def test_n_split_flag_is_strictly_boolean(repo, value):
+    with pytest.raises(TypeError, match="must be a boolean"):
+        plan_for(repo, split_benchmark_n=value)
+    plan = plan_for(repo)
+    plan["split_benchmark_n"] = value
+    with pytest.raises(TypeError, match="must be a boolean"):
+        distributed.validate_plan(plan)
+
+
+def test_production_n_split_has_exact_campaign_job_counts(repo):
+    specification = read_json(
+        Path(__file__).resolve().parents[1] / "experiments/alt2027/protocol.json"
+    )
+    plan = distributed.make_plan(
+        specification,
+        repo=repo,
+        purpose="production",
+        block_size=20,
+        factorial_block_size=500,
+        batch_size=20,
+        split_benchmark_n=True,
+    )
+    distributed.validate_plan(plan)
+    counts = Counter(job["experiment"] for job in plan["jobs"])
+    assert counts["benchmark_primary"] == 4400
+    assert sum(counts.values()) == 7754
+    assert sum(counts.values()) - counts["benchmark_primary"] == 3354
+
+
+def test_prepare_cli_records_n_split_option(tmp_path, repo):
+    specification = tmp_path / "protocol.json"
+    destination = tmp_path / "plan.json"
+    write_json(specification, protocol())
+    assert (
+        distributed.main(
+            [
+                "prepare",
+                "--repo",
+                str(repo),
+                "--protocol",
+                str(specification),
+                "--purpose",
+                "smoke",
+                "--out",
+                str(destination),
+                "--split-benchmark-n",
+            ]
+        )
+        == 0
+    )
+    plan = distributed.validate_plan(read_json(destination))
+    assert plan["split_benchmark_n"] is True
+    assert all(len(job["config"]["n_values"]) == 1 for job in plan["jobs"])
 
 
 @pytest.mark.parametrize(
@@ -276,8 +360,16 @@ def test_numerical_setting_mismatch_is_rejected_before_output(tmp_path, repo, fi
     assert not (tmp_path / "out").exists()
 
 
-def test_derived_calibration_binds_exact_subset_and_preserves_parent(repo):
-    plan = plan_for(repo, purpose="production", protocol=protocol(frozen=True))
+@pytest.mark.parametrize("split_benchmark_n", [False, True])
+def test_derived_calibration_binds_exact_subset_and_preserves_parent(
+    repo, split_benchmark_n
+):
+    plan = plan_for(
+        repo,
+        purpose="production",
+        protocol=protocol(frozen=True),
+        split_benchmark_n=split_benchmark_n,
+    )
     parent = calibration_for(plan)
     snapshot_parent = copy.deepcopy(parent)
     job = plan["jobs"][0]
@@ -390,11 +482,12 @@ def test_concurrent_metadata_creation_is_atomic_and_conflicts_do_not_overwrite(
     assert list(tmp_path.iterdir()) == [path]
 
 
+@pytest.mark.parametrize("split_benchmark_n", [False, True])
 def test_two_process_smoke_matches_saved_samples_and_restart_is_read_only(
-    tmp_path, repo
+    tmp_path, repo, split_benchmark_n
 ):
     specification = protocol()
-    plan = plan_for(repo, protocol=specification)
+    plan = plan_for(repo, protocol=specification, split_benchmark_n=split_benchmark_n)
     root = tmp_path / "parallel"
     result = distributed.work(plan, root, repo=repo, workers=2)
     assert result["status"] == "complete"
@@ -429,8 +522,11 @@ def test_two_process_smoke_matches_saved_samples_and_restart_is_read_only(
                 np.load(path / "data/samples" / entry["path"]) as actual,
                 np.load(original) as expected,
             ):
-                assert actual.files == expected.files
-                for key in expected.files:
+                assert set(actual.files) == {
+                    "target",
+                    *(f"counts_{n}" for n in job["config"]["n_values"]),
+                }
+                for key in actual.files:
                     np.testing.assert_array_equal(actual[key], expected[key])
     assert observed == Counter(
         (target, trial, n)
@@ -555,8 +651,16 @@ def admitted_fixture(plan):
     return {"engine": engine}, parent
 
 
-def test_saved_admission_requires_parent_engine_and_depth_configuration(repo):
-    plan = plan_for(repo, purpose="production", protocol=protocol(frozen=True))
+@pytest.mark.parametrize("split_benchmark_n", [False, True])
+def test_saved_admission_requires_parent_engine_and_depth_configuration(
+    repo, split_benchmark_n
+):
+    plan = plan_for(
+        repo,
+        purpose="production",
+        protocol=protocol(frozen=True),
+        split_benchmark_n=split_benchmark_n,
+    )
     job = plan["jobs"][0]
     record, parent = admitted_fixture(plan)
     distributed.validate_saved_admission(plan, job, record, parent)

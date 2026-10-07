@@ -61,11 +61,13 @@ def power_options(options):
     return asdict(PowerSettings(**options))
 
 
-def build_jobs(protocol, block_size, factorial_block_size):
+def build_jobs(protocol, block_size, factorial_block_size, split_benchmark_n=False):
     from .scaling import cells
 
     positive_integer(block_size, "block size")
     positive_integer(factorial_block_size, "factorial block size")
+    if not isinstance(split_benchmark_n, bool):
+        raise TypeError("split_benchmark_n must be a boolean")
     jobs = []
     # Immutable JSON writers sort object keys. Job order must survive a saved
     # plan's round trip, independently of the input protocol's key order.
@@ -79,6 +81,14 @@ def build_jobs(protocol, block_size, factorial_block_size):
                 {"targets": [target], "sampling_n_values": config["n_values"]}
                 for target in config["targets"]
             ]
+            if name == "benchmark_primary" and split_benchmark_n:
+                # The sampler still consumes the entire original n grid for
+                # each global trial, preserving targets and paired counts.
+                selectors = [
+                    {**selector, "n_values": [n]}
+                    for selector in selectors
+                    for n in config["n_values"]
+                ]
         elif name in ("spectrum", "factorial", "depth_scaling"):
             selectors = [{"cell_ids": [i]} for i, _ in enumerate(cells(name, config))]
         elif name in ("architecture", "bible", "bible_secondary", "validation"):
@@ -118,6 +128,7 @@ def make_plan(
     block_size=100,
     factorial_block_size=500,
     batch_size=20,
+    split_benchmark_n=False,
 ):
     if purpose not in ("smoke", "validation", "production"):
         raise ValueError("invalid purpose")
@@ -141,7 +152,10 @@ def make_plan(
         "block_size": block_size,
         "factorial_block_size": factorial_block_size,
         "batch_size": batch_size,
-        "jobs": build_jobs(protocol, block_size, factorial_block_size),
+        "split_benchmark_n": split_benchmark_n,
+        "jobs": build_jobs(
+            protocol, block_size, factorial_block_size, split_benchmark_n
+        ),
     }
 
 
@@ -158,7 +172,10 @@ def validate_plan(plan):
         raise ValueError("production protocol must be frozen")
     positive_integer(plan["batch_size"], "batch size")
     expected = build_jobs(
-        plan["protocol"], plan["block_size"], plan["factorial_block_size"]
+        plan["protocol"],
+        plan["block_size"],
+        plan["factorial_block_size"],
+        plan.get("split_benchmark_n", False),
     )
     if canonical_hash(plan["jobs"]) != canonical_hash(expected):
         raise ValueError("jobs differ from the exact declared partition")
@@ -588,6 +605,11 @@ def main(argv=None):
     prepare.add_argument("--block-size", type=int, default=100)
     prepare.add_argument("--factorial-block-size", type=int, default=500)
     prepare.add_argument("--batch-size", type=int, default=20)
+    prepare.add_argument(
+        "--split-benchmark-n",
+        action="store_true",
+        help="split primary benchmark jobs by sample size, preserving common samples",
+    )
     worker = sub.add_parser("work")
     worker.add_argument("--workers", type=int, required=True)
     worker.add_argument("--worker-index", type=int, default=0)
@@ -619,6 +641,7 @@ def main(argv=None):
             block_size=args.block_size,
             factorial_block_size=args.factorial_block_size,
             batch_size=args.batch_size,
+            split_benchmark_n=args.split_benchmark_n,
         )
         args.out.parent.mkdir(parents=True, exist_ok=True)
         write_json(args.out, result)

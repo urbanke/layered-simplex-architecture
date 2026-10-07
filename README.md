@@ -39,8 +39,8 @@ The completed sampling/runtime pilot is archived. Protocol v2 increases primary,
 power, spectrum and depth-curve replication to 1000 per cell while retaining
 5000 factorial profiles per cell. The experiment protocol is frozen at these
 settings. Jed kernel, prior and
-Bible-chain checks have passed; depth refinement and the corrected power
-calibration are running. Combined numerical admission gates the production
+Bible-chain checks and corrected power calibration have passed. The remaining
+SCITAS depth refinement is running. Combined numerical admission gates the production
 launch. Detailed status and commands are in
 [the campaign guide](experiments/alt2027/README.md).
 

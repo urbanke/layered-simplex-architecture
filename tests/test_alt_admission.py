@@ -256,6 +256,22 @@ def test_power_changes_reuse_unaffected_suites_but_force_power_and_regressions(b
             admission.source_reuse(suite, old, new, repo)
 
 
+def test_partition_changes_preserve_numerical_evidence_but_require_regressions(bundle):
+    arguments, _ = bundle
+    repo = arguments["repo"]
+    old = source_identity(repo)
+    (repo / "src/lsa/alt/distributed.py").write_text("# revised job partition\n")
+    commit(repo)
+    new = source_identity(repo)
+    for suite in ("kernel", "prior", "depth", "power", "chain"):
+        reuse = admission.source_reuse(suite, old, new, repo)
+        assert reuse["permitted_changes"][0]["reason"] == (
+            "distributed_partition_not_executed_by_this_numerical_suite"
+        )
+    with pytest.raises(ValueError, match="needs rerun"):
+        admission.source_reuse("regressions", old, new, repo)
+
+
 def test_protocol_reuse_allows_only_status_freeze(bundle):
     arguments, _ = bundle
     repo = arguments["repo"]
