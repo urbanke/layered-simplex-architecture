@@ -24,3 +24,6 @@ _to_delete/
 *.synctex.gz
 *.toc
 *.out
+
+!data/kjv-secondary.txt.gz
+!data/kjv-secondary.manifest.json

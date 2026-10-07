@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "protocol_id": "alt2027-smoke-v1",
+  "status": "smoke",
+  "manuscript": "manuscript/snapshots/2026-10-07-alt-start/alt.tex",
+  "units": {
+    "log_evidence": "nats",
+    "loss": "bits"
+  },
+  "decisions": {
+    "purpose": "Small domains for end-to-end validation. No paper estimates."
+  },
+  "experiments": {
+    "architecture": {
+      "d": 24,
+      "depth": 4,
+      "seed": 7,
+      "artifact": "fig:lsa"
+    },
+    "spectrum": {
+      "panels": [
+        {
+          "d": 8,
+          "n": 4,
+          "max_depth": 2,
+          "show_depths": [
+            0,
+            1,
+            2
+          ]
+        }
+      ],
+      "alphas": [
+        0,
+        2
+      ],
+      "trials": 2,
+      "seed": 20260401,
+      "artifact": "fig:spectrum"
+    },
+    "benchmark_primary": {
+      "d": 8,
+      "n_values": [
+        4,
+        8
+      ],
+      "trials": 2,
+      "seed": 2026100701,
+      "sample_set_id": "primary",
+      "targets": [
+        "uniform",
+        "step",
+        "zipf_1",
+        "zipf_1.5",
+        "zipf_2",
+        "zipf_3",
+        "zipf_4",
+        "zipf_5",
+        "geometric",
+        "dirichlet_1",
+        "dirichlet_half"
+      ],
+      "methods": [
+        "add_one",
+        "kt",
+        "ristad",
+        "good_turing_hybrid",
+        "dirichlet_concentration_mixture",
+        "absolute_discounting",
+        "lsa_fixed",
+        "lsa_depth_mixture",
+        "oracle"
+      ],
+      "depths": [
+        0,
+        1,
+        2
+      ],
+      "fixed_depth": 2,
+      "powers": [],
+      "normalize_numerical": true,
+      "numerical_normalization_tolerance": 0.001,
+      "dirichlet_exponents": [
+        -2,
+        0,
+        2
+      ],
+      "dirichlet_target_policy": "redraw_per_trial_shared_across_n",
+      "sample_size_policy": "independent_multinomial_per_n"
+    },
+    "benchmark_powers": {
+      "d": 8,
+      "n_values": [
+        4
+      ],
+      "trials": 2,
+      "seed": 2026100702,
+      "sample_set_id": "powers",
+      "targets": [
+        "uniform",
+        "step",
+        "zipf_1",
+        "zipf_1.5",
+        "zipf_2",
+        "zipf_3",
+        "zipf_4",
+        "zipf_5",
+        "geometric",
+        "dirichlet_1",
+        "dirichlet_half"
+      ],
+      "methods": [
+        "add_one",
+        "kt",
+        "ristad",
+        "good_turing_hybrid",
+        "dirichlet_concentration_mixture",
+        "absolute_discounting",
+        "lsa_fixed",
+        "lsa_depth_mixture",
+        "power_mixture",
+        "oracle"
+      ],
+      "depths": [
+        0,
+        1,
+        2
+      ],
+      "fixed_depth": 2,
+      "powers": [
+        0,
+        1,
+        2
+      ],
+      "normalize_numerical": true,
+      "numerical_normalization_tolerance": 0.001,
+      "dirichlet_exponents": [
+        -2,
+        0,
+        2
+      ],
+      "dirichlet_target_policy": "redraw_per_trial_shared_across_n",
+      "sample_size_policy": "independent_multinomial_per_n"
+    },
+    "bible": {
+      "corpus": "data/kjv.txt.gz",
+      "manifest": "data/kjv.manifest.json",
+      "d": 16,
+      "prefixes": [
+        4,
+        8
+      ],
+      "short_prefixes": [
+        2
+      ],
+      "chain_rule_steps": 8,
+      "depths": [
+        0,
+        1,
+        2
+      ],
+      "dirichlet_exponents": [
+        -2,
+        0,
+        2
+      ],
+      "methods": [
+        "add_one",
+        "kt",
+        "ristad",
+        "good_turing_hybrid",
+        "dirichlet_concentration_mixture",
+        "lsa_depth_mixture"
+      ],
+      "artifact": "tab:bible"
+    },
+    "bible_secondary": {
+      "corpus": "data/kjv-secondary.txt.gz",
+      "manifest": "data/kjv-secondary.manifest.json",
+      "d": 16,
+      "prefixes": [
+        4,
+        8
+      ],
+      "short_prefixes": [],
+      "chain_rule_steps": 0,
+      "depths": [],
+      "dirichlet_exponents": [
+        -24,
+        -23,
+        -22,
+        -21,
+        -20,
+        -19,
+        -18,
+        -17,
+        -16,
+        -15,
+        -14,
+        -13,
+        -12,
+        -11,
+        -10,
+        -9,
+        -8,
+        -7,
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "methods": [
+        "add_one",
+        "kt",
+        "ristad",
+        "good_turing_hybrid",
+        "dirichlet_concentration_mixture"
+      ],
+      "artifact": "Bible controls paragraph"
+    },
+    "factorial": {
+      "ds": [
+        8,
+        16
+      ],
+      "ns": [
+        4,
+        8
+      ],
+      "alphas": [
+        2
+      ],
+      "trials": 2,
+      "seed": 2026100703,
+      "depth_rule": "fixed",
+      "fixed_depth": 2,
+      "table_ns": [
+        4,
+        8
+      ],
+      "table_ds": [
+        8,
+        16
+      ],
+      "artifacts": [
+        "tab:alphabet",
+        "tab:data"
+      ]
+    },
+    "depth_scaling": {
+      "d": 8,
+      "n": 4,
+      "alphas": [
+        2
+      ],
+      "c_values": [
+        0.25,
+        0.5,
+        0.75,
+        1
+      ],
+      "trials": 2,
+      "seed": 20260402,
+      "heuristic_offset": "alpha_log2_e_minus_2",
+      "artifact": "fig:depth"
+    },
+    "validation": {
+      "purpose": "smoke",
+      "exchangeability": [
+        {
+          "d": 8,
+          "depths": [
+            0,
+            1,
+            2
+          ],
+          "tolerance_nats": 1e-07
+        },
+        {
+          "d": 16,
+          "depths": [
+            0,
+            1,
+            2
+          ],
+          "tolerance_nats": 1e-07
+        }
+      ],
+      "predictive_normalization": [
+        {
+          "d": 8,
+          "n": 4,
+          "alpha": 1.5,
+          "seed": 11,
+          "depths": [
+            0,
+            1,
+            2
+          ],
+          "tolerance": 1e-06
+        }
+      ],
+      "l1_cases": [
+        {
+          "d": 7,
+          "partition": [
+            3,
+            2,
+            1
+          ]
+        }
+      ],
+      "independent_l2": true,
+      "support_identity": true,
+      "artifact": "app:validation"
+    }
+  },
+  "reports": {
+    "roles": [
+      "tab:bench",
+      "fig:orlitsky",
+      "tab:posteriors",
+      "tab:powers-bench",
+      "paired_differences",
+      "uniform_component_ablation"
+    ],
+    "table_n": 4,
+    "posterior_n_values": [
+      4,
+      8
+    ],
+    "posterior_mass": 0.95,
+    "posterior_broad_min_depths": 5,
+    "posterior_individual_min_weight": 0.05,
+    "uniform_floor": 1e-14
+  }
+}

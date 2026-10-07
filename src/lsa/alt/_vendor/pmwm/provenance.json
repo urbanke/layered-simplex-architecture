@@ -1,0 +1,28 @@
+{
+  "repository": "https://github.com/urbanke/product_model_with_memory",
+  "commit": "240406d16be0e7c5dcd7d2ee0e14d5ee4f28c915",
+  "files": {
+    "layered.py": {
+      "upstream_sha256": "c0fd561c85aacd74077b429fbc7b1385516954b4f3f49d696474c1d8c8c6950d",
+      "vendored_sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "fast_tables.py": {
+      "upstream_sha256": "dd422e92e9be1864c2f21bfbe95b6eedc37fb920974d742f830110061c59ca58",
+      "vendored_sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "mellin.py": {
+      "upstream_sha256": "201e2161b98a5b3dcf464930447c02dc22092fe78dec9e49b44bd8b2b931f969",
+      "vendored_sha256": "a32f3b07b99f0d91cc3cbbd3d6e6718c52607b23c92aa8403f112ae2c2eee39a"
+    },
+    "universal_tables.py": {
+      "upstream_sha256": "aef2f63c0ccdb4de58bb8c617dd99aaadc73b803bee67a029f5d89230878d5c2",
+      "vendored_sha256": "2f4c51b1e05e2febee3e2daf506396120d8eac36c04bab7c2da25aa0c931d854"
+    }
+  },
+  "changes": [
+    "Internal imports namespaced to lsa.alt._vendor.pmwm.",
+    "os imports routed through private configuration proxy; filesystem operations otherwise forwarded.",
+    "Local kernel shim selects upstream Python/NumPy fallback and never compiles or writes source directories."
+  ],
+  "scientific_expressions_changed": false
+}

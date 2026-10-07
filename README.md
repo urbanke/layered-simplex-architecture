@@ -22,24 +22,25 @@ specifications, validation records, and the results used to produce the paper.
 
 ## Current stage
 
-The ALT source is prepared and compiles. The existing numerical package and
-experiment drivers provide the starting implementations for the reruns. The ALT
-inventory records the remaining method and protocol work, including the uniform
-component, powered layers, comparator coverage, and paired trial records.
+The ALT source is prepared and compiles. The first executable campaign is in
+`src/lsa/alt/`, with an explicit protocol, all manuscript comparators, the
+single-layer power mixture, saved common samples, and report generators for the
+retained plots and tables. A small end-to-end campaign exercises every family.
 
-The authors first agree on the text and experiment specification. We then
-validate the implementations, freeze run settings, rerun the retained experiments,
-and regenerate the paper's figures and tables from the saved results. Changes to
-an agreed setting receive a new protocol revision and a new run identifier.
+The next milestone is full-domain numerical calibration, followed by the
+production protocol freeze and fresh runs. The current protocol has status
+`implementation`; the runner enforces this distinction. Detailed status and
+commands are in [the campaign guide](experiments/alt2027/README.md).
 
 ## Code setup
 
-Python 3.11 or newer:
+Python 3.11 or newer for the package; the ALT lock was tested on Python 3.14.6:
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[dev]'
+python -m pip install -r requirements-alt.lock
+python -m pip install --no-deps -e '.[dev]'
 ```
 
 The existing numerical checks are:
@@ -51,8 +52,8 @@ python -m pytest -q
 
 The validation script retains its historical filename. Full numerical validation
 is required when numerical code changes. ALT validation also covers the additional
-models and the full domain of its agreed experiments. The environment lock and
-recorded package versions will be captured with that validated implementation.
+models and the full domain of its agreed experiments. The exact dependency lock and installed package versions are recorded with
+each run. See `requirements-alt.lock`.
 
 ## Repository layout
 
