@@ -50,6 +50,22 @@ profiles always share the same grid. A remaining unresolved peak, tail failure,
 or invalid probability mass stops that evaluation. Recorded diagnostics retain
 the requested/actual spacing, number of refinements, and integration boundaries.
 
+If a direct-contour level fails the measured right-boundary gap, it also retries
+the entire depth with a wider upper bound. The explicit `StoreConfig` defaults
+are `u_max=35`, `upper_window_increment=25`, and `maximum_u_max=80`, giving
+attempts at 35, 60 and 80. Existing spacing refinements are preserved across
+window retries. Already resolved levels retain their initial grid and result;
+narrow or otherwise unresolved peaks keep their separate refinement/failure
+path. Reaching the upper-bound cap still raises an error, without weakening any
+tail or normalization tolerance. Set `maximum_u_max=u_max` to disable expansion.
+
+Automatic expansion applies only at or above the direct-contour switch selected
+by `saddle_min_depth`. Stored levels retain the configured initial bound, 35 in
+the candidate configuration: expanding them globally would request additional
+right-series/contour values outside the stored grid. Every accepted numerical
+component records `initial_u_max`, `actual_u_max`, `window_expansions` and
+`upper_window_history`, alongside its actual grid spacing and refinement count.
+
 ## Declared calibration suites
 
 The five `*-validation.json` specifications in `experiments/alt2027/` freeze

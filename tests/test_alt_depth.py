@@ -275,6 +275,185 @@ def test_observed_transition_equals_full_predictor():
         )
 
 
+def _mock_window_engine(tiny_store, monkeypatch, *, direct=True, maximum=80, increment=25):
+    """Real adapter/store guards; only numerical tables/scans are mocked."""
+    from dataclasses import replace
+    from types import SimpleNamespace
+
+    config = replace(tiny_store, max_depth=80 if direct else 2,
+                     saddle_min_depth=54 if direct else None,
+                     maximum_u_max=maximum, upper_window_increment=increment)
+    engine = DepthEvaluator(mode="store", store=config)
+    monkeypatch.setattr(engine._store, "level_tables",
+                        lambda L, rs, grid: SimpleNamespace(u_grid=grid))
+    return engine
+
+
+def _mock_scan_result(kwargs, partition, **changes):
+    from lsa.alt._vendor.pmwm.layered import QLambdaResult
+
+    # A common window-dependent offset makes stale parents/earlier families
+    # detectable: their evidence must come from the final complete attempt.
+    d, n = kwargs["d"], sum(partition)
+    upper = float(kwargs["tables"].u_grid[-1])
+    log_q = math.lgamma(d)-math.lgamma(d+n)
+    log_q += sum(math.lgamma(r+1) for r in partition) + upper/100
+    fields = {"log_q": log_q, "method": "mock-window", "d": d, "L": kwargs["L"],
+              "N": n, "partition": tuple(partition), "converged": True,
+              "right_gap": 100., "message": "resolved peak"}
+    fields.update(changes)
+    return QLambdaResult(**fields)
+
+
+def test_window_retry_recomputes_all_families_and_preserves_step_refinement(
+    tiny_store, monkeypatch
+):
+    from dataclasses import replace
+
+    from lsa.alt._vendor.pmwm import layered
+
+    calls = []
+
+    def scan_family(**kwargs):
+        grid, part = kwargs["tables"].u_grid, kwargs["base_partition"]
+        upper, step = float(grid[-1]), float(grid[1]-grid[0])
+        calls.append((part, upper, step))
+        parent = _mock_scan_result(kwargs, part)
+        children = {}
+        for c in kwargs["cs"]:
+            augmented = list(part)
+            if c:
+                augmented.remove(c)
+            augmented.append(c+1)
+            children[c] = _mock_scan_result(kwargs, augmented)
+        # The final child of the second family fails, after other records have
+        # already been collected. All records must be discarded and recomputed.
+        if part == (3,):
+            if step > 0.006:
+                children[3] = replace(children[3], message="NARROW synthetic peak")
+            elif upper < 80:
+                children[3] = replace(children[3], converged=False, right_gap=0.,
+                                      message="left tail only")
+        return parent, children
+
+    monkeypatch.setattr(layered, "log_q_lambda_scan_family", scan_family)
+    with _mock_window_engine(tiny_store, monkeypatch) as engine:
+        results = engine.prediction_by_count_batch(4, {"a": (2, 1), "b": (3,)}, depths=[80])
+    assert [call[1] for call in calls[::2]] == [35, 35, 35, 60, 80]
+    assert [call[0] for call in calls] == [(2, 1), (3,)]*5
+    assert all(call[2] < 0.006 for call in calls[4:])
+    for name, part in {"a": (2, 1), "b": (3,)}.items():
+        result = results[name]
+        expected = math.lgamma(4)-math.lgamma(7)+sum(math.lgamma(r+1) for r in part)+.8
+        assert result.component_log_evidence[0] == pytest.approx(expected, abs=1e-14)
+        assert result.diagnostics["maximum_normalization_error"] < 1e-14
+        diagnostics = [result.diagnostics["base"], *result.diagnostics["augmented"].values()]
+        for record in diagnostics:
+            diag = record["components"][0]
+            assert diag["initial_u_max"] == 35
+            assert diag["actual_u_max"] == 80
+            assert diag["upper_window_history"] == [35, 60, 80]
+            assert diag["window_expansions"] == 2
+            assert diag["grid_refinements"] == 2
+            assert diag["requested_grid_step"] == .005
+
+
+@pytest.mark.parametrize("direct,maximum,expected", [
+    (True, 80, [35, 60, 80]), (True, 35, [35]), (False, 80, [35]),
+])
+def test_window_expansion_is_capped_and_disabled_for_stored_levels(
+    tiny_store, monkeypatch, direct, maximum, expected
+):
+    from lsa.alt._vendor.pmwm import layered
+
+    calls = []
+
+    def failed(**kwargs):
+        calls.append(float(kwargs["tables"].u_grid[-1]))
+        return _mock_scan_result(kwargs, kwargs["partition"], converged=False,
+                                 right_gap=0., message="left tail only")
+
+    monkeypatch.setattr(layered, "log_q_lambda_scan", failed)
+    with (
+        _mock_window_engine(tiny_store, monkeypatch, direct=direct, maximum=maximum) as engine,
+        pytest.raises(NumericalError, match="right_gap=0") as caught,
+    ):
+        engine.evidence_at_depths(4, (2, 1), [80 if direct else 2])
+    assert calls == expected
+    assert ("upper-window limit" in str(caught.value)) == direct
+
+
+@pytest.mark.parametrize("message,gap,converged", [
+    ("unresolved curvature", 0., False), ("unresolved kernel", 100., False),
+    ("invalid kernel", None, False), ("invalid gap", -math.inf, False),
+])
+def test_window_does_not_retry_unrelated_scan_failures(tiny_store, monkeypatch, message, gap, converged):
+    from lsa.alt._vendor.pmwm import layered
+
+    calls = []
+
+    def failed(**kwargs):
+        calls.append(float(kwargs["tables"].u_grid[-1]))
+        return _mock_scan_result(kwargs, kwargs["partition"], converged=converged,
+                                 right_gap=gap, message=message)
+
+    monkeypatch.setattr(layered, "log_q_lambda_scan", failed)
+    with (
+        _mock_window_engine(tiny_store, monkeypatch) as engine,
+        pytest.raises(NumericalError),
+    ):
+        engine.evidence_at_depths(4, (2, 1), [80])
+    assert calls == [35]
+
+
+def test_window_retry_rejects_increment_too_small_to_advance(tiny_store, monkeypatch):
+    from lsa.alt._vendor.pmwm import layered
+
+    calls = []
+
+    def failed(**kwargs):
+        calls.append(float(kwargs["tables"].u_grid[-1]))
+        return _mock_scan_result(kwargs, kwargs["partition"], converged=False,
+                                 right_gap=0., message="left tail only")
+
+    monkeypatch.setattr(layered, "log_q_lambda_scan", failed)
+    with (
+        _mock_window_engine(tiny_store, monkeypatch, increment=1e-20) as engine,
+        pytest.raises(NumericalError, match="no representable progress"),
+    ):
+        engine.evidence_at_depths(4, (2, 1), [80])
+    assert calls == [35]
+
+
+def test_resolved_scan_keeps_initial_window(tiny_store, monkeypatch):
+    from lsa.alt._vendor.pmwm import layered
+
+    calls = []
+
+    def resolved(**kwargs):
+        calls.append(float(kwargs["tables"].u_grid[-1]))
+        return _mock_scan_result(kwargs, kwargs["partition"])
+
+    monkeypatch.setattr(layered, "log_q_lambda_scan", resolved)
+    with _mock_window_engine(tiny_store, monkeypatch) as engine:
+        result = engine.evidence_at_depths(4, (2, 1), [80])
+    assert calls == [35]
+    diag = result.diagnostics["components"][0]
+    assert diag["window_expansions"] == 0
+    assert diag["initial_u_max"] == diag["actual_u_max"] == 35
+
+
+@pytest.mark.parametrize("values", [
+    {"maximum_u_max": 34}, {"maximum_u_max": math.inf},
+    {"upper_window_increment": 0}, {"upper_window_increment": math.nan},
+])
+def test_window_policy_requires_finite_consistent_bounds(tiny_store, values):
+    from dataclasses import replace
+
+    with pytest.raises(ValueError):
+        replace(tiny_store, **values)
+
+
 def test_vendor_hashes_match_recorded_transformations():
     from pathlib import Path
 

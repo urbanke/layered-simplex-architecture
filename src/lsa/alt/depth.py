@@ -32,6 +32,10 @@ class NumericalError(RuntimeError):
     """An accuracy or immutable-input check failed."""
 
 
+class _RightTailError(NumericalError):
+    """The measured right-boundary gap is below its required threshold."""
+
+
 class UnsupportedDomain(ValueError):
     """A request is outside the explicitly supported numerical domain."""
 
@@ -89,7 +93,11 @@ class StoreConfig:
 
     ``files_sha256`` must cover the manifest, anchor grid when used, and all
     level index/data files in the store. Paths are relative to ``path``.
-    Saddle substitution is disabled unless ``saddle_min_depth`` is supplied.
+    The legacy key ``saddle_min_depth`` selects the direct-contour provider;
+    the inaccurate historical saddle shortcut is not used by this adapter.
+    Only direct-contour levels may extend ``u_max`` after a right-tail failure,
+    by ``upper_window_increment`` up to ``maximum_u_max``. Stored levels keep
+    their configured initial bound. Set maximum_u_max=u_max to disable retries.
     All requested depths must be within ``max_depth``; no depth truncation is
     used. A separate passed calibration enables production for this config.
     """
@@ -106,6 +114,8 @@ class StoreConfig:
     grid_step: float = 0.02
     minimum_grid_step: float = 0.0025
     u_max: float = 35.0
+    maximum_u_max: float = 80.0
+    upper_window_increment: float = 25.0
     scan_mode: str = "full"
     significance_gap: float = 40.0
     minimum_right_gap: float = 30.0
@@ -127,6 +137,7 @@ class StoreConfig:
             "minimum_grid_step",
             "significance_gap",
             "minimum_right_gap",
+            "upper_window_increment",
         ):
             if not math.isfinite(getattr(self, name)) or getattr(self, name) <= 0:
                 raise ValueError(f"{name} must be finite and positive")
@@ -134,6 +145,8 @@ class StoreConfig:
             raise ValueError("minimum_grid_step must not exceed grid_step")
         if not math.isfinite(self.u_max):
             raise ValueError("u_max must be finite")
+        if not math.isfinite(self.maximum_u_max) or self.maximum_u_max < self.u_max:
+            raise ValueError("maximum_u_max must be finite and at least u_max")
         if self.series_tail_nats is not None and (
             not math.isfinite(self.series_tail_nats) or self.series_tail_nats <= 0
         ):
@@ -486,11 +499,17 @@ class DepthEvaluator:
                 # mixing coarse parents and fine children corrupts ratios.
                 step = config.grid_step
                 refinements = 0
+                upper = config.u_max
+                upper_history = [upper]
+                direct_contour = (
+                    config.saddle_min_depth is not None
+                    and L >= config.saddle_min_depth
+                )
                 while True:
                     grid = np.linspace(
                         lo,
-                        config.u_max,
-                        math.ceil((config.u_max - lo) / step) + 1,
+                        upper,
+                        math.ceil((upper - lo) / step) + 1,
                     )
                     tables = self._store.level_tables(L, sorted(rs), grid)
                     records = {}
@@ -505,11 +524,18 @@ class DepthEvaluator:
                         spacing=float(grid[1] - grid[0]),
                         refinements=refinements,
                         step=step,
+                        upper=upper,
+                        upper_history=tuple(upper_history),
+                        initial_upper=config.u_max,
                     ):
                         diagnostic.update(
                             outer_grid_step=spacing,
                             grid_refinements=refinements,
                             requested_grid_step=step,
+                            initial_u_max=initial_upper,
+                            actual_u_max=upper,
+                            window_expansions=len(upper_history) - 1,
+                            upper_window_history=list(upper_history),
                         )
                         records[key] = (depth, value, diagnostic)
 
@@ -543,6 +569,22 @@ class DepthEvaluator:
                                 )
                                 self._accept_scan(collect, key, L, result)
                         break
+                    except _RightTailError as exc:
+                        if not direct_contour:
+                            raise
+                        if upper >= config.maximum_u_max:
+                            raise NumericalError(
+                                f"{exc}; upper-window limit {upper:g} reached"
+                            ) from exc
+                        next_upper = min(
+                            config.maximum_u_max, upper + config.upper_window_increment
+                        )
+                        if next_upper <= upper:
+                            raise NumericalError(
+                                f"{exc}; upper-window increment makes no representable progress"
+                            ) from exc
+                        upper = next_upper
+                        upper_history.append(upper)
                     except NumericalError as exc:
                         if "NARROW" not in str(exc) or step <= config.minimum_grid_step:
                             raise
@@ -559,16 +601,28 @@ class DepthEvaluator:
         return {key: self._result(depths, out[key], diagnostics[key]) for key in clean}
 
     def _accept_scan(self, accept, key, L, result):
+        # A finite measured gap identifies a window failure. Narrow or otherwise
+        # unresolved peaks retain their own failure/refinement path instead of
+        # being hidden by an unrelated window expansion.
+        gap_below_threshold = (
+            result.right_gap is not None
+            and result.right_gap < self.store_config.minimum_right_gap
+        )
+        right_tail_failed = gap_below_threshold and math.isfinite(result.right_gap)
         if (
             not result.converged
             or "NARROW" in result.message
             or "unresolved" in result.message
-            or (
-                result.right_gap is not None
-                and result.right_gap < self.store_config.minimum_right_gap
-            )
+            or gap_below_threshold
         ):
-            raise NumericalError(
+            error_type = (
+                _RightTailError
+                if right_tail_failed
+                and "NARROW" not in result.message
+                and "unresolved" not in result.message
+                else NumericalError
+            )
+            raise error_type(
                 f"unresolved depth-{L} evidence: {result.message}; right_gap={result.right_gap}"
             )
         accept(
