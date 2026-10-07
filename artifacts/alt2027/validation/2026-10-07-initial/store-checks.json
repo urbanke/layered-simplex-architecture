@@ -1,0 +1,142 @@
+[
+  {
+    "name": "L0_uniform[0]",
+    "residual": 0.0,
+    "status": "passed",
+    "tolerance": 2e-09,
+    "units": "nats"
+  },
+  {
+    "name": "L1_add_one[0]",
+    "residual": 1.7763568394002505e-15,
+    "status": "passed",
+    "tolerance": 2e-09,
+    "units": "nats"
+  },
+  {
+    "name": "L1_relative_log_evidence[0]",
+    "residual": -1.6262451976062898e-16,
+    "status": "passed",
+    "tolerance": 2e-09,
+    "units": "relative error of log evidence (not probability)"
+  },
+  {
+    "name": "exchangeability[0].L5",
+    "residual": 1.0963815074132438e-08,
+    "status": "passed",
+    "tolerance": 2e-05,
+    "units": "nats"
+  },
+  {
+    "name": "exchangeability[0].L22",
+    "residual": 2.9042901417142275e-10,
+    "status": "passed",
+    "tolerance": 2e-05,
+    "units": "nats"
+  },
+  {
+    "name": "exchangeability[1].L5",
+    "residual": 1.1672645841434917e-11,
+    "status": "passed",
+    "tolerance": 0.002,
+    "units": "nats"
+  },
+  {
+    "name": "exchangeability[1].L22",
+    "residual": 2.4923562963463652e-08,
+    "status": "passed",
+    "tolerance": 0.002,
+    "units": "nats"
+  },
+  {
+    "name": "predictive_normalization[0]",
+    "residual": 6.111111616746712e-12,
+    "status": "passed",
+    "tolerance": 0.0004,
+    "units": "absolute probability mass error"
+  },
+  {
+    "name": "independent_L2_simplex",
+    "residual": 6.050715484207103e-15,
+    "status": "passed",
+    "tolerance": 2e-09,
+    "units": "absolute sequence probability error"
+  },
+  {
+    "name": "kernel_recursion_L2",
+    "residual": 3.552713678800501e-15,
+    "status": "passed",
+    "tolerance": 2e-06,
+    "units": "nats (log kernel)"
+  },
+  {
+    "name": "discovered_set_KL_decomposition",
+    "residual": -1.27675647831893e-15,
+    "status": "passed",
+    "tolerance": 5e-13,
+    "units": "nats"
+  },
+  {
+    "name": "finite_sequence_normalization",
+    "residual": -2.220446049250313e-15,
+    "status": "passed",
+    "tolerance": 5e-13,
+    "units": "absolute probability mass error"
+  },
+  {
+    "name": "naming_only_lower_bound_counterexample",
+    "residual": 0.10237027775965596,
+    "status": "passed",
+    "tolerance": 1e-10,
+    "units": "nats"
+  },
+  {
+    "name": "mellin_rows_through_138",
+    "residual": null,
+    "status": "pending",
+    "tolerance": null,
+    "units": null
+  },
+  {
+    "name": "recursion_mellin_45_digit",
+    "residual": null,
+    "status": "pending",
+    "tolerance": null,
+    "units": null
+  },
+  {
+    "name": "prior_monte_carlo",
+    "residual": null,
+    "status": "pending",
+    "tolerance": null,
+    "units": null
+  },
+  {
+    "name": "appendix_simplex_quadrature_cases",
+    "residual": null,
+    "status": "pending",
+    "tolerance": null,
+    "units": null
+  },
+  {
+    "name": "appendix_independent_reference_cases",
+    "residual": null,
+    "status": "pending",
+    "tolerance": null,
+    "units": null
+  },
+  {
+    "name": "bible_chain_rule_thousands_of_steps",
+    "residual": null,
+    "status": "pending",
+    "tolerance": null,
+    "units": null
+  },
+  {
+    "name": "full_alt_domain_calibration",
+    "residual": null,
+    "status": "pending",
+    "tolerance": null,
+    "units": null
+  }
+]

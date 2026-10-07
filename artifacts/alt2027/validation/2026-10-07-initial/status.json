@@ -1,0 +1,53 @@
+{
+  "archive": {
+    "bytes": 368882,
+    "file": "end-to-end-validation.tar.gz",
+    "sha256": "5937948e04a7711ac0cdf75cfbe839e306bd5a45a1b7cfc64d16fac3f4cecf53"
+  },
+  "end_to_end_smoke": {
+    "all_manifests_verified": true,
+    "experiment_families": [
+      "bible",
+      "bible_secondary",
+      "benchmark_powers",
+      "factorial",
+      "benchmark_primary",
+      "architecture",
+      "spectrum",
+      "validation",
+      "depth_scaling"
+    ],
+    "reports_generated": true,
+    "same_source_tree": true
+  },
+  "full_pytest": {
+    "failed": 0,
+    "log": "pytest-final.txt",
+    "passed": 209
+  },
+  "historical_appendix_c": {
+    "log": "appendix-c-final.txt",
+    "passed": true
+  },
+  "implementation_commit": "6378e36ca90159cf94050a7fc993bb72bb803910",
+  "production_started": false,
+  "purpose": "initial implementation validation; not production paper estimates",
+  "schema_version": 1,
+  "source_tree_sha256": "9eed6e564beb532d4147a1e9f25262a4d9e5a3c6869c0d7e375f6c416d59769c",
+  "store_validation": {
+    "configuration_sha256": "99946b35e01b100d9297c9456ebc7066d05afac24403a049cd2a45b4b11c945f",
+    "failed": 0,
+    "passed": 13,
+    "pending": 7,
+    "pending_checks": [
+      "mellin_rows_through_138",
+      "recursion_mellin_45_digit",
+      "prior_monte_carlo",
+      "appendix_simplex_quadrature_cases",
+      "appendix_independent_reference_cases",
+      "bible_chain_rule_thousands_of_steps",
+      "full_alt_domain_calibration"
+    ],
+    "status": "partial"
+  }
+}
