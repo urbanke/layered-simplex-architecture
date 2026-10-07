@@ -8,6 +8,7 @@ sample set, so the primary and power replication are distinct immutable runs.
 from __future__ import annotations
 
 import hashlib
+import io
 import json
 import math
 import time
@@ -382,24 +383,117 @@ def aggregate_records(records: Sequence[Mapping[str, Any]], config: Mapping[str,
             "targets": cells}
 
 
+def _batch_sample_entries(manifest, config):
+    """Validate full coverage before evaluating a saved cohort."""
+    expected = {(target, trial) for target in config["targets"]
+                for trial in range(config["trials"])}
+    entries = manifest["files"]
+    identities = [(entry["target_id"], entry["trial"]) for entry in entries]
+    if len(identities) != len(expected) or set(identities) != expected:
+        raise ValueError("saved sample manifest has incomplete or duplicate trial identities")
+    if len({entry["path"] for entry in entries}) != len(entries):
+        raise ValueError("saved sample manifest reuses a sample path")
+    for entry in entries:
+        expected_coordinates = [config["seed"], TARGET_IDS.index(entry["target_id"]), entry["trial"]]
+        if entry["rng_coordinates"] != expected_coordinates:
+            raise ValueError("saved sample RNG coordinates do not match trial identity")
+    return entries
+
+
+def _batched_saved_trials(config, samples_dir, entries, evaluator, batch_size,
+                          preparation_stream, batching):
+    """Hold at most batch_size saved files and one n's arrays/predictions."""
+    for offset in range(0, len(entries), batch_size):
+        cohort = entries[offset:offset + batch_size]
+        payloads = []
+        # Load the exact verified bytes; subsequent scoring does not reopen a
+        # path that could have changed between hashing and reading its arrays.
+        for entry in cohort:
+            path = Path(samples_dir) / entry["path"]
+            payload = path.read_bytes()
+            if hashlib.sha256(payload).hexdigest() != entry["sha256"]:
+                raise ValueError(f"sample checksum mismatch: {path}")
+            payloads.append(payload)
+        for n in config["n_values"]:
+            loaded = []
+            for entry, payload in zip(cohort, payloads, strict=True):
+                with np.load(io.BytesIO(payload), allow_pickle=False) as sample:
+                    p = validate_probabilities(sample["target"], size=config["d"])
+                    counts = sample[f"counts_{n}"]
+                if (counts.shape != (config["d"],)
+                        or not np.issubdtype(counts.dtype, np.integer)
+                        or np.any(counts < 0) or int(counts.sum()) != n):
+                    raise ValueError("saved count vector does not match n,d")
+                loaded.append((entry, p, counts))
+            # The previous n's cache cannot occupy this cohort's capacity or
+            # retain unnecessary diagnostics. No caller-owned evaluator closes.
+            evaluator.clear()
+            prepared = evaluator.prepare_predictions(
+                [counts for _, _, counts in loaded], depths=config["depths"])
+            record = {"cohort_number": offset // batch_size, "n": n,
+                      "samples": [{"target_id": entry["target_id"], "trial": entry["trial"],
+                                   "path": entry["path"], "sha256": entry["sha256"]}
+                                  for entry in cohort],
+                      "preparation": prepared}
+            preparation_stream.write(json.dumps(jsonable(record), allow_nan=False) + "\n")
+            preparation_stream.flush()
+            batching["cohorts_by_n"] += 1
+            batching["shared_preparation_seconds"] += prepared["seconds"]
+            for entry, p, counts in loaded:
+                yield entry, p, counts, n
+
+
+def _individual_saved_trials(config, samples_dir, entries):
+    for entry in entries:
+        path = Path(samples_dir) / entry["path"]
+        if sha256_file(path) != entry["sha256"]:
+            raise ValueError(f"sample checksum mismatch: {path}")
+        with np.load(path, allow_pickle=False) as sample:
+            p = sample["target"]
+            for n in config["n_values"]:
+                counts = sample[f"counts_{n}"]
+                if counts.shape != (config["d"],) or int(counts.sum()) != n:
+                    raise ValueError("saved count vector does not match n,d")
+                yield entry, p, counts, n
+
+
 def run_benchmark(config: Mapping[str, Any], output_dir: str | Path, *,
                   depth_evaluator: Any, power_evaluator: Any = None,
-                  samples_dir: str | Path | None = None) -> dict:
+                  samples_dir: str | Path | None = None,
+                  batch_size: int | None = None) -> dict:
     """Score one immutable sample set; optionally reuse its saved count files.
 
     Evaluator.predict returns component_probabilities [models,d],
     mixture_probabilities [d], posterior, component_log_evidence (nats),
     and diagnostics. It accepts explicit depths/powers, respectively.
+    With batch_size, depth predictions share kernel preparation within bounded
+    saved-file cohorts, separately for each n. Trial identity and scientific
+    settings are unchanged; record order is n-major within each cohort. Shared
+    preparation times are saved separately from per-trial scoring times.
+    batch_size=None preserves the predict-only evaluator interface.
     """
     config = validate_config(config)
-    if any(m.startswith("lsa_") for m in config["methods"]) and depth_evaluator is None:
+    depth_needed = any(m.startswith("lsa_") for m in config["methods"])
+    if depth_needed and depth_evaluator is None:
         raise ValueError("enabled LSA method has no depth evaluator")
     if "power_mixture" in config["methods"] and power_evaluator is None:
         raise ValueError("enabled power mixture has no power evaluator")
+    if batch_size is not None:
+        batch_size = _positive_int(batch_size, "batch_size")
+        if not depth_needed:
+            raise ValueError("benchmark batching requires an enabled LSA method")
+        if not callable(getattr(depth_evaluator, "prediction_by_count_batch", None)):
+            raise TypeError("benchmark batching requires prediction_by_count_batch")
+        from .batch_depth import BatchedDepthEvaluator
+
+        scoring_depth = BatchedDepthEvaluator(
+            depth_evaluator, chunk_size=batch_size, max_cached_profiles=batch_size)
+    else:
+        scoring_depth = depth_evaluator
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     # Refuse overwrite before doing work; root runtime may pre-create the folder.
-    for name in ("benchmark-config.json", "trials.jsonl", "summary.json"):
+    for name in ("benchmark-config.json", "trials.jsonl", "summary.json", "batching.jsonl"):
         if (output_dir / name).exists():
             raise FileExistsError(output_dir / name)
     _write_json(output_dir / "benchmark-config.json", config)
@@ -413,33 +507,48 @@ def run_benchmark(config: Mapping[str, Any], output_dir: str | Path, *,
             raise ValueError("saved samples do not match this declared sampling protocol")
     records = []
     started = time.perf_counter()
-    with (output_dir / "trials.jsonl").open("x", encoding="utf8") as stream:
-        for entry in sample_manifest["files"]:
-            path = Path(samples_dir) / entry["path"]
-            if sha256_file(path) != entry["sha256"]:
-                raise ValueError(f"sample checksum mismatch: {path}")
-            with np.load(path, allow_pickle=False) as sample:
-                p = sample["target"]
-                for n in config["n_values"]:
-                    counts = sample[f"counts_{n}"]
-                    if counts.shape != (config["d"],) or int(counts.sum()) != n:
-                        raise ValueError("saved count vector does not match n,d")
-                    trial_start = time.perf_counter()
-                    record = _evaluate_trial(config, p, counts, depth_evaluator, power_evaluator)
-                    record.update(
-                        sample_set_id=config["sample_set_id"], target_id=entry["target_id"],
-                        trial=entry["trial"], n=n, sample_file=entry["path"],
-                        sample_sha256=entry["sha256"], seconds=time.perf_counter() - trial_start,
-                    )
-                    record = jsonable(record)
-                    stream.write(json.dumps(record, allow_nan=False) + "\n")
-                    stream.flush()
-                    # Detailed quadrature logs can be large; retain them on
-                    # disk and keep only aggregation inputs in memory.
-                    records.append({k: v for k, v in record.items() if k != "diagnostics"})
+    batching = None
+    preparation_stream = None
+    if batch_size is None:
+        saved_trials = _individual_saved_trials(config, samples_dir, sample_manifest["files"])
+    else:
+        entries = _batch_sample_entries(sample_manifest, config)
+        batching = {"batch_size": batch_size, "cohorts_by_n": 0,
+                    "shared_preparation_seconds": 0.0,
+                    "timing": "per-trial seconds exclude shared depth preparation; total seconds include it",
+                    "adapter_configuration": scoring_depth.configuration,
+                    "adapter_configuration_sha256": scoring_depth.configuration_sha256}
+        preparation_stream = (output_dir / "batching.jsonl").open("x", encoding="utf8")
+        saved_trials = _batched_saved_trials(config, samples_dir, entries, scoring_depth,
+                                             batch_size, preparation_stream, batching)
+    try:
+        with (output_dir / "trials.jsonl").open("x", encoding="utf8") as stream:
+            for entry, p, counts, n in saved_trials:
+                trial_start = time.perf_counter()
+                record = _evaluate_trial(config, p, counts, scoring_depth, power_evaluator)
+                record.update(
+                    sample_set_id=config["sample_set_id"], target_id=entry["target_id"],
+                    trial=entry["trial"], n=n, sample_file=entry["path"],
+                    sample_sha256=entry["sha256"], seconds=time.perf_counter() - trial_start,
+                )
+                record = jsonable(record)
+                stream.write(json.dumps(record, allow_nan=False) + "\n")
+                stream.flush()
+                # Detailed quadrature logs can be large; retain them on
+                # disk and keep only aggregation inputs in memory.
+                records.append({k: v for k, v in record.items() if k != "diagnostics"})
+    finally:
+        saved_trials.close()
+        if preparation_stream is not None:
+            preparation_stream.close()
+            scoring_depth.clear()
     summary = aggregate_records(records, config)
     summary.update(seconds=time.perf_counter() - started,
                    sample_manifest_sha256=sha256_file(Path(samples_dir) / "manifest.json"),
                    trial_records_sha256=sha256_file(output_dir / "trials.jsonl"))
+    if batching is not None:
+        batching["preparation_records_file"] = "batching.jsonl"
+        batching["preparation_records_sha256"] = sha256_file(output_dir / "batching.jsonl")
+        summary["batching"] = batching
     _write_json(output_dir / "summary.json", summary)
     return summary

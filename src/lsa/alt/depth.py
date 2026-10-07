@@ -104,6 +104,7 @@ class StoreConfig:
     ladder_degree: int = 11
     saddle_min_depth: int | None = None
     grid_step: float = 0.02
+    minimum_grid_step: float = 0.0025
     u_max: float = 35.0
     scan_mode: str = "full"
     significance_gap: float = 40.0
@@ -121,9 +122,16 @@ class StoreConfig:
             raise UnsupportedDomain("stored-column design ends at depth 70")
         if self.scan_mode not in ("full", "sparse"):
             raise ValueError("scan_mode must be full or sparse")
-        for name in ("grid_step", "significance_gap", "minimum_right_gap"):
+        for name in (
+            "grid_step",
+            "minimum_grid_step",
+            "significance_gap",
+            "minimum_right_gap",
+        ):
             if not math.isfinite(getattr(self, name)) or getattr(self, name) <= 0:
                 raise ValueError(f"{name} must be finite and positive")
+        if self.minimum_grid_step > self.grid_step:
+            raise ValueError("minimum_grid_step must not exceed grid_step")
         if not math.isfinite(self.u_max):
             raise ValueError("u_max must be finite")
         if self.series_tail_nats is not None and (
@@ -473,42 +481,75 @@ class DepthEvaluator:
                                 f"no pinned store data for depth {L}"
                             )
                 lo = min(-70.0, -L * math.log(max(rs) + 1.0) - 40.0)
-                # Uniform spacing also in the far-left region: peak-width
-                # diagnostics assume a uniform local grid.
-                grid = np.linspace(
-                    lo,
-                    config.u_max,
-                    math.ceil((config.u_max - lo) / config.grid_step) + 1,
-                )
-                tables = self._store.level_tables(L, sorted(rs), grid)
-                served = set()
-                if families:
-                    for base_key, aug_keys in families.items():
-                        if base_key not in pending:
-                            continue
-                        base_result, aug_results = log_q_lambda_scan_family(
-                            d=d,
-                            L=L,
-                            base_partition=clean[base_key],
-                            cs=tuple(aug_keys),
-                            tables=tables,
-                            significance_gap=config.significance_gap,
+                # All members at one level use the same grid. If any peak is
+                # unresolved, discard the entire attempt and refine together:
+                # mixing coarse parents and fine children corrupts ratios.
+                step = config.grid_step
+                refinements = 0
+                while True:
+                    grid = np.linspace(
+                        lo,
+                        config.u_max,
+                        math.ceil((config.u_max - lo) / step) + 1,
+                    )
+                    tables = self._store.level_tables(L, sorted(rs), grid)
+                    records = {}
+
+                    def collect(
+                        key,
+                        depth,
+                        value,
+                        diagnostic,
+                        *,
+                        records=records,
+                        spacing=float(grid[1] - grid[0]),
+                        refinements=refinements,
+                        step=step,
+                    ):
+                        diagnostic.update(
+                            outer_grid_step=spacing,
+                            grid_refinements=refinements,
+                            requested_grid_step=step,
                         )
-                        self._accept_scan(accept, base_key, L, base_result)
-                        served.add(base_key)
-                        for c, key in aug_keys.items():
-                            self._accept_scan(accept, key, L, aug_results[c])
-                            served.add(key)
-                for key, p in pending.items():
-                    if key not in served:
-                        result = log_q_lambda_scan(
-                            d=d,
-                            L=L,
-                            partition=p,
-                            tables=tables,
-                            significance_gap=config.significance_gap,
-                        )
-                        self._accept_scan(accept, key, L, result)
+                        records[key] = (depth, value, diagnostic)
+
+                    try:
+                        served = set()
+                        if families:
+                            for base_key, aug_keys in families.items():
+                                if base_key not in pending:
+                                    continue
+                                base_result, aug_results = log_q_lambda_scan_family(
+                                    d=d,
+                                    L=L,
+                                    base_partition=clean[base_key],
+                                    cs=tuple(aug_keys),
+                                    tables=tables,
+                                    significance_gap=config.significance_gap,
+                                )
+                                self._accept_scan(collect, base_key, L, base_result)
+                                served.add(base_key)
+                                for c, key in aug_keys.items():
+                                    self._accept_scan(collect, key, L, aug_results[c])
+                                    served.add(key)
+                        for key, parts in pending.items():
+                            if key not in served:
+                                result = log_q_lambda_scan(
+                                    d=d,
+                                    L=L,
+                                    partition=parts,
+                                    tables=tables,
+                                    significance_gap=config.significance_gap,
+                                )
+                                self._accept_scan(collect, key, L, result)
+                        break
+                    except NumericalError as exc:
+                        if "NARROW" not in str(exc) or step <= config.minimum_grid_step:
+                            raise
+                        step = max(config.minimum_grid_step, step / 2)
+                        refinements += 1
+                for key, (depth, value, diagnostic) in records.items():
+                    accept(key, depth, value, diagnostic)
 
         if self.mode == "store":
             with self._store_context():
@@ -541,7 +582,7 @@ class DepthEvaluator:
                 "right_gap": result.right_gap,
                 "left_gap": result.left_gap,
                 "peaks": result.peaks,
-                "kernel_branch": "saddle"
+                "kernel_branch": "direct-contour"
                 if self.store_config.saddle_min_depth
                 and L >= self.store_config.saddle_min_depth
                 else "stored",
@@ -635,6 +676,33 @@ class DepthEvaluator:
         )
         self._reference_cache[key] = result
         return result
+
+    def transition_log_evidence(self, d, transitions, *, depths):
+        """Joint scans for just the observed next-count class in each transition.
+
+        ``transitions[key] = (base_profile, previous_count_of_next_symbol)``.
+        This is the same family evaluation as prediction_by_count, without
+        materializing probabilities for unrelated count classes or labels.
+        """
+        expanded, families = {}, {}
+        for key, (partition, count) in transitions.items():
+            d, parts = _profile(d, partition)
+            count = _integer(count, "previous_count")
+            if (count == 0 and len(parts) == d) or (count and count not in parts):
+                raise ValueError("next-symbol count class is absent")
+            augmented = list(parts)
+            if count:
+                augmented.remove(count)
+            augmented.append(count + 1)
+            base_key, child_key = (key, "base"), (key, "child")
+            expanded[base_key] = parts
+            expanded[child_key] = tuple(sorted(augmented, reverse=True))
+            families[base_key] = {count: child_key}
+        results = self._evaluate(d, expanded, _depths(depths), families)
+        return {
+            key: (results[(key, "base")], results[(key, "child")])
+            for key in transitions
+        }
 
     def prediction_by_count(self, d, partition, *, depths):
         return self.prediction_by_count_batch(d, {0: partition}, depths=depths)[0]

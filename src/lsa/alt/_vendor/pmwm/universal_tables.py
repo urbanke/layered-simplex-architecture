@@ -216,30 +216,19 @@ _LADDER_DEGREE = int(os.environ.get("PMM_PHI_LADDER_DEGREE", "7") or 7)
 
 
 def _saddle_row(L: int, r: int, u: np.ndarray) -> np.ndarray:
-    """ln phi without the store: certified small-t series where it
-    applies, order-2 saddle elsewhere.
+    """ALT direct provider above the legacy ``saddle_min_depth`` cutoff.
 
-    This is `log_phi_column`, which already solves the saddle by
-    simultaneous bisection across the whole grid and is the store's own
-    builder for large r.  The first version looped the scalar
-    `log_phi_saddle` per point instead, which cost 3019 s to serve a
-    single level and made sweeping the cutoff impossible; reusing the
-    vectorised path is 41x faster and adds no new arithmetic to get
-    wrong.
-
-    It is also strictly MORE accurate, which matters for what the
-    experiment claims.  In the far-left tail the pure expansion drifts
-    to ~9e-3 nats while the series there is exact to the last bit
-    (measured at L=43, r=157: saddle 2.00e-02, column 0.00e+00 against
-    contour); everywhere else the two agree exactly.  So the
-    substitution measures the evaluator we would actually deploy --- a
-    hybrid that uses each method inside its own regime --- rather than
-    an expansion pushed into a regime no sane implementation would use
-    it in.
+    The private name is retained for upstream call compatibility. October 2026
+    high-precision calibration found O(1e-2) log-kernel errors in the former
+    saddle/unchecked-series path, particularly at r=0. This route now uses
+    direct contour integration and a checked series with a 1e-13 relative
+    threshold. The old approximation remains available only as an explicit
+    diagnostic comparator in mellin.log_phi_column.
     """
 
-    return log_phi_column(float(r), int(L),
-                          np.asarray(u, dtype=np.float64))
+    return exact_log_phi_column(float(r), int(L), np.asarray(u, dtype=np.float64),
+                                oversample=8.0, series_tolerance=1e-13,
+                                contour_tail_nats=40.0)
 
 
 _STENCIL = 8  # 8-point (degree-7) Lagrange interpolation

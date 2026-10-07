@@ -48,6 +48,24 @@ def test_full_factorial_uniform_fixture_has_zero_data_scaling_exponent(tmp_path)
         summarize_scaling(tmp_path / "run")
 
 
+def test_batched_scaling_preserves_draws_and_losses(tmp_path):
+    from lsa.alt.depth import DepthEvaluator
+
+    config = factorial_config()
+    config['trials'] = 5
+    config['fixed_depth'] = 1
+    with DepthEvaluator() as evaluator:
+        single = run_scaling('factorial', config, tmp_path / 'single', evaluator=evaluator)
+        batched = run_scaling('factorial', config, tmp_path / 'batch', evaluator=evaluator, batch_size=3)
+    assert single == batched
+    for index in range(4):
+        with (
+            gzip.open(tmp_path / f'single/samples-{index:04d}.jsonl.gz', 'rt') as a,
+            gzip.open(tmp_path / f'batch/samples-{index:04d}.jsonl.gz', 'rt') as b,
+        ):
+            assert a.read() == b.read()
+
+
 @pytest.mark.parametrize("mutation", ["wrong_alpha", "duplicate_trial", "wrong_n"])
 def test_trial_metadata_must_match_the_complete_declared_grid(tmp_path, mutation):
     run_scaling("factorial", factorial_config(), tmp_path / "run", evaluator=UniformFixture())

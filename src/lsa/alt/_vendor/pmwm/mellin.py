@@ -600,6 +600,8 @@ def exact_log_phi_column(
     *,
     oversample: float = 8.0,
     tail_sigmas: float = 14.0,
+    series_tolerance: float = 1e-13,
+    contour_tail_nats: float = 40.0,
 ) -> np.ndarray:
     """ln phi_r^(L) on a whole u grid by the CERTIFIED methods only.
 
@@ -614,6 +616,10 @@ def exact_log_phi_column(
     and the table is built once.
     """
 
+    if oversample <= 0 or tail_sigmas <= 0 or not 0 < series_tolerance < 1:
+        raise ValueError("positive contour settings and series_tolerance in (0,1) required")
+    if contour_tail_nats <= 0:
+        raise ValueError("contour_tail_nats must be positive")
     u = np.asarray(u_grid, dtype=np.float64)
     if L == 1:
         return float(loggamma(r + 1.0)) - (r + 1.0) * np.log1p(np.exp(u))
@@ -625,7 +631,7 @@ def exact_log_phi_column(
     ser = tau_log < math.log(0.05)
     if ser.any():
         vals, cert = series_column(r, L, u[ser])
-        good = cert < 1e-10
+        good = cert < series_tolerance
         idx = np.flatnonzero(ser)
         out[idx[good]] = vals[good]
         done[idx[good]] = True
@@ -649,7 +655,7 @@ def exact_log_phi_column(
     right = np.flatnonzero(~done & (u > math.log(1.2 * (r + 1.0))))
     if len(right) and not _EXACT:
         vals, cert = right_series_column(r, L, u[right])
-        good = cert < 1e-10
+        good = cert < series_tolerance
         out[right[good]] = vals[good]
         done[right[good]] = True
 
@@ -676,7 +682,9 @@ def exact_log_phi_column(
     # sigma.  Width: 14 Gaussian widths, floored by the |Gamma| decay
     # rate off the axis ((L+1) pi/2 nats per unit height).
     d = np.minimum(z0, r + 1.0 - z0)
-    h = np.minimum(0.4 * sigma, d / 5.0)
+    # ALT calibration: oversample was historically ignored here. Doubling it
+    # now genuinely halves the contour spacing, enabling a refinement check.
+    h = np.minimum(0.4 * sigma, d / 5.0) * (8.0 / oversample)
     # Width: start from the Gaussian scale, then WIDEN until the
     # actual integrand magnitude (evaluated, not modeled) has dropped
     # 34 nats below the peak --- near a pole the tails decay
@@ -688,7 +696,7 @@ def exact_log_phi_column(
         zW = z0 + 1j * W
         decay = (np.real(loggamma(zW)) - z0 * ur
                  + L * np.real(loggamma(r + 1.0 - zW)) - F0)
-        need = decay > -34.0
+        need = decay > -contour_tail_nats
         if not need.any():
             break
         W = np.where(need, 1.4 * W, W)

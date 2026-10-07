@@ -1,8 +1,11 @@
 """Independent checks of E**w, not just a second call to its outer integral."""
 
+import json
 import math
 from dataclasses import replace
+from pathlib import Path
 
+import mpmath as mp
 import numpy as np
 import pytest
 from scipy.integrate import quad
@@ -147,3 +150,97 @@ def test_failed_quadrature_is_not_silently_accepted():
 def test_reject_invalid_or_out_of_domain_inputs(counts, powers):
     with pytest.raises(ValueError):
         PowerEvaluator().predict(counts, powers=powers)
+
+
+def test_high_dimensional_w2_against_closed_form_moment_reference():
+    from lsa.alt.power_validation import w2_closed_form_reference
+
+    counts = np.zeros(10_000, dtype=int)
+    counts[:900] = 1
+    counts[900:950] = 2
+    result = PowerEvaluator().prediction_by_count(10_000, counts, powers=[2])
+    diag = result.diagnostics["components"][0]
+    reference = w2_closed_form_reference(
+        10_000, counts, mode=diag["v_mode"], window=diag["v_window"])
+    assert abs(reference["log_evidence"]-result.component_log_evidence[0]) < 2e-8
+    assert np.max(np.abs(np.log(reference["probabilities"]
+                               / result.component_probabilities[0]))) < 2e-9
+    assert abs(reference["diagnostics"]["raw_normalization"]-1) < 2e-9
+
+
+@pytest.mark.parametrize("r,w,v", [(967, 80, 1.0), (967, 80, 2.0), (400, 40, 1.5)])
+def test_large_count_kernel_against_high_precision_direct_exponential_integral(r, w, v):
+    # Independent x-domain integral with arbitrary precision. Its mode omits
+    # the log-coordinate Jacobian used in the production kernel's s integral.
+    with mp.workdps(80):
+        a, wr = mp.exp(v), mp.mpf(w*r)
+        left, right = mp.mpf(0), min(wr, a*mp.power(r, mp.mpf(1)/w))
+        for _ in range(300):
+            middle = (left+right)/2
+            if middle+w*(middle/a)**w < wr:
+                left = middle
+            else:
+                right = middle
+        mode = (left+right)/2
+        q = (mode/a)**w
+        scale = 1/mp.sqrt(mode+w*w*q)
+
+        def drop(z):
+            delta = scale*z
+            return wr*mp.log1p(delta)-mode*delta-q*mp.expm1(w*mp.log1p(delta))
+
+        integral = mp.quad(lambda z: mp.exp(drop(z)), [-20, -10, -4, 0, 4, 10, 20])
+        # Strict concavity in x bounds both omitted tails by tangent integrals.
+        tail_bound = (mp.exp(drop(-20))/mp.diff(drop, -20)
+                      - mp.exp(drop(20))/mp.diff(drop, 20))
+        assert tail_bound/integral < mp.mpf("1e-60")
+        expected = mp.log(mode*scale)+wr*mp.log(mode/a)-mode-q+mp.log(integral)
+        actual, _ = log_scaled_kernel(r, w, v)
+        assert abs(mp.mpf(actual)-expected) < mp.mpf("2e-10")
+
+
+def _small_calibration_config():
+    config = json.loads((Path(__file__).parents[1]
+                         / "experiments/alt2027/power-validation.json").read_text())
+    config.update(d=8, n=4, workers=1, targets=["uniform"], powers=[0, 1, 2],
+                  independent_w2_targets=[])
+    return config
+
+
+def test_power_calibration_retains_profiles_components_and_hashes(tmp_path):
+    from lsa.alt.artifacts import sha256
+    from lsa.alt.power_validation import run_power_validation
+
+    out = tmp_path / "pilot"
+    result = run_power_validation(_small_calibration_config(), out)
+    assert result["status"] == "passed"
+    assert result["source_unchanged"] is True
+    assert result["production_domain_certified"] is False
+    records = [json.loads(line) for line in (out / "uniform/components.jsonl").read_text().splitlines()]
+    assert len(records) == 6
+    assert all(record["status"] == "passed" for record in records)
+    sample = json.loads((out / "samples.json").read_text())["profiles"][0]
+    assert sha256(out / sample["path"]) == sample["sha256"]
+    summary = json.loads((out / "uniform/summary.json").read_text())
+    assert summary["normalization_applied"] is False
+    assert summary["default"]["max_raw_normalization_error"] < 2e-8
+    assert summary["comparison"]["max_predictive_kl_change_bits"] < 1e-5
+    with pytest.raises(FileExistsError):
+        run_power_validation(_small_calibration_config(), out)
+
+
+def test_power_calibration_records_failed_components_without_mixture(tmp_path):
+    from lsa.alt.power_validation import run_power_validation
+
+    config = _small_calibration_config()
+    config["default_settings"]["kernel_max_nodes"] = 32
+    out = tmp_path / "failed-pilot"
+    result = run_power_validation(config, out)
+    assert result["status"] == "failed"
+    summary = json.loads((out / "uniform/summary.json").read_text())
+    assert summary["failures"][0]["power"] == 2
+    assert "default" not in summary
+    records = [json.loads(line) for line in (out / "uniform/components.jsonl").read_text().splitlines()]
+    assert len(records) == 6
+    assert records[2]["status"] == "failed"
+    assert records[5]["status"] == "passed"

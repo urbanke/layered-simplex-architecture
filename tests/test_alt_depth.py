@@ -229,6 +229,52 @@ def test_narrow_peak_is_rejected(tiny_store, monkeypatch):
         evaluator.evidence_at_depths(3, (2, 1), (2,))
 
 
+def test_outer_refinement_retries_entire_family_on_one_grid(tiny_store, monkeypatch):
+    from dataclasses import replace
+
+    from lsa.alt._vendor.pmwm import layered
+
+    original = layered.log_q_lambda_scan_family
+    seen_steps = []
+
+    def narrow_on_coarse_grid(**kwargs):
+        grid = kwargs["tables"].u_grid
+        step = float(grid[1] - grid[0])
+        seen_steps.append(step)
+        parent, children = original(**kwargs)
+        if step > 0.006:
+            parent = replace(parent, message="NARROW synthetic coarse-grid failure")
+        return parent, children
+
+    monkeypatch.setattr(layered, "log_q_lambda_scan_family", narrow_on_coarse_grid)
+    with DepthEvaluator(mode="store", store=tiny_store) as evaluator:
+        parent, child = evaluator.transition_log_evidence(
+            3, {"x": ((2, 1), 0)}, depths=(2,)
+        )["x"]
+        assert len(seen_steps) == 3
+        assert parent.diagnostics["components"][0]["grid_refinements"] == 2
+        assert child.diagnostics["components"][0]["outer_grid_step"] == seen_steps[-1]
+        direct = DepthEvaluator().evidence_at_depths(3, (2, 1, 1), (2,))
+        np.testing.assert_allclose(
+            child.log_evidence, direct.log_evidence, atol=3e-7, rtol=0
+        )
+
+
+def test_observed_transition_equals_full_predictor():
+    evaluator = DepthEvaluator()
+    prediction = evaluator.predict([2, 1, 0, 0], depths=(0, 1, 2))
+    for count, symbol in [(2, 0), (1, 1), (0, 2)]:
+        parent, child = evaluator.transition_log_evidence(
+            4, {"x": ((2, 1), count)}, depths=(0, 1, 2)
+        )["x"]
+        np.testing.assert_allclose(
+            np.exp(child.log_evidence - parent.log_evidence),
+            prediction.component_probabilities[:, symbol],
+            atol=1e-11,
+            rtol=0,
+        )
+
+
 def test_vendor_hashes_match_recorded_transformations():
     from pathlib import Path
 

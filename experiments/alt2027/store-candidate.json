@@ -123,7 +123,8 @@
     "scan_mode": "full",
     "significance_gap": 40.0,
     "minimum_right_gap": 30.0,
-    "series_tail_nats": null
+    "series_tail_nats": null,
+    "minimum_grid_step": 0.0025
   },
-  "note": "Read-only input. Each SHA covers complete file bytes. These hashes identify the store; numerical validation is recorded separately."
+  "note": "Read-only input. Each SHA covers complete file bytes. These hashes identify the store; numerical validation is recorded separately. The legacy saddle_min_depth field selects direct contour evaluation in the ALT adapter."
 }

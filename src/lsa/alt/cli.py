@@ -76,6 +76,22 @@ def run_one(name, protocol, args, directory):
     evaluator = make_depth(args) if needs_depth else None
     power = None
     engine = {"depth": evaluator.configuration if evaluator else None}
+    batch_size = getattr(args, "batch_size", None)
+    if batch_size is not None and batch_size < 1:
+        raise ValueError("batch size must be positive")
+    if batch_size is not None and name in (
+        "benchmark_primary",
+        "benchmark_powers",
+        "spectrum",
+        "factorial",
+        "depth_scaling",
+    ):
+        engine["execution"] = {
+            "batch_size": batch_size,
+            "batch_implementation_sha256": sha256(
+                Path(__file__).with_name("batch_depth.py")
+            ),
+        }
     if name == "benchmark_powers":
         from .powers import PowerEvaluator, PowerSettings
 
@@ -124,12 +140,18 @@ def run_one(name, protocol, args, directory):
                 from .benchmark import run_benchmark
 
                 run_benchmark(
-                    config, data, depth_evaluator=evaluator, power_evaluator=power
+                    config,
+                    data,
+                    depth_evaluator=evaluator,
+                    power_evaluator=power,
+                    batch_size=batch_size,
                 )
             elif name in ("spectrum", "factorial", "depth_scaling"):
                 from .scaling import run_scaling
 
-                run_scaling(name, config, data, evaluator=evaluator)
+                run_scaling(
+                    name, config, data, evaluator=evaluator, batch_size=batch_size
+                )
             elif name.startswith("bible"):
                 from .bible import run_bible
 
@@ -246,6 +268,19 @@ def main(argv=None):
         "verify", help="check complete artifact inventory and hashes"
     )
     verify.add_argument("run", type=Path)
+    from .calibration import SUITES
+
+    calibrate = sub.add_parser("calibrate", help="run a declared numerical check suite")
+    calibrate.add_argument("--suite", choices=SUITES, required=True)
+    calibrate.add_argument("--config", type=Path, required=True)
+    calibrate.add_argument("--out", type=Path, required=True)
+    calibrate.add_argument("--engine-config", type=Path)
+    calibrate.add_argument("--workers", type=int)
+    configure = sub.add_parser(
+        "configure-engine", help="bind the pinned store to a local path"
+    )
+    configure.add_argument("--store-directory", type=Path, required=True)
+    configure.add_argument("--out", type=Path, required=True)
     for command in ("run", "campaign", "report"):
         p = sub.add_parser(command)
         p.add_argument("--protocol", type=Path, required=True)
@@ -259,10 +294,53 @@ def main(argv=None):
             p.add_argument("--engine-config", type=Path)
             p.add_argument("--power-settings", type=Path)
             p.add_argument("--calibration", type=Path)
+            p.add_argument(
+                "--batch-size",
+                type=int,
+                default=20,
+                help="maximum saved profiles sharing kernel preparation",
+            )
         if command == "run":
             p.add_argument("--experiment", required=True)
     args = parser.parse_args(argv)
     args.repo = args.repo.resolve()
+    if args.command == "configure-engine":
+        from .depth import DepthEvaluator, StoreConfig
+
+        spec = read_json(args.repo / "experiments/alt2027/store-candidate.json")
+        options = {
+            "mode": "store",
+            "prediction_tolerance": 1e-3,
+            "store": {
+                "path": str(args.store_directory.resolve()),
+                "files_sha256": spec["files_sha256"],
+                **spec["settings"],
+            },
+        }
+        # Opening performs complete identity checks and permits no store writes.
+        with DepthEvaluator(
+            mode="store",
+            store=StoreConfig(**options["store"]),
+            prediction_tolerance=options["prediction_tolerance"],
+        ) as evaluator:
+            identity = evaluator.configuration_sha256
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        write_json(args.out, options)
+        print(json.dumps({"configuration_sha256": identity, "path": str(args.out)}))
+        return 0
+    if args.command == "calibrate":
+        from .calibration import run_suite
+
+        result = run_suite(
+            args.suite,
+            args.config,
+            args.out,
+            repo=args.repo,
+            engine_path=args.engine_config,
+            workers=args.workers,
+        )
+        print(json.dumps({"suite": args.suite, "status": result["status"]}))
+        return 0
     if args.command == "verify":
         record = verify_run(args.run)
         print(

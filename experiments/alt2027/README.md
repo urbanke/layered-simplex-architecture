@@ -16,7 +16,7 @@ protocol are development checks, with their purpose recorded in every manifest.
    atom, the depth mixture, and the correct single-layer power mixture are present.
    Reports read saved samples/results and recreate the existing plot/table roles.
 2. **Numerical calibration.** Complete the appendix checks and test the actual
-   experiment domain. Check grid/contour refinement, tails and saddle substitution,
+   experiment domain. Check grid/contour refinement, tails and the corrected direct-contour route,
    especially depths 54–138 and long Bible profiles. Compare powered kernels to
    independent calculations, then require KL stability within 1e-5 bits under
    numerical refinement. Store raw normalization errors separately. The 1e-3
@@ -76,7 +76,9 @@ python scripts/alt_experiments.py verify output/alt2027/report-001
 ```
 
 A single experiment can be run with `run --experiment NAME` and the same protocol,
-purpose and output arguments. Every output directory must be new. A failed run
+purpose and output arguments. `--batch-size` bounds kernel-sharing cohorts
+(default 20); sample seeds, model grids, and per-trial reporting stay fixed.
+Every output directory must be new. A failed run
 remains available for diagnosis. Reruns get a new directory; completed records
 are never overwritten. Set `PYTHONPATH=src` if using an uninstalled checkout.
 
@@ -85,7 +87,8 @@ The fast backend uses `--engine-config FILE`, whose `store` section matches
 `lsa.alt.depth.StoreConfig`. Supply an explicit local store path and all content
 hashes from `store-candidate.json`. The recorded candidate store has 106 files,
 2.80 GB, and numerical columns through depth 53; depths 54–138 select the declared
-saddle route and need their own calibration. Every read is checked against the
+direct-contour route. The legacy saddle shortcut was replaced after independent
+reference checks. Every read is checked against the
 pinned store identity, and the adapter cannot build or modify the store.
 
 Production additionally requires protocol status `frozen`, a clean source tree,
@@ -95,12 +98,11 @@ and covered experiment IDs, with `required_checks_complete=true`. The current
 validation driver deliberately produces partial status until the remaining
 checks are completed; it cannot certify itself from a smoke run.
 
-## Remaining validation work
+## Declared validation work
 
-The current driver measures endpoint identities, exchangeability, raw predictive
+The base driver measures endpoint identities, exchangeability, raw predictive
 normalization, independent depth-two simplex/kernel calculations, discovered-set
-KL decomposition, and the naming-only lower-bound counterexample. The retained
-appendix rows additionally require:
+KL decomposition, and the naming-only lower-bound counterexample. The dedicated calibration suites now implement:
 
 - Mellin rows through depth 138 on a recorded r/t grid: step halving and an
   independent Meijer-G comparison.
@@ -112,6 +114,12 @@ appendix rows additionally require:
   the production numerical settings.
 - Full-domain refinement, tail and interpolation checks, including powered
   predictions and sparse/concentrated benchmark profiles.
+
+Run each dedicated suite with `calibrate --suite NAME --config FILE --out DIR`;
+see [the numerical guide](../../docs/numerics.md) for exact commands, store
+settings, and coverage. A suite records its finite cases and measured residuals.
+The production gate additionally requires the combined assessment and frozen
+protocol.
 
 The previous manuscript's numerical agreement values are comparison points.
 The final validation table will be generated from the new measured results.

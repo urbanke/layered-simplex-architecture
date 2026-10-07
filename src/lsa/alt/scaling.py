@@ -122,11 +122,16 @@ def cells(kind, config):
         raise ValueError(f'unknown scaling experiment {kind}')
 
 
-def run_scaling(kind, config, output_dir, *, evaluator):
+def run_scaling(kind, config, output_dir, *, evaluator, batch_size=None):
     _validate_config(kind, config)
+    if batch_size is not None and (
+        isinstance(batch_size, bool) or not isinstance(batch_size, int) or batch_size < 1
+    ):
+        raise ValueError('batch_size must be a positive integer')
     root = Path(output_dir)
     root.mkdir(parents=True, exist_ok=False)
     write_json(root / 'config.json', {'kind': kind, **config})
+    write_json(root / 'execution.json', {'batch_size': batch_size})
     for cell_id, cell in enumerate(cells(kind, config)):
         p = zipf(cell['d'], cell['alpha'])
         entropy = float(-np.dot(p[p > 0], np.log2(p[p > 0])))
@@ -148,10 +153,21 @@ def run_scaling(kind, config, output_dir, *, evaluator):
                 samples.write(json.dumps(draw, allow_nan=False) + '\n')
         path = root / f'trials-{cell_id:04d}.jsonl.gz'
         with gzip.open(samples_path, 'rt', encoding='utf8') as samples, gzip.open(path, 'xt', encoding='utf8') as stream:
-            for line in samples:
-                draw = json.loads(line)
+            draws = (json.loads(line) for line in samples)
+            if batch_size is None:
+                evaluated = (
+                    (draw, evaluator.evidence_at_depths(cell['d'], tuple(draw['profile']), cell['depths']))
+                    for draw in draws
+                )
+            else:
+                from .batch_depth import iter_evidence_batches
+
+                evaluated = iter_evidence_batches(
+                    evaluator, ((draw, draw['profile']) for draw in draws),
+                    d=cell['d'], depths=cell['depths'], chunk_size=batch_size,
+                )
+            for draw, result in evaluated:
                 profile = tuple(draw['profile'])
-                result = evaluator.evidence_at_depths(cell['d'], profile, cell['depths'])
                 logs = np.asarray(result.log_evidence)
                 if logs.shape != (len(cell['depths']),) or np.any(~np.isfinite(logs)):
                     raise ArithmeticError('nonfinite or incorrectly shaped depth evidence')

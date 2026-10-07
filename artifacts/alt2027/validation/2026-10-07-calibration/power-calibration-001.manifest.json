@@ -1,0 +1,187 @@
+{
+  "archive": "power-calibration-001.tar.gz",
+  "archive_bytes": 1045213,
+  "archive_sha256": "6f95c4a8a8e15d73a247cf983504d8495a41860a583205244571327233563cea",
+  "files": {
+    "power-calibration-001/packaging/archive-metadata.json": {
+      "bytes": 3042,
+      "sha256": "95fb79f4f4fafa0777788b7cde9f8db3594b134f9c9b1500e8e91f69c1c28ca2"
+    },
+    "power-calibration-001/packaging/current-at-packaging/src/lsa/alt/benchmark.py": {
+      "bytes": 28279,
+      "sha256": "f1e7b086563c63c6bf5cd975b3a401dfa9cde8983707a7d60cacd7a9a98da50e"
+    },
+    "power-calibration-001/packaging/run-source-capsule/src/lsa/alt/artifacts.py": {
+      "bytes": 7191,
+      "sha256": "e417cfb0c00d970acc3dbd146bbfcc33f89efd9de67a01365c2dd111a97fd9f3"
+    },
+    "power-calibration-001/packaging/run-source-capsule/src/lsa/alt/baselines.py": {
+      "bytes": 8147,
+      "sha256": "b98cad9223affe92d144695782a2e2d3ef273d966dd35930a971455c58c5b7a8"
+    },
+    "power-calibration-001/packaging/run-source-capsule/src/lsa/alt/benchmark.py": {
+      "bytes": 22423,
+      "sha256": "c7a60be39b0c15b4f3aaa03cf064231d4f881ed349f91801ace1f83f48a1560b"
+    },
+    "power-calibration-001/packaging/run-source-capsule/src/lsa/alt/power_validation.py": {
+      "bytes": 17170,
+      "sha256": "86f2b616d2ccf4ab770942b5861bab40d8dfeec39d429656e44dfa735e6a4a82"
+    },
+    "power-calibration-001/packaging/run-source-capsule/src/lsa/alt/powers.py": {
+      "bytes": 15417,
+      "sha256": "85b3c6b097c7b5a65ca18ddc39e5b435f2e2f6f9e0ef4d09389765f5ceb5eca6"
+    },
+    "power-calibration-001/run/config.json": {
+      "bytes": 1727,
+      "sha256": "5b949756ea0b16ab507b32746880c92d4628366ac68ab1b4a15b214d01f93348"
+    },
+    "power-calibration-001/run/dirichlet_1/components.jsonl": {
+      "bytes": 127875,
+      "sha256": "ff3f527ab2fdf28c65e366c71c9caa811ae7bd3b3258e734d726be7481c072bf"
+    },
+    "power-calibration-001/run/dirichlet_1/sample.npz": {
+      "bytes": 78614,
+      "sha256": "792f741ca66f00ddea264da226b037a32c22ae22a337c96690cb1a142ee8ffa3"
+    },
+    "power-calibration-001/run/dirichlet_1/summary.json": {
+      "bytes": 10040,
+      "sha256": "b6b775f475a95fb1bf707f9f2d941839d8933af64cb4c9a125351d7f410231ad"
+    },
+    "power-calibration-001/run/dirichlet_half/components.jsonl": {
+      "bytes": 131483,
+      "sha256": "fd220175becdae99a21660016cdd48f622a906bb76c430a9158b2f9706c261b8"
+    },
+    "power-calibration-001/run/dirichlet_half/sample.npz": {
+      "bytes": 78767,
+      "sha256": "bbf91e48e686dde17bd86a084bb45d7866c00b6e3f75ef7142a45003892a5e59"
+    },
+    "power-calibration-001/run/dirichlet_half/summary.json": {
+      "bytes": 10250,
+      "sha256": "02128b9ab522b4742b82806a47bd0a01f51fe8487fee9949377e04ccb8b30810"
+    },
+    "power-calibration-001/run/files.json": {
+      "bytes": 4971,
+      "sha256": "e4166eec42d7103ee0d45f7745a21e6450c05c901f1b2ed60bb60c440c7cc141"
+    },
+    "power-calibration-001/run/geometric/components.jsonl": {
+      "bytes": 138568,
+      "sha256": "eec507d75a436f9e5cb956e4aff9527172f43b9f430e177cbb59ebdfa572c95a"
+    },
+    "power-calibration-001/run/geometric/sample.npz": {
+      "bytes": 76927,
+      "sha256": "f625e1d02264520bcb015f85c7ddf354c72d24ddb5e6e1287e5fdb49220fd34f"
+    },
+    "power-calibration-001/run/geometric/summary.json": {
+      "bytes": 9906,
+      "sha256": "fba5ce9a034cb5dd4660b1da4e143452d9f22bcf9da19eb1aedbb4909e1f7232"
+    },
+    "power-calibration-001/run/samples.json": {
+      "bytes": 3221,
+      "sha256": "4c8fa786a7b030021781609a59208a83c90f168d0e983e6881aebdea4a727fb3"
+    },
+    "power-calibration-001/run/started.json": {
+      "bytes": 1667,
+      "sha256": "fbb00f6dae0c209c331cc83540fff38356a5defc1a818c8874fbf35a0c507d58"
+    },
+    "power-calibration-001/run/step/components.jsonl": {
+      "bytes": 127756,
+      "sha256": "92b6b26629981a5199e66c94d0335f805c3ba5ed07cc3d507e2ddf8e9a8a9039"
+    },
+    "power-calibration-001/run/step/sample.npz": {
+      "bytes": 2187,
+      "sha256": "1a27b3c9d6a2c30b91679d5d8553a6301bfa83f3041e61e685d7dd8729a796a3"
+    },
+    "power-calibration-001/run/step/summary.json": {
+      "bytes": 9900,
+      "sha256": "acfba794d79a596885a48f04e439a1423890301bf159739fd885566485fc7f20"
+    },
+    "power-calibration-001/run/summary.json": {
+      "bytes": 66414,
+      "sha256": "cb0b6e8b5e5f8aebec4e329ef55695085fc9edbd0f2ecc4803c838f85a071baf"
+    },
+    "power-calibration-001/run/uniform/components.jsonl": {
+      "bytes": 127934,
+      "sha256": "26f514c391c3425ccf938a395b762c6c5ad4a9fa001f51ed04c1cce85cc4723f"
+    },
+    "power-calibration-001/run/uniform/sample.npz": {
+      "bytes": 2199,
+      "sha256": "2fc7cc348b272e3b282739f09106563b652d5c30a3123fd39f8399c4ac1f7823"
+    },
+    "power-calibration-001/run/uniform/summary.json": {
+      "bytes": 9895,
+      "sha256": "e913d7b09562972340b73ca8b9339003bfbeeef97a843a60dc9fd5cbd1208edc"
+    },
+    "power-calibration-001/run/zipf_1.5/components.jsonl": {
+      "bytes": 183863,
+      "sha256": "c05b2f2492b89779c0369f308cb8f36a9188ba89332ef574a6eb3fd4a3d6d35f"
+    },
+    "power-calibration-001/run/zipf_1.5/sample.npz": {
+      "bytes": 70172,
+      "sha256": "743e23b5e730862c70e127b9ff427f5d00fc707a6403e1d84cfa13e5e5e78249"
+    },
+    "power-calibration-001/run/zipf_1.5/summary.json": {
+      "bytes": 13605,
+      "sha256": "df09425af7bbea38442f486004a1b5c67f80884e40b4cde031af05bd69af9b54"
+    },
+    "power-calibration-001/run/zipf_1/components.jsonl": {
+      "bytes": 180553,
+      "sha256": "24c416ee8f6a9ef14974af7827c70333a1864f0400c6526216cfe6244ff3f5d0"
+    },
+    "power-calibration-001/run/zipf_1/sample.npz": {
+      "bytes": 59316,
+      "sha256": "0db35961f32bd31355af53031349e3e5b43893c827c564929e12473cf9663694"
+    },
+    "power-calibration-001/run/zipf_1/summary.json": {
+      "bytes": 11397,
+      "sha256": "8feeffd35918a79cc03f2f81237474bfeed2eb77476ff6be05f15df36f427738"
+    },
+    "power-calibration-001/run/zipf_2/components.jsonl": {
+      "bytes": 173136,
+      "sha256": "4b32b8c8f2a50e9016fabb54dcbdb2e7a9d58b2e2939d1d1360e2507e6fc7e06"
+    },
+    "power-calibration-001/run/zipf_2/sample.npz": {
+      "bytes": 58590,
+      "sha256": "bcdb0a235faae981ec3e57be50ff46a19d8859c6b1b8ed3745cff9f1c2d284d9"
+    },
+    "power-calibration-001/run/zipf_2/summary.json": {
+      "bytes": 13297,
+      "sha256": "b49a27586678a6029031184633e5bcb5112c6e582c93829ed6cd352e5804017c"
+    },
+    "power-calibration-001/run/zipf_3/components.jsonl": {
+      "bytes": 145000,
+      "sha256": "b7fada46bb8d97960898f11a40d0d2a8fa2ebf655c7fdc3a92dd2862c272d288"
+    },
+    "power-calibration-001/run/zipf_3/sample.npz": {
+      "bytes": 59308,
+      "sha256": "135beced65906e2f300db816273181445c01e6e98da4586b3110975db5d40696"
+    },
+    "power-calibration-001/run/zipf_3/summary.json": {
+      "bytes": 12328,
+      "sha256": "19682745c82d3bced5a26de2cc1f00e6323410cbe7e8637c4a3002436da99564"
+    },
+    "power-calibration-001/run/zipf_4/components.jsonl": {
+      "bytes": 130850,
+      "sha256": "c5ff3e5c377f7e0505e43ea17b445da73904d27eb023d76a6995a333f48e8a52"
+    },
+    "power-calibration-001/run/zipf_4/sample.npz": {
+      "bytes": 59910,
+      "sha256": "3a5aad8bd8f08c1557f193ea5388cdfc24fc169961a90e35bad65b4422bc8b6b"
+    },
+    "power-calibration-001/run/zipf_4/summary.json": {
+      "bytes": 11746,
+      "sha256": "839e429c48f5d35c7a4cae8247bad5edcdf641350fa7e9f44646de14237fed8b"
+    },
+    "power-calibration-001/run/zipf_5/components.jsonl": {
+      "bytes": 131086,
+      "sha256": "89caad61d5434c42061b4d81c5c39112a83ca6d652a6d4031443cc3755a069e4"
+    },
+    "power-calibration-001/run/zipf_5/sample.npz": {
+      "bytes": 60091,
+      "sha256": "739c137c5d20dcac761b3b94ec3b944d7e38442f269e4dbaff31e48cfbf5d50e"
+    },
+    "power-calibration-001/run/zipf_5/summary.json": {
+      "bytes": 11875,
+      "sha256": "d5589181520e4918009ac10c20b95cdcf11009ae5e3a18ea46c195547a217dfa"
+    }
+  }
+}

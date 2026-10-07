@@ -194,35 +194,15 @@ def run_bible(config, output_dir, *, evaluator, repo):
     if any(c["error_bits"] > 3e-4 for c in checks):
         raise ArithmeticError("classical sequential/batch chain check failed")
     if config["chain_rule_steps"]:
-        m = np.zeros(config["d"], dtype=np.int64)
-        cumulative_bits = 0.0
-        chain_rows = []
-        for t, symbol in enumerate(ids[: config["chain_rule_steps"]]):
-            prediction = evaluator.predict(m, depths=config["depths"])
-            q = float(prediction.mixture_probabilities[symbol])
-            parent = np.asarray(prediction.component_log_evidence)
-            m[symbol] += 1
-            child = evaluator.evidence_at_depths(
-                config["d"], tuple(m[m > 0]), config["depths"]
-            )
-            batch = float(
-                -(logsumexp(child.log_evidence) - math.log(len(config["depths"])))
-                / LOG2
-            )
-            ratio = math.exp(logsumexp(child.log_evidence) - logsumexp(parent))
-            cumulative_bits -= math.log2(q)
-            chain_rows.append(
-                {
-                    "t": t + 1,
-                    "symbol": int(symbol),
-                    "probability": q,
-                    "evidence_ratio": ratio,
-                    "probability_error": abs(q - ratio),
-                    "cumulative_bits": cumulative_bits,
-                    "batch_bits": batch,
-                    "chain_error_bits": abs(cumulative_bits - batch),
-                }
-            )
+        from .chain_validation import check_sequence
+
+        chain_rows = check_sequence(
+            evaluator,
+            config["d"],
+            ids[: config["chain_rule_steps"]],
+            config["depths"],
+            chunk_size=config.get("chain_chunk_size", 100),
+        )
         write_json(root / "chain-rule.json", chain_rows)
         if (
             max(r["probability_error"] for r in chain_rows) > 1e-12

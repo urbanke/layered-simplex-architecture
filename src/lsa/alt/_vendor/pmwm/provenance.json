@@ -12,17 +12,19 @@
     },
     "mellin.py": {
       "upstream_sha256": "201e2161b98a5b3dcf464930447c02dc22092fe78dec9e49b44bd8b2b931f969",
-      "vendored_sha256": "a32f3b07b99f0d91cc3cbbd3d6e6718c52607b23c92aa8403f112ae2c2eee39a"
+      "vendored_sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
     },
     "universal_tables.py": {
       "upstream_sha256": "aef2f63c0ccdb4de58bb8c617dd99aaadc73b803bee67a029f5d89230878d5c2",
-      "vendored_sha256": "2f4c51b1e05e2febee3e2daf506396120d8eac36c04bab7c2da25aa0c931d854"
+      "vendored_sha256": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
     }
   },
   "changes": [
     "Internal imports namespaced to lsa.alt._vendor.pmwm.",
     "os imports routed through private configuration proxy; filesystem operations otherwise forwarded.",
-    "Local kernel shim selects upstream Python/NumPy fallback and never compiles or writes source directories."
+    "Local kernel shim selects upstream Python/NumPy fallback and never compiles or writes source directories.",
+    "ALT 2026-10-07 calibration: high-depth provider uses exact_log_phi_column instead of inaccurate order-two saddle/unchecked series; original diagnostic comparator retained.",
+    "Exact-column series acceptance tightened to 1e-13, tail target made explicit (40 nats), and previously ignored oversample parameter now controls contour spacing."
   ],
-  "scientific_expressions_changed": false
+  "scientific_expressions_changed": true
 }

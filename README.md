@@ -27,8 +27,13 @@ The ALT source is prepared and compiles. The first executable campaign is in
 single-layer power mixture, saved common samples, and report generators for the
 retained plots and tables. A small end-to-end campaign exercises every family.
 
-The next milestone is full-domain numerical calibration, followed by the
-production protocol freeze and fresh runs. The current protocol has status
+The independent kernel, prior/identity, powered-model, and Bible-chain checks
+are archived in [the calibration milestone](artifacts/alt2027/validation/2026-10-07-calibration/README.md).
+The depth-profile refinement checks are running. The runners now share kernel
+preparation across saved sample batches, with verified trial identities.
+
+The next milestone is completion of the numerical coverage assessment and
+sampling/runtime pilot, followed by the production protocol freeze and fresh runs. The current protocol has status
 `implementation`; the runner enforces this distinction. Detailed status and
 commands are in [the campaign guide](experiments/alt2027/README.md).
 
