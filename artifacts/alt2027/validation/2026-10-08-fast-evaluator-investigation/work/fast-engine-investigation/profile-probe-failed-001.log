@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/profile_probe.py", line 96, in <module>
+    'comparison':loss_changes(direct,warm,p,counts),
+                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/profile_probe.py", line 61, in loss_changes
+    'component_total_evidence_change_bits': ((b.log_evidence - a.log_evidence) / math.log(2)).tolist(),
+                                              ^^^^^^^^^^^^^^
+AttributeError: 'CountPredictionResult' object has no attribute 'log_evidence'

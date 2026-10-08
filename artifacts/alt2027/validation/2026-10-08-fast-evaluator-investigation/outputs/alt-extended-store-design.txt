@@ -1,0 +1,85 @@
+ALT extended sealed kernel store — read-only design, 2026-10-08
+
+Recommendation
+
+Build a NEW, immutable, versioned store that serves every depth 2–138 by the existing degree-7 interpolation in log(t), with degree-11 interpolation of the gamma-subtracted residual in log(r+1). Keep depths 0 and 1 analytic. Use the corrected contour/series evaluator to construct and independently check the tables offline. Do not restore the old high-depth saddle approximation: its accuracy failure and the cost of recomputing the corrected contour online are separate issues.
+
+The smallest complete route preserves the current scientific model, grids, samples, outer integration, family refinement, and tolerances. It changes only kernel provisioning. Initial engineering can retain the existing Python interpolation path; native acceleration is a separate optional improvement. There is now positive measured evidence that caching the accurate columns makes this practical, but no extended store has yet passed production admission.
+
+Recommended store contract
+
+- Master spacing H=0.02, upper log(t) bound U_MAX=80, explicit supported levels 2–138. The outer integration still begins at 35 and retries at 60/80 when its existing boundary test requires it. Kernel-table spacing and outer-integration spacing are different controls: the latter can refine to 0.0025 or below while querying the same fixed table.
+- Preserve dense integer count anchors 0–256. Retain the existing anchor positions above 256 as the first candidate, including eight anchors above the declared largest supported query count. Use every anchor; do not decimate. Factor 0.083071 and degree 11 are a candidate, not an already demonstrated high-depth accuracy guarantee.
+- The engine's declared max_count is 915861, but provisioning also requests r+1 and r+2; family planning explicitly includes c through c+3. The kernel validation specification additionally requests r=1045889 at depths 22, 54 and 138. A simple reusable high-depth design therefore covers query counts through at least 1045889 and includes upper padding beyond that. Keeping the engine's scientific max_count unchanged is compatible with a larger internal table domain.
+- Use an explicit grid version and metadata-driven H/U_MAX/depth/count coverage. Preserve the v2 reader for the original store. Record actual levels, anchor lists, each column length/start, float format/byte order, builder/settings/source hashes, file hashes and validation-artifact identities. A manifest L_MAX alone is not evidence that those files exist.
+- Keep the original anchors_prod completely immutable. Use a separate staging directory and seal only after the planned contents, checksums and validation artifacts are complete. The new store must reject missing columns, unsupported counts, and queries beyond its certified upper bound. Production must never build a column or fall back to a contour computation on a miss.
+
+Smallest implementation changes
+
+1. Store addressing and format
+   src/lsa/alt/_vendor/pmwm/universal_tables.py:63–129, 270–299, 533–564, 926–1064.
+   Current per-level .bin files concatenate float64 values. Index entries hold (offset in values, length, CRC), not an explicit u origin. column() recomputes column_start_index(L,r); matrix interpolation, native-call arguments and boundary logic all use module-global H/U_MAX. The reader also demands manifest H=.02 and U_MAX=35. Raising a global U_MAX to80 would reinterpret old arrays and fail the old manifest check; it is not an extension mechanism.
+   Minimal clean change: give each store immutable grid metadata and pass its grid geometry through column loading/interpolation, including clamped edge stencils, matrix provision and native leftovers. For new-format columns, derive the origin from persisted start/length and U_MAX, then validate consistency. Preserve the legacy address convention for v2. Replace the column() L_MAX70 guard with verified store coverage and require each requested level's files/anchors.
+
+2. Builder
+   Existing design reference: /Users/ruediger/Projects/product_model_with_memory/scripts/build_anchor_store.py:59–150, 187–206, 279–338.
+   Adapt its explicit anchor plan and single-parent append discipline to the current ALT corrected evaluator. Do not invoke the old project builder unchanged: it imports the original provider, and --decimate-from only retains levels already present in the source metadata, so it cannot create levels54–138 by itself. Its default levels end at45, its default factor is .005, and old cost estimates do not describe the new provider.
+   Build the planned new columns offline with exact_log_phi_column settings recorded explicitly. For a first extension, evaluate all H=.02 grid points directly, as in the successful diagnostic, rather than inheriting the legacy strided builder's additional approximation. The legacy builder evaluates every fourth/second point, fills by degree7 and accepts 16 random probes below2e-8 nats; that criterion does not establish the current3e-9 nominal/1e-11 low-count goals.
+   A staging plan should support per-column/per-level checkpoints with verified source/config identity; only the parent writes the files. The current build script refuses an interrupted directory containing level files, so unattended recovery needs a deliberately designed resume path, not a bypass of the seal.
+
+3. Low-depth data and the u=35 boundary
+   Two concrete choices are possible. A uniform U_MAX80 new store is the cleaner complete design, because the current depth calibration also queries u_max40 for stored depths below54. It can initially reuse the old columns through35 and append an offline-built strip35.02…80 in NEW repacked files, preserving the original source-byte hashes in provenance; validate interpolation across the join at35. This preserves the original low-depth numerical data and avoids rebuilding it. Rebuilding all low-depth columns with the corrected offline builder is also valid but is additional work whose runtime is not measured by the high-depth diagnostic.
+   Merely copying low-depth files unchanged with per-level U_MAX35 is a smaller production-only prototype, but then its higher-window calibration must use an explicit reference route rather than silently invoking an online contour fallback. Do not label that prototype a uniform all-domain sealed store.
+
+4. ALT routing and upper-window retries
+   src/lsa/alt/depth.py:96–153, 279–315, 339–372, 478–506, 568–589; experiments/alt2027/store-candidate.json:113–129.
+   The legacy saddle_min_depth=54 now selects the corrected DIRECT contour, skips store-file requirements and makes ensure_columns/build_columns skip those depths. Leaving it at54 would ignore the new tables. Set the new table engine to no substitution cutoff, and replace StoreConfig's hardcoded "stored-column design ends at depth70" restriction with actual verified store coverage. Do not use an artificial cutoff139 solely to evade that check.
+   Right-window extension currently depends on direct_contour, so disabling the cutoff would also disable retries at60/80. Permit the same family-wide retries when the selected store certifies the next bound, retaining the30-nat measured right-gap criterion, common grids and spacing refinements. Fail at the same configured cap.
+   Remove/guard right-of-table contour fallbacks in log_phi, log_phi_matrix and _interp_leftovers for the sealed production route. Keep them only in an explicitly selected offline/reference evaluator. Diagnostics must identify stored interpolation accurately, and a test should prove that no contour builder/evaluator is called during admitted production evaluation.
+
+5. Left tails and coverage
+   column_start_index starts from -8-L*log(r+1), moves left in steps of5 until its small-t certificate is <=exp(-30), then rounds onto the master grid. Consequently the start depends on BOTH L and r; a fixed lower bound such as -60 is insufficient. The diagnostic deliberately used floor((-60-L*log(r+1))/.02)*.02, which is usually farther left than the current certificate-based start.
+   Keep the full certified small-t evaluation to the left of each column. The ALT adapter currently disables the historical "return the limiting gamma term after40 nats" shortcut by setting series_tail_nats=None/infinity; its old empirical justification covered only L<=70 and r<=67465. Do not silently reactivate it when extending to138. If a low-tail shortcut is later desired, establish its remainder bound over the new domain first.
+
+Measured evidence available now
+
+A. Twelve-column diagnostic
+   work/fast-engine-investigation/pretabulation-probe-001/summary.json and pretabulation_probe.py.
+   L={54,80,138}, r={0,3,32,1000}; U_MAX80, H=.02; 244382 values in total; 1610 off-grid/edge queries per column. Accurate full-grid construction took1.442641127 seconds in aggregate, excluding artifact writing. Median interpolation query times are about0.000135–0.000139 seconds per1610 queries versus0.00930–0.02787 seconds for the accurate direct evaluator:67.39–200.72 times on those kernel batches. Maximum added log-kernel difference was3.4924596548080444e-10 nats; r=0 maxima were <=6.081e-14 nats. Runtime recorded macOS26.6.2 arm64, Python3.14.6, NumPy2.5.1; no hardware-model inference is made.
+   This compares interpolation against the same double-precision accurate evaluator; it is not independent absolute certification, does not interpolate between count anchors, and does not cover all depths/counts.
+
+B. Two complete profile diagnostics
+   work/fast-engine-investigation/profile-probe-002/summary.json.
+   Saved profiles: d10000,N1000,Zipf1.5 and d10000,N20000,Zipf5; selected depths0,1,54,80,138. Direct elapsed20.9807/13.3379 seconds; warm cached0.295376/0.197327 seconds (71.03x/67.59x). Cold candidates14.8596/6.11177 seconds included additional column construction14.5524/5.91132 seconds. The156 prepared actual-count columns occupy63271824 uncompressed bytes; cumulative build20.4637 seconds.
+   Across these two cases, max absolute component predictive-KL change was1.6555941972164068e-13 bits and max total evidence change1.3436144598656924e-9 bits. Cold/warm candidate results were identical. These are five-depth, actual-count-column diagnostics; no count-anchor interpolation and no full81/139-depth production gate were exercised. Warm timing explicitly excludes one-time construction.
+
+Storage and build-work estimates (not measurements or commitments)
+
+The following estimates use the actual float64 concatenated-column format and the existing certificate-based column_start_index formula evaluated with H=.02/U_MAX80. Float rounding in a future implementation may change an occasional column by one grid point. They include only anchor columns unless stated otherwise; validation artifacts, filesystem metadata and temporary construction files are extra.
+
+- Existing immutable store: 2802407082 bytes total; 52 stored levels2–53; 435 anchors plus40 held-out target columns per level =24700 columns. Physical coverage ends at53 despite manifest L_MAX70.
+- Reuse all435 original anchor positions at each new depth54–138:36975 added columns, estimated1561849996 values =12.494800 GB (11.636689 GiB). This retains the original large r_max200000000 and pad maximum363296387, far beyond the declared ALT domain.
+- Trim the SAME inherited anchor positions after the first eight anchors above1045889:369 anchors, final anchor1874580. Across85 added depths:31365 columns, estimated1076225302 values =8.609802 GB (8.018503 GiB). This covers the declared engine's needed augmented counts and the current largest kernel reference count, with padding. It does not declare an engine domain above the frozen ALT max_count.
+- Using the diagnostic's more conservative -60-L*log(r+1) lower boundary instead gives9.246176 GB for the369-anchor extension (13.247862 GB for435 anchors). This is a different grid plan, not observed disk usage.
+- Extending all existing24700 low-depth columns from35 to80 adds exactly2250 float64 values per column =444600000 bytes. Retaining all current low-depth columns plus this strip and the369-anchor high-depth extension gives approximately11.856809 GB, before new held-out targets and metadata.
+- If40 additional full held-out count columns are persisted at each new depth, their grid payload is extra. For the diagnostic lower-bound rule and counts bounded by1045889, the corresponding40-per-depth payload lies between roughly0.190427 GB (all count0) and2.000054 GB (all counts at the upper bound). A declared test-point design fixes the actual cost; storing individual reference points/report artifacts can avoid full target-column payload in the production store.
+
+The12-column diagnostic rate is169399.025 values/second in aggregate (individual rates65473–203615). A purely linear projection to the8.609802-GB anchor extension gives6353 seconds =1.76 serial core-hours; using the individual measured extremes gives1.47–4.57 hours. For the12.494800-GB extension the same projection gives2.56 hours, range2.13–6.63 hours. These are only first planning estimates: the timing sample stops at r1000, while the proposed grid extends to1874580 or363296387; contour behavior, process launch, disk writes, validation, hashing, low-depth extension and checkpoint overhead are unmeasured. Parallel speedup is also unmeasured. The156-column profile prototype costs20.46 seconds but is not a representative sample of all prospective anchors. Run a stratified builder pilot including large counts before booking a final wall-time/resource budget.
+
+Required admission coverage
+
+- Freeze the new store plan and source/settings identities before construction. Validate every index, payload length, finite value, CRC and complete-file SHA, then verify copied files again on the execution platform. Existing manifest certifications=[] must not be presented as certification.
+- Existing kernel config checks direct/reference high-depth values, but its STORED rows cover only levels5,22,53 and its fixed u-values stop at35. Add actual new-store checks through138, count-anchor interpolation at held-out integer counts, dense/geometric transition255/256/257, upper padding/maximum query counts, off-grid points and clamped stencils, each column's small-t join, old/new join35, and the newly used35–80 region. Probe successive depths and every high-depth level at selected points; checking only54/80/138 leaves85-level construction mistakes undetected.
+- Compare actual scalar, matrix, family and optional native paths. Existing literal grid tests and the12-column diagnostic do not establish count-anchor accuracy. Retain stricter low-count checks because the unseen-count kernel can appear with multiplier up to d=1000000.
+- Keep declared independent45/60-digit contour convergence and special-function/positive-recursion checks. The current kernel nominal tolerance is3e-9 nats, low-count direct criterion1e-11; low-count stored behavior must be assessed explicitly, not obscured by the looser stored-row nominal check.
+- Re-run the existing full depth/refinement and chain suites on the unchanged saved profiles with the new engine identity, including all81 primary depths, spectrum through138 and canonical Bible55-depth/2000-transition checks. Compare total evidence, per-token evidence, component/mixture next-symbol KL, posterior weights, raw mass and actual retry grids in their declared units. Extend numerical coverage, not scientific trial counts or model grids.
+- Run the repository-required full scripts/validate_appendix_c.py and pytest suite after implementation, together with the affected ALT checks. Production admission still requires the combined coverage report, clean source identity, pinned new store and frozen protocol. Do not reuse the old engine's admission as if it certified the new table route.
+
+Actionable ordering
+
+First implement metadata-aware read-only serving and the no-online-contour contract, plus a small new-format store covering diagnostic cases. Validate the sparse count ladder at high depths before committing to the full anchor grid: if it needs refinement, that directly changes construction cost. Then build/seal the full new store, run numerical admission and measured throughput pilots, and only then select it for the unchanged production campaign. The current experiment source, source stores and cluster jobs were not changed for this design.
+
+All relative source paths above are rooted at:
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup
+All relative investigation paths above are rooted at:
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha

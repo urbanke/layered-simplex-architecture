@@ -1,0 +1,151 @@
+{
+  "scope": "Single-thread read-only pilot store initialization; OS page cache was not cleared; no full-production timing projection",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "store": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/sealed-kernel-pilot-20261008-001",
+  "payload_bytes": 444327288,
+  "source_sha256": {
+    "src/lsa/alt/depth.py": "98fc5bce18453e48c66b2238a06a06cb882b74fc3c8d891dab436083d893e1e6",
+    "src/lsa/alt/sealed_tables.py": "f29fda02d32a86de2406bf4a86b166d5bea98127888edd49ca0cbaffcf78b88a"
+  },
+  "runs": [
+    {
+      "repeat": 0,
+      "open_seconds": 0.24533054197672755,
+      "hash_calls": 30,
+      "hash_bytes": 444972792,
+      "levels": [
+        {
+          "depth": 2,
+          "first_level_load_seconds": 0.022453624987974763,
+          "same_reader_second_check_seconds": 0.0001984580303542316,
+          "bytes": 22504032
+        },
+        {
+          "depth": 22,
+          "first_level_load_seconds": 0.025191041990183294,
+          "same_reader_second_check_seconds": 0.00019212497863918543,
+          "bytes": 40860192
+        },
+        {
+          "depth": 53,
+          "first_level_load_seconds": 0.03999854199355468,
+          "same_reader_second_check_seconds": 0.00018816598458215594,
+          "bytes": 69312560
+        },
+        {
+          "depth": 54,
+          "first_level_load_seconds": 0.045094375032931566,
+          "same_reader_second_check_seconds": 0.00020000000949949026,
+          "bytes": 70230280
+        },
+        {
+          "depth": 80,
+          "first_level_load_seconds": 0.05666333402041346,
+          "same_reader_second_check_seconds": 0.00020437495550140738,
+          "bytes": 94093464
+        },
+        {
+          "depth": 138,
+          "first_level_load_seconds": 0.08950800000457093,
+          "same_reader_second_check_seconds": 0.00020979199325665832,
+          "bytes": 147326760
+        }
+      ],
+      "total_first_level_load_seconds": 0.2789089180296287,
+      "total_same_reader_second_check_seconds": 0.001192915951833129
+    },
+    {
+      "repeat": 1,
+      "open_seconds": 0.0035126670263707638,
+      "hash_calls": 10,
+      "hash_bytes": 215347,
+      "levels": [
+        {
+          "depth": 2,
+          "first_level_load_seconds": 0.015225583978462964,
+          "same_reader_second_check_seconds": 0.00019175000488758087,
+          "bytes": 22504032
+        },
+        {
+          "depth": 22,
+          "first_level_load_seconds": 0.028353790985420346,
+          "same_reader_second_check_seconds": 0.00020412501180544496,
+          "bytes": 40860192
+        },
+        {
+          "depth": 53,
+          "first_level_load_seconds": 0.03991962497821078,
+          "same_reader_second_check_seconds": 0.0001891659921966493,
+          "bytes": 69312560
+        },
+        {
+          "depth": 54,
+          "first_level_load_seconds": 0.040580415981821716,
+          "same_reader_second_check_seconds": 0.00018741696840152144,
+          "bytes": 70230280
+        },
+        {
+          "depth": 80,
+          "first_level_load_seconds": 0.05568533297628164,
+          "same_reader_second_check_seconds": 0.00020050001330673695,
+          "bytes": 94093464
+        },
+        {
+          "depth": 138,
+          "first_level_load_seconds": 0.08890625002095476,
+          "same_reader_second_check_seconds": 0.00021083297906443477,
+          "bytes": 147326760
+        }
+      ],
+      "total_first_level_load_seconds": 0.2686709989211522,
+      "total_same_reader_second_check_seconds": 0.0011837909696623683
+    },
+    {
+      "repeat": 2,
+      "open_seconds": 0.002924291999079287,
+      "hash_calls": 10,
+      "hash_bytes": 215347,
+      "levels": [
+        {
+          "depth": 2,
+          "first_level_load_seconds": 0.01984020904637873,
+          "same_reader_second_check_seconds": 0.00020750000840052962,
+          "bytes": 22504032
+        },
+        {
+          "depth": 22,
+          "first_level_load_seconds": 0.028547042049467564,
+          "same_reader_second_check_seconds": 0.00019533303566277027,
+          "bytes": 40860192
+        },
+        {
+          "depth": 53,
+          "first_level_load_seconds": 0.039792416035197675,
+          "same_reader_second_check_seconds": 0.00019079097546637058,
+          "bytes": 69312560
+        },
+        {
+          "depth": 54,
+          "first_level_load_seconds": 0.04090525000356138,
+          "same_reader_second_check_seconds": 0.0001848749816417694,
+          "bytes": 70230280
+        },
+        {
+          "depth": 80,
+          "first_level_load_seconds": 0.05636529199546203,
+          "same_reader_second_check_seconds": 0.00022487499518319964,
+          "bytes": 94093464
+        },
+        {
+          "depth": 138,
+          "first_level_load_seconds": 0.08971604204270989,
+          "same_reader_second_check_seconds": 0.00022200000239536166,
+          "bytes": 147326760
+        }
+      ],
+      "total_first_level_load_seconds": 0.27516625117277727,
+      "total_same_reader_second_check_seconds": 0.0012253739987500012
+    }
+  ],
+  "sources_unchanged": true
+}

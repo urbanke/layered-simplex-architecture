@@ -1,0 +1,111 @@
+{
+  "archive": "prior-validation-002.tar.gz",
+  "archive_bytes": 68211,
+  "archive_sha256": "ca7d94de6f79a995498c96158550cbd13749e2db35861980d9e4fbfe72b78004",
+  "files": {
+    "prior-validation-002/packaging/archive-metadata.json": {
+      "bytes": 4246,
+      "sha256": "fb56925717516d55fc96d10bc3539e4636d204d9c17cb838d53bc0e2fed0d9bc"
+    },
+    "prior-validation-002/run/checks.json": {
+      "bytes": 61283,
+      "sha256": "6723c5e5f230af68bee7a7a355e175bb3645d7e9459f5cd37a2c8004b461194b"
+    },
+    "prior-validation-002/run/environment.json": {
+      "bytes": 493,
+      "sha256": "089bfee9858a774ab52a14ef47a646659633e00ad7aac19e192ac4a7d1c27d6a"
+    },
+    "prior-validation-002/run/identities-binary-depths-through3.json": {
+      "bytes": 4150,
+      "sha256": "1961324d3206663afd90ea057e5b8118bd5283798bf62bc53f245b7ced015e7e"
+    },
+    "prior-validation-002/run/identities-ternary-depths-through2.json": {
+      "bytes": 3261,
+      "sha256": "817a3193d7ab32c84d874039cf518297fcb0f405357f3e8f708d7866e6da18e5"
+    },
+    "prior-validation-002/run/module-fingerprints.json": {
+      "bytes": 862,
+      "sha256": "4ccfc344ef7f7e37f8c9b4f1723c2669834fa68f6c6815844b15d84fcab34b0a"
+    },
+    "prior-validation-002/run/monte-carlo-L1-d2-31.json": {
+      "bytes": 2322,
+      "sha256": "bfe224533d913961536449d1a6c2b53a36b0819ce97130698fcfaee8b8a184de"
+    },
+    "prior-validation-002/run/monte-carlo-L1-d3-210.json": {
+      "bytes": 2327,
+      "sha256": "3e8c6be1f4c047638f21e48aa83ffb9a6a61144b637043219edb97667bcf1db4"
+    },
+    "prior-validation-002/run/monte-carlo-L2-d2-31.json": {
+      "bytes": 2320,
+      "sha256": "d2aaf6225a3f8cce7b5f058bd80cf3f3911fed3b9edd37649e63c72522c9cb9b"
+    },
+    "prior-validation-002/run/monte-carlo-L2-d3-210.json": {
+      "bytes": 2327,
+      "sha256": "9f628c1d7c64912b27c18b97432e601320f014d780dbba52dc5dcee79b4b46f5"
+    },
+    "prior-validation-002/run/monte-carlo-L3-d2-31.json": {
+      "bytes": 2321,
+      "sha256": "fe2a1b901782f7d3813f15686add0fc8f79f6f4951a6722cccd69715ae58e58e"
+    },
+    "prior-validation-002/run/monte-carlo-L3-d3-210.json": {
+      "bytes": 2325,
+      "sha256": "2a7e321eb9082c8cb953a1237146f0aa2148f967f2bdfeea055bb4afa4eedcfe"
+    },
+    "prior-validation-002/run/prior-validation-config.json": {
+      "bytes": 2556,
+      "sha256": "63c2613a06865881fa390f3d4eb510e672cd0ec7bd9d7799db77b27f3e557ccf"
+    },
+    "prior-validation-002/run/reference-evidence.json": {
+      "bytes": 52414,
+      "sha256": "00ab04bc7089da9fc5b60666b31f3dc886f910fb8ebb29b8fc6ef4012b9a5587"
+    },
+    "prior-validation-002/run/simplex-L2.json": {
+      "bytes": 1772,
+      "sha256": "19a6f728b317a669052f50a31f5dcd594be787db87408e26a8f2c1d4b10b5937"
+    },
+    "prior-validation-002/run/simplex-L3.json": {
+      "bytes": 1767,
+      "sha256": "462327ae3759291ca41295f17d963a3f653382d790e4894fd923b3a3e8afd676"
+    },
+    "prior-validation-002/run/sources/_vendor/pmwm/_runtime.py": {
+      "bytes": 379,
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    },
+    "prior-validation-002/run/sources/_vendor/pmwm/fast_tables.py": {
+      "bytes": 13306,
+      "sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "prior-validation-002/run/sources/_vendor/pmwm/kernel.py": {
+      "bytes": 208,
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    "prior-validation-002/run/sources/_vendor/pmwm/layered.py": {
+      "bytes": 50645,
+      "sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "prior-validation-002/run/sources/_vendor/pmwm/mellin.py": {
+      "bytes": 35303,
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    "prior-validation-002/run/sources/_vendor/pmwm/provenance.json": {
+      "bytes": 1695,
+      "sha256": "587b633707e3d25c85d53540426a2b944f141c4f9ce72dc155faf69b3a648d06"
+    },
+    "prior-validation-002/run/sources/depth.py": {
+      "bytes": 31925,
+      "sha256": "bb4fa35e23cd785c4bef5c44bcf616a8565834ac8a4f494571b9ea84e01dbdd5"
+    },
+    "prior-validation-002/run/sources/kernel_validation.py": {
+      "bytes": 23057,
+      "sha256": "03f3ca55a2cca6c0889611f66e2396f89916853d1d2ed8455353823f564b7813"
+    },
+    "prior-validation-002/run/sources/prior_validation.py": {
+      "bytes": 27141,
+      "sha256": "5ae37db4b405459baa0ae88b1c93e0ab6f39510234fb7290ddacd16dc25e4cf7"
+    },
+    "prior-validation-002/run/summary.json": {
+      "bytes": 4047,
+      "sha256": "33a6d419ac2aceda2bf638d3cd891706fa9fe35ea2c72fd15b189a8fc4b45104"
+    }
+  }
+}

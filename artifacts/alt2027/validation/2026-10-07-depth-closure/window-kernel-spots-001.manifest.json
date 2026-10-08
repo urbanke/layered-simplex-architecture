@@ -1,0 +1,85 @@
+{
+  "archive": "window-kernel-spots-001.tar.gz",
+  "archive_bytes": 63106,
+  "archive_sha256": "c07044d49b736d47099cdd53cf205ae064a619ec4788bd5a500756782a9ac158",
+  "files": {
+    "window-kernel-spots-001/extra/requirements-alt.lock": {
+      "bytes": 418,
+      "sha256": "7b3af636ff5b6a6472445a10f53c6c97da6e7fe3fd3ceea39f101312f811ecc1"
+    },
+    "window-kernel-spots-001/packaging.json": {
+      "bytes": 707,
+      "sha256": "da823f20a5da808589f27f41422f00aceb2216ddc83d056cd764a73fcb42eb9a"
+    },
+    "window-kernel-spots-001/run/config.json": {
+      "bytes": 440,
+      "sha256": "fc21961e7dd02b2dc234df10f92f82a8071db1bd640973063fce8a75b492ad03"
+    },
+    "window-kernel-spots-001/run/controller-association.json": {
+      "bytes": 544,
+      "sha256": "61301eb94b05dc97fba2dc747642162e94eb9f45364a480f7c0d8c506867ae3b"
+    },
+    "window-kernel-spots-001/run/implementation.json": {
+      "bytes": 1765,
+      "sha256": "8a5083c273266757c42d9c9c40094ba4846d6d002e06ab852a69af4028d57fc1"
+    },
+    "window-kernel-spots-001/run/resolved-cases.json": {
+      "bytes": 2347,
+      "sha256": "cef2b9f484d8d5c54b799fc777f6dae6008636d0dba516b0922749a275045d4d"
+    },
+    "window-kernel-spots-001/run/rows.jsonl": {
+      "bytes": 26869,
+      "sha256": "ea5e491a0dc31f5a3ca61384f3077205b916e6346c4d4eb02bed984316306f12"
+    },
+    "window-kernel-spots-001/run/source-capsule/_vendor/pmwm/__init__.py": {
+      "bytes": 81,
+      "sha256": "f9b6dff640ca43344b6d1d34e291122b189b1b33cfee5f7e2773743c0ba76b6a"
+    },
+    "window-kernel-spots-001/run/source-capsule/_vendor/pmwm/_runtime.py": {
+      "bytes": 379,
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    },
+    "window-kernel-spots-001/run/source-capsule/_vendor/pmwm/fast_tables.py": {
+      "bytes": 13306,
+      "sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "window-kernel-spots-001/run/source-capsule/_vendor/pmwm/kernel.py": {
+      "bytes": 208,
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    "window-kernel-spots-001/run/source-capsule/_vendor/pmwm/layered.py": {
+      "bytes": 50645,
+      "sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "window-kernel-spots-001/run/source-capsule/_vendor/pmwm/mellin.py": {
+      "bytes": 35303,
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    "window-kernel-spots-001/run/source-capsule/_vendor/pmwm/provenance.json": {
+      "bytes": 1695,
+      "sha256": "587b633707e3d25c85d53540426a2b944f141c4f9ce72dc155faf69b3a648d06"
+    },
+    "window-kernel-spots-001/run/source-capsule/_vendor/pmwm/universal_tables.py": {
+      "bytes": 57599,
+      "sha256": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
+    },
+    "window-kernel-spots-001/run/source-capsule/kernel_validation.py": {
+      "bytes": 23057,
+      "sha256": "03f3ca55a2cca6c0889611f66e2396f89916853d1d2ed8455353823f564b7813"
+    },
+    "window-kernel-spots-001/run/special-functions.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "window-kernel-spots-001/run/store-inputs.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "window-kernel-spots-001/run/summary.json": {
+      "bytes": 745,
+      "sha256": "0414c58b6e75896f0400d0630ca738cd834fbd38a75f91f88df36ef00ed5f4d0"
+    }
+  },
+  "notes": "Sixteen independent high-precision kernel checks at L=80 and u up to 80. This checks the provider at expanded-window points; the controller association was added after the kernel run.",
+  "production_admission": false
+}

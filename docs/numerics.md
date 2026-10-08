@@ -1,86 +1,137 @@
-# Numerical engine integration for ALT
+# Numerical engine for the ALT experiments
 
-The next implementation phase will reuse the scientific evaluator in the sibling
-`product_model_with_memory` project. The existing `src/lsa/` implementation stays
-available for regression and independent checks. The preparation step records the
-integration requirements; it does not replace either numerical implementation.
+The ALT evaluator lives in `src/lsa/alt/depth.py`. It uses a pinned scientific
+subset of `product_model_with_memory`, with the existing independent LSA
+implementation retained for regression and cross-checks. The power model has a
+separate evaluator in `src/lsa/alt/powers.py`.
 
-## Inspected source
+## Source and model identity
 
-On 7 October 2026 the sibling project was on `main` at
-`240406d16be0e7c5dcd7d2ee0e14d5ee4f28c915`. Its relevant evaluator/store files
-were clean relative to that commit, while other documentation and research files
-had local changes. Capture hashes of the actual scientific files used during
-integration, together with the code commit and working-tree state.
+The vendored upstream revision is `240406d16be0e7c5dcd7d2ee0e14d5ee4f28c915`.
+`src/lsa/alt/_vendor/pmwm/provenance.json` records upstream and current file
+hashes. Local adaptations include explicit immutable-store operation, preserved
+integration diagnostics, and the corrected high-depth contour calculation.
 
-Useful entry points under that project's `src/product_model_with_memory/`:
+The ALT adapter implements the exact requested depth grid, including the uniform
+atom at depth zero, and equal prior weights over that grid. Sequence evidence
+sets the posterior weights. Predictions use base/augmented count-profile
+families. Both component and mixture probability sums are checked before the
+explicit final normalization used by the benchmark protocol.
 
-| File/API | Role |
+A single powered layer is `Y=E**w`; its power grid is separate from the unit-power
+depth grid. Powers zero and one have analytic endpoints. The remaining powers
+use positive quadrature with recorded tail and convergence diagnostics.
+
+Each configuration identifies the implementation, numerical settings, store
+contents, runtime/library versions, and actual execution path. The current ALT
+path uses Python/scipy scans without native-kernel evaluation or depth-tail
+truncation. Thus native/sparse/truncated-path comparisons are outside the path
+used for these experiments.
+
+## Immutable kernel store and direct contour route
+
+`experiments/alt2027/store-candidate.json` identifies all 106 files of the
+2.80 GB `anchors_prod` store. The local engine configuration supplies its path;
+configuration identity uses the file hashes and is independent of that path.
+Every used file is checked, and the adapter cannot build or modify the store.
+The separate `probe_exact` store supports independent sampled-row comparisons.
+
+Stored rows cover depths 2–53. The original high-depth saddle/series shortcut
+failed reference checks. It was replaced with vectorized direct contour
+integration and a strictly bounded small-t expansion. The legacy configuration
+key `saddle_min_depth=54` now selects this direct-contour route; saved diagnostics
+name the route `direct-contour`. Both the original shortcut residuals and the
+corrected results remain in the validation records.
+
+The outer log-grid starts at the configured spacing. If any member of a related
+profile family has an unresolved narrow peak, the evaluator retries the entire
+depth at half the spacing, down to `minimum_grid_step`. Parent and augmented
+profiles always share the same grid. A remaining unresolved peak, tail failure,
+or invalid probability mass stops that evaluation. Recorded diagnostics retain
+the requested/actual spacing, number of refinements, and integration boundaries.
+
+If a direct-contour level fails the measured right-boundary gap, it also retries
+the entire depth with a wider upper bound. The explicit `StoreConfig` defaults
+are `u_max=35`, `upper_window_increment=25`, and `maximum_u_max=80`, giving
+attempts at 35, 60 and 80. Existing spacing refinements are preserved across
+window retries. Already resolved levels retain their initial grid and result;
+narrow or otherwise unresolved peaks keep their separate refinement/failure
+path. Reaching the upper-bound cap still raises an error, without weakening any
+tail or normalization tolerance. Set `maximum_u_max=u_max` to disable expansion.
+
+Automatic expansion applies only at or above the direct-contour switch selected
+by `saddle_min_depth`. Stored levels retain the configured initial bound, 35 in
+the candidate configuration: expanding them globally would request additional
+right-series/contour values outside the stored grid. Every accepted numerical
+component records `initial_u_max`, `actual_u_max`, `window_expansions` and
+`upper_window_history`, alongside its actual grid spacing and refinement count.
+
+## Declared calibration suites
+
+The five `*-validation.json` specifications in `experiments/alt2027/` freeze
+cases, seeds, precision settings, refinement rules, and tolerances before runs.
+
+| Suite | Evidence produced |
 |---|---|
-| `layered.py: log_q_lambda_scan` | Evidence of a count profile at one depth, with peak/convergence diagnostics |
-| `layered.py: log_q_lambda_closed_l1` | Independent depth-one endpoint |
-| `codelength.py: depth_averaged_codelength_profiles` | Batched profile evaluation; adapt its mixture convention |
-| `codelength.py: depth_averaged_codelength_families` | Related base/augmented profiles for predictive evidence ratios |
-| `universal_tables.py: UniversalTables` | Stored kernel rows, level tables, interpolation, and store checks |
-| `mellin.py` | Contour/reference evaluation |
+| Kernel | 45/60-digit independent contour references through depth 138; count/interpolation boundaries; pointwise/batched columns; Meijer-G and positive depth-two recursion; sampled stored rows |
+| Prior | Independent prior simulation with saved seeds and standard errors; direct simplex integration through depth 3; complete small-alphabet sequence, prediction, KL-chain and discovered-set identities |
+| Depth | Saved paper-domain profiles, all 81 benchmark depths on each target, large-alphabet and Bible cases; outer-grid/window refinement; component and mixture loss changes; raw normalization errors |
+| Power | All 81 powers on a saved profile from each paper target; stricter kernel/outer quadrature; independent power-two references; full component and posterior records |
+| Chain | First 2,000 canonical Bible tokens, all 55 depths; family prediction versus separately scanned profile evidence, with every transition retained |
 
-Confirm names against the pinned version when implementing. The scientific
-count-profile layer serves the memoryless synthetic and word-token experiments
-directly. The project's production BPE wrappers, memory models, and transformer
-modules are outside this adapter.
+These are finite, explicitly recorded numerical checks. Numerical error is
+reported in its actual units: log-kernel nats, total evidence bits, bits/token,
+next-symbol KL bits, or probability mass. The profile-level performance target
+is stability within `1e-5` bits; a raw-mass guard is reported separately. The
+original stored-row criterion is `3e-9` nats. A stricter `1e-11` low-count direct
+kernel check additionally records small stored-row residuals; those residuals
+are assessed with the profile-level refinement results.
 
-## Match the paper's models explicitly
+## Running and verifying checks
 
-- The engine's current aggregate averages `L=1,...,Lmax`. The ALT mixture includes
-  `L=0,...,Lmax`. Add the uniform atom with natural-log evidence `-N ln(d)`, use
-  `Lmax+1` equal prior weights, and recompute mixture evidence and posterior
-  probabilities. Pass each experiment's depth range explicitly.
-- Prediction is an evidence ratio for base and augmented profiles. Validate its
-  normalization and agreement with direct prediction before applying numerical
-  normalization corrections.
-- A single powered layer uses `Y=E^w`, not a product of `w` exponential layers.
-  Implement a separately identified powered kernel, including analytic `w=0`
-  and `w=1` endpoints. Reuse the outer evidence/profile machinery where valid.
-- Record whether quantities are nats, bits, totals, or per-symbol averages.
+From a fixed checkout with the locked environment:
 
-## Store and numerical settings
+```sh
+export PYTHONPATH=src
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1
+python scripts/alt_experiments.py configure-engine --store-directory /path/to/anchors_prod --out output/alt2027/engine-candidate.json
+python scripts/alt_experiments.py calibrate --suite prior --config experiments/alt2027/prior-validation.json --out output/alt2027/prior-001
+python scripts/alt_experiments.py calibrate --suite kernel --config experiments/alt2027/kernel-validation.json --out output/alt2027/kernel-001
+python scripts/alt_experiments.py calibrate --suite depth --config experiments/alt2027/depth-validation.json --engine-config output/alt2027/engine-candidate.json --workers 4 --out output/alt2027/depth-001
+python scripts/alt_experiments.py calibrate --suite power --config experiments/alt2027/power-validation.json --workers 2 --out output/alt2027/power-001
+python scripts/alt_experiments.py calibrate --suite chain --config experiments/alt2027/bible-chain-validation.json --engine-config output/alt2027/engine-candidate.json --out output/alt2027/chain-001
+python scripts/alt_experiments.py verify output/alt2027/prior-001
+```
 
-The inspected engine's documented production path is `tables/anchors_prod`;
-pass it explicitly. Its low-level default is an older store. The documented
-settings are `PMM_PHI_LADDER_EVERY=1`, `PMM_PHI_LADDER_DEGREE=11`,
-`PMM_PHI_SADDLE_MIN_L=54`, and `PMM_SCAN_LEGACY=0`. These are candidate settings
-for validation, not an ALT accuracy certificate.
+Use explicit local store paths in the engine and kernel configurations. Keep
+file identities fixed when moving stores. Each output directory is immutable.
+The command wrapper records the complete source tree, installed environment,
+inputs and results, rejects changes during execution, and returns failure if a
+declared check fails. Worker sharding preserves each case's seed coordinates.
 
-Disable heuristic depth-tail truncation during verification with
-`PMM_NO_TRUNCATE=1`. Record all active `PMM_*` settings, scan mode, native/Python
-path, quadrature rules, tolerances, and store hashes. Hash the store contents
-through an archive or a per-file index as well as its metadata manifest. The production store has
-`anchors.json`; the separate `tables/probe_exact` contour store is read-only.
-At inspection, both store manifests had empty certification arrays. Preserve
-existing stores and use an explicit independently checked reference path.
+The depth suite also checks the actual grid spacing saved by each integral.
+Where adaptive retries made both nominal settings equally fine, the assessor
+evaluates another half-step using the same saved profile. It gates both the
+component and mixture loss changes, plus raw probability mass. Existing runs
+can be assessed with `assess-depth --sources DIR --config FILE --engine-config FILE
+--supplement --out NEW_DIR`. An incomplete snapshot lists its pending cases;
+original failures remain visible.
 
-## Validation before production
+A passed suite supports its saved cases. Production admission additionally
+requires the combined coverage assessment, a frozen protocol, a clean source
+commit, matching engine identity, and complete required checks. Calibration
+summaries alone cannot enable the production runner.
 
-Check analytic endpoints, evidence/prediction identities, full and sparse scans,
-truncated and full depth sweeps, native and Python paths, and selected independent
-contour evaluations. Retain narrow-peak and integration-boundary diagnostics;
-the aggregate API currently drops messages that are needed for this assessment.
+## Batching and regression
 
-Cover the actual experiment domain, including zero and singleton counts, heavy
-counts, interpolation boundaries, the fixed-power grid through 80, and the depth
-spectrum through 138. Existing historical profile checks are useful starting
-cases. Acceptance tolerances are to be agreed in the protocol in the units of
-the reported results and relative to their statistical uncertainty.
+`batch_depth.py` shares kernel preparation across bounded cohorts and caches
+compact exchangeable count-class results. It maps predictions back to the
+original label order and preserves diagnostics. Evidence-only experiments stream
+bounded chunks of saved profiles. Cache keys include alphabet size, the complete
+count profile, and the ordered depth grid.
 
-Useful existing checks include the engine's `test_layered`, `test_mellin`,
-`test_universal_integration`, `test_store_integrity`, `test_interp_kernel`, and
-`scripts/compare_evaluators.py`. Pass store paths explicitly. Record the versions
-and parameter domain actually tested.
-
-## Environment
-
-Neither inspected project currently has a locked numerical environment. Pin the
-validated Python/library versions and record compiler, operating system, CPU,
-worker counts, and nested-thread limits. Importing the engine can build/load its
-optional C kernel, so capture the actual native-path availability. Preserve a
-portable environment specification alongside the platform-specific run record.
+Batch/individual comparisons cover analytic endpoints, independent depth-two
+checks, a small pinned store, and saved paper-domain pilot profiles. Numerical
+changes also require the full `scripts/validate_appendix_c.py` and test suite.
+The exact dependency lock is `requirements-alt.lock`; every new run records its
+installed versions, hardware, worker count, and nested-thread settings.

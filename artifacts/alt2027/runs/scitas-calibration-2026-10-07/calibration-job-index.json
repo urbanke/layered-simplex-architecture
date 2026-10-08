@@ -1,0 +1,79 @@
+{
+  "driver_sha256": "f8d46072142b47574e4f8834aed958b0842f421a0296a5fe2c3f32b63b8b5ecc",
+  "jobs": [
+    {
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--job-name=lsa-alt-kernel",
+        "--cpus-per-task=1",
+        "--mem=4G",
+        "--time=06:00:00",
+        "/scratch/urbanke/lsa-alt2027/setup/jed-calibration.sbatch",
+        "kernel"
+      ],
+      "job_id": "40152955",
+      "suite": "kernel"
+    },
+    {
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--job-name=lsa-alt-prior",
+        "--cpus-per-task=1",
+        "--mem=4G",
+        "--time=02:00:00",
+        "/scratch/urbanke/lsa-alt2027/setup/jed-calibration.sbatch",
+        "prior"
+      ],
+      "job_id": "40152956",
+      "suite": "prior"
+    },
+    {
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--job-name=lsa-alt-chain",
+        "--cpus-per-task=1",
+        "--mem=6G",
+        "--time=02:00:00",
+        "/scratch/urbanke/lsa-alt2027/setup/jed-calibration.sbatch",
+        "chain"
+      ],
+      "job_id": "40152957",
+      "suite": "chain"
+    },
+    {
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--job-name=lsa-alt-power",
+        "--cpus-per-task=11",
+        "--mem=64G",
+        "--time=04:00:00",
+        "/scratch/urbanke/lsa-alt2027/setup/jed-calibration.sbatch",
+        "power"
+      ],
+      "job_id": "40152958",
+      "suite": "power"
+    },
+    {
+      "command": [
+        "sbatch",
+        "--parsable",
+        "--job-name=lsa-alt-depth",
+        "--cpus-per-task=27",
+        "--mem=160G",
+        "--time=12:00:00",
+        "/scratch/urbanke/lsa-alt2027/setup/jed-calibration.sbatch",
+        "depth"
+      ],
+      "job_id": "40152959",
+      "suite": "depth"
+    }
+  ],
+  "production_admission": false,
+  "purpose": "validation",
+  "source_commit": "cc1524a636a5f1996b4fbff1668c477ed0e989b8",
+  "submitted_utc": "2026-10-07T18:05:24.415337+00:00"
+}

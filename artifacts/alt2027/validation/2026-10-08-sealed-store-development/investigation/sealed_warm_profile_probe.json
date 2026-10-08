@@ -1,0 +1,171 @@
+{
+  "scope": "single-process, single-thread, read-only warm serving of exactly saved two pilot profiles; outer settings unchanged",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "source_sha256": {
+    "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/depth.py": "98fc5bce18453e48c66b2238a06a06cb882b74fc3c8d891dab436083d893e1e6",
+    "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/sealed_tables.py": "f29fda02d32a86de2406bf4a86b166d5bea98127888edd49ca0cbaffcf78b88a",
+    "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/_vendor/pmwm/layered.py": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+  },
+  "pilot_summary_sha256": "efe1d80fc7b49435981ae4942f40c385391fdb599b1b3715fe6cc7f693128abb",
+  "cases": [
+    {
+      "id": "zipf1p5-n1000",
+      "sample_sha256": "838cb9bdea87977b02cb3e1e1cae8cf8d6f047291c88267ba1823983e3481fd3",
+      "runs": [
+        {
+          "repeat": 0,
+          "seconds": 0.620979500003159,
+          "phase_inclusive_timings": {
+            "_check_open": {
+              "calls": 322,
+              "seconds": 0.018049667531158775
+            },
+            "_load_level": {
+              "calls": 7,
+              "seconds": 0.19216420786688104
+            },
+            "_anchor_values": {
+              "calls": 204,
+              "seconds": 0.36984808306442574
+            },
+            "log_phi_matrix": {
+              "calls": 4,
+              "seconds": 0.3999085009563714
+            }
+          },
+          "identical_to_first": true,
+          "identical_to_saved_pilot": true
+        },
+        {
+          "repeat": 1,
+          "seconds": 0.4080881249974482,
+          "phase_inclusive_timings": {
+            "_check_open": {
+              "calls": 319,
+              "seconds": 0.01768365956377238
+            },
+            "_load_level": {
+              "calls": 7,
+              "seconds": 0.00037779100239276886
+            },
+            "_anchor_values": {
+              "calls": 204,
+              "seconds": 0.36136767495190725
+            },
+            "log_phi_matrix": {
+              "calls": 4,
+              "seconds": 0.38211449899245054
+            }
+          },
+          "identical_to_first": true,
+          "identical_to_saved_pilot": true
+        },
+        {
+          "repeat": 2,
+          "seconds": 0.4053548329975456,
+          "phase_inclusive_timings": {
+            "_check_open": {
+              "calls": 319,
+              "seconds": 0.017386867315508425
+            },
+            "_load_level": {
+              "calls": 7,
+              "seconds": 0.000376541109289974
+            },
+            "_anchor_values": {
+              "calls": 204,
+              "seconds": 0.35966207581805065
+            },
+            "log_phi_matrix": {
+              "calls": 4,
+              "seconds": 0.37944212497677654
+            }
+          },
+          "identical_to_first": true,
+          "identical_to_saved_pilot": true
+        }
+      ]
+    },
+    {
+      "id": "zipf5-n20000",
+      "sample_sha256": "b1c31dd45f1477867ce0fe9e1998d7cb57d7cff42329f097849797683c51d938",
+      "runs": [
+        {
+          "repeat": 0,
+          "seconds": 0.46249404101399705,
+          "phase_inclusive_timings": {
+            "_check_open": {
+              "calls": 172,
+              "seconds": 0.00965432560769841
+            },
+            "_load_level": {
+              "calls": 7,
+              "seconds": 0.0003855830291286111
+            },
+            "_anchor_values": {
+              "calls": 152,
+              "seconds": 0.4208200379507616
+            },
+            "log_phi_matrix": {
+              "calls": 4,
+              "seconds": 0.44751845800783485
+            }
+          },
+          "identical_to_first": true,
+          "identical_to_saved_pilot": true
+        },
+        {
+          "repeat": 1,
+          "seconds": 0.4442164159845561,
+          "phase_inclusive_timings": {
+            "_check_open": {
+              "calls": 172,
+              "seconds": 0.00960691663203761
+            },
+            "_load_level": {
+              "calls": 7,
+              "seconds": 0.00037037499714642763
+            },
+            "_anchor_values": {
+              "calls": 152,
+              "seconds": 0.4043441700632684
+            },
+            "log_phi_matrix": {
+              "calls": 4,
+              "seconds": 0.42954937496688217
+            }
+          },
+          "identical_to_first": true,
+          "identical_to_saved_pilot": true
+        },
+        {
+          "repeat": 2,
+          "seconds": 0.4410062080132775,
+          "phase_inclusive_timings": {
+            "_check_open": {
+              "calls": 172,
+              "seconds": 0.009831045230384916
+            },
+            "_load_level": {
+              "calls": 7,
+              "seconds": 0.00037129095289856195
+            },
+            "_anchor_values": {
+              "calls": 152,
+              "seconds": 0.4008706596796401
+            },
+            "log_phi_matrix": {
+              "calls": 4,
+              "seconds": 0.426134250999894
+            }
+          },
+          "identical_to_first": true,
+          "identical_to_saved_pilot": true
+        }
+      ]
+    }
+  ],
+  "engine_open_seconds": 0.23518083401722834,
+  "sources_unchanged": true,
+  "timing_note": "instrumented method totals are inclusive/overlap; do not add _check_open/_load_level/_anchor_values to log_phi_matrix"
+}

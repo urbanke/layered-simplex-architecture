@@ -1,0 +1,97 @@
+{
+  "time_utc": "2026-10-08T05:10:12.018335+00:00",
+  "purpose": "diagnostic only; production launch temporarily held; no scientific execution-source change",
+  "frozen_execution_source": "0399cb28b973e5550fcbcbce082e8d36c95c2e1e",
+  "files": [
+    {
+      "path": "outputs/alt-fast-evaluation-findings.txt",
+      "sha256": "8305ea10a20d7b4e862baa6111a9c0317e6f18880b0e68e28e35a4c2de301fa9",
+      "bytes": 4421
+    },
+    {
+      "path": "outputs/alt-fast-evaluation-investigation.json",
+      "sha256": "ed3107fd82c3f8f797bc781e5777e6496f058f54f7f1e74c481f2ea86cdcd3d2",
+      "bytes": 4564
+    },
+    {
+      "path": "outputs/alt-fast-path-correctness-audit.txt",
+      "sha256": "79b56fc839e02c222b2f8ee9038d70776b37da8d7e31e4067ea6c1c6a305599e",
+      "bytes": 9998
+    },
+    {
+      "path": "outputs/alt-upstream-fast-path-review.txt",
+      "sha256": "c018625ea5388437fbfdfe9f0c3cef123cadb51ad13b7c75fbfbbfa7a373b4d3",
+      "bytes": 10416
+    },
+    {
+      "path": "outputs/alt-pmwm-fast-route-audit.json",
+      "sha256": "9d7df149e71e9939001da7a496055cc30ed9fba510677f70c266dc0a8dff7f49",
+      "bytes": 21164
+    },
+    {
+      "path": "outputs/alt-pmwm-fast-route-audit.txt",
+      "sha256": "464fec192e58ae0fe8a981cd45379d967451b11bceffb8183720c0ed110b254a",
+      "bytes": 3929
+    },
+    {
+      "path": "work/fast-engine-investigation/pretabulation_probe.py",
+      "sha256": "4b24df050d0fdbf050bfe643985d5c4c28d66a632d8dbeb7bd5896999526893c",
+      "bytes": 4220
+    },
+    {
+      "path": "work/fast-engine-investigation/pretabulation-probe-001/summary.json",
+      "sha256": "51082bf61b05e966806d105ddf65b2024d4da2502653637e9836db7e4c5de236",
+      "bytes": 8683
+    },
+    {
+      "path": "work/fast-engine-investigation/profile_probe.py",
+      "sha256": "c38ae372b25fb651933de11bf17b80832c153ddb17c7652465063c714ee839d9",
+      "bytes": 6043
+    },
+    {
+      "path": "work/fast-engine-investigation/profile-probe-002/summary.json",
+      "sha256": "6ab0290254246469edc1b94a014cc01de03d1b54b74ad08a7229d1c198ac8547",
+      "bytes": 3303
+    },
+    {
+      "path": "work/fast-engine-investigation/profile-probe-002/zipf1p5-n1000.npz",
+      "sha256": "8b2ca5043ae5f47a2d766f1134b38793caed8930fb8fa67b32cbba0d47f4a24c",
+      "bytes": 73354
+    },
+    {
+      "path": "work/fast-engine-investigation/profile-probe-002/zipf5-n20000.npz",
+      "sha256": "62ee08e66fc45aeca821a657e69e630110f6819fd1f5ab71a6dd1ae7de86c4c9",
+      "bytes": 62285
+    },
+    {
+      "path": "work/fast-engine-investigation/profile-probe-failed-001.log",
+      "sha256": "572478437a6dbe3d919b692eb9cac9621bf281bedd9f9f9566d87758ad1f8528",
+      "bytes": 642
+    },
+    {
+      "path": "work/fast-engine-investigation/native-diagnostic/benchmark.py",
+      "sha256": "f4bb6cd8e0c050515e650f12afc7f6bf9af45d745098337cc23aede0ded3d3ce",
+      "bytes": 7050
+    },
+    {
+      "path": "work/fast-engine-investigation/native-diagnostic/scalar_exact_benchmark.py",
+      "sha256": "939e158f507f74ebd693eedf566f738374dfa6fe6318ce573b25da62a7faa829",
+      "bytes": 3113
+    },
+    {
+      "path": "work/fast-engine-investigation/native-diagnostic/results.json",
+      "sha256": "6d2b2a3121ce9525427af589487d8c725e648b6577911839319197f234f28213",
+      "bytes": 15778
+    },
+    {
+      "path": "work/fast-engine-investigation/native-diagnostic/scalar-exact-results.json",
+      "sha256": "2c863bfdd42c7a6e218bde531fc5ba7868a8c115c4f5b8ca09cfd915503ef64c",
+      "bytes": 2470
+    },
+    {
+      "path": "outputs/alt-extended-store-design.txt",
+      "sha256": "ec7f087ee8ada400d19a73a37fcc64ed3e9a2edf864f3048e404e4cbacf60780",
+      "bytes": 16673
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "all_archive_payload_checksums_verified": true,
+  "all_original_run_files_unchanged_during_packaging": true,
+  "archives": [
+    {
+      "archive": "power-calibration-001.tar.gz",
+      "bytes": 1045213,
+      "file_count": 45,
+      "manifest": "power-calibration-001.manifest.json",
+      "manifest_sha256": "c314c049df73c801d465c50d98aa8d7602cb6e72d6709b835b1d8df5faf127e1",
+      "original_run": "output/alt2027/power-calibration-001",
+      "sha256": "6f95c4a8a8e15d73a247cf983504d8495a41860a583205244571327233563cea",
+      "source_at_packaging_only": [],
+      "source_current_mismatches": [
+        {
+          "capsule_sha256": "c7a60be39b0c15b4f3aaa03cf064231d4f881ed349f91801ace1f83f48a1560b",
+          "current_matches_record": false,
+          "current_sha256": "f1e7b086563c63c6bf5cd975b3a401dfa9cde8983707a7d60cacd7a9a98da50e",
+          "recorded_sha256": "c7a60be39b0c15b4f3aaa03cf064231d4f881ed349f91801ace1f83f48a1560b",
+          "repository_path": "src/lsa/alt/benchmark.py",
+          "retrieval": "git e51c449 blob verified against run-start and run-finish hashes"
+        }
+      ],
+      "source_scope": "Original run fingerprints, with exact bytes recovered and verified at packaging."
+    },
+    {
+      "archive": "prior-validation-002.tar.gz",
+      "bytes": 68211,
+      "file_count": 26,
+      "manifest": "prior-validation-002.manifest.json",
+      "manifest_sha256": "d1afc92f55cd5b58e5ef486549e73e6b60026d8595b84ab434b1f1a1a149fc1b",
+      "original_run": "output/alt2027/prior-validation-002",
+      "sha256": "ca7d94de6f79a995498c96158550cbd13749e2db35861980d9e4fbfe72b78004",
+      "source_at_packaging_only": [],
+      "source_current_mismatches": [],
+      "source_scope": "Existing original module-fingerprint capsule; only its explicitly fingerprinted files."
+    },
+    {
+      "archive": "kernel-calibration-20261007-declared-grid.tar.gz",
+      "bytes": 155554,
+      "file_count": 20,
+      "manifest": "kernel-calibration-20261007-declared-grid.manifest.json",
+      "manifest_sha256": "329df837805d0fd3bbc59b0eaa08a2f21e743bdaec4fd1a69dbcee457605b4e4",
+      "original_run": "output/alt2027/kernel-calibration-20261007-declared-grid",
+      "sha256": "4f2194dc4ade8ad0e850862e0e10a411a5274de429305b88acfd0e5e5b685e3f",
+      "source_at_packaging_only": [],
+      "source_current_mismatches": [],
+      "source_scope": "Existing original kernel source capsule; all comparisons retained including failing legacy/stored-row diagnostics."
+    },
+    {
+      "archive": "chain-pilot-20261007-all-depths.tar.gz",
+      "bytes": 1408376,
+      "file_count": 23,
+      "manifest": "chain-pilot-20261007-all-depths.manifest.json",
+      "manifest_sha256": "91936cba63ed5ee9d45d95c1762a4716fd041a9c89ce3d1f2fff55582cd7c48a",
+      "original_run": "output/alt2027/chain-pilot-20261007/all-depths",
+      "sha256": "faf1a1aa2e0270905e314c90d9e6e90f050238d3b52f33f1d8f27b0599652615",
+      "source_at_packaging_only": [
+        {
+          "identity_origin": "observed at archive packaging only",
+          "repository_path": "src/lsa/alt/chain_validation.py",
+          "run_start_hash_available": false,
+          "sha256_at_packaging": "82d62e07382ab840a1588f3a2e0ad129bd154bc5e22bc7bc3840024bf6e4d08e"
+        },
+        {
+          "identity_origin": "observed at archive packaging only",
+          "repository_path": "src/lsa/alt/bible.py",
+          "run_start_hash_available": false,
+          "sha256_at_packaging": "e398a1bdb084af30b4c43cde331bcb577385ed1200ac6a7e73ab10a0d8df73b3"
+        },
+        {
+          "identity_origin": "observed at archive packaging only",
+          "repository_path": "src/lsa/alt/benchmark.py",
+          "run_start_hash_available": false,
+          "sha256_at_packaging": "f1e7b086563c63c6bf5cd975b3a401dfa9cde8983707a7d60cacd7a9a98da50e"
+        },
+        {
+          "identity_origin": "observed at archive packaging only",
+          "repository_path": "src/lsa/alt/baselines.py",
+          "run_start_hash_available": false,
+          "sha256_at_packaging": "b98cad9223affe92d144695782a2e2d3ef273d966dd35930a971455c58c5b7a8"
+        },
+        {
+          "identity_origin": "observed at archive packaging only",
+          "repository_path": "src/lsa/alt/artifacts.py",
+          "run_start_hash_available": false,
+          "sha256_at_packaging": "e417cfb0c00d970acc3dbd146bbfcc33f89efd9de67a01365c2dd111a97fd9f3"
+        }
+      ],
+      "source_current_mismatches": [],
+      "source_scope": "Engine bytes match the original engine identity. The chain module and helper hashes were first archived at packaging; they are not claimed to have been measured at run start."
+    },
+    {
+      "archive": "batch-depth-pilot-001.tar.gz",
+      "bytes": 128417,
+      "file_count": 37,
+      "manifest": "batch-depth-pilot-001.manifest.json",
+      "manifest_sha256": "d9348837f6956e735357427b80da2ad38e7f490667192dc7a8e0faef72890c1b",
+      "original_run": "output/alt2027/batch-depth-pilot-001",
+      "sha256": "5a5581b71ab9381457326dc57cb0f8d00cb992a77646726f8a11a4d26aa32c94",
+      "source_at_packaging_only": [],
+      "source_current_mismatches": [],
+      "source_scope": "Existing original batch pilot source capsule."
+    }
+  ],
+  "compressed_archive_bytes": 2805771,
+  "packaged_utc": "2026-10-07T16:09:23.756271+00:00",
+  "pending_excluded": [
+    {
+      "included": false,
+      "reason": "Active profile-depth calibration at packaging; no final results included.",
+      "source_run": "output/alt2027/depth-calibration-20261007",
+      "status": "pending"
+    }
+  ],
+  "purpose": "immutable validation archive; no production certification",
+  "schema_version": 1
+}

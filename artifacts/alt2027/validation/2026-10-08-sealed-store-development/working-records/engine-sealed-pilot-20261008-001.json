@@ -1,0 +1,43 @@
+{
+  "mode": "store",
+  "prediction_tolerance": 0.001,
+  "store": {
+    "path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/sealed-kernel-pilot-20261008-001",
+    "files_sha256": {
+      "level_002.bin": "2dc091319dbf8acab068196f2e292d005640786d41f82ab13fa85c0b0145c365",
+      "level_002.complete.json": "d6a124fa4a3f89dae6519794588c5b005f07d900fb30471a12593d111bbb46c9",
+      "level_002.index.json": "a916c40dcc188db05666406178576f845b4813cdd9d8429db873a3cf6299d882",
+      "level_022.bin": "c27720d4922375cf620722c74a6f573727d1243b66221d0b4f3d88f13f193ccf",
+      "level_022.complete.json": "4800475037c32a8de73753861697381727612ecaa6a6c66247ac987d02edd254",
+      "level_022.index.json": "8c939335bfa2b25cb3a9ecdb3d75f4c92c406962fcede402245b95d73a56c372",
+      "level_053.bin": "85e59c6a278f8713875172d34b19b0d906e494c90b5e19edf4ea6c1aa3ebe9a4",
+      "level_053.complete.json": "0ac07e6ccf419823c23eebca15b51d36de9c18a206f01609097764a4c21a6970",
+      "level_053.index.json": "a80385c96db779c5eed1251688a68ae80fb48da4a17ca5925d6464d6acadee1b",
+      "level_054.bin": "f8f329e306e23753486d6fba1c7ac352dc30b5bbcf2ff2091562bb40b0e6b8b5",
+      "level_054.complete.json": "d9c797e16838a16b2bc77cadd8f3f80b1fa3fdbe1c7b1e396e42157b3b3e4321",
+      "level_054.index.json": "3eb27aea50f2862300cd9d97407011e537c61186cba5a01e527143b899b8ceb5",
+      "level_080.bin": "9173431cf539c1bd9b32625b6db6c1576f6d5fe5db5e452b954b80133ac3fdb0",
+      "level_080.complete.json": "a2de9ed85f4dbcccb729ce0285cab1cbb06870f66d9062997b219e77d2ad5b7d",
+      "level_080.index.json": "c00fdadc23e028fda85d225ee182ff4592b475648e0361ba94d9e9ec95ff04e9",
+      "level_138.bin": "05d6bafb12839dbaa6462571387826163d7fa42bb9e3cf6560ea6eba8f86a4cf",
+      "level_138.complete.json": "a3e6d578fb351ee42682ff0bfb35b4f4adaed15811f9a13414cf049fe5426258",
+      "level_138.index.json": "e8a872e697d1881cda0f4cab6797e1313da9df5bffd397ec14636ed80859bb11",
+      "plan.json": "ce34b645f00e6055a94e6f5f0e987422d3b277024cf7cadabd3ca56b9feab6f9",
+      "manifest.json": "aa3ea5a10fbac5f8ccfbe108e61a62d5a062a57776b8cfb7ac0d83b23d77eaa5"
+    },
+    "max_depth": 138,
+    "max_d": 1000000,
+    "max_n": 915861,
+    "max_count": 915861,
+    "ladder_every": 1,
+    "ladder_degree": 11,
+    "saddle_min_depth": null,
+    "grid_step": 0.02,
+    "u_max": 35.0,
+    "scan_mode": "full",
+    "significance_gap": 40.0,
+    "minimum_right_gap": 30.0,
+    "series_tail_nats": null,
+    "format": "sealed"
+  }
+}

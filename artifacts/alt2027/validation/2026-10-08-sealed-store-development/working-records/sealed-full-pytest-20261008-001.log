@@ -1,0 +1,110 @@
+........................................................................ [ 15%]
+........................................................................ [ 30%]
+........................................................................ [ 45%]
+........................................................................ [ 60%]
+........................................................................ [ 76%]
+..................................................................F..... [ 91%]
+...............................F.........                                [100%]
+=================================== FAILURES ===================================
+_____________________ test_parallel_matches_serial_exactly _____________________
+
+    def test_parallel_matches_serial_exactly():
+        rng = random.Random(3)
+        profiles = {
+            i: tuple(sorted(rng.randint(1, 60) for _ in range(rng.randint(1, 6))))
+            for i in range(12)
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            serial = depth_averaged_codelength_profiles(
+                profiles, d=64, l_max=6, cache_dir=tmp, jobs=1
+            )
+>           par = depth_averaged_codelength_profiles(
+                profiles, d=64, l_max=6, cache_dir=tmp, jobs=3
+            )
+
+tests/test_parallel_eval.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lsa/codelength.py:442: in depth_averaged_codelength_profiles
+    shm = shared_memory.SharedMemory(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <[AttributeError("'NoneType' object has no attribute 'startswith'") raised in repr()] SharedMemory object at 0x10f178c20>
+name = '/psm_b5eb6686', create = True, size = 7424464, track = True
+
+    def __init__(self, name=None, create=False, size=0, *, track=True):
+        if not size >= 0:
+            raise ValueError("'size' must be a positive integer")
+        if create:
+            self._flags = _O_CREX | os.O_RDWR
+            if size == 0:
+                raise ValueError("'size' must be a positive number different from zero")
+        if name is None and not self._flags & os.O_EXCL:
+            raise ValueError("'name' can only be None if create=True")
+    
+        self._track = track
+        if _USE_POSIX:
+    
+            # POSIX Shared Memory
+    
+            if name is None:
+                while True:
+                    name = _make_filename()
+                    try:
+>                       self._fd = _posixshmem.shm_open(
+                            name,
+                            self._flags,
+                            mode=self._mode
+                        )
+E                       PermissionError: [Errno 1] Operation not permitted: '/psm_b5eb6686'
+
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/shared_memory.py:95: PermissionError
+____________________ test_universal_parallel_matches_serial ____________________
+
+    def test_universal_parallel_matches_serial():
+        with tempfile.TemporaryDirectory() as tmp:
+            serial = _run("universal", tmp)
+>           parallel = _run("universal", tmp, jobs=2)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_universal_integration.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_universal_integration.py:39: in _run
+    return depth_averaged_codelength_profiles(
+src/lsa/codelength.py:442: in depth_averaged_codelength_profiles
+    shm = shared_memory.SharedMemory(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <[AttributeError("'NoneType' object has no attribute 'startswith'") raised in repr()] SharedMemory object at 0x10ceefb10>
+name = '/psm_073b55c5', create = True, size = 3198144, track = True
+
+    def __init__(self, name=None, create=False, size=0, *, track=True):
+        if not size >= 0:
+            raise ValueError("'size' must be a positive integer")
+        if create:
+            self._flags = _O_CREX | os.O_RDWR
+            if size == 0:
+                raise ValueError("'size' must be a positive number different from zero")
+        if name is None and not self._flags & os.O_EXCL:
+            raise ValueError("'name' can only be None if create=True")
+    
+        self._track = track
+        if _USE_POSIX:
+    
+            # POSIX Shared Memory
+    
+            if name is None:
+                while True:
+                    name = _make_filename()
+                    try:
+>                       self._fd = _posixshmem.shm_open(
+                            name,
+                            self._flags,
+                            mode=self._mode
+                        )
+E                       PermissionError: [Errno 1] Operation not permitted: '/psm_073b55c5'
+
+/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/shared_memory.py:95: PermissionError
+=========================== short test summary info ============================
+FAILED tests/test_parallel_eval.py::test_parallel_matches_serial_exactly - Pe...
+FAILED tests/test_universal_integration.py::test_universal_parallel_matches_serial
+2 failed, 471 passed in 177.14s (0:02:57)

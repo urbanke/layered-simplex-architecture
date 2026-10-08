@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "protocol_id": "alt2027-independent-prior-validation-v1",
+  "status": "frozen_validation_cases",
+  "purpose": "Fresh bounded validation of the declared cases; historical cloud case grids and values are not acceptance targets.",
+  "seed": 2026100705,
+  "monte_carlo": {
+    "samples_per_case": 200000,
+    "batch_size": 25000,
+    "maximum_absolute_z_score": 5.0,
+    "cases": [
+      {"id": "L1-d3-210", "depth": 1, "counts": [2, 1, 0]},
+      {"id": "L1-d2-31", "depth": 1, "counts": [3, 1]},
+      {"id": "L2-d3-210", "depth": 2, "counts": [2, 1, 0]},
+      {"id": "L2-d2-31", "depth": 2, "counts": [3, 1]},
+      {"id": "L3-d3-210", "depth": 3, "counts": [2, 1, 0]},
+      {"id": "L3-d2-31", "depth": 3, "counts": [3, 1]}
+    ]
+  },
+  "simplex": {
+    "alphabet": 2,
+    "depths": [2, 3],
+    "counts": [[2, 0], [1, 1], [2, 1], [3, 1]],
+    "logit_bound": 32.0,
+    "node_orders": [128, 256, 512],
+    "refinement_absolute_tolerance": 2e-10,
+    "refinement_relative_tolerance": 2e-10,
+    "comparison_absolute_tolerance": 2e-9
+  },
+  "reference": {
+    "depths_0_to_2": "DepthEvaluator(mode=reference), analytic endpoints and independent positive quadrature",
+    "depth_3": "Mellin contour kernels and Gamma outer evidence integral, with two grid refinements",
+    "contour_steps": [0.01, 0.005],
+    "contour_refinement_tolerance_nats": 2e-8
+  },
+  "identities": {
+    "probability_tolerance": 2e-8,
+    "log_identity_tolerance_nats": 2e-8,
+    "maximum_sequences": 100000,
+    "cases": [
+      {"id": "binary-depths-through3", "target": [0.3, 0.7], "n": 4, "depths": [0, 1, 2, 3]},
+      {"id": "ternary-depths-through2", "target": [0.2, 0.3, 0.5], "n": 3, "depths": [0, 1, 2]}
+    ]
+  }
+}

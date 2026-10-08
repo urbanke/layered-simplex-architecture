@@ -1,0 +1,46 @@
+{
+  "archive": {
+    "bytes": 11034,
+    "file": "linux-regressions.tar.gz",
+    "sha256": "1612b3b24a1150c01077868abfd32883bec0842511731e4086fc8c92b49c3178"
+  },
+  "checks": "Completed Run verified on SCITAS and after local copy; every archive member reread and checked against original bytes.",
+  "created_utc": "2026-10-07T20:07:14.340587+00:00",
+  "files": {
+    "appendix_full.log": {
+      "bytes": 950,
+      "sha256": "51836a5db3adf1ee1aeaf83656cc2125a2fae9031c312916013c6b68a87f0e94"
+    },
+    "manifest.json": {
+      "bytes": 22386,
+      "sha256": "d7371dcd7f8fdb0dbf6f8e26643c8a54535d8b19557f74d3d2e6208a11f7bf03"
+    },
+    "protocol.json": {
+      "bytes": 152,
+      "sha256": "e190dea3d4d92bb2301910192dbc4c59c59f5bb0fda85656cf50699ecec68a3d"
+    },
+    "pytest.log": {
+      "bytes": 512,
+      "sha256": "fbb4172307e77fed6c24f62846c95a26503a400f8c6af92d711fe523d7ffc5be"
+    },
+    "result.json": {
+      "bytes": 410,
+      "sha256": "11fa40d37cba08b1e44fe988fd83338eeef09daf3c5d7b5454bda2a084203af7"
+    },
+    "started.json": {
+      "bytes": 21624,
+      "sha256": "8533e1b131177bed177b1d7f9d6591629f8fdde7b2d980c69a4bf649215ffb4d"
+    }
+  },
+  "full_appendix_exit_code": 0,
+  "pytest_seconds": 437.21,
+  "remote_run": "jed:/scratch/urbanke/lsa-alt2027/runs/regressions-0399cb28b973e5550fcbcbce082e8d36c95c2e1e-001",
+  "slurm_elapsed": "00:07:46",
+  "slurm_exit_code": "0:0",
+  "slurm_job_id": "40162027",
+  "slurm_state": "COMPLETED",
+  "source_commit": "0399cb28b973e5550fcbcbce082e8d36c95c2e1e",
+  "source_tree_sha256": "71f6646dce8dddc96460ddc56096e8fc1f59503d5354e2a44bf7d0ff72875993",
+  "status": "passed",
+  "tests_passed": 404
+}

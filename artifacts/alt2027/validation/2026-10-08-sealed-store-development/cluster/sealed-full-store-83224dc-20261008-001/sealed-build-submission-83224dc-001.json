@@ -1,0 +1,19 @@
+{
+  "job_id": "40187608",
+  "submitted_utc": "2026-10-08T06:26:32.956113+00:00",
+  "commit": "83224dc756481ab8863855a8def26f1504447b42",
+  "plan_sha256": "25763c70521c5730266bb6fbb88db7dde32f0ff6928f2c59faa20792eed7effc",
+  "repo": "/scratch/urbanke/lsa-alt2027/checkouts/83224dc756481ab8863855a8def26f1504447b42",
+  "store": "/scratch/urbanke/lsa-alt2027/stores/sealed-83224dc-20261008-001",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--cpus-per-task=48",
+    "--mem=128G",
+    "--time=01:00:00",
+    "--output=/scratch/urbanke/alt2027-logs/sealed-build-%j.out",
+    "/scratch/urbanke/lsa-alt2027/checkouts/83224dc756481ab8863855a8def26f1504447b42/scripts/alt_build_kernel_store_slurm.sh"
+  ],
+  "workers": 48,
+  "purpose": "offline_store_construction_pending_numerical_admission"
+}

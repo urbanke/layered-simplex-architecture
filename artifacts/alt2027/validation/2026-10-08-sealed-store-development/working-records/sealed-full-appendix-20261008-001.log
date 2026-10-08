@@ -1,0 +1,10 @@
+check                                                compared against       agreement  tolerance  result
+layer recursion (16), L = 2                          adaptive quadrature     8.14e-12      2e-06  PASS
+closed forms at L = 1                                Proposition 1           4.64e-14      2e-09  PASS
+q_(1) d = 1/d; d q_(2) + d(d-1) q_(1,1) = 1 (d = 10000) exchangeability         1.09e-08      2e-05  PASS
+predictive normalization at L = 5 (d = 10000)        sampled profile         2.70e-13      1e-05  PASS
+predictive normalization at L = 22 (d = 10000)       sampled profile         2.50e-13      4e-04  PASS
+sum over profiles A_lambda = 1 (d = 5, N = 6)        exact enumeration       2.22e-16      1e-12  PASS
+uniform-target closed form for A_lambda              Appendix A              3.05e-16      1e-12  PASS
+hybrid A_lambda evaluation (all atoms exact)         exact enumeration       1.11e-15      1e-08  PASS
+all checks passed

@@ -1,0 +1,10 @@
+{
+  "status": "superseded_before_execution",
+  "job_id": "40159544",
+  "scheduler_state": "CANCELLED",
+  "elapsed": "00:00:00",
+  "production_started": false,
+  "reason": "The heavy primary timing cohort exposed a long eight-sample-size job. Replace the execution partition with independent sample-size jobs while preserving full sampling_n_values, global trial IDs, numerical batch20 and all scientific settings.",
+  "running_validation_jobs_unchanged": true,
+  "replacement": "being prepared"
+}

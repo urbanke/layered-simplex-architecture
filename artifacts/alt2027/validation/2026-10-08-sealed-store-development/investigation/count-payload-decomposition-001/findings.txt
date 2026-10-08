@@ -1,0 +1,60 @@
+REMAINING SEALED-READER NOMINAL MISSES: SOURCE OF ERROR
+2026-10-08. Diagnostic evidence, not production admission.
+
+Reader source SHA256: 568598dd540cb3dff109ea4518f603e600b1261946c0e3532c850866202e2ad5.
+Store: work/sealed-kernel-pilot-20261008-001 (immutable).
+No reader, builder, or stored-value changes were made in this investigation.
+
+Independent references use the actual binary64 query u, lifted exactly, with
+45 and60 decimal digits. Their agreement is better than4.5e-38 nats.
+The requested nominal tolerance is3e-9 nats. It has not been relaxed.
+
+L=2, r=1000000, u=-0.2573:
+  Current binary64 reader error to60-digit truth: -3.5530077642e-9 nats (FAIL).
+  Pure stored-node error propagated through exact interpolation: -2.6693947892e-9.
+  Degree7 u-interpolation truncation: +9.5580439905e-17.
+  Degree11 count-interpolation truncation on exact anchor values: -3.7383084863e-11.
+  Floating-point u-interpolation contribution: -8.7119014495e-10.
+  Floating-point count-interpolation contribution: +2.4960159258e-11.
+
+L=138, r=990031, u=-4.013:
+  Current binary64 reader error to60-digit truth: -3.2538336958e-9 nats (FAIL).
+  Pure stored-node error propagated through exact interpolation: -2.5809723204e-9.
+  Degree7 u-interpolation truncation: +3.2699125139e-32.
+  Degree11 count-interpolation truncation on exact anchor values: -4.5250366157e-15.
+  Floating-point u-interpolation contribution: -6.4435095155e-10.
+  Floating-point count-interpolation contribution: -2.8505898871e-11.
+
+For both cases, replacing both interpolation stages by75-digit arithmetic
+on the exact binary64 payloads and physical grid coordinates STILL ROUNDS TO
+THE SAME CURRENT BINARY64 ANSWER. Consequently, arbitrary reader arithmetic
+tuning cannot reliably correct these two misses. The saved payload error is
+the principal contribution. Fixing or certifying it is a separate offline
+kernel-evaluation/accuracy-admission task; the present evidence does not
+justify accepting these cases under the unchanged nominal gate.
+
+The third previously flagged case, L=80,r=1000000,u=-0.2573, passes the
+nominal gate against its independent60-digit reference: error -2.2042348366e-9.
+
+Method:
+-75-digit barycentric interpolation, with exact binary64 nodes and payloads.
+-Independent60-digit contour values at all12 count anchors, at the requested u.
+-Independent60-digit contour values at all8 local stored nodes of each anchor:
+  192 node references in total for the two failing cases.
+-The node-reference precision here is60 digits;45/60 convergence was checked
+  separately at the final requested points. No claim of a rigorous uniform
+  error bound follows from this finite diagnostic.
+
+Artifacts relative to work/fast-engine-investigation:
+  count-remaining-reference-001/summary.json (three independent45/60 references)
+  count-error-decomposition-001/summary.json (anchor/count arithmetic attribution)
+  count-payload-decomposition-001/summary.json (all192 stored-node references)
+  count_remaining_reference_probe.py
+  count_error_decomposition_probe.py
+  count_payload_decomposition_probe.py
+
+Verification completed after the wrapper bookkeeping fix:
+  Ruff: clean for builder/reader and their tests.
+ 79 tests passed: sealed reader, sealed depth integration, builder, existing depth.
+ One separate combined run had84 passing tests and one stale validator-status
+ expectation; that test belongs to the validator owner and was reported there.

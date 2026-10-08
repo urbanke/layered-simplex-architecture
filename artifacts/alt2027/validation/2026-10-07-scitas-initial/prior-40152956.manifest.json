@@ -1,0 +1,131 @@
+{
+  "archive": "prior-40152956.tar.gz",
+  "archive_bytes": 89866,
+  "archive_sha256": "297407cdf455c6f63eabbf32ae12ee4086a0ffdecac5e970298020587a617c20",
+  "files": {
+    "launches/prior-40152956.json": {
+      "bytes": 20976,
+      "sha256": "adddd6e2c3337398eda25b08269ce7bc309a13620cdaa899378ddf791387ab96"
+    },
+    "logs/calibration-40152956.out": {
+      "bytes": 39,
+      "sha256": "86b66928bd2be62cb781c23c962a8aee463b5ce7418313d610684a002d5af119"
+    },
+    "prior/data/checks.json": {
+      "bytes": 61321,
+      "sha256": "72421396a2cdaefbf80b7d5ad4de4ec245942152d4847cdddb05dd345d22ce42"
+    },
+    "prior/data/environment.json": {
+      "bytes": 699,
+      "sha256": "28875ab3aa029e118f653f018d04ae31f819fc63e706057101b9223469ba178b"
+    },
+    "prior/data/identities-binary-depths-through3.json": {
+      "bytes": 4136,
+      "sha256": "ca15e4feb8a7c91b4839120341933ac246d72aa1c10a509219ad9112c44cec04"
+    },
+    "prior/data/identities-ternary-depths-through2.json": {
+      "bytes": 3280,
+      "sha256": "7af911bbe78531e4de1b3ff94ac4835bd778b2afb42055fecfc835b4014f1e35"
+    },
+    "prior/data/module-fingerprints.json": {
+      "bytes": 862,
+      "sha256": "f186dc054a14a59452bfe5c5814435e766cace181745dbbc645e68bd5d5d66b9"
+    },
+    "prior/data/monte-carlo-L1-d2-31.json": {
+      "bytes": 2323,
+      "sha256": "1f162c84824e79b88185e7e1b7645f0359c5b17387e9976cc29f7fc1b93d80c8"
+    },
+    "prior/data/monte-carlo-L1-d3-210.json": {
+      "bytes": 2327,
+      "sha256": "f5472483eec638f9e0c8baa534cebc158e5438e698f8ed74b26ab68a9418611a"
+    },
+    "prior/data/monte-carlo-L2-d2-31.json": {
+      "bytes": 2320,
+      "sha256": "f9a61bab3c73e6bfd451eb9de2bb3a6c630bf81a74193b5dce9f87998bb3f62b"
+    },
+    "prior/data/monte-carlo-L2-d3-210.json": {
+      "bytes": 2326,
+      "sha256": "0b8cfae3b4fa35b3cbcab4b350abd7b132ce72c2613d33c3b19c7943a379edbd"
+    },
+    "prior/data/monte-carlo-L3-d2-31.json": {
+      "bytes": 2322,
+      "sha256": "db0a97b38ab06061c1fa5e65566439ad333a4fbd7516782d8b9a1c59d002077e"
+    },
+    "prior/data/monte-carlo-L3-d3-210.json": {
+      "bytes": 2325,
+      "sha256": "fd8501794561cb692acd1b2dee2e23ea9445448b26fb90b4839e1fb268c3c7a2"
+    },
+    "prior/data/prior-validation-config.json": {
+      "bytes": 2556,
+      "sha256": "63c2613a06865881fa390f3d4eb510e672cd0ec7bd9d7799db77b27f3e557ccf"
+    },
+    "prior/data/reference-evidence.json": {
+      "bytes": 52402,
+      "sha256": "d991b646efd7fc2e1fddd52dcd49e55c2a3af4d953c08a36f47b7b16ca17d75c"
+    },
+    "prior/data/simplex-L2.json": {
+      "bytes": 1771,
+      "sha256": "1c595f3ddba003f86437319e4620ab73f4e31e80a672e18b39b76b127bb94307"
+    },
+    "prior/data/simplex-L3.json": {
+      "bytes": 1771,
+      "sha256": "8e67bd56526d62e6b581c0b18d36d2260482315c054819645fb98796c1f3bce6"
+    },
+    "prior/data/sources/_vendor/pmwm/_runtime.py": {
+      "bytes": 379,
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    },
+    "prior/data/sources/_vendor/pmwm/fast_tables.py": {
+      "bytes": 13306,
+      "sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "prior/data/sources/_vendor/pmwm/kernel.py": {
+      "bytes": 208,
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    "prior/data/sources/_vendor/pmwm/layered.py": {
+      "bytes": 50645,
+      "sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "prior/data/sources/_vendor/pmwm/mellin.py": {
+      "bytes": 35303,
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    "prior/data/sources/_vendor/pmwm/provenance.json": {
+      "bytes": 1695,
+      "sha256": "587b633707e3d25c85d53540426a2b944f141c4f9ce72dc155faf69b3a648d06"
+    },
+    "prior/data/sources/depth.py": {
+      "bytes": 34679,
+      "sha256": "e6ce3760a35febf776d7a9fc1fb494f0ea98375af6d72028a0f630bbe383313e"
+    },
+    "prior/data/sources/kernel_validation.py": {
+      "bytes": 23057,
+      "sha256": "03f3ca55a2cca6c0889611f66e2396f89916853d1d2ed8455353823f564b7813"
+    },
+    "prior/data/sources/prior_validation.py": {
+      "bytes": 27141,
+      "sha256": "5ae37db4b405459baa0ae88b1c93e0ab6f39510234fb7290ddacd16dc25e4cf7"
+    },
+    "prior/data/summary.json": {
+      "bytes": 4048,
+      "sha256": "9667fa8d54f1260c7859852a670899af4165810894f8edd11db86276e64efb17"
+    },
+    "prior/manifest.json": {
+      "bytes": 25780,
+      "sha256": "378ed1dec1f67921e238ed5095c67edf37e273519651fa244b9432ea3aa383f2"
+    },
+    "prior/protocol.json": {
+      "bytes": 2904,
+      "sha256": "f035e12e973b1ca7e27a6c838e3cac270534a07a633f064b8064443577e5eb04"
+    },
+    "prior/result.json": {
+      "bytes": 4048,
+      "sha256": "7476da23aca3d9c40a83ad884b7e47e6f0954472d7431e64c154e1189a647dce"
+    },
+    "prior/started.json": {
+      "bytes": 21490,
+      "sha256": "2e3a27fa0be726d1be845cd746e9e6a87c9b4743bc002f878891536ff38320fb"
+    }
+  }
+}

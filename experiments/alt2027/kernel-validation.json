@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "purpose": "validation",
+  "status": "declared_finite_kernel_grid",
+  "reference_dps": 45,
+  "refined_reference_dps": 60,
+  "reference_convergence_nats": 1e-25,
+  "low_count_tolerance_nats": 1e-11,
+  "nominal_tolerance_nats": 3e-09,
+  "groups": [
+    {
+      "id": "low-count-full-depth-range",
+      "depths": [
+        2,
+        5,
+        22,
+        53,
+        54,
+        80,
+        138
+      ],
+      "counts": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "u_values": [
+        -24.0,
+        -4.0,
+        0.0,
+        10.0,
+        35.0
+      ]
+    },
+    {
+      "id": "profile-peak-stored-and-direct",
+      "depths": [
+        5,
+        22,
+        53,
+        54,
+        80,
+        138
+      ],
+      "counts": [
+        0,
+        1,
+        16,
+        100,
+        1000
+      ],
+      "u_values": [
+        -10.0,
+        -0.258,
+        5.2
+      ]
+    },
+    {
+      "id": "dense-anchor-transition",
+      "depths": [
+        53,
+        54,
+        138
+      ],
+      "counts": [
+        255,
+        256,
+        257
+      ],
+      "u_values": [
+        0.0,
+        5.2
+      ]
+    },
+    {
+      "id": "series-boundary-fidelity",
+      "depths": [
+        54,
+        80,
+        138
+      ],
+      "counts": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "series_boundary_offsets": [
+        -4.0
+      ]
+    },
+    {
+      "id": "large-count-floating-scale",
+      "depths": [
+        22,
+        54,
+        138
+      ],
+      "counts": [
+        50000,
+        1045889
+      ],
+      "u_values": [
+        5.2
+      ]
+    }
+  ],
+  "special_function_cases": [
+    {
+      "depth": 1,
+      "r": 0,
+      "u": -2.0
+    },
+    {
+      "depth": 1,
+      "r": 0,
+      "u": 0.0
+    },
+    {
+      "depth": 1,
+      "r": 0,
+      "u": 2.0
+    },
+    {
+      "depth": 1,
+      "r": 1,
+      "u": -2.0
+    },
+    {
+      "depth": 1,
+      "r": 1,
+      "u": 0.0
+    },
+    {
+      "depth": 1,
+      "r": 1,
+      "u": 2.0
+    },
+    {
+      "depth": 1,
+      "r": 2,
+      "u": -2.0
+    },
+    {
+      "depth": 1,
+      "r": 2,
+      "u": 0.0
+    },
+    {
+      "depth": 1,
+      "r": 2,
+      "u": 2.0
+    },
+    {
+      "depth": 1,
+      "r": 3,
+      "u": -2.0
+    },
+    {
+      "depth": 1,
+      "r": 3,
+      "u": 0.0
+    },
+    {
+      "depth": 1,
+      "r": 3,
+      "u": 2.0
+    },
+    {
+      "depth": 2,
+      "r": 0,
+      "u": -2.0
+    },
+    {
+      "depth": 2,
+      "r": 0,
+      "u": 0.0
+    },
+    {
+      "depth": 2,
+      "r": 0,
+      "u": 2.0
+    },
+    {
+      "depth": 2,
+      "r": 1,
+      "u": -2.0
+    },
+    {
+      "depth": 2,
+      "r": 1,
+      "u": 0.0
+    },
+    {
+      "depth": 2,
+      "r": 1,
+      "u": 2.0
+    },
+    {
+      "depth": 2,
+      "r": 2,
+      "u": -2.0
+    },
+    {
+      "depth": 2,
+      "r": 2,
+      "u": 0.0
+    },
+    {
+      "depth": 2,
+      "r": 2,
+      "u": 2.0
+    },
+    {
+      "depth": 2,
+      "r": 3,
+      "u": -2.0
+    },
+    {
+      "depth": 2,
+      "r": 3,
+      "u": 0.0
+    },
+    {
+      "depth": 2,
+      "r": 3,
+      "u": 2.0
+    },
+    {
+      "depth": 3,
+      "r": 0,
+      "u": -2.0
+    },
+    {
+      "depth": 3,
+      "r": 0,
+      "u": 0.0
+    },
+    {
+      "depth": 3,
+      "r": 0,
+      "u": 2.0
+    },
+    {
+      "depth": 3,
+      "r": 1,
+      "u": -2.0
+    },
+    {
+      "depth": 3,
+      "r": 1,
+      "u": 0.0
+    },
+    {
+      "depth": 3,
+      "r": 1,
+      "u": 2.0
+    },
+    {
+      "depth": 3,
+      "r": 2,
+      "u": -2.0
+    },
+    {
+      "depth": 3,
+      "r": 2,
+      "u": 0.0
+    },
+    {
+      "depth": 3,
+      "r": 2,
+      "u": 2.0
+    },
+    {
+      "depth": 3,
+      "r": 3,
+      "u": -2.0
+    },
+    {
+      "depth": 3,
+      "r": 3,
+      "u": 0.0
+    },
+    {
+      "depth": 3,
+      "r": 3,
+      "u": 2.0
+    }
+  ],
+  "stores": [
+    {
+      "id": "anchors-prod",
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod",
+      "ladder": true,
+      "depths": [
+        5,
+        22,
+        53
+      ],
+      "counts": [
+        0,
+        1,
+        2,
+        3,
+        16,
+        100,
+        255,
+        256,
+        257,
+        1000
+      ]
+    },
+    {
+      "id": "probe-exact",
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/probe_exact",
+      "ladder": false,
+      "depths": [
+        5,
+        22,
+        53
+      ],
+      "counts": [
+        0,
+        1,
+        2,
+        3,
+        16,
+        100,
+        255,
+        256,
+        257,
+        1000
+      ]
+    }
+  ],
+  "notes": [
+    "u is the natural logarithm of t; every resolved case is saved before execution.",
+    "Both old saddle/series comparator and corrected direct contour provider are measured.",
+    "No numerical store is modified or extended. Missing reference columns are recorded as unavailable.",
+    "Special-function comparisons use45decimaldigits; contourprecisionrefinement45to60digits covers all declared grid cases.",
+    "Kernel-only checks do not certify outer evidence, next-symbol KL, or untested interpolation points."
+  ]
+}

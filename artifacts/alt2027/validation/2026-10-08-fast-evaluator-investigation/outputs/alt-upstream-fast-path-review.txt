@@ -1,0 +1,56 @@
+Read-only upstream fast-path review and isolated diagnostic, 8 October 2026
+
+Finding
+The user's recollection describes the upstream production architecture: online moment rows use a sealed interpolated store through depth 53, then a vectorized order-two saddle/series approximation from depth 54. The ALT adapter deliberately substitutes direct contour evaluation for that latter path after reference-check failures. No alternate native high-depth kernel generator was found. The native C components relevant to this estimator interpolate existing stored values and solve outer-integrand peak locations. A separate C extension handles graphical sparse margins and does not evaluate the product moment function.
+
+This does not mean that upstream evidence avoided every numerical integral: the final one-dimensional evidence integral is still evaluated by gridded trapezoid over resolved peaks. The distinction is online kernel evaluation versus the final evidence integration.
+
+Source identity
+Upstream checkout HEAD: 240406d16be0e7c5dcd7d2ee0e14d5ee4f28c915, matching the ALT pinned upstream revision. Diagnostic copies and source SHA256 are in /Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/results.json; all eight copied source files were unchanged at completion. No source-repository, store, job, or cluster mutation was made. The shared library was compiled only in /Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/product_model_with_memory. AGENTS.md was read in both repositories.
+
+Actual production path
+- /Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/production_coding.py:126–169 fixes anchors_prod, ladder every=1, degree=11, saddle cutoff=54. It refuses missing/unsealed stores and explicitly warns that silently falling back to grow-on-demand exact columns changes runtime by orders of magnitude.
+- /Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/universal_tables.py:196–242 defines the high-depth saddle substitution; :577–611 and :620–677 skip high-depth store provisioning. :681–710 serves stored/ladder rows below cutoff. :873–984 is the matrix path.
+- /Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/mellin.py:489–552 implements high-depth log_phi_column: small-t expansion, otherwise 55 vectorized bisections for the real saddle and the order-two correction. It does not call numerical contour integration. The docstring says 'certified methods', but the saddle remains an approximation and the series here does not implement the stricter bounded-remainder test added in ALT.
+- /Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/universal_tables.py:1161–1228 has an existing offline column builder: exact evaluation on a strided lattice, degree-seven interpolation between evaluated points, eighth-difference roughness checks, direct evaluation in rough/end regions, 16 sampled interpolation checks, full direct rebuild on a sampled failure. This is construction code, not the high-depth production query path. The installed sealed store has depth 2–53, so this is not an already-built depth-54–138 solution.
+
+Native code and switches
+- /Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/kernel.py:27–85 compiles and loads _kernel.c and exports pmm_solve_peak and pmm_interp_column. Compilation flags: -O3 -ffp-contract=off -fno-fast-math -fPIC -shared.
+- /Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/_kernel.c:212 and :267 are the two entry points. The latter accepts already stored column values, stencil weights, and indices; it has no Gamma, Mellin, or high-depth moment-function evaluation.
+- /Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/_graphical_margin_c.c:821–832 exports intersection-graph, sparse-margin, and Hessian routines, unrelated to this kernel evaluation.
+- The active ladder path returns at universal_tables.py:934, before the compiled matrix stencil at :958. Each unique anchor uses log_phi_exact (:858–871), which temporarily turns off the ladder and calls scalar log_phi, then scalar NumPy _interp_column (:248–274). Thus enabling PMM_INTERP_KERNEL cannot accelerate the current ladder path in either upstream or ALT.
+- ALT /Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/_vendor/pmwm/kernel.py deliberately exports None for both functions; /Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/depth.py:342–359 forces the interpreter interpolation switch off and defaults to full scan. ALT universal_tables.py:218–230 replaces the historical saddle provider with exact_log_phi_column.
+- Upstream layered.py:908–997 already integrates resolved peaks directly from grid nodes. Those peaks do not call the compiled peak solver; narrow peaks call it at :982, and the node curvature is reapplied at :985–986. ALT refines grids instead of accepting unresolved NARROW peaks. Old 17–31x isolated root-solver speed measurements therefore do not establish a major speedup on ALT's accepted resolved path.
+- Upstream codelength.py:904–955 can stop declining depth terms after an 80-bit drop and three declines; ALT evaluates every declared depth. Truncation would change the depth-spectrum output and must not be silently restored. Upstream sparse scan is the default at layered.py:330; ALT full scan is intentional and separately testable.
+
+Existing accuracy evidence relevant to the old fast path
+- /Users/ruediger/Projects/product_model_with_memory/output/compare_fixed.jsonl, first record: 22 profile checks, every=1, degree=11, cutoff54; maximum absolute evidence difference 5.62518835067749e-6 total bits (c17M). The checked depths only reach 53: scripts/compare_evaluators.py:63–96. This supports the stored count-interpolation ladder; it does not validate the high-depth saddle shortcut.
+- /Users/ruediger/Projects/product_model_with_memory/output/phi_sensitivity_full/results.json records a historical text8 run with saddle cutoff54 differing by +2.1705837847108e-5 bits/token from its baseline. That is a different corpus/code path, not an ALT uniform error bound or proof that all requested depths and predictions pass the present 1e-5-bit/token criterion.
+- /Users/ruediger/Projects/product_model_with_memory/scripts/saddle_accuracy.py:105–125 excludes the stored column's leftmost 40 nats; its chosen count targets also omit r=0. It cannot establish the low-count/left-boundary accuracy that prompted the ALT direct-contour repair.
+
+Bounded native diagnostic
+This is a serving microbenchmark, not full production runtime. macOS arm64, NumPy 2.5.1, SciPy 1.18.0, one thread, three repetitions per route, median timing reported. Python and source/compiler/library/store-file hashes are in results.json. Store access was read_only=True. Grids use ALT's formula lo=min(-70,-L*log(max(r)+1)-40), hi=35, spacing at most .02. Counts: [0, 1, 2, 3, 17, 251, 256, 300, 4001, 67465, 200000]. Levels 2,26,53 used 5,251, 19,619, and 36,098 points, respectively; 54 unique stored anchors per case.
+
+Toggle native symbol/switch on under the unchanged active ladder: zero native calls, identical 670,648 output values. Copied upstream and frozen ALT stored-row ladder results are also identical over these values.
+
+Two scratch-only candidates were measured:
+(A) Existing batched native anchor path: evaluate 54 anchors with log_phi_matrix while disabling only count interpolation, then apply exactly the existing degree-11 count-interpolation arithmetic. Native vs existing batched NumPy is identical over 3,292,272 anchor values. Compared with the active scalar-anchor route, arithmetic differs slightly because the shared-grid coordinate construction differs from scalar per-column coordinates.
+(B) Existing C stencil with the exact scalar path's per-column coordinates and weights: retain active scalar arithmetic, delegate only the final stencil summation. Identical on all 670,648 active ladder values. This is a prototype adapter in the scratch script, not a source patch or a complete validated integration.
+
+Median seconds by level; speed ratios refer only to row provisioning:
+L | active ladder | native batched ladder | speedup | max delta nats | exact-arithmetic native speedup
+2 | 0.022111 | 0.011203 | 1.97x | 0 | 1.26x
+26 | 0.073661 | 0.025245 | 2.92x | 3.725290298e-08 | 1.33x
+53 | 0.129173 | 0.040270 | 3.21x | 7.450580597e-08 | 1.34x
+
+Implications
+1. There is no switch-only recovery of a hidden C high-depth interpolation engine. The large change is ALT's replacement of the high-depth saddle approximation with direct contours.
+2. Preserve the validated low-depth count ladder. A modest conservative C scalar-stencil adapter is possible; its tested gain is 1.26–1.34x for provisioning only. The more efficient batch-anchor variant gains 1.97–3.21x here but changes last digits (up to 7.450580596923828e-8 nats at r=200000, L=53); it needs component-evidence/prediction checks before acceptance.
+3. The promising larger optimization is separate validated high-depth pretabulation/interpolation or reusable exact-row caching. Existing offline strided-builder machinery is a starting point; it is not evidence of validated high-depth interpolants. Store construction, serving runtime, and finite-domain accuracy must be measured separately. Do not restore the previously failing saddle path merely because it is fast.
+4. No full-run speedup, cross-platform equality, uniform error bound, or production readiness follows from these microbenchmarks. Existing completed frozen-engine accuracy records remain applicable to that frozen implementation; any accepted numerical-path change requires the corresponding profile/refinement checks.
+
+Machine-readable evidence
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/results.json
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/scalar-exact-results.json
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/benchmark.py
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/scalar_exact_benchmark.py

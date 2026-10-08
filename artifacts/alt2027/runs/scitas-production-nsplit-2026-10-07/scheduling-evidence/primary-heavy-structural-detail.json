@@ -1,0 +1,177 @@
+{
+  "purpose": "structural_runtime_projection",
+  "production_admission": false,
+  "sample_manifest_sha256": "ddfd9d10a707e49189d3b228571b58520bec9a94f5884a571655f5be9db979c1",
+  "measured_first_cohort_seconds": 1048.6025271285325,
+  "kernel_rows_definition": "Size of union over all saved count classes c and offsets0,1,2,3",
+  "grid_width_formula": "35-(-L*log(max_count+4)-40) =75+L*log(max_count+4)",
+  "projection_formula": "1048.6025271285325*(kernel_rows/176)*(75+L*log(max_count+4))/(75+L*log(409))",
+  "limitation": "Structural workload proxy, not a measured runtime bound. Assumes unchanged grid spacing; excludes variable contour cost, adaptive retries, scoring, and other overhead.",
+  "rows": [
+    {
+      "n": 1000,
+      "profiles": 20,
+      "kernel_rows": 176,
+      "max_count": 405,
+      "class_count_sum": 397,
+      "class_count_range": [
+        17,
+        22
+      ],
+      "occupied_range": [
+        112,
+        148
+      ],
+      "rows_only_proxy_seconds": 1048.6025271285325,
+      "kernel_grid_ratio_L54": 1.0,
+      "proxy_seconds_L54": 1048.6025271285325,
+      "kernel_grid_ratio_L80": 1.0,
+      "proxy_seconds_L80": 1048.6025271285325
+    },
+    {
+      "n": 2000,
+      "profiles": 20,
+      "kernel_rows": 252,
+      "max_count": 826,
+      "class_count_sum": 516,
+      "class_count_range": [
+        23,
+        29
+      ],
+      "occupied_range": [
+        193,
+        225
+      ],
+      "rows_only_proxy_seconds": 1501.4081638431262,
+      "kernel_grid_ratio_L54": 1.568704177514276,
+      "proxy_seconds_L54": 1644.9471648585559,
+      "kernel_grid_ratio_L80": 1.5775931006902473,
+      "proxy_seconds_L80": 1654.2681121643307
+    },
+    {
+      "n": 3000,
+      "profiles": 20,
+      "kernel_rows": 308,
+      "max_count": 1206,
+      "class_count_sum": 605,
+      "class_count_range": [
+        27,
+        33
+      ],
+      "occupied_range": [
+        253,
+        303
+      ],
+      "rows_only_proxy_seconds": 1835.054422474932,
+      "kernel_grid_ratio_L54": 2.0064173138179093,
+      "proxy_seconds_L54": 2103.9342657439015,
+      "kernel_grid_ratio_L80": 2.023068204889166,
+      "proxy_seconds_L80": 2121.394432200163
+    },
+    {
+      "n": 5000,
+      "profiles": 20,
+      "kernel_rows": 392,
+      "max_count": 2003,
+      "class_count_sum": 738,
+      "class_count_range": [
+        35,
+        40
+      ],
+      "occupied_range": [
+        360,
+        401
+      ],
+      "rows_only_proxy_seconds": 2335.5238104226405,
+      "kernel_grid_ratio_L54": 2.705871990032336,
+      "proxy_seconds_L54": 2837.3842068342187,
+      "kernel_grid_ratio_L80": 2.736950640971848,
+      "proxy_seconds_L80": 2869.9733587491364
+    },
+    {
+      "n": 7000,
+      "profiles": 20,
+      "kernel_rows": 461,
+      "max_count": 2753,
+      "class_count_sum": 830,
+      "class_count_range": [
+        39,
+        46
+      ],
+      "occupied_range": [
+        435,
+        498
+      ],
+      "rows_only_proxy_seconds": 2746.6236648082586,
+      "kernel_grid_ratio_L54": 3.2945047869203115,
+      "proxy_seconds_L54": 3454.6260452016863,
+      "kernel_grid_ratio_L80": 3.338349168748252,
+      "proxy_seconds_L80": 3500.601374786853
+    },
+    {
+      "n": 10000,
+      "profiles": 20,
+      "kernel_rows": 542,
+      "max_count": 3942,
+      "class_count_sum": 961,
+      "class_count_range": [
+        45,
+        52
+      ],
+      "occupied_range": [
+        556,
+        607
+      ],
+      "rows_only_proxy_seconds": 3229.2191460435492,
+      "kernel_grid_ratio_L54": 4.022529384819006,
+      "proxy_seconds_L54": 4218.03447836999,
+      "kernel_grid_ratio_L80": 4.083763637963396,
+      "proxy_seconds_L80": 4282.244870964027
+    },
+    {
+      "n": 14000,
+      "profiles": 20,
+      "kernel_rows": 644,
+      "max_count": 5511,
+      "class_count_sum": 1106,
+      "class_count_range": [
+        52,
+        58
+      ],
+      "occupied_range": [
+        702,
+        755
+      ],
+      "rows_only_proxy_seconds": 3836.9319742657667,
+      "kernel_grid_ratio_L54": 4.945012461881821,
+      "proxy_seconds_L54": 5185.352564211364,
+      "kernel_grid_ratio_L80": 5.028515948377699,
+      "proxy_seconds_L80": 5272.914531174984
+    },
+    {
+      "n": 20000,
+      "profiles": 20,
+      "kernel_rows": 748,
+      "max_count": 7836,
+      "class_count_sum": 1256,
+      "class_count_range": [
+        58,
+        68
+      ],
+      "occupied_range": [
+        844,
+        942
+      ],
+      "rows_only_proxy_seconds": 4456.560740296263,
+      "kernel_grid_ratio_L54": 5.945543283464629,
+      "proxy_seconds_L54": 6234.511712193083,
+      "kernel_grid_ratio_L80": 6.055646248429076,
+      "proxy_seconds_L80": 6349.965959499146
+    }
+  ],
+  "totals_seconds": {
+    "rows_only_proxy_seconds": 20989.92444928307,
+    "proxy_seconds_L54": 26727.392964541334,
+    "proxy_seconds_L80": 27099.965166667174
+  }
+}

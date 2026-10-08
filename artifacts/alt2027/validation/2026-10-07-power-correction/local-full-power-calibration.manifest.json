@@ -1,0 +1,30 @@
+{
+  "archive": "local-full-power-calibration.tar.gz",
+  "sha256": "02e71182b06927d863049f38c933271c0f99571ba67b4ac35a8691ed69c73838",
+  "bytes": 1017290,
+  "validation": {
+    "status": "passed",
+    "component_evaluations": 1782,
+    "verified_files": 38,
+    "source_unchanged": true,
+    "samples_identical_to_original_mac_calibration": true,
+    "max_evidence_change_bits": 2.8866716911176988e-11,
+    "max_component_predictive_kl_change_bits": 2.462210063217884e-12,
+    "max_mixture_predictive_kl_change_bits": 6.210217351814693e-13,
+    "max_posterior_tv": 4.1527199352372894e-13,
+    "max_raw_normalization_error": 1.3697931677825181e-12,
+    "max_independent_w2_evidence_error_bits": 1.5745481951551085e-11,
+    "seconds": 1385.874101124995,
+    "scope": "All eleven saved profiles, 81 powers, two unchanged settings; local Mac calibration, not Linux admission.",
+    "scientific_source_files": {
+      "artifacts.py": "e417cfb0c00d970acc3dbd146bbfcc33f89efd9de67a01365c2dd111a97fd9f3",
+      "baselines.py": "b98cad9223affe92d144695782a2e2d3ef273d966dd35930a971455c58c5b7a8",
+      "benchmark.py": "fdbb652e0274cd8a69bdc0f9e377f415e3d514dd70db8f3a2b590c5887a46a1e",
+      "power_validation.py": "86f2b616d2ccf4ab770942b5861bab40d8dfeec39d429656e44dfa735e6a4a82",
+      "powers.py": "c9bd254a0ebc5acb7fa5821b4fe9937d4b6fd0ea4f5b8754520b6d0841ed5989"
+    },
+    "run_directory": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/power-calibration-refreshed-weights-20261007",
+    "summary_sha256": "96264a536c9c42ed173dbcfda551826f6c57a4f01e4983b1447ee9c023a54bbe",
+    "files_sha256": "8996a69c8879a434e68307ceb60e5deab57468402e0431746b202033a09e6c06"
+  }
+}

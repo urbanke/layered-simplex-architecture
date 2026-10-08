@@ -1,0 +1,66 @@
+{
+  "depths": [
+    2,
+    22,
+    53,
+    54,
+    80,
+    138
+  ],
+  "counts": [
+    0,
+    1,
+    2,
+    3,
+    255,
+    256,
+    257,
+    1000,
+    20000,
+    1000000,
+    1045889
+  ],
+  "u_values": [
+    -4.013,
+    -0.2573,
+    5.213,
+    10.007,
+    35.0,
+    35.013,
+    59.987,
+    79.993,
+    80.0
+  ],
+  "shifted_u_offsets": [
+    -4.013,
+    0.007,
+    6.013
+  ],
+  "all_low_count_depths": true,
+  "anchor_gap_cases": true,
+  "join_cases": true,
+  "accuracy_contract": {
+    "id": "absolute-plus-four-ulp-v2",
+    "supersedes": "absolute-plus-four-ulp-v1",
+    "nominal_absolute_error_nats": 3e-09,
+    "low_count_max_r": 3,
+    "low_count_absolute_error_nats": 1e-11,
+    "qualified_arithmetic_budget_ulps": 4,
+    "qualification_requires_arithmetic_budget_above_nominal": true,
+    "qualification_requires_independent_reference": true,
+    "reference_dps": [
+      45,
+      60
+    ],
+    "reference_tail_digits": [
+      65,
+      80
+    ],
+    "reference_convergence_nats": 1e-25,
+    "reference_arguments": "exact_binary64",
+    "require_matching_nearest_binary64_references": true,
+    "ulp_definition": "larger adjacent binary64 spacing at nearest(reference)",
+    "reference_selection": "nominal direct check fails, reference ULP exceeds its nominal gate, or r>3 four-ULP reference budget exceeds general nominal gate",
+    "scalar_matrix_agreement": "unchanged nominal absolute gate"
+  }
+}

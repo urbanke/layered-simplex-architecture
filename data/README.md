@@ -18,3 +18,12 @@ run, also verify the decompressed byte hash against `kjv.manifest.json`. The
 extracted text and downloaded source remain local and ignored by Git.
 Production run records reference the pinned corpus hash and the exact
 preprocessing/source revision. A future change of corpus is a protocol revision.
+
+## Retained second-tokenization control
+
+`kjv-secondary.txt.gz` contains the current appendix control's 917868 tokens and
+13554 types. It was deterministically recovered from historical Overleaf
+`data/kjv_clean.txt` by Python Unicode regex `\w+|[^\w\s]`, preserving case.
+`kjv-secondary.manifest.json` records the original archive/member hashes, exact
+recipe, and compressed/decompressed hashes. It is a distinct dataset from the
+canonical corpus.

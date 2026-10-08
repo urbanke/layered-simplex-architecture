@@ -1,0 +1,10 @@
+sbatch: [ESTIMATION] The estimated cost of this job is CHF 0.00
+sbatch: ╭──────────────────────────────┬─────────────┬─────────────┬─────────────╮
+sbatch: │ [in CHF]                     │ Capping     │ Consumed    │ Queued ¹⁾ ²⁾│
+sbatch: ├──────────────────────────────┼─────────────┼─────────────┼─────────────┤
+sbatch: │ username : urbanke           │ 0           │ 0.35        │ 0.05        │
+sbatch: ├──────────────────────────────┼─────────────┼─────────────┼─────────────┤
+sbatch: │ account : lthc               │ 1,000.0     │ 0.35        │ 0.05        │
+sbatch: ╰──────────────────────────────┴─────────────┴─────────────┴─────────────╯
+sbatch: ¹⁾ Estimated cost of the queued jobs and this job
+sbatch: ²⁾ Queued jobs costs are based on its walltime (option --time)

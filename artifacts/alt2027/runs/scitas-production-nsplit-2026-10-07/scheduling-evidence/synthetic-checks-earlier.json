@@ -1,0 +1,67 @@
+{
+  "checks": [
+    {
+      "case": "power_seconds_100",
+      "projected_hours": {
+        "4": 11.152932098765431,
+        "8": 6.710455246913581,
+        "16": 4.504398148148148
+      },
+      "selected_nodes": 4,
+      "status": "passed"
+    },
+    {
+      "case": "power_seconds_600",
+      "projected_hours": {
+        "4": 27.356635802469135,
+        "8": 17.59008487654321,
+        "16": 12.76057098765432
+      },
+      "selected_nodes": 8,
+      "status": "passed"
+    },
+    {
+      "case": "power_seconds_1000",
+      "projected_hours": {
+        "4": 40.3195987654321,
+        "8": 26.293788580246915,
+        "16": 19.36550925925926
+      },
+      "selected_nodes": 16,
+      "status": "passed"
+    },
+    {
+      "case": "power_seconds_1800",
+      "projected_hours": {
+        "4": 66.24552469135801,
+        "8": 43.70119598765432,
+        "16": 32.575385802469135
+      },
+      "selected_nodes": null,
+      "status": "passed"
+    },
+    {
+      "case": "source_guard",
+      "expected_rejection": "pilot computational source differs from plan",
+      "status": "passed"
+    },
+    {
+      "case": "power_runtime_guard",
+      "expected_rejection": "timing mpmath version differs",
+      "status": "passed"
+    },
+    {
+      "case": "late_threads_guard",
+      "expected_rejection": "nested timing threads enabled or missing",
+      "status": "passed"
+    },
+    {
+      "case": "sample_identity_guard",
+      "expected_rejection": "n-split request or sample identity differs",
+      "status": "passed"
+    }
+  ],
+  "purpose": "synthetic scheduling gate checks, not scientific evidence",
+  "script_sha256": "8873ed5aed766b5f14dba81f84cf3c9d4a38668a034b6d268507a91fa8d4174e",
+  "status": "passed"
+}

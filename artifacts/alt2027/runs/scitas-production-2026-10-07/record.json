@@ -1,0 +1,36 @@
+{
+  "status": "submitted",
+  "job_id": "40159544",
+  "dependencies": [
+    "40152959",
+    "40158582"
+  ],
+  "dependency_type": "afterany with explicit successful evidence gates",
+  "source_commit": "9ec82bcef549ad593dee5450e974d83de44ddc77",
+  "command": [
+    "sbatch",
+    "--parsable",
+    "--dependency=afterany:40152959:40158582",
+    "/scratch/urbanke/lsa-alt2027/setup/jed-admission-and-launch-9ec82bc.sbatch"
+  ],
+  "handoff_inputs_sha256": "9ffe0243c73a963caae10246fb60e55c69be995d5208f93a30f4237b101f5108",
+  "production_status": "awaiting_verified_admission",
+  "plan_sha256": "d5a337662543663845d6b2ead796a14c05d5589e5f5930eab9c2315d4b98d17f",
+  "planned_jobs": 3904,
+  "block_size": 20,
+  "factorial_block_size": 500,
+  "batch_size": 20,
+  "allowed_nodes": [
+    4,
+    8,
+    16
+  ],
+  "workers_per_node": 72,
+  "postprocessing": "automatically queued after successful production array",
+  "validation": {
+    "linux_regressions": "388 passed; full appendix passed",
+    "corrected_power_linux": "passed",
+    "corrected_power_local": "passed",
+    "depth_linux": "running_at_submission"
+  }
+}

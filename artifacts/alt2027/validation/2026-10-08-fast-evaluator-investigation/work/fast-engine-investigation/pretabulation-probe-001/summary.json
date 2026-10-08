@@ -1,0 +1,250 @@
+{
+  "purpose": "Diagnostic only; interpolation overhead and off-grid agreement on 12 high-depth columns",
+  "rows": [
+    {
+      "L": 54,
+      "r": 0,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -60.0,
+        80.0
+      ],
+      "stored_values": 7001,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.072064959036652,
+      "direct_query_seconds": 0.01669191604014486,
+      "interpolation_query_median_seconds": 0.0001379579771310091,
+      "query_speed_ratio": 120.99275726762583,
+      "max_log_kernel_difference_nats": 2.3092638912203256e-14,
+      "worst_query_u": 79.989,
+      "artifact": "L54-r0.npz",
+      "sha256": "feca66363b15fd4eb0ab7680982ac5e9d4bcf49a18de66754736e3277c0980c1"
+    },
+    {
+      "L": 54,
+      "r": 3,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -134.86,
+        80.0
+      ],
+      "stored_values": 10744,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.06027616700157523,
+      "direct_query_seconds": 0.009581625054124743,
+      "interpolation_query_median_seconds": 0.00013745902106165886,
+      "query_speed_ratio": 69.70532003008222,
+      "max_log_kernel_difference_nats": 2.8421709430404007e-13,
+      "worst_query_u": 79.989,
+      "artifact": "L54-r3.npz",
+      "sha256": "1b45ecfd1d88942318be21375cd913fcda7a13cf69824c4eb28a9ee65bd072fa"
+    },
+    {
+      "L": 54,
+      "r": 32,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -248.82,
+        80.0
+      ],
+      "stored_values": 16442,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.08075037505477667,
+      "direct_query_seconds": 0.009302374965045601,
+      "interpolation_query_median_seconds": 0.00013804202899336815,
+      "query_speed_ratio": 67.38799069298314,
+      "max_log_kernel_difference_nats": 3.637978807091713e-12,
+      "worst_query_u": 79.989,
+      "artifact": "L54-r32.npz",
+      "sha256": "a4eb521710a12872c72526be450048f50bab0ee6dd4d86a51be06bba6136db4b"
+    },
+    {
+      "L": 54,
+      "r": 1000,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -433.08,
+        80.00000000000006
+      ],
+      "stored_values": 25655,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.13093079201644287,
+      "direct_query_seconds": 0.012012832972686738,
+      "interpolation_query_median_seconds": 0.000138582952786237,
+      "query_speed_ratio": 86.68333825457182,
+      "max_log_kernel_difference_nats": 1.8917489796876907e-10,
+      "worst_query_u": 79.98900000000006,
+      "artifact": "L54-r1000.npz",
+      "sha256": "f13bb80cbd338ae3173472af1b4388a7368baddfdf6499e52cb76d88a0e7e117"
+    },
+    {
+      "L": 80,
+      "r": 0,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -60.0,
+        80.0
+      ],
+      "stored_values": 7001,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.0845740829827264,
+      "direct_query_seconds": 0.02088283299235627,
+      "interpolation_query_median_seconds": 0.00013437500456348062,
+      "query_speed_ratio": 155.40712396769393,
+      "max_log_kernel_difference_nats": 6.080552727993904e-14,
+      "worst_query_u": 23.40923191066733,
+      "artifact": "L80-r0.npz",
+      "sha256": "de08ddb5ca0f53dcbbbe3525c63b8cb9402c0ed76cf2870a94d4b3c66a67f67a"
+    },
+    {
+      "L": 80,
+      "r": 3,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -170.92000000000002,
+        80.0
+      ],
+      "stored_values": 12547,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.06901354197179899,
+      "direct_query_seconds": 0.009622665995266289,
+      "interpolation_query_median_seconds": 0.00013745797332376242,
+      "query_speed_ratio": 70.00442217056036,
+      "max_log_kernel_difference_nats": 2.5579538487363607e-13,
+      "worst_query_u": 79.989,
+      "artifact": "L80-r3.npz",
+      "sha256": "9e622d686e74a94bb2e55cda85063e628c22c81726a4a4e8337c0d48d75a556b"
+    },
+    {
+      "L": 80,
+      "r": 32,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -339.74,
+        80.0
+      ],
+      "stored_values": 20988,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.10703712498070672,
+      "direct_query_seconds": 0.009927499981131405,
+      "interpolation_query_median_seconds": 0.00013704202137887478,
+      "query_speed_ratio": 72.44128393060716,
+      "max_log_kernel_difference_nats": 3.637978807091713e-12,
+      "worst_query_u": -225.4067827636185,
+      "artifact": "L80-r32.npz",
+      "sha256": "99b6ef3d1ce732a22895af140dc4af7d1654e6b0fb8a4a4e3aa6507a04cee3fd"
+    },
+    {
+      "L": 80,
+      "r": 1000,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -612.72,
+        80.0
+      ],
+      "stored_values": 34637,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.1796125000109896,
+      "direct_query_seconds": 0.012934124970342964,
+      "interpolation_query_median_seconds": 0.00013570900773629546,
+      "query_speed_ratio": 95.30778528331781,
+      "max_log_kernel_difference_nats": 2.9103830456733704e-10,
+      "worst_query_u": -543.8299524476441,
+      "artifact": "L80-r1000.npz",
+      "sha256": "3e0d930e7f8f280eb2f0d49ce0508d66039a507c1e1aa0a5aa1d0005edd23685"
+    },
+    {
+      "L": 138,
+      "r": 0,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -60.0,
+        80.0
+      ],
+      "stored_values": 7001,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.10692891699727625,
+      "direct_query_seconds": 0.02786604198627174,
+      "interpolation_query_median_seconds": 0.00013883301289752126,
+      "query_speed_ratio": 200.71625188197052,
+      "max_log_kernel_difference_nats": 3.8072735068783725e-14,
+      "worst_query_u": 25.66370805416883,
+      "artifact": "L138-r0.npz",
+      "sha256": "d81e26c6a640da9740e14a2c4c66cb7db7d3d315e591107f295ac62188ac5ce7"
+    },
+    {
+      "L": 138,
+      "r": 3,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -251.32,
+        80.0
+      ],
+      "stored_values": 16567,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.10257312504108995,
+      "direct_query_seconds": 0.011018124991096556,
+      "interpolation_query_median_seconds": 0.00013633299386128783,
+      "query_speed_ratio": 80.81774395937465,
+      "max_log_kernel_difference_nats": 7.105427357601002e-13,
+      "worst_query_u": -220.06455536199113,
+      "artifact": "L138-r3.npz",
+      "sha256": "43b135e855a62348d939f922051327d6f327168530ab133bb9b70dfd737ae5b3"
+    },
+    {
+      "L": 138,
+      "r": 32,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -542.52,
+        80.0
+      ],
+      "stored_values": 31127,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.16249433299526572,
+      "direct_query_seconds": 0.01017629203852266,
+      "interpolation_query_median_seconds": 0.0001348749501630664,
+      "query_speed_ratio": 75.44982983288838,
+      "max_log_kernel_difference_nats": 5.4569682106375694e-12,
+      "worst_query_u": -490.01307485344563,
+      "artifact": "L138-r32.npz",
+      "sha256": "1769c8c26a09c53fa4dedb62d0943dadc0edadb015926b822e7477b765e39de2"
+    },
+    {
+      "L": 138,
+      "r": 1000,
+      "grid_spacing": 0.02,
+      "grid_bounds": [
+        -1013.4200000000001,
+        80.0
+      ],
+      "stored_values": 54672,
+      "query_values": 1610,
+      "one_time_build_seconds": 0.28638520900858566,
+      "direct_query_seconds": 0.013752416998613626,
+      "interpolation_query_median_seconds": 0.0001355410204268992,
+      "query_speed_ratio": 101.46313606979713,
+      "max_log_kernel_difference_nats": 3.4924596548080444e-10,
+      "worst_query_u": -944.6627043433482,
+      "artifact": "L138-r1000.npz",
+      "sha256": "29bb9a0ebcdf560a3b7f8cb2e41828086d0e687fb6a87dc1722568857b496edd"
+    }
+  ],
+  "source_sha256": {
+    "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/_vendor/pmwm/mellin.py": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e",
+    "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/_vendor/pmwm/universal_tables.py": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
+  },
+  "script_sha256": "4b24df050d0fdbf050bfe643985d5c4c28d66a632d8dbeb7bd5896999526893c",
+  "runtime": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "numpy": "2.5.1"
+  },
+  "seed": 2026100801,
+  "limits": [
+    "Direct-column comparison checks added interpolation discrepancy, not independent absolute accuracy.",
+    "Kernel-only query timing excludes store build and downstream profile integration.",
+    "No count-anchor interpolation or end-to-end prediction validation is performed here.",
+    "This diagnostic does not authorize production admission."
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "archive": "batch-depth-pilot-001.tar.gz",
+  "archive_bytes": 128417,
+  "archive_sha256": "5a5581b71ab9381457326dc57cb0f8d00cb992a77646726f8a11a4d26aa32c94",
+  "files": {
+    "batch-depth-pilot-001/packaging/archive-metadata.json": {
+      "bytes": 5501,
+      "sha256": "537750157f6afc75511aeff2d3f82c97f650401d7449517e90f96f0c4c0c0e8a"
+    },
+    "batch-depth-pilot-001/run/adapter.json": {
+      "bytes": 11992,
+      "sha256": "6495fbaa07d2b66a5b10e0e696dbb87190d8ad65bb5620eabbf41b2d453c3de4"
+    },
+    "batch-depth-pilot-001/run/artifact-hashes.json": {
+      "bytes": 3372,
+      "sha256": "6e68c16c476f5e5505a3067a2f3167822c25bfd6fb99da6068ef0e95b1d25d6b"
+    },
+    "batch-depth-pilot-001/run/batch-0-diagnostics.json": {
+      "bytes": 12098,
+      "sha256": "de72399e77f72f74faf9fff9f6142bf1e16cb3b50f3ed5a2c704cc66e88a2c0b"
+    },
+    "batch-depth-pilot-001/run/batch-0.npz": {
+      "bytes": 5595,
+      "sha256": "c0a459af01a0836a6ebb56c7cbca63f2ff44fa59a065650cfb4965b529dd9114"
+    },
+    "batch-depth-pilot-001/run/batch-1-diagnostics.json": {
+      "bytes": 14361,
+      "sha256": "52079311220c81ab5da6b068bbc46c8aec4b278e830059081bc2a8d36ff011fd"
+    },
+    "batch-depth-pilot-001/run/batch-1.npz": {
+      "bytes": 5619,
+      "sha256": "a849ab708cd37105b47fabcfdcc5c81962814c007eba2870c1d348e60d2d1224"
+    },
+    "batch-depth-pilot-001/run/batch-2-diagnostics.json": {
+      "bytes": 9840,
+      "sha256": "8d43d73517247a4860ad2c4eec292ef19ea6f4cedb79f6f81c37ed2511e05cca"
+    },
+    "batch-depth-pilot-001/run/batch-2.npz": {
+      "bytes": 5488,
+      "sha256": "32b3bfb8a2cdc9d32f0912759d7f639be60a106ed3d6f3b91d08e4a9f0c41bdf"
+    },
+    "batch-depth-pilot-001/run/batch-3-diagnostics.json": {
+      "bytes": 9846,
+      "sha256": "890d51e465560c102518db3b637b306a55afe36283e50f3598586ee0ff958a98"
+    },
+    "batch-depth-pilot-001/run/batch-3.npz": {
+      "bytes": 5504,
+      "sha256": "63e04f1bb287e99996901265569276324dcd2e50f1984ba914d58bb14341be78"
+    },
+    "batch-depth-pilot-001/run/batch-4-diagnostics.json": {
+      "bytes": 12106,
+      "sha256": "bff1f589ac535100c6609db210ab132121537b9f492593cb185c420cfd560010"
+    },
+    "batch-depth-pilot-001/run/batch-4.npz": {
+      "bytes": 5639,
+      "sha256": "faa059408b111eaef6d82eed6809ae61f59c331698a94d41a83eee46303d643a"
+    },
+    "batch-depth-pilot-001/run/config.json": {
+      "bytes": 691,
+      "sha256": "bda3a097d9679474795d0e73167aa8de75ac824061df48c200d9806e4514b68f"
+    },
+    "batch-depth-pilot-001/run/effective-engine.json": {
+      "bytes": 11393,
+      "sha256": "3cbcacf59e8095b0b2e308de9e1c1da834a3aa499904e34ead4c330ef6ee059a"
+    },
+    "batch-depth-pilot-001/run/engine.json": {
+      "bytes": 10448,
+      "sha256": "8436c4e8452430207ad66b94138b62449e91b85b4b24e76794904c7756770e26"
+    },
+    "batch-depth-pilot-001/run/environment.json": {
+      "bytes": 175,
+      "sha256": "9431ad15f276dc72ac498c8fa0625c4381d0ab4b60d29a7a1fbfea1f2766c417"
+    },
+    "batch-depth-pilot-001/run/pilot.py": {
+      "bytes": 7227,
+      "sha256": "bc5075c80686adab341229e82d233bb95c5fd67a874ce767637666b3bbbcf156"
+    },
+    "batch-depth-pilot-001/run/run.log": {
+      "bytes": 1784,
+      "sha256": "a7342eb62d36278571047a31ead3ee709e14f4b7834cbe43390799f82119ce29"
+    },
+    "batch-depth-pilot-001/run/samples.json": {
+      "bytes": 437,
+      "sha256": "b839d5430fec85431649554a493063c7a314b798faf23a2e8a6627627537edf6"
+    },
+    "batch-depth-pilot-001/run/samples.npz": {
+      "bytes": 8434,
+      "sha256": "3e24de898fa605d99339fa8587a06f90192f11f05e745cad678348ddd085ab15"
+    },
+    "batch-depth-pilot-001/run/single-0-diagnostics.json": {
+      "bytes": 11539,
+      "sha256": "225b26a07027c357be2fb6fa332661f39649c321f9b1b9443c39ea0ace6edf28"
+    },
+    "batch-depth-pilot-001/run/single-0.npz": {
+      "bytes": 5597,
+      "sha256": "7ecc9419ef8a23384073f8b04b066f8671c08cb6001e1d6a127d7505dde50e07"
+    },
+    "batch-depth-pilot-001/run/source-hashes.json": {
+      "bytes": 1304,
+      "sha256": "bc86e0721f5438c86ff092add735b6e8feb7cbb627f5a858bfcf05911885cd18"
+    },
+    "batch-depth-pilot-001/run/sources/output/alt2027/batch-depth-pilot-001/pilot.py": {
+      "bytes": 7227,
+      "sha256": "bc5075c80686adab341229e82d233bb95c5fd67a874ce767637666b3bbbcf156"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/_vendor/pmwm/__init__.py": {
+      "bytes": 81,
+      "sha256": "f9b6dff640ca43344b6d1d34e291122b189b1b33cfee5f7e2773743c0ba76b6a"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/_vendor/pmwm/_runtime.py": {
+      "bytes": 379,
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/_vendor/pmwm/fast_tables.py": {
+      "bytes": 13306,
+      "sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/_vendor/pmwm/kernel.py": {
+      "bytes": 208,
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/_vendor/pmwm/layered.py": {
+      "bytes": 50645,
+      "sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/_vendor/pmwm/mellin.py": {
+      "bytes": 35303,
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/_vendor/pmwm/provenance.json": {
+      "bytes": 1695,
+      "sha256": "587b633707e3d25c85d53540426a2b944f141c4f9ce72dc155faf69b3a648d06"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/_vendor/pmwm/universal_tables.py": {
+      "bytes": 57599,
+      "sha256": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/baselines.py": {
+      "bytes": 8147,
+      "sha256": "b98cad9223affe92d144695782a2e2d3ef273d966dd35930a971455c58c5b7a8"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/batch_depth.py": {
+      "bytes": 14748,
+      "sha256": "1f8a6f471b75cac3b9231cf3a1a865531c9d27456475b9f8b74670c5be4acd80"
+    },
+    "batch-depth-pilot-001/run/sources/src/lsa/alt/depth.py": {
+      "bytes": 31925,
+      "sha256": "bb4fa35e23cd785c4bef5c44bcf616a8565834ac8a4f494571b9ea84e01dbdd5"
+    },
+    "batch-depth-pilot-001/run/summary.json": {
+      "bytes": 1675,
+      "sha256": "e5b0b6880f91686a69822442c20a9792ec13783b4329e093613e7b58e0d7af7d"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "archive": "scitas-preflight-and-regressions.tar.gz",
+  "archive_bytes": 24008,
+  "archive_sha256": "3a95e8cdd02556a5ada20d7bf1561918ec4996cacf2fde326a1c7a2aa4979f93",
+  "file_count": 14,
+  "files": {
+    "metadata/excluded-bulk.json": {
+      "bytes": 1206,
+      "sha256": "88b1b01096ab6771f09c6703c604cdc42a443af155f00efb83ca70290c5948cc"
+    },
+    "setup/appendix-validation.txt": {
+      "bytes": 950,
+      "sha256": "77d5f8b943bc5cc77ff4c8f75bfb5bbc696ac3f7427a0be395e4543003642e40"
+    },
+    "setup/distributed-regression.txt": {
+      "bytes": 204,
+      "sha256": "290d9c4db2a21691b5474ff51c062b28568f9adf01945b34bc4307bc139f57ab"
+    },
+    "setup/jed-calibration.sbatch": {
+      "bytes": 3262,
+      "sha256": "f8d46072142b47574e4f8834aed958b0842f421a0296a5fe2c3f32b63b8b5ecc"
+    },
+    "setup/jed-engine.json": {
+      "bytes": 10509,
+      "sha256": "1aab2916b7dabc9a84c405497717c01f05572039349bfc7344c5cdaad935214c"
+    },
+    "setup/jed-kernel-validation.json": {
+      "bytes": 5089,
+      "sha256": "e96584c19eed18e5a0ce43bac7036f0de9eb3b95a42f5d17fd4a0bdbf83c2c85"
+    },
+    "setup/jed-preflight-records/40152660-0-bf2a7da486a1454a88c4b382b9e4dfb8-exit.json": {
+      "bytes": 131,
+      "sha256": "f750b1d61ba5d3136b3e49897d381d42ff5d7228dfbf071afce28f94a9fe92aa"
+    },
+    "setup/jed-preflight-records/40152660-0-bf2a7da486a1454a88c4b382b9e4dfb8-preflight.json": {
+      "bytes": 29266,
+      "sha256": "dd5d59d7e0139ca738de5fbd829d578a22cd1e31396dc90e4faa320721fc51d8"
+    },
+    "setup/jed-preflight-records/40152660-0-bf2a7da486a1454a88c4b382b9e4dfb8.json": {
+      "bytes": 24893,
+      "sha256": "0cfbedbc6a2a1022b0ec1cf45afbb3dc242ee077b39584569a58a1699a844a2b"
+    },
+    "setup/launch-preflight.sh": {
+      "bytes": 1316,
+      "sha256": "7e2637c266db47cdac8a9b8a243a50d169687a0b46b06e68a2be99d0970ba0b3"
+    },
+    "setup/preflight-40152542.out": {
+      "bytes": 151,
+      "sha256": "4b43532c3c595edd22f5e06c3e6c2e89d9ef6ee2ce6c3cb907e44615357fcac9"
+    },
+    "setup/preflight-40152660.out": {
+      "bytes": 426,
+      "sha256": "55b31b0fb25df03eb5a45d6dab0532923a30ffb57dacbe7f396e0f91deaaa0db"
+    },
+    "setup/probe-exact-subset.manifest.json": {
+      "bytes": 1278,
+      "sha256": "54a0820f442b8b580d269bda72009e4c3e6f645cd407ec155802c1b6cdb5a9c3"
+    },
+    "setup/tests.txt": {
+      "bytes": 524,
+      "sha256": "db18d94bf866c31f45368fe777d8dc27a81a85ed82650a2b5675b819845fcaea"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Saved regression/appendix logs, failed and passed Slurm preflight logs, the passed preflight JSON records, and preparation configurations. No calibration result claims.",
+  "uncompressed_bytes": 79205,
+  "verification": "Every compressed member was reread and its size and SHA-256 matched."
+}

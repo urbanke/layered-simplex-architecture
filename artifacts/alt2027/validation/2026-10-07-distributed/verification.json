@@ -1,0 +1,746 @@
+{
+  "compressed_member_checks": "passed for all three capsules",
+  "controller_processes": 2,
+  "controller_workers": 1,
+  "extracted_run_verification": {
+    "jobs": 62,
+    "merged": 9,
+    "reports": 1,
+    "status": "passed"
+  },
+  "purpose": "smoke",
+  "run_counts": {
+    "jobs": 62,
+    "merged": 9,
+    "reports": 1
+  },
+  "runs": [
+    {
+      "capsule_path": "campaign/jobs/architecture",
+      "experiment": "architecture",
+      "kind": "jobs",
+      "manifest_sha256": "6707c9388187997469c98cc340ea24d8c041f43860a92204223744f0ac4fbe7d",
+      "outputs": 7,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/architecture"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0000-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "cc9f63f18c17db27b9f440217bd7cca027c4f5b556c9ade8b3a186dc9216b844",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0000-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0000-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "19e3c2bac2053377abb3ec431daed4bf43a98c88f06b29a55551bfaa7a8a3535",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0000-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0001-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "6f85a7efb68634bd6759b466c53561acd820702d7bb0a01a28fea260c7f3e6cd",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0001-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0001-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "48cdbd19de112d54c3112855543d3e9ca77fd95f8c1be1ef10d9bbfd348cb272",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0001-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0002-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "671ce7ad2e3e66ba44c78bccbc9abab5c2db18956176cfd40e1ae20e4cfdb5c0",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0002-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0002-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "1cbe6a4588a9ca9c3b9e87a77d9f98d76c06cc4f95e5d6218a5d1070c86176f9",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0002-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0003-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "540b625cd687aca0fb41c4573396946f8454ee562baa5b7bc1aea0d8525aaf37",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0003-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0003-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "f87c14945d38e5cedaef8c53209e516d21228d5183d9d810c5d3a687bb4cbcc2",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0003-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0004-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "fc5b7e8eea2a8e924ec11270893fbbb0ccfb8576dd8f7b14321713f38938c72f",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0004-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0004-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "124cd778744380e6be9a1df514a4d1aaa5757eb9a26cf2c0ea649cdcf8291df0",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0004-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0005-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "242724ba2070771ba0e55608087ad2930112314f97333279f6cf5ec8074f4af8",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0005-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0005-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "025475615e076c9603e0c5dc19586a8a421480ce83254652de67e8c36d1b5fb3",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0005-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0006-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "4275e35710bb56731e54fe3239b193f36be433333d2c8e11c25f056b4e32b516",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0006-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0006-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "d18aa1d5bbd3b8ed4568d65a8090bdd9cdd5f51143cebd45c4944f30512702bc",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0006-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0007-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "c04084c9c5016184b39823e918cbf50fc6b51766ad1b985d0802f0b80efa1038",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0007-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0007-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "b4fffdaf6f3887ff4086b61329db706863f6ab1d699bcec21cd9b5741fa465b2",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0007-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0008-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "0425c2bfa56bcd60661b83b804c5ee45be44ee22a58d8f35da548e5e822317dd",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0008-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0008-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "d80723b384d97d7b4cf5e9040ae5fa66a8cea88e5458849725bff3c4db89f76e",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0008-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0009-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "6bcd82db6da1d6406ac5fb25b152247ca37818988fc80d1e36d908b6808df438",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0009-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0009-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "601f5c5ebd377583b84aa613e7c2966630efaff38b164c098ba56e9c10c3f112",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0009-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0010-0000000",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "f06c0da5971b4148c8ba9bf74a551c67cc89b97f27a043ce52d2b2942d5570c9",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0010-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_powers-0010-0000001",
+      "experiment": "benchmark_powers",
+      "kind": "jobs",
+      "manifest_sha256": "f78c73af4e5c1e814d6337b1529704fc24787641873a1b566b0ae19aaf538944",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_powers-0010-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0000-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "40cddb8abb19843b4622b49804f4068c814709461dbb6b758fc5718567343bf6",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0000-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0000-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "697cede1942c1a2aa32beb5505ab276876de7bd5544e102e70f3a115c23396d9",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0000-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0001-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "b54cf9910d326a2be8d8821e237499162dfa2f94a81c246cb89460e0a6c65845",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0001-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0001-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "cb1a296a6ffea45bda24d1e2567057c755e26aeb0a0dc71506609f1e0c919b88",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0001-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0002-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "8e012c8b256a72dc650f2696e5563749c86976c6d8a34d214a656b137e1dcd05",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0002-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0002-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "84bbeca67321417b748ba4d5593de722153c620e4e85ec6ec8b6e842e071bd2b",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0002-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0003-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "72f0c9269fb56ec683a3a06b047ecc72eddf6e08817321684376628f5e04b466",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0003-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0003-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "5ce9543d33af3aafad5b6d547bdee17538184dec35c0d989372420ab52938ec7",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0003-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0004-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "5a60c1cb404426662773ae313db3ad51f25e48bb8bd04c42d0019f558e579167",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0004-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0004-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "e452578ab40a7e91b6c500f52ca7e9ec0e78d5116ed86a11e9d7fdb2000c2d58",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0004-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0005-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "fb71c476485de7c91ae1a0b67fc036a98038c0c55e030439ab00190554fd9185",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0005-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0005-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "9f8ea96f521de8c1143eb8ab39a03a54ed814f00855ebe86a3bef25e91801075",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0005-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0006-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "97d7eb6ee33c10da45f345f60c9631f0fe2f902aa8e9833e849c473cd63eca86",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0006-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0006-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "dd80be0455fbca9855ae25d98735ff646a35fa0736597d0c08c67133675e93f6",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0006-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0007-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "e97f5c58f88da879761bd52f0830621a414b5186ce8b525d402fa51b418a53d5",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0007-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0007-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "cadedfbc214c1e839461eb73c16bd1e26f1ddb6929c673b193a3337a637235ea",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0007-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0008-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "b985b5595ff4cb339eb57ccb788d86ede9408241d8a162a1f7fdc3fa90fe1c08",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0008-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0008-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "e628335890c06d2f8c7bd116b61d3fe667fa2d5cdd5ead4dc49915b139fe9cb3",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0008-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0009-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "a5c4c15fa40482f4d4af615b4d796318fb40ec715ccd80d2119a7d9295d53bce",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0009-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0009-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "2b6c1fc0667021ef9d7d498839ecd9b2a49fdc65323d48fbd51ca6babb36a2d8",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0009-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0010-0000000",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "782b3ba387a7c5d3afebdf0988f52eebdf8a231bd4ec3106f8f6522bfd772caf",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0010-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/benchmark_primary-0010-0000001",
+      "experiment": "benchmark_primary",
+      "kind": "jobs",
+      "manifest_sha256": "496a5bdad901ab61f00db3b0666538e403d1d3280e8a4d169c148658625685cf",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/benchmark_primary-0010-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/bible",
+      "experiment": "bible",
+      "kind": "jobs",
+      "manifest_sha256": "74808193acbbb2991986aec6220af12585443672c7d937d6785c97901350ccdd",
+      "outputs": 12,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/bible"
+    },
+    {
+      "capsule_path": "campaign/jobs/bible_secondary",
+      "experiment": "bible_secondary",
+      "kind": "jobs",
+      "manifest_sha256": "52eb1cc77fdc1d5f39d9ea0dd2ad53576de47535e243adb3258e96e9c84fc6e1",
+      "outputs": 10,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/bible_secondary"
+    },
+    {
+      "capsule_path": "campaign/jobs/depth_scaling-0000-0000000",
+      "experiment": "depth_scaling",
+      "kind": "jobs",
+      "manifest_sha256": "f38d25ee661ac5116d2c9afbce67932a884c501125c24f0bf97e67017657bdc4",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/depth_scaling-0000-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/depth_scaling-0000-0000001",
+      "experiment": "depth_scaling",
+      "kind": "jobs",
+      "manifest_sha256": "fa50ba22728210f822c8ce63e0041a44e79dc99805059824b743da49b425a7cf",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/depth_scaling-0000-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/factorial-0000-0000000",
+      "experiment": "factorial",
+      "kind": "jobs",
+      "manifest_sha256": "5b53133ec4f0dae124400df5e9803bea6e49c954220559320111d98e601412b6",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/factorial-0000-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/factorial-0000-0000001",
+      "experiment": "factorial",
+      "kind": "jobs",
+      "manifest_sha256": "f90dec479226679cfa80546e8c9c3aa64bce1a431e63ec2e182cbb2551c43389",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/factorial-0000-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/factorial-0001-0000000",
+      "experiment": "factorial",
+      "kind": "jobs",
+      "manifest_sha256": "db23772a99d436f225e38fcc10e734f9912a2089326f62f959d863a8161a27c7",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/factorial-0001-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/factorial-0001-0000001",
+      "experiment": "factorial",
+      "kind": "jobs",
+      "manifest_sha256": "b1573d6e88fab603c46642f19e771d88076d06fb110c14e26f8f320f691e320d",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/factorial-0001-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/factorial-0002-0000000",
+      "experiment": "factorial",
+      "kind": "jobs",
+      "manifest_sha256": "478567eb0cfec538943ae441e7b3058237ea06d905d0fb9c050631ec18f8ebca",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/factorial-0002-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/factorial-0002-0000001",
+      "experiment": "factorial",
+      "kind": "jobs",
+      "manifest_sha256": "7a0f1ca953155dc78ca595d871638a7c2412c5c3c49ea7550c37af5b90f94ef3",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/factorial-0002-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/factorial-0003-0000000",
+      "experiment": "factorial",
+      "kind": "jobs",
+      "manifest_sha256": "7deba67306c75a1ffb5a5311693e9f7613e12606d0992f86a3c3ea2f6c1343e8",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/factorial-0003-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/factorial-0003-0000001",
+      "experiment": "factorial",
+      "kind": "jobs",
+      "manifest_sha256": "0a761006b278821963ecd1d1b2ae36055d48c5c66efe91f66f9714047fbcbd9e",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/factorial-0003-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/spectrum-0000-0000000",
+      "experiment": "spectrum",
+      "kind": "jobs",
+      "manifest_sha256": "70339c3eee51ab011577f0a2cac72dcf0ea75f32056e3ca32647ec3ff2d4c8f7",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/spectrum-0000-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/spectrum-0000-0000001",
+      "experiment": "spectrum",
+      "kind": "jobs",
+      "manifest_sha256": "74c8328e350c7083baa821ad59f9c30b5009b8747ae6e3474ffaea6de42c6599",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/spectrum-0000-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/spectrum-0001-0000000",
+      "experiment": "spectrum",
+      "kind": "jobs",
+      "manifest_sha256": "17bc2abe825336ddb784c88fbe8e3343cf6bbd1c1652d9b1608d2d01036712a7",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/spectrum-0001-0000000"
+    },
+    {
+      "capsule_path": "campaign/jobs/spectrum-0001-0000001",
+      "experiment": "spectrum",
+      "kind": "jobs",
+      "manifest_sha256": "4c2594bdb993b61e331d56762a8978625909c1301e4574f32019f03e4f52e1c5",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/spectrum-0001-0000001"
+    },
+    {
+      "capsule_path": "campaign/jobs/validation",
+      "experiment": "validation",
+      "kind": "jobs",
+      "manifest_sha256": "ba17d487e84aceaf07ba8e706fcef5de6594259d98b174692a6800b945f78a60",
+      "outputs": 5,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a/jobs/validation"
+    },
+    {
+      "capsule_path": "merged/architecture",
+      "experiment": "architecture",
+      "kind": "merged",
+      "manifest_sha256": "d781ab5dcc4a2a734f54d79922d1ce5217cc7340d75289a149859206563e7e4d",
+      "outputs": 10,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-merged/architecture"
+    },
+    {
+      "capsule_path": "merged/benchmark_powers",
+      "experiment": "benchmark_powers",
+      "kind": "merged",
+      "manifest_sha256": "23accf83a291519b2d7615463b775c27f8c35d2128e30aca4d455b1f0c8bd71a",
+      "outputs": 33,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-merged/benchmark_powers"
+    },
+    {
+      "capsule_path": "merged/benchmark_primary",
+      "experiment": "benchmark_primary",
+      "kind": "merged",
+      "manifest_sha256": "ef62dd40213ee6348f12ca4b2abbb8f235639daaf4154d64412da26a5ec362ac",
+      "outputs": 33,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-merged/benchmark_primary"
+    },
+    {
+      "capsule_path": "merged/bible",
+      "experiment": "bible",
+      "kind": "merged",
+      "manifest_sha256": "b709b8f06e68b37aa2f489c363487a809bd4b1e9dc028253a35aa5d32b62ad13",
+      "outputs": 15,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-merged/bible"
+    },
+    {
+      "capsule_path": "merged/bible_secondary",
+      "experiment": "bible_secondary",
+      "kind": "merged",
+      "manifest_sha256": "56f204e586d7b2d0de4ff1e2d4b9a0e1ae2e78e10ca0e530e057f85e15d54916",
+      "outputs": 13,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-merged/bible_secondary"
+    },
+    {
+      "capsule_path": "merged/depth_scaling",
+      "experiment": "depth_scaling",
+      "kind": "merged",
+      "manifest_sha256": "464817238d26b775f44c153645090d75a7e63ac5ddf614d569a3850d9a4b4445",
+      "outputs": 11,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-merged/depth_scaling"
+    },
+    {
+      "capsule_path": "merged/factorial",
+      "experiment": "factorial",
+      "kind": "merged",
+      "manifest_sha256": "4b16c5c4d923619ffa412c83a9c186ffc49b6e76dffd7e7bdf11f6a093939309",
+      "outputs": 20,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-merged/factorial"
+    },
+    {
+      "capsule_path": "merged/spectrum",
+      "experiment": "spectrum",
+      "kind": "merged",
+      "manifest_sha256": "27f9ec5495dda7b641e17c6b5a41aab143734916f466148295809fbacd862278",
+      "outputs": 14,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-merged/spectrum"
+    },
+    {
+      "capsule_path": "merged/validation",
+      "experiment": "validation",
+      "kind": "merged",
+      "manifest_sha256": "6ade6bfac78d502b242c187bc13f22a1b255e42ed605a88b2d8bbcd1b775664b",
+      "outputs": 8,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-merged/validation"
+    },
+    {
+      "capsule_path": "report",
+      "experiment": "reports",
+      "kind": "report",
+      "manifest_sha256": "d7c68131ead88625cd6ed5e0bd77f56b94e08f2288c9d9ad580773e5d4daafd1",
+      "outputs": 30,
+      "purpose": "smoke",
+      "status": "complete",
+      "working_path": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/distributed-smoke-cc1524a-report"
+    }
+  ],
+  "schema_version": 1,
+  "source_capsule_tree_sha256": "cefc1852613bb1397a881790a7a769e75425e41c437c270eecfa9fbaec7a364d",
+  "source_commit": "cc1524a636a5f1996b4fbff1668c477ed0e989b8",
+  "source_dirty_during_execution": false,
+  "source_files": 178,
+  "source_matches_execution": true,
+  "source_tree_sha256": "cefc1852613bb1397a881790a7a769e75425e41c437c270eecfa9fbaec7a364d"
+}

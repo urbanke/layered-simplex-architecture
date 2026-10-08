@@ -1,0 +1,35 @@
+{
+  "archive_sha256": "95993723c6a5a05d7c89c9009fc0443ba253b1a511b20c6e78785f0918a75942",
+  "files": {
+    "level_05.bin": {
+      "bytes": 6730144,
+      "sha256": "d3d342940842f0b249f49cee3f2c2af7104502167c3d486c715100c81f8bdb2f"
+    },
+    "level_05.index.json": {
+      "bytes": 7428,
+      "sha256": "c7d25598143e240ca15d1ba3da8dc6429221a1504840d1a1f99d37477288165b"
+    },
+    "level_22.bin": {
+      "bytes": 17346248,
+      "sha256": "fb221627320b54720701eb0430aad9bb5417f0e9e52ebed388f373c1e805968d"
+    },
+    "level_22.index.json": {
+      "bytes": 7608,
+      "sha256": "b5033137f824deb2ae0a960c88ce30bf083cb9354eeb12e3d82efb2e7a5a47a2"
+    },
+    "level_53.bin": {
+      "bytes": 4827416,
+      "sha256": "65a72cdc11d9a13b7e8c836f5c5056925dd78349bdbd7b7b780c78fa0795ccd7"
+    },
+    "level_53.index.json": {
+      "bytes": 903,
+      "sha256": "d4e61aa5dec468138cd68897b823a89d8a64698d4a88f37da308cb11a8233b35"
+    },
+    "manifest.json": {
+      "bytes": 531,
+      "sha256": "b6d2c671d0d13d7ef4d853f668c93e7b60f0cb9ad48981ab2f30f846fe855cba"
+    }
+  },
+  "scope": "Exact copies of the three levels requested by kernel-validation.json; no numerical values or columns changed.",
+  "source": "/Users/ruediger/Projects/product_model_with_memory/tables/probe_exact"
+}

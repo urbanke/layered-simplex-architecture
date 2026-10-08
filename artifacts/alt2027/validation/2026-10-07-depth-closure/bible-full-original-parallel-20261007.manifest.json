@@ -1,0 +1,1133 @@
+{
+  "archive": "bible-full-original-parallel-20261007.tar.gz",
+  "archive_bytes": 352564,
+  "archive_sha256": "8c3ce3266e4986a8d9942fc1a41fb296d5046f2b2a41d5d4aca0b575746fc13e",
+  "files": {
+    "bible-full-original-parallel-20261007/extra/verify_bible.py": {
+      "bytes": 7893,
+      "sha256": "0b42be32f40f28c545927b1d9be372177d19c69d8b1d88f1576068e42234b9c1"
+    },
+    "bible-full-original-parallel-20261007/packaging.json": {
+      "bytes": 828,
+      "sha256": "2d995841e1343f3578b99731ebb5cdc91bfea3e6fb26c554c6b1586b88467450"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-00-default.json": {
+      "bytes": 531,
+      "sha256": "4c9f16a13e234e4425e6a1a6500db60408a3d8c734be303ba115a8f3e7284343"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-00-refined.json": {
+      "bytes": 531,
+      "sha256": "4d98a450f04286a5ecc05c61c33e2dd8454dc10b28569c20e113d95ecae62e1e"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-00-status.json": {
+      "bytes": 103,
+      "sha256": "fc42c94a37ca58496ce2443eed870c7403329d9bc3b42e322f082c39e52bd4d1"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-01-default.json": {
+      "bytes": 530,
+      "sha256": "862cfa4cb969718c28c86a36ac6fd82d5b46e6ad59a7b13716f42b0868acda5f"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-01-refined.json": {
+      "bytes": 530,
+      "sha256": "3d159bf1454e93c39f45f86b261e76a9de233f89232b3f8e9582c31ddf316d32"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-01-status.json": {
+      "bytes": 103,
+      "sha256": "bac923b0d05302a76ba3fe9ebbce51e88d30f05ad581a7205582f6ad5a1d3b06"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-02-default.json": {
+      "bytes": 1033,
+      "sha256": "caa3dee6ea9a1fd9fc32477aad0b544c35f79a1317a07b430953448fcf1daf28"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-02-refined.json": {
+      "bytes": 1031,
+      "sha256": "012b4dc9dd9ff1d0f1558ae27b69dd144fb86cc061d9b984f91b798baaca7e97"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-02-status.json": {
+      "bytes": 99,
+      "sha256": "9e9eee6e76a704df08f1c45ae35501659c1af6663b8847bbbd1802cabcc4bbdc"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-02-supplement.json": {
+      "bytes": 12779,
+      "sha256": "cb1d81c682a166e5b5a265a4b126e5dc9242f893c943dc9fb5f134207c848616"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-03-default.json": {
+      "bytes": 1048,
+      "sha256": "ae71cb1eb00fc20cc0abf7912b43cf348acdcd86bd72a03fa12c6362f20ea9f6"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-03-refined.json": {
+      "bytes": 1047,
+      "sha256": "055cec1b17d438c49755c06340ee13d3ae374ac19d6b7689f0c25d9b66eb989b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-03-status.json": {
+      "bytes": 100,
+      "sha256": "9919b6839e969348b7c272f9d842c7d707ce11f921e9048a907f69f0945b4721"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-03-supplement.json": {
+      "bytes": 12793,
+      "sha256": "2baa26f50d4824196069f52c4dfb08178e00f09f1f93c6df35cc161ed2dcd8fc"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-04-default.json": {
+      "bytes": 1047,
+      "sha256": "3e8cc908bb314e443fc4a6364c9c0500c5bda9ec5ca42bbe0941044f46aac022"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-04-refined.json": {
+      "bytes": 1045,
+      "sha256": "7bb2fea405966d96a2f6c0961c738e6e82e52f33ffc64fb81dda1ec40c95e081"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-04-status.json": {
+      "bytes": 100,
+      "sha256": "5ce48c199be189204976ef315c484561de1a408e61bf3049f868761906fd6340"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-04-supplement.json": {
+      "bytes": 12795,
+      "sha256": "139cdcd33ecbd61e3f975fb501db7dee62d44e95f78fdeb35c86fcd6ecbec6f5"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-05-default.json": {
+      "bytes": 1043,
+      "sha256": "1f9a0956e06cfbee3a40624411166f845a00457129fd9338e9df660d0132da67"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-05-refined.json": {
+      "bytes": 1043,
+      "sha256": "98ad9f76867dc86ada6520a57f6cd527394b2045a034783dc338c82ebad99e3b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-05-status.json": {
+      "bytes": 100,
+      "sha256": "5112bad5ac94cc17e4abc8c2bb34fa3a2e49dadddd11b2fb1a6508b8d49d5475"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-05-supplement.json": {
+      "bytes": 12774,
+      "sha256": "b5360bbccc23bea49624e1ea7c2d254cfec8ba4fb5e095ec641c4dfef026e30b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-06-default.json": {
+      "bytes": 1044,
+      "sha256": "1c695a942ed3a5488a41a32bbbc90352bd3a8bcea44a685f2473cae3af2e4ab6"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-06-refined.json": {
+      "bytes": 1045,
+      "sha256": "551537e11d3b2aee94df66b90fb55b8c867589d1c7743c1940b0e55a78cd1279"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-06-status.json": {
+      "bytes": 100,
+      "sha256": "70712c52f2650e2c1e7b676029b9d75823ad672607a663411d0e32191925995e"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-06-supplement.json": {
+      "bytes": 12782,
+      "sha256": "f2cd3eefb0bb585f871e368e701d66534ce3da98760f051f7f031719ab21d314"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-07-default.json": {
+      "bytes": 1042,
+      "sha256": "e0cd5905a000e530eb2aec55d5df6bd1f051f612953a8b2c058b02614c6eb9bc"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-07-refined.json": {
+      "bytes": 1043,
+      "sha256": "c2c92af36710c3009b6901bef7b74bf48c9249dec6adc08b7520a2a06c5c3a07"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-07-status.json": {
+      "bytes": 100,
+      "sha256": "6095e67afccae0ad6b5dc9399d350de14611fccde5b68e9486852f070062b221"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-07-supplement.json": {
+      "bytes": 12774,
+      "sha256": "5b61c861072ef300c0c75f89766c140bb15ba6ac8407edcda7eb009dc5b859bb"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-08-default.json": {
+      "bytes": 1041,
+      "sha256": "e397378c68bc428ad8911fc5640db28899dea7ec0c06baa26d689836cd5ad56a"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-08-refined.json": {
+      "bytes": 1043,
+      "sha256": "ee94c33c9edd07513ef98f03992f8d2577fa30dc4ae011dbe0795a91dae0bdca"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-08-status.json": {
+      "bytes": 99,
+      "sha256": "1b0227203218ec801b48a07d3e0b14e13e2ef3c8215dbf7d6b70939721cc4d39"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-08-supplement.json": {
+      "bytes": 12775,
+      "sha256": "dabe1493da5cb40c7e48b28faddf092bec45723f34f4c586ab55a7b7994a5b75"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-09-default.json": {
+      "bytes": 1042,
+      "sha256": "cfb066624dda481b2c3100f9c231ee2002bac8ec8754121c3d09ccd9a9452d78"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-09-refined.json": {
+      "bytes": 1042,
+      "sha256": "96c76a5fe11077fe191dca2915e76bea535e2901d486a269b3e3cf8834ba82a9"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-09-status.json": {
+      "bytes": 99,
+      "sha256": "debfe27d3b54c4c60ec0eb4eea70e17d39e984659fb04aaf56e970b6926b8725"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-09-supplement.json": {
+      "bytes": 12777,
+      "sha256": "3a92646a89a4168ba14749f90498a3151f68d32466828396ab6a3926426fff84"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-10-default.json": {
+      "bytes": 1042,
+      "sha256": "1549efd62b63e1be70f35a7074db77d3fe9ba6b552c12d05c530a8ffe358a4fa"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-10-refined.json": {
+      "bytes": 1042,
+      "sha256": "6d226fb9bfa8c3d950a75bd880521c1d5abe0d6c86e64ffb0e47457f093e9e68"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-10-status.json": {
+      "bytes": 101,
+      "sha256": "6b4bef115dface18d9b3cedde88c2eea458a632b85de283ed7e0f2ee7aa7c441"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-10-supplement.json": {
+      "bytes": 12777,
+      "sha256": "e0a933ca31a37aac748c8fb93bc57c6d5d16902d3a63ef46460aaa36fd0ffe3c"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-11-default.json": {
+      "bytes": 1044,
+      "sha256": "018c6a115e1ddd4cfe081be1ebf46fffe19ff60f59b0cd6b0fff318306ad19c7"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-11-refined.json": {
+      "bytes": 1043,
+      "sha256": "24a964e21e086d9d931dad9628bd2738fb4eb399699da35fe25fbfccfd42c018"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-11-status.json": {
+      "bytes": 101,
+      "sha256": "909d2ac7b4f9b6cd1e017a6196fd3e52e4f370726c7273810bf2ea536b129d49"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-11-supplement.json": {
+      "bytes": 12779,
+      "sha256": "069424acf1586ae4ccba010c64aa9ab301cc5bcc7a1677734c9319de2d45e0c4"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-12-default.json": {
+      "bytes": 1043,
+      "sha256": "cb3d98398d19089e88d407fa22c6a4b2cd7a64f348d26e0fe10d15d1db0421aa"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-12-refined.json": {
+      "bytes": 1042,
+      "sha256": "c655bfec08e98880324e086aee7988b84343676b2fc2345cd4bafeb1258e7fe0"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-12-status.json": {
+      "bytes": 100,
+      "sha256": "5af065b6a05c93872d652bddca8fb0be0f67c45dbe3608d08c1d578ce773f2de"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-12-supplement.json": {
+      "bytes": 12777,
+      "sha256": "aff0d05147314229bac9a5832fa25540eae7a1ec3e4a893fc4acf63f8443e7b8"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-13-default.json": {
+      "bytes": 1044,
+      "sha256": "34237cb685a281db896b87e15ed4f12fc4968f38beddba9fa115793cc4370923"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-13-refined.json": {
+      "bytes": 1042,
+      "sha256": "2f114efd8b0301688d04e5cd7b50a38d0e4016e8a1835d4d6899cb442e3fbd4a"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-13-status.json": {
+      "bytes": 100,
+      "sha256": "9d71f2adfd4f029a91cae00db7ba560dc9c713bc679c3e31098d8a8c4c728bdb"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-13-supplement.json": {
+      "bytes": 12776,
+      "sha256": "c82719c05a316b6917cc3818a668160de82037379fa8a35ec210dd3ecf63e428"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-14-default.json": {
+      "bytes": 1043,
+      "sha256": "e69d7ecb5d206d65b26ae35712c8e232ad1307e67c0da6029ce269cd3c212636"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-14-refined.json": {
+      "bytes": 1041,
+      "sha256": "8c72b626b91af7ebe9dcc444b256a2170f3eb68f2a83723e3873ccd07b55ed94"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-14-status.json": {
+      "bytes": 101,
+      "sha256": "4ea3d0e4aeeade50423dfb16137b7386f5f15eebe7b2a9709b7121b9c1a56a15"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-14-supplement.json": {
+      "bytes": 12776,
+      "sha256": "3e61097537834f1568d89460d2d6f6c53f375c8540d2033457a8668a2b34a9b4"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-15-default.json": {
+      "bytes": 1041,
+      "sha256": "a0a1fdddebdccc69fb911eb690422e60dd8edd427d8231004e19dd523cf9ef24"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-15-refined.json": {
+      "bytes": 1041,
+      "sha256": "bc83ab3db3d705cccfd1e0a04099dc8c5b1b3e97ae38ef4b0da6c7a3673148df"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-15-status.json": {
+      "bytes": 100,
+      "sha256": "cf26097767c765280ecca03a3680acdfcfe2b54d64976344f27ae77ccd95d95c"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-15-supplement.json": {
+      "bytes": 12775,
+      "sha256": "9c1789bb681caefd5a63627d146f1de103cbe473a0b37b81cfe6457c33019c1d"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-16-default.json": {
+      "bytes": 1043,
+      "sha256": "d5ce0a40241edb54c387b6d4c367505f268c896e23c525e855597764d748470b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-16-refined.json": {
+      "bytes": 1041,
+      "sha256": "aa99b89594fb11966a89590eed730085af9e26db0991e3e2b65076b3dbde24b1"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-16-status.json": {
+      "bytes": 100,
+      "sha256": "9de12f813ec725edf6ad0113ff5d150649b89ccef1c287e9706ee42f6c41b7c2"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-16-supplement.json": {
+      "bytes": 12771,
+      "sha256": "922a35750e8b897e541fcd9ff896fc3f527ce64afbd4ee01edaf7d9263ac4f17"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-17-default.json": {
+      "bytes": 1040,
+      "sha256": "10167d94eb83c51fbec2981fd932e5c4368758621f7a24ce58ab8a5fcc360b27"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-17-refined.json": {
+      "bytes": 1041,
+      "sha256": "0a63723cffe316dc770b2b7aca8d11238b2b4659306f8f405328aecca2df1949"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-17-status.json": {
+      "bytes": 100,
+      "sha256": "ed48945666006bfbe1dc30bd4cfd3107546a0a89d228cf4e7c36d14ceacffd77"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-17-supplement.json": {
+      "bytes": 12770,
+      "sha256": "8966789495404cc91ba371e86aabebc7c3fd3cec3747bc49b108c16a3512a537"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-18-default.json": {
+      "bytes": 1042,
+      "sha256": "301cf398db77597380d197714aba6ab57185b97d55e4e662debaed5db2d45880"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-18-refined.json": {
+      "bytes": 1042,
+      "sha256": "acb6d4c1922e9162829148363ebb7b74bc96899b569c16e24b71be9ce9fcb442"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-18-status.json": {
+      "bytes": 101,
+      "sha256": "f4eb75fefb37ca5140563c4ffb583dc3e693d9317feea30ae7a66e0c16470190"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-18-supplement.json": {
+      "bytes": 12775,
+      "sha256": "002b169b4c18da2aba390cc36dab880b41761da75a49bf8af466cbb4ad508fa2"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-19-default.json": {
+      "bytes": 1039,
+      "sha256": "bd19139407e4fc3a7e3b8c214727a1f8d7f11814a6a359909d5795c79e07f03c"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-19-refined.json": {
+      "bytes": 1044,
+      "sha256": "73aa8a021c8dad665f8aaf8c7617bb64ce7a19f4adc66831b26f0a19400607ad"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-19-status.json": {
+      "bytes": 100,
+      "sha256": "a384b5932b2993adad6be8049ac525ae7e9372aeb68e09bf428ab3c9bc8d00d9"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-19-supplement.json": {
+      "bytes": 12779,
+      "sha256": "d1c6f9e517beffae749ffa6aabd42fb0edb578553df27bceb9e5e7820a99bc7b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-20-default.json": {
+      "bytes": 1039,
+      "sha256": "569e3f3dc9be7cbde7bf71fac5ae37cc21458542d978b508f4c9cf004dd87df9"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-20-refined.json": {
+      "bytes": 1043,
+      "sha256": "d4a0d281c9fc46d19294f822dddc63cc2af3a0909ed442dd38f47b9445541086"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-20-status.json": {
+      "bytes": 101,
+      "sha256": "ec14c2014e12017db70b30ef27d530ae2ae1d37907d181085ff7d735d51fc3b0"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-20-supplement.json": {
+      "bytes": 12774,
+      "sha256": "32e24d6c03d7479a7ca994bd9aca1d8621e5f4b297fc0d63ce18499a30763806"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-21-default.json": {
+      "bytes": 1041,
+      "sha256": "e08cc7aa566ae3c7b09c47d83a6084c2ccfca1afaa31e075955456ec7155b020"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-21-refined.json": {
+      "bytes": 1043,
+      "sha256": "da10079ee15895f3e31e4d042baca390cfb9f7c3fa4c3b6034a3d3af64617a63"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-21-status.json": {
+      "bytes": 101,
+      "sha256": "ca7aab331fe402b93c9583a24c50068ab4118590485d26e0124252b0aa10d5bb"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-21-supplement.json": {
+      "bytes": 12774,
+      "sha256": "087a9b9c51aee4fa0497c731f8ec4369556b07d1cf0595c13ad74d8c74fbe9ea"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-22-default.json": {
+      "bytes": 1041,
+      "sha256": "b967222d2c3733696c685e714fb20f5c6660925beb833b3674a97a96a13136fa"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-22-refined.json": {
+      "bytes": 1042,
+      "sha256": "75c9223490e49d96fa2208d2e5934145c6e74fcba4a7c570070be410aa1d54bd"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-22-status.json": {
+      "bytes": 100,
+      "sha256": "989b1e7fa6c9ba9f878050bdc93c37b9ef8bbe6c2a9167b9d013c6b57d0fe9eb"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-22-supplement.json": {
+      "bytes": 12775,
+      "sha256": "268c353020704ed2fe11fd9e1809218349d3c8cf383702360d09d4603034eecd"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-23-default.json": {
+      "bytes": 1039,
+      "sha256": "45af014c3913564048609a636c19685dc0f1dbec9dc066479bbadf1f5b0d079e"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-23-refined.json": {
+      "bytes": 1041,
+      "sha256": "8288011d7a447764e539dcdadc3fcea088e5f506aa70a285601a269f7f703dcf"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-23-status.json": {
+      "bytes": 100,
+      "sha256": "59b9e9bc09f5326c159da59bb51cb9a3aeb0c2995cca4bfb58434255f5078265"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-23-supplement.json": {
+      "bytes": 12774,
+      "sha256": "0744f1a500a9b3a7ea3cbbac2ccce78446763b05fed7fb4a22274ec7b48dfbbb"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-24-default.json": {
+      "bytes": 1042,
+      "sha256": "4900613a88bd4e42bd162517b76b7bf0948ecdefc93696dfd1324679402146f1"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-24-refined.json": {
+      "bytes": 1042,
+      "sha256": "b0fd4e0c06bb14b2d67f6376ce129aef40e5ac16a030eb575fa673d3b96e8784"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-24-status.json": {
+      "bytes": 100,
+      "sha256": "11d04b6ef29b96948390d098cbdf57465b74a8b09c4ab7e521c836de7e842b45"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-24-supplement.json": {
+      "bytes": 12772,
+      "sha256": "e5aa6f2ec932492b50de8d14989e0a3b88096b84e83b86f3ded5e374b86e574e"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-25-default.json": {
+      "bytes": 1042,
+      "sha256": "869cb6eec56db85ed9ee7cc7513e431f556a7cee84552ed9e78f22387521b8dd"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-25-refined.json": {
+      "bytes": 1041,
+      "sha256": "4a3a617bd8fb37c7e707e3934404fad3d27981cef07235d520bc087970253c96"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-25-status.json": {
+      "bytes": 101,
+      "sha256": "b2b79e4eaccbb7242706f049344290e35ed949426349b781ede5caa751c360b1"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-25-supplement.json": {
+      "bytes": 12774,
+      "sha256": "5a39c82a96bb2c24836d5f0e979789f9dac69709cee955e90afa2791e802cdfe"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-26-default.json": {
+      "bytes": 1041,
+      "sha256": "96b6f937e0ff0ddb8e6dfd7f5607c7589a7f854bdf3816ee931e8bebe05a33d1"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-26-refined.json": {
+      "bytes": 1043,
+      "sha256": "02c32e72818cf245ee7d7e3d1e401e5569732223a0c8b0811b61d272f3712bba"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-26-status.json": {
+      "bytes": 99,
+      "sha256": "79c971274973518eece5a0816b06d72cb9883e0624fa3a2f1d8d67c06db03add"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-26-supplement.json": {
+      "bytes": 12775,
+      "sha256": "c7441187b43257e6a3cfd197b61fe3991eeb6d01399b335985beb2c8e67d9d1d"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-27-default.json": {
+      "bytes": 1042,
+      "sha256": "b5c2d0a7dc491b06673dd97c586cf310d10cae099d01d9debcdfef92be34a1b7"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-27-refined.json": {
+      "bytes": 1042,
+      "sha256": "b55ff7610e8a3d868db2412981ee8cfc94e2e68c416d251c58bd6fbf77590a86"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-27-status.json": {
+      "bytes": 101,
+      "sha256": "89ef6ebd8c7910a08f56ae614ad97195a0cfdc383ea3036cd24fac364397642e"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-27-supplement.json": {
+      "bytes": 12774,
+      "sha256": "cb083bdffe5e63ca1c93b2c9e035d25debbb5b715207967733ad74bd1e85723b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-28-default.json": {
+      "bytes": 1041,
+      "sha256": "fb6dd99910111aae29ada99cc31fd32caeca2753923205a6720ed3cd24d441d6"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-28-refined.json": {
+      "bytes": 1041,
+      "sha256": "49d0a3df6174a04b927f69b61dd2a1883301c94147a2489655a1b4eb56ff4d5e"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-28-status.json": {
+      "bytes": 101,
+      "sha256": "481bee616479c6d65cf5a93b1b526226baee4a8128d04a38b615e69731e3aa48"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-28-supplement.json": {
+      "bytes": 12773,
+      "sha256": "2198f2dba771582fe3a9ebdbc20e72568c3288a296d9d8b89b0f01584b4411fe"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-29-default.json": {
+      "bytes": 1043,
+      "sha256": "1b5f53e7e3498eebc6742172c7eed92e8c29d3cb1031ac9699935dc5c8e2289d"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-29-refined.json": {
+      "bytes": 1043,
+      "sha256": "c389d32df7307b13a156ffddc647ac75f905f553bc4d069aa3ab5f9c2b8cb62c"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-29-status.json": {
+      "bytes": 100,
+      "sha256": "4fe45179c12576b3534ee2ff3529c1af297dc2b964ab50780116be03fab26674"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-29-supplement.json": {
+      "bytes": 12776,
+      "sha256": "5a1817fbe971820eb981d889c02b210ad272aff847018a8f1c80feb71b741051"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-30-default.json": {
+      "bytes": 1040,
+      "sha256": "2541fe7fd322d87d2a062064b8f7093df90fc7a745e1cd9b171547e7242a92f6"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-30-refined.json": {
+      "bytes": 1039,
+      "sha256": "85037f4e0c15407ad777535821a5f0852dd346bbc8ba8efe59f72870a0be753c"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-30-status.json": {
+      "bytes": 100,
+      "sha256": "638e40088dda0a5996912f2825dd27dee98a4912b8ee1548511c99fff697b371"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-30-supplement.json": {
+      "bytes": 12772,
+      "sha256": "cbb9af05c8295a75df5232cb6dd6cafa6c30633c529072b28bba1db016e7e1e1"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-31-default.json": {
+      "bytes": 1039,
+      "sha256": "82c9498ca64ddb14e4dbf010ff8e77c67904a3d7e41dff01ccbbf72d63862adc"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-31-refined.json": {
+      "bytes": 1041,
+      "sha256": "014e245600e0f7b7c48313af0d52662c50851e131a96579cbe27fc04967906e5"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-31-status.json": {
+      "bytes": 100,
+      "sha256": "6b629880bb56335699b68f3e650815f9b0234029ce11788391c6030595e5100c"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-31-supplement.json": {
+      "bytes": 12775,
+      "sha256": "1706d58b4cce878196eaae69288fcaec257260a8c285b8200ce59b53733984a9"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-32-default.json": {
+      "bytes": 1044,
+      "sha256": "6a9f1a3a1c3f1c601b01d972da1c3437b2cf9a7291d5c912815438d7a1049c82"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-32-refined.json": {
+      "bytes": 1042,
+      "sha256": "b65f5f5057a6c4384020bc9b206746e8afcb260410bcebf6c44931f320e633b3"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-32-status.json": {
+      "bytes": 100,
+      "sha256": "e93aab3a8d6c2acb6d739e1101583901c03f9ee8795a1c5906625c712ecfd3fc"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-32-supplement.json": {
+      "bytes": 12775,
+      "sha256": "cc46a6be14d606d7279ff89b7316710b4776f74a74feb211a75065bb70f763e1"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-33-default.json": {
+      "bytes": 1040,
+      "sha256": "a97a074e54544006b1225c4c13e5fb858ebc66335cf0ddb311888d7568192c8b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-33-refined.json": {
+      "bytes": 1040,
+      "sha256": "8b9af3e62967d0b6c238c3b6b3d84b8aaf8d1a7f7f8c7d99d48a77090d31575c"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-33-status.json": {
+      "bytes": 100,
+      "sha256": "0ab6414aad5a14f977ea765dfc055f317ea18e384055b0ef5d58f7282708f2b0"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-33-supplement.json": {
+      "bytes": 12775,
+      "sha256": "11f6b84699ea164a92e8637c4c9f89a31e06a4b3e7f7a32c2423af249cbd3961"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-34-default.json": {
+      "bytes": 1047,
+      "sha256": "7577e75dd959edf97d7c1b2b24a116d93bb45dd67e2bdf5c544c5dbc5c9a3e4a"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-34-refined.json": {
+      "bytes": 1043,
+      "sha256": "7b063f0bac5d4b2be12dee5a8309de08122338ba0662e3b74ea21f9a8f95a4d1"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-34-status.json": {
+      "bytes": 99,
+      "sha256": "135a806350050a511821fe7af47faf53a4735f1f3de689fa19f3c4a4e9d62bad"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-34-supplement.json": {
+      "bytes": 12779,
+      "sha256": "df08672e26f5010068502a8257849bf316cde5e9c678e28b773a4264028d0b68"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-35-default.json": {
+      "bytes": 1043,
+      "sha256": "a8d6f11b12329133f0612b25b936c47acb97f8d8d45456c576d57f1387e04ade"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-35-refined.json": {
+      "bytes": 1043,
+      "sha256": "8e735a4d3a7b48b5bf1ac68f32e74e044aeaa756f796eff4f258e8ccaae3d008"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-35-status.json": {
+      "bytes": 100,
+      "sha256": "6a4176a5033913171ab4d9f26bfc0acfe5969c296a8e22b5ecde66f1dd6d1425"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-35-supplement.json": {
+      "bytes": 12774,
+      "sha256": "2e521902884ade7ee65f263460aca0a34b6fe232f1758fd9ca33a64c43e86c42"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-36-default.json": {
+      "bytes": 1044,
+      "sha256": "4b7d92bb8dfb3f5bae6d86520d33b51c899d4d815d0276c5b15cb98609238708"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-36-refined.json": {
+      "bytes": 1045,
+      "sha256": "36294ea7b7c09b7759ff8392b5eddc0441ad80cb3a6ea02df7513d4b48859724"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-36-status.json": {
+      "bytes": 100,
+      "sha256": "88af27b06d581431d9045a5dc714c3af02c397a44ebf3b90b6e94f7122cebe94"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-36-supplement.json": {
+      "bytes": 12775,
+      "sha256": "c3dfa7fecc495097d564df3dec7931a0d6bdd694482990d3ee68880b690570bc"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-37-default.json": {
+      "bytes": 1045,
+      "sha256": "b4f0cda11048031d187fd26f41b096697499b21e2738316be1e3e0e7ac44528d"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-37-refined.json": {
+      "bytes": 1045,
+      "sha256": "fa8a20d89bcc3629ce84b323e128de2ce15ef6b56e131d9772756a86d583fbed"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-37-status.json": {
+      "bytes": 100,
+      "sha256": "e3d963e41c60032b81fe30f5281f96036528891fd0e6f7e95c00414bb32a08d1"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-37-supplement.json": {
+      "bytes": 12777,
+      "sha256": "9b4619e0a9220922fc8f3c522a2ec461a0350f8fd4c8f23fc62c6902c8e4e6b2"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-38-default.json": {
+      "bytes": 1043,
+      "sha256": "1a84bc49f73327f1f2bbfe84872921e36cd63f4d09ff7572b7f32b549d8e775a"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-38-refined.json": {
+      "bytes": 1044,
+      "sha256": "6ab9ba1b2d6de89b4ec3b012bd69068bea2fa9cbfc858456da2a37ef88ee41f0"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-38-status.json": {
+      "bytes": 100,
+      "sha256": "5eeb1633be108e65ad6981aba75e519dba2e0b38a0f7f2b99f55120cfba6f688"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-38-supplement.json": {
+      "bytes": 12776,
+      "sha256": "62bc1f183305000cb5c188c88144c8120dd95fe3b3f0e8a1121252c2e7d1d9ac"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-39-default.json": {
+      "bytes": 1043,
+      "sha256": "15c573d90336ac0bcae7ef352a6ba04e119f43e2a5f81c370e49e8ac376db2e8"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-39-refined.json": {
+      "bytes": 1045,
+      "sha256": "59e4cd8b724e28708ffe1f55d2e2a01451f7c89ebf2da45050861224b586957b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-39-status.json": {
+      "bytes": 100,
+      "sha256": "fbfb41091ecc975f2ecc587e181ff413ae26b6fd2e61df9fd27795fff0e9a1f3"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-39-supplement.json": {
+      "bytes": 12776,
+      "sha256": "9dd20e5e01baa03bd7a0419f99d8caaa49a16423941ee21c3fe0331975d70381"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-40-default.json": {
+      "bytes": 1043,
+      "sha256": "a2a212c3fb56991f2a2398fa67346ec7283895fefa93eaec24e5d499af37fb0b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-40-refined.json": {
+      "bytes": 1047,
+      "sha256": "18ff542884f2a48a62e916515a6f2d5e8350b6833fdf8474fea4bd710b6abb77"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-40-status.json": {
+      "bytes": 100,
+      "sha256": "cdf44b98c87ac10f4b68a1a41bd9a4935c5edf7aa4126ecc1d7192b1ebc7ac33"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-40-supplement.json": {
+      "bytes": 12777,
+      "sha256": "81e1b351686c06503bf2ac0a3bbecd57f617a3f4db1daf148fe631d3f830be7a"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-41-default.json": {
+      "bytes": 1045,
+      "sha256": "1a4f4bb6d06541ef619bfcf32d8cdd1fcfed7c4cfc74ad9f1be4440304fa1826"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-41-refined.json": {
+      "bytes": 1044,
+      "sha256": "5ca800e4bc73ee3cbc5b3b8fac1f8495e90ac2f10167e129a27082ed6a007f99"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-41-status.json": {
+      "bytes": 100,
+      "sha256": "e10c8b939ae3741b740a0009c8ed267e857697fb20b654d6d2faab78cd0d4a8d"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-41-supplement.json": {
+      "bytes": 12778,
+      "sha256": "0f5c440199827b8edf5d0ddc8efca792f04f1019e36a375aff66bf43c4e5f0eb"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-42-default.json": {
+      "bytes": 1045,
+      "sha256": "56ab256c30f576a39afd94d9a6cba7bbd7c1c3627273d88fd14f6b60a2727b2f"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-42-refined.json": {
+      "bytes": 1043,
+      "sha256": "aaeeded5f6fe965ff2d76dd6ce9a80447956969b5d682d7e871fe50113d38bb4"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-42-status.json": {
+      "bytes": 100,
+      "sha256": "5e93d17a66ca70c7990c3d5f71020eb963612bf9479a6cc4eefe5ac0a67d0a36"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-42-supplement.json": {
+      "bytes": 12775,
+      "sha256": "a6ea80756a647b6dabad952fdcfac29bc062fc1be025968b7d994bcd37247bda"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-43-default.json": {
+      "bytes": 1043,
+      "sha256": "7b518390762584bcb3ca87d0fa899367853a7dc26ce836ae751b532d4ab961b8"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-43-refined.json": {
+      "bytes": 1044,
+      "sha256": "71484db68d5fbaf7ccc38c1106ba386c6cd6a4a20a7655bc094de51a6ed010d0"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-43-status.json": {
+      "bytes": 100,
+      "sha256": "dd84cd172241907251c66c325cf7435ade42180137cceba8b8f9fce23d059f6e"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-43-supplement.json": {
+      "bytes": 12775,
+      "sha256": "96a06abbcb4eacee30ec51caeb42115f4157bb59e980aac38159e8771176f78c"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-44-default.json": {
+      "bytes": 1044,
+      "sha256": "596d870ef467f3a097f881925acc8f40766d84116ec71b7d1e5f4df5dd837169"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-44-refined.json": {
+      "bytes": 1044,
+      "sha256": "013c7d76e4ed2c9cde206972e920d97d9c0f8e63ca1b05326bbae48d82bc94f9"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-44-status.json": {
+      "bytes": 100,
+      "sha256": "08e5b3511201a1610c60563d2753942d639f5aff9043bb1b7573fc315e9d379e"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-44-supplement.json": {
+      "bytes": 12777,
+      "sha256": "94d37c199d3f5646424ae445fde1081a89702e70f57162c76a7b0d401cdd47ee"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-45-default.json": {
+      "bytes": 1043,
+      "sha256": "6d627087641a37b4606f11ff3e3b7564722fb3e84ef637862b936219140e93a4"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-45-refined.json": {
+      "bytes": 1044,
+      "sha256": "0b8699f80cf66a63b34b5d3a46fe26527a3853e8d2b935053f36ce7fc00bf93b"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-45-status.json": {
+      "bytes": 101,
+      "sha256": "351ad92dcf8be9208c06c648e0967cf0d3d029e3b981cfd4c42a7b19a3b0b84d"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-46-default.json": {
+      "bytes": 1043,
+      "sha256": "0e726d183fceebfe6b8c654d2396a3d76f282f2ecb61fb692d09caba01f3aca3"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-46-refined.json": {
+      "bytes": 1042,
+      "sha256": "ad15c26c61ee0d97be1c391e7b2199ed1ef22946364773b2dd8c18f9508c8a23"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-46-status.json": {
+      "bytes": 101,
+      "sha256": "21176933197a61e30b4f4cba0b9ddeee9d7f5758abdb44ada81594bcc3121079"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-47-default.json": {
+      "bytes": 1040,
+      "sha256": "6ae30babcd6801c4676b8a8278e5849368c082c7f5e0e15e8a4992c6fe549e8a"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-47-refined.json": {
+      "bytes": 1041,
+      "sha256": "9671076557b471f1f1a28c225f5a6b1fb9449125383ef6ca2c9ae8190180329d"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-47-status.json": {
+      "bytes": 102,
+      "sha256": "ec734b221c539e12dc135617c7f944525b856128291141adaf752716a460bea7"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-48-default.json": {
+      "bytes": 1042,
+      "sha256": "95f9094ebe9c4ff3e3400de0997ffe7b74482037680d047b71dfdd795b2f2bba"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-48-refined.json": {
+      "bytes": 1044,
+      "sha256": "ef1772eb0ab45b45f63248d98d056c5c44149054c17a09a493392d38d7749381"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-48-status.json": {
+      "bytes": 101,
+      "sha256": "f98ad6a2b66222d4d44a68a46d1bf3b4ac9d0b42019fea755b3830a7d7d9dff7"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-49-default.json": {
+      "bytes": 1043,
+      "sha256": "9c6854d084d74708e6885a2cc879b6518be68d8c12cceb5fdbde48de7c0a8b18"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-49-refined.json": {
+      "bytes": 1043,
+      "sha256": "8f0ff5adb099fb44ec1311f5ea8f244c33c98f9b6568240e0cff880080bfbb2c"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-49-status.json": {
+      "bytes": 101,
+      "sha256": "7a96b66b4b72dc80040be7409356b4a1806503656b7b22587818ca973121e7a9"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-50-default.json": {
+      "bytes": 1043,
+      "sha256": "af9b846f0bb5dd802a6864007cf74c8ab08073e3e45e83478b87ff2676b07486"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-50-refined.json": {
+      "bytes": 1040,
+      "sha256": "c1c38f083222851c09bbb46d8d6650ce719215584434e86822eafe503895e2a5"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-50-status.json": {
+      "bytes": 101,
+      "sha256": "0bbd49f18f716e785677b25790b900eb923031989d7d281d47d89815bf218ac0"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-51-default.json": {
+      "bytes": 1044,
+      "sha256": "8feab5dbf6785cc448b416104a5d9932f6fa9f8ca57e546ecfb3c05a3a6c4012"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-51-refined.json": {
+      "bytes": 1043,
+      "sha256": "0fde844bc9fd7ced010f972d1e3d9eb438ca9dd77ff094a7315c5640037cd723"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-51-status.json": {
+      "bytes": 101,
+      "sha256": "0293fcf84b08e3d548a962db81cf57db7680ea643c410163db6732349752870e"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-52-default.json": {
+      "bytes": 1042,
+      "sha256": "965fc4a514e62746a6e972f2e086118da3f9ccb419ab9502d6c237c03c439cf6"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-52-refined.json": {
+      "bytes": 1042,
+      "sha256": "88a035996bf917978aee8b9053797aa1cc76ad10348fb1bbc5428263111af25d"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-52-status.json": {
+      "bytes": 101,
+      "sha256": "f2e81d5e8672f2b50a8ab44455d65e7a79de01c7c24b34409933703a31c0eed5"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-53-default.json": {
+      "bytes": 1040,
+      "sha256": "b8829359bc0f3a74cd4aaad1961eea809e1bfe74e122fc705dba323f836dabd0"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-53-refined.json": {
+      "bytes": 1042,
+      "sha256": "9b09a2ee7b06401827514fdb9489e663cee60d7a97be4eaf0fbc0892d2cffc55"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-53-status.json": {
+      "bytes": 101,
+      "sha256": "70caeac4254b84badb52c97628ce616a582f29517486a77d5f8d9f5b823b4243"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-54-default.json": {
+      "bytes": 1049,
+      "sha256": "1f6e53618b9d767d61b8caa9abdcc7186c5edbb707cf9b2602270adcb2dfe146"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-54-refined.json": {
+      "bytes": 1050,
+      "sha256": "44492df3921595583de88c4d140aba8f55919a90946ea470c39daf8838ccc049"
+    },
+    "bible-full-original-parallel-20261007/run/checkpoints/depth-54-status.json": {
+      "bytes": 102,
+      "sha256": "a73cfa583818c79939f32ddae12f7adabaf82b657578acb9ee1a22618d7ec2b6"
+    },
+    "bible-full-original-parallel-20261007/run/default-posterior.json": {
+      "bytes": 1303,
+      "sha256": "860e7a156d8a27319720bb58918729475876ea0df10d814c18d4b1a0b602dffa"
+    },
+    "bible-full-original-parallel-20261007/run/evaluation-006.json.gz": {
+      "bytes": 7669,
+      "sha256": "3ccd0cd7ae6a0fbbca9b77f1f3367493be4076260361fb3685b5946737c85d21"
+    },
+    "bible-full-original-parallel-20261007/run/evaluation-supplemented.json.gz": {
+      "bytes": 10086,
+      "sha256": "f69d8419a0d75a600f8789353f6404217783b777eba4c1a1f08ac215e6552415"
+    },
+    "bible-full-original-parallel-20261007/run/final-manifest.json": {
+      "bytes": 43096,
+      "sha256": "525382169e184d84a856a221d374b7df320eeed55b6b1c860cf407027c60c805"
+    },
+    "bible-full-original-parallel-20261007/run/independent-review-posterior-roundoff.json": {
+      "bytes": 930,
+      "sha256": "1e1cf65b239db552b9bc2eeaaa38d1a4e2fa7bf0e9ada42cbac3b4a7235ca61b"
+    },
+    "bible-full-original-parallel-20261007/run/independent-review.json": {
+      "bytes": 1031,
+      "sha256": "91aa878cb82dc9b57d32efe774bae0d7f7222afe7e7999395c4e5ad3222ad248"
+    },
+    "bible-full-original-parallel-20261007/run/independent-verification.json": {
+      "bytes": 2175,
+      "sha256": "73a03495979eacc7ee43772a411bbf1b9f00b3f142e2afc126289d65c01154a6"
+    },
+    "bible-full-original-parallel-20261007/run/input-manifest.json": {
+      "bytes": 2488,
+      "sha256": "ac18c47eb46ab343eb58343add35e28a044ebce2e9e82574ff2199660018533f"
+    },
+    "bible-full-original-parallel-20261007/run/inputs/case-006.npz": {
+      "bytes": 35665,
+      "sha256": "c34bcf581de44d8df9e3a49860e56e37ba539152571a437973d00b0db2a1e158"
+    },
+    "bible-full-original-parallel-20261007/run/inputs/config.json": {
+      "bytes": 5844,
+      "sha256": "0b9b0ce7bbf74f132bc71eaec50741dc914cd269390aad404d953b477d253394"
+    },
+    "bible-full-original-parallel-20261007/run/inputs/corpus-6.json": {
+      "bytes": 718,
+      "sha256": "460f8809f64979224ab9b68671b0d91d81b4678b2ad581b3673cbcb8dcfd6852"
+    },
+    "bible-full-original-parallel-20261007/run/inputs/declared-depth-validation.json": {
+      "bytes": 20705,
+      "sha256": "db12e04985f29ab98d616edb691c0b1611c5f2e21b9777d973e30bc9e8b4cfcc"
+    },
+    "bible-full-original-parallel-20261007/run/inputs/default-engine.json": {
+      "bytes": 11393,
+      "sha256": "953927d1b90cafaea9f42cb2a119ddd18cb2557dc4232f83e117ebd16a9a5710"
+    },
+    "bible-full-original-parallel-20261007/run/inputs/engine-candidate.json": {
+      "bytes": 10415,
+      "sha256": "f81d81cec67b5add2f47230ff2226fe8808e24ed47941c8e72ad6f4a2241f8c8"
+    },
+    "bible-full-original-parallel-20261007/run/inputs/implementation.json": {
+      "bytes": 178,
+      "sha256": "5edf9af9e5325d21a1f1c655a4b464cc0ae3d69430634276d628be704d1d241a"
+    },
+    "bible-full-original-parallel-20261007/run/inputs/refined-engine.json": {
+      "bytes": 11394,
+      "sha256": "cf541e2235620db1612885ca2facbb1b8528d47b0e3f1122a5982e6112692fa8"
+    },
+    "bible-full-original-parallel-20261007/run/inputs/requirements-alt.lock": {
+      "bytes": 418,
+      "sha256": "7b3af636ff5b6a6472445a10f53c6c97da6e7fe3fd3ceea39f101312f811ecc1"
+    },
+    "bible-full-original-parallel-20261007/run/output-manifest.json": {
+      "bytes": 43782,
+      "sha256": "3a4d6902839943eb6454eaadcafb150ddc43ee7b625cdc360b9151ae179f7d42"
+    },
+    "bible-full-original-parallel-20261007/run/refined-posterior.json": {
+      "bytes": 1305,
+      "sha256": "06f200149f564dd709d311e4225125bbfe52f9162a03821d1fd1c1d8498ff3b7"
+    },
+    "bible-full-original-parallel-20261007/run/request.json": {
+      "bytes": 2446,
+      "sha256": "825c4e43335289ec9d85ae2eab2a24f25354c3d764cfc44ef13ed70a79e8520d"
+    },
+    "bible-full-original-parallel-20261007/run/result-006.json": {
+      "bytes": 1290,
+      "sha256": "226d514a3970e6bb5da35a3484e24ae746b5ecd52dd67a8c6e79aa5cd84af9b2"
+    },
+    "bible-full-original-parallel-20261007/run/run.py": {
+      "bytes": 11379,
+      "sha256": "b1fb4887e5a299587463bdfb03936fe4f5a34146c47d42473d2dd1f1467e14b8"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/__init__.py": {
+      "bytes": 3104,
+      "sha256": "f7c26f44016a0d64605b0e216ef618fa9de48c270cda4d2ceafd9c01bf62b83d"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/__init__.py": {
+      "bytes": 55,
+      "sha256": "8d431135dc341df9938bb3eed0dd9982ae999547f3002fa0191d60d1c9f41b1b"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/_vendor/__init__.py": {
+      "bytes": 50,
+      "sha256": "8d72733c11453f518baf50668d4866e839e6d9c48dbcd8e57a42af2602c6cf7d"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/_vendor/pmwm/__init__.py": {
+      "bytes": 81,
+      "sha256": "f9b6dff640ca43344b6d1d34e291122b189b1b33cfee5f7e2773743c0ba76b6a"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/_vendor/pmwm/_runtime.py": {
+      "bytes": 379,
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/_vendor/pmwm/fast_tables.py": {
+      "bytes": 13306,
+      "sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/_vendor/pmwm/kernel.py": {
+      "bytes": 208,
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/_vendor/pmwm/layered.py": {
+      "bytes": 50645,
+      "sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/_vendor/pmwm/mellin.py": {
+      "bytes": 35303,
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/_vendor/pmwm/provenance.json": {
+      "bytes": 1695,
+      "sha256": "587b633707e3d25c85d53540426a2b944f141c4f9ce72dc155faf69b3a648d06"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/_vendor/pmwm/universal_tables.py": {
+      "bytes": 57599,
+      "sha256": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/architecture.py": {
+      "bytes": 3971,
+      "sha256": "163cbac99b36ac44f7219c712e964817ae96e9a11f4d1785ac9249ece8fb81ee"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/artifacts.py": {
+      "bytes": 7191,
+      "sha256": "e417cfb0c00d970acc3dbd146bbfcc33f89efd9de67a01365c2dd111a97fd9f3"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/baselines.py": {
+      "bytes": 8147,
+      "sha256": "b98cad9223affe92d144695782a2e2d3ef273d966dd35930a971455c58c5b7a8"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/batch_depth.py": {
+      "bytes": 14748,
+      "sha256": "1f8a6f471b75cac3b9231cf3a1a865531c9d27456475b9f8b74670c5be4acd80"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/benchmark.py": {
+      "bytes": 28279,
+      "sha256": "f1e7b086563c63c6bf5cd975b3a401dfa9cde8983707a7d60cacd7a9a98da50e"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/benchmark_report.py": {
+      "bytes": 20441,
+      "sha256": "f11c5c8dc509940411304e6300a89bad00575c41ced4f9e32bd9a07ab61e247d"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/bible.py": {
+      "bytes": 10172,
+      "sha256": "e398a1bdb084af30b4c43cde331bcb577385ed1200ac6a7e73ab10a0d8df73b3"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/calibration.py": {
+      "bytes": 7546,
+      "sha256": "d8f7aaf76907fcf5ff8dc6b5b2b37b209fc03b7a1c6dd5b7ebc68af8e5671e35"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/chain_validation.py": {
+      "bytes": 5487,
+      "sha256": "82d62e07382ab840a1588f3a2e0ad129bd154bc5e22bc7bc3840024bf6e4d08e"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/cli.py": {
+      "bytes": 13918,
+      "sha256": "53e374a735c7216d9459300c091ce7ed709e48f06300b612b47d47ed2220ee1f"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/depth.py": {
+      "bytes": 31925,
+      "sha256": "bb4fa35e23cd785c4bef5c44bcf616a8565834ac8a4f494571b9ea84e01dbdd5"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/depth_validation.py": {
+      "bytes": 8564,
+      "sha256": "0a1e81b33c79a16afd2250e0075de4d594b924c69d853f032c6b6975f158d95f"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/kernel_validation.py": {
+      "bytes": 23057,
+      "sha256": "03f3ca55a2cca6c0889611f66e2396f89916853d1d2ed8455353823f564b7813"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/power_validation.py": {
+      "bytes": 17170,
+      "sha256": "86f2b616d2ccf4ab770942b5861bab40d8dfeec39d429656e44dfa735e6a4a82"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/powers.py": {
+      "bytes": 15417,
+      "sha256": "85b3c6b097c7b5a65ca18ddc39e5b435f2e2f6f9e0ef4d09389765f5ceb5eca6"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/prior_validation.py": {
+      "bytes": 27141,
+      "sha256": "5ae37db4b405459baa0ae88b1c93e0ab6f39510234fb7290ddacd16dc25e4cf7"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/scaling.py": {
+      "bytes": 18803,
+      "sha256": "54c38adaa8b2732579fbae7fc9ddbf9f6915adfe5509340095f0687a1e55243c"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/alt/validation.py": {
+      "bytes": 19898,
+      "sha256": "96e7880bfd6b605e3c562db2bc269d4a9744a238d5f2c9b80262b920aef5a566"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/codelength.py": {
+      "bytes": 52722,
+      "sha256": "2e1fd5cc9220e6fc0674ffe46a7e60de47466e3d2dd46f7af5bbc9e80410beb8"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/corpus.py": {
+      "bytes": 1703,
+      "sha256": "4d5a36502b37fb74a9dc14ea970a42630d6d527325d107f0002ff0e300529096"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/estimators.py": {
+      "bytes": 15707,
+      "sha256": "8a983bfc3c2d8149173b77cdfca1cd9b65d3be6dfddac3469bec869dc8d62cb8"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/fast_tables.py": {
+      "bytes": 13267,
+      "sha256": "6b6870ee339cd1cef13eead5e5b68d8ed2404cb706ef931cb52acc5594d0d8d5"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/kernel.py": {
+      "bytes": 2810,
+      "sha256": "7e33e5153a2d3987ad25d37c7f03c3aa3034c3d5afe0f648da27c187c3d04e2b"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/layered.py": {
+      "bytes": 50624,
+      "sha256": "61081f28fda5f69659bd542aaf992dc81878be89f01a55ad0fbabe69f538b133"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/mellin.py": {
+      "bytes": 34718,
+      "sha256": "161dc035bc1c637b0786476aa6540ba660af5fa08363f35d09a0574b6fb8a6d0"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/metrics.py": {
+      "bytes": 2399,
+      "sha256": "0661714a6be69f7ceba1655acec68ec17d9a2e055561cf50eb66cff651b30238"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/mixture_weights.py": {
+      "bytes": 18640,
+      "sha256": "dcbf3c09ce201496661cfc2a219d79126530a777753a08971c7b6b8f7c04d574"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/pairs.py": {
+      "bytes": 8452,
+      "sha256": "09cdf02363cbe612e3121b8b0efa196819198bc16e40412dd6a43510ef22d7fb"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/pattern_weights.py": {
+      "bytes": 21061,
+      "sha256": "c863e3faac2aebc311e836e376ecbc551d39bfa54743e77647ecf4c5dbb63ad5"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/product_simplex.py": {
+      "bytes": 3832,
+      "sha256": "9e095460cd393c71b249825b7ef2b0d978bfe93f223ab88a8c1511df73d9f291"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/state_family.py": {
+      "bytes": 10304,
+      "sha256": "f90068fcb02bc07ef150a55a980b67b685767e7bb2920b5b7494a546b262cd99"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/transforms.py": {
+      "bytes": 2734,
+      "sha256": "2b18e8da71edfd00b02fff756b35bdf5b4f6a1a5f37d43a573bf972e3feaec96"
+    },
+    "bible-full-original-parallel-20261007/run/source-capsule/src/lsa/universal_tables.py": {
+      "bytes": 57980,
+      "sha256": "1da5b7c66dc9324042b9e55a2f0e43db6242161498d41f777272c40b00c6a822"
+    },
+    "bible-full-original-parallel-20261007/run/source-hashes.json": {
+      "bytes": 7533,
+      "sha256": "7a2a3024b1b9272b8c2db0c421000d9fcdf59080446fde7816dc5372775df605"
+    },
+    "bible-full-original-parallel-20261007/run/stdout.log": {
+      "bytes": 14642,
+      "sha256": "d12d667b3e0b204c5dfd518ebf9390f83401714bb45df40aa23e038f8bb26a0a"
+    },
+    "bible-full-original-parallel-20261007/run/summary.json": {
+      "bytes": 16660,
+      "sha256": "a70a24efd2717e867de7c612b988d66da0ca679e595668009b3c9b569444dfc8"
+    },
+    "bible-full-original-parallel-20261007/run/supplement-posterior.json": {
+      "bytes": 1304,
+      "sha256": "aeb2e1eaf14e44814ddab9624c4201a8cc7458a26fcc17ad3f7dd62a18c26c67"
+    },
+    "bible-full-original-parallel-20261007/run/timing-observations.json": {
+      "bytes": 464,
+      "sha256": "943508f7dd88bed7be3dafd8b7ad249470a9165915cf87ae98750cbbd43ae165"
+    }
+  },
+  "notes": "Full saved Bible profile: all 55 declared depths, original frozen implementation, default/refined and actual-grid-halving supplements. Independent checkpoint/engine/input/source/mixture/posterior verification passed. Final closed-process manifest supersedes the provisional stdout entry.",
+  "production_admission": false
+}

@@ -1,0 +1,5070 @@
+{
+  "source": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/sealed-pilot-validation-20261008-001/data/rows.jsonl",
+  "source_sha256": "0917a0109b7e39c21c18685e341dc3e13802b6d1c28d67ecf20505e4a5e473ab",
+  "seconds": 1.0268655419931747,
+  "variants": {
+    "aligned/gamma-residual/adjacent/degree11": {
+      "all": {
+        "cases": 2130,
+        "over_3e9": 474,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": -2.8191134333610535e-06,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1386,
+        "over_3e9": 474,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": -2.8191134333610535e-06,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1040,
+        "over_3e9": 269,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": -2.8191134333610535e-06,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1218,
+        "over_3e9": 102,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 266,
+          "u": 35.0,
+          "case_id": "sealed-02125",
+          "exact_anchor": false,
+          "error_nats": -3.5825905797537416e-08,
+          "reference_nats": -8102.34686846778,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367,
+            397
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 688,
+        "over_3e9": 49,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 266,
+          "u": 35.0,
+          "case_id": "sealed-02125",
+          "exact_anchor": false,
+          "error_nats": -3.5825905797537416e-08,
+          "reference_nats": -8102.34686846778,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367,
+            397
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1700,
+        "over_3e9": 254,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": -2.8191134333610535e-06,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      }
+    },
+    "aligned/gamma-residual/adjacent/degree5": {
+      "all": {
+        "cases": 2175,
+        "over_3e9": 655,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": -2.326398115605116,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1431,
+        "over_3e9": 655,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": -2.326398115605116,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1085,
+        "over_3e9": 495,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": -2.326398115605116,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1223,
+        "over_3e9": 162,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.013,
+          "case_id": "sealed-02148",
+          "exact_anchor": false,
+          "error_nats": -0.0010491609318705741,
+          "reference_nats": -29117.808850921832,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 693,
+        "over_3e9": 160,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.013,
+          "case_id": "sealed-02148",
+          "exact_anchor": false,
+          "error_nats": -0.0010491609318705741,
+          "reference_nats": -29117.808850921832,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1725,
+        "over_3e9": 414,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 10.007,
+          "case_id": "sealed-02300",
+          "exact_anchor": false,
+          "error_nats": -2.2938774237409234,
+          "reference_nats": 2924453.945932449,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      }
+    },
+    "aligned/gamma-residual/adjacent/degree7": {
+      "all": {
+        "cases": 2170,
+        "over_3e9": 505,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": 0.003238219767808914,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1426,
+        "over_3e9": 505,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": 0.003238219767808914,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1080,
+        "over_3e9": 355,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": 0.003238219767808914,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1222,
+        "over_3e9": 38,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.0,
+          "case_id": "sealed-02147",
+          "exact_anchor": false,
+          "error_nats": 1.453994627809152e-06,
+          "reference_nats": -29104.812318853885,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 692,
+        "over_3e9": 38,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.0,
+          "case_id": "sealed-02147",
+          "exact_anchor": false,
+          "error_nats": 1.453994627809152e-06,
+          "reference_nats": -29104.812318853885,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1722,
+        "over_3e9": 267,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 10.007,
+          "case_id": "sealed-02300",
+          "exact_anchor": false,
+          "error_nats": 0.0031926026567816734,
+          "reference_nats": 2924453.945932449,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      }
+    },
+    "aligned/gamma-residual/adjacent/degree9": {
+      "all": {
+        "cases": 2149,
+        "over_3e9": 443,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": -5.576759576797485e-06,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1405,
+        "over_3e9": 443,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": -5.576759576797485e-06,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1059,
+        "over_3e9": 271,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": -5.576759576797485e-06,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1220,
+        "over_3e9": 37,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 261,
+          "u": 10.007,
+          "case_id": "sealed-02102",
+          "exact_anchor": false,
+          "error_nats": -1.102375790651422e-08,
+          "reference_nats": -1440.5176345428692,
+          "reference_ulp_nats": 2.2737367544323206e-13,
+          "anchors": [
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 690,
+        "over_3e9": 16,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 261,
+          "u": 10.007,
+          "case_id": "sealed-02102",
+          "exact_anchor": false,
+          "error_nats": -1.102375790651422e-08,
+          "reference_nats": -1440.5176345428692,
+          "reference_ulp_nats": 2.2737367544323206e-13,
+          "anchors": [
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1710,
+        "over_3e9": 215,
+        "worst": {
+          "variant": "aligned/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": 5.213,
+          "case_id": "sealed-02299",
+          "exact_anchor": false,
+          "error_nats": -5.335547029972076e-06,
+          "reference_nats": 7863858.334397645,
+          "reference_ulp_nats": 9.313225746154785e-10,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      }
+    },
+    "aligned/gamma-residual/log-balanced/degree11": {
+      "all": {
+        "cases": 2112,
+        "over_3e9": 372,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": -2.8191134333610535e-06,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1368,
+        "over_3e9": 372,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": -2.8191134333610535e-06,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1022,
+        "over_3e9": 220,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": -2.8191134333610535e-06,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1200,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -0.2573,
+          "case_id": "sealed-02144",
+          "exact_anchor": false,
+          "error_nats": 5.802576197311282e-10,
+          "reference_nats": 6138.911326459611,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 670,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -0.2573,
+          "case_id": "sealed-02144",
+          "exact_anchor": false,
+          "error_nats": 5.802576197311282e-10,
+          "reference_nats": 6138.911326459611,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1682,
+        "over_3e9": 152,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": -2.8191134333610535e-06,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      }
+    },
+    "aligned/gamma-residual/log-balanced/degree5": {
+      "all": {
+        "cases": 2172,
+        "over_3e9": 670,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": -2.326398115605116,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1428,
+        "over_3e9": 670,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": -2.326398115605116,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1082,
+        "over_3e9": 503,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": -2.326398115605116,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1220,
+        "over_3e9": 177,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.013,
+          "case_id": "sealed-02148",
+          "exact_anchor": false,
+          "error_nats": -0.0010491609318705741,
+          "reference_nats": -29117.808850921832,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 690,
+        "over_3e9": 168,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.013,
+          "case_id": "sealed-02148",
+          "exact_anchor": false,
+          "error_nats": -0.0010491609318705741,
+          "reference_nats": -29117.808850921832,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1722,
+        "over_3e9": 429,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 10.007,
+          "case_id": "sealed-02300",
+          "exact_anchor": false,
+          "error_nats": -2.2938774237409234,
+          "reference_nats": 2924453.945932449,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      }
+    },
+    "aligned/gamma-residual/log-balanced/degree7": {
+      "all": {
+        "cases": 2165,
+        "over_3e9": 613,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": 0.003238219767808914,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1421,
+        "over_3e9": 613,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": 0.003238219767808914,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1075,
+        "over_3e9": 463,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 35.013,
+          "case_id": "sealed-02302",
+          "exact_anchor": false,
+          "error_nats": 0.003238219767808914,
+          "reference_nats": -22839993.125696916,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1217,
+        "over_3e9": 146,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.0,
+          "case_id": "sealed-02147",
+          "exact_anchor": false,
+          "error_nats": 1.453994627809152e-06,
+          "reference_nats": -29104.812318853885,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 687,
+        "over_3e9": 146,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.0,
+          "case_id": "sealed-02147",
+          "exact_anchor": false,
+          "error_nats": 1.453994627809152e-06,
+          "reference_nats": -29104.812318853885,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1717,
+        "over_3e9": 375,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 10.007,
+          "case_id": "sealed-02300",
+          "exact_anchor": false,
+          "error_nats": 0.0031926026567816734,
+          "reference_nats": 2924453.945932449,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      }
+    },
+    "aligned/gamma-residual/log-balanced/degree9": {
+      "all": {
+        "cases": 2137,
+        "over_3e9": 406,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": -5.576759576797485e-06,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1393,
+        "over_3e9": 406,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": -5.576759576797485e-06,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1047,
+        "over_3e9": 255,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": -5.576759576797485e-06,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1208,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1000,
+          "u": 10.007,
+          "case_id": "sealed-02146",
+          "exact_anchor": false,
+          "error_nats": -1.7644197214394808e-09,
+          "reference_nats": -4120.525925013451,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 678,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1000,
+          "u": 10.007,
+          "case_id": "sealed-02146",
+          "exact_anchor": false,
+          "error_nats": -1.7644197214394808e-09,
+          "reference_nats": -4120.525925013451,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1698,
+        "over_3e9": 178,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": 5.213,
+          "case_id": "sealed-02299",
+          "exact_anchor": false,
+          "error_nats": -5.335547029972076e-06,
+          "reference_nats": 7863858.334397645,
+          "reference_ulp_nats": 9.313225746154785e-10,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      }
+    },
+    "aligned/raw/adjacent/degree11": {
+      "all": {
+        "cases": 2130,
+        "over_3e9": 705,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": -1965.16,
+          "case_id": "sealed-02245",
+          "exact_anchor": false,
+          "error_nats": 3.0994415283203125e-06,
+          "reference_nats": 1749542114.7630272,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1386,
+        "over_3e9": 705,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": -1965.16,
+          "case_id": "sealed-02245",
+          "exact_anchor": false,
+          "error_nats": 3.0994415283203125e-06,
+          "reference_nats": 1749542114.7630272,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1040,
+        "over_3e9": 198,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree11",
+          "depth": 80,
+          "r": 1045889,
+          "u": -4.013,
+          "case_id": "sealed-01930",
+          "exact_anchor": false,
+          "error_nats": 2.7567148208618164e-07,
+          "reference_nats": 17647651.048145548,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1218,
+        "over_3e9": 125,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree11",
+          "depth": 138,
+          "r": 266,
+          "u": -825.78,
+          "case_id": "sealed-02116",
+          "exact_anchor": false,
+          "error_nats": 4.234607331454754e-08,
+          "reference_nats": 168763.10049870916,
+          "reference_ulp_nats": 2.9103830456733704e-11,
+          "anchors": [
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367,
+            397
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 688,
+        "over_3e9": 48,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree11",
+          "depth": 138,
+          "r": 266,
+          "u": 10.007,
+          "case_id": "sealed-02124",
+          "exact_anchor": false,
+          "error_nats": 1.637022251088638e-08,
+          "reference_nats": -1462.7000324002618,
+          "reference_ulp_nats": 2.2737367544323206e-13,
+          "anchors": [
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367,
+            397
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1700,
+        "over_3e9": 324,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": -0.2573,
+          "case_id": "sealed-02254",
+          "exact_anchor": false,
+          "error_nats": 2.4959444999694824e-07,
+          "reference_nats": 12932535.242730789,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      }
+    },
+    "aligned/raw/adjacent/degree5": {
+      "all": {
+        "cases": 2175,
+        "over_3e9": 1412,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1970.6640460944695,
+          "case_id": "sealed-02288",
+          "exact_anchor": false,
+          "error_nats": 3.3825573921203613,
+          "reference_nats": 1826431663.4221122,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1431,
+        "over_3e9": 1412,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1970.6640460944695,
+          "case_id": "sealed-02288",
+          "exact_anchor": false,
+          "error_nats": 3.3825573921203613,
+          "reference_nats": 1826431663.4221122,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1085,
+        "over_3e9": 592,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": 1.1069124341011047,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1223,
+        "over_3e9": 460,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": -947.3951595455004,
+          "case_id": "sealed-02142",
+          "exact_anchor": false,
+          "error_nats": 0.0020556094823405147,
+          "reference_nats": 815821.7406958208,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 693,
+        "over_3e9": 200,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": -4.013,
+          "case_id": "sealed-02143",
+          "exact_anchor": false,
+          "error_nats": 0.0010552225630817702,
+          "reference_nats": 9892.628030390802,
+          "reference_ulp_nats": 1.8189894035458565e-12,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1725,
+        "over_3e9": 962,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -0.2573,
+          "case_id": "sealed-02298",
+          "exact_anchor": false,
+          "error_nats": 1.1020282190293074,
+          "reference_nats": 13500075.01258982,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      }
+    },
+    "aligned/raw/adjacent/degree7": {
+      "all": {
+        "cases": 2170,
+        "over_3e9": 1023,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": -0.0052144527435302734,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1426,
+        "over_3e9": 1023,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": -0.0052144527435302734,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1080,
+        "over_3e9": 398,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": -0.0020469091832637787,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1222,
+        "over_3e9": 118,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": -3.3352989703416824e-06,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 692,
+        "over_3e9": 53,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": -4.013,
+          "case_id": "sealed-02143",
+          "exact_anchor": false,
+          "error_nats": -1.9487906683934852e-06,
+          "reference_nats": 9892.628030390802,
+          "reference_ulp_nats": 1.8189894035458565e-12,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1722,
+        "over_3e9": 576,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -0.2573,
+          "case_id": "sealed-02298",
+          "exact_anchor": false,
+          "error_nats": -0.0020399820059537888,
+          "reference_nats": 13500075.01258982,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      }
+    },
+    "aligned/raw/adjacent/degree9": {
+      "all": {
+        "cases": 2149,
+        "over_3e9": 817,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1914.6770460944695,
+          "case_id": "sealed-02294",
+          "exact_anchor": false,
+          "error_nats": 9.5367431640625e-06,
+          "reference_nats": 1826431663.4040332,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1405,
+        "over_3e9": 817,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1914.6770460944695,
+          "case_id": "sealed-02294",
+          "exact_anchor": false,
+          "error_nats": 9.5367431640625e-06,
+          "reference_nats": 1826431663.4040332,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1059,
+        "over_3e9": 240,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": 10.007,
+          "case_id": "sealed-02300",
+          "exact_anchor": false,
+          "error_nats": 3.7606805562973022e-06,
+          "reference_nats": 2924453.945932449,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1220,
+        "over_3e9": 59,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree9",
+          "depth": 138,
+          "r": 261,
+          "u": -828.4241415190313,
+          "case_id": "sealed-02091",
+          "exact_anchor": false,
+          "error_nats": 8.789356797933578e-09,
+          "reference_nats": 164915.7055179174,
+          "reference_ulp_nats": 2.9103830456733704e-11,
+          "anchors": [
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 690,
+        "over_3e9": 10,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree9",
+          "depth": 138,
+          "r": 261,
+          "u": 35.013,
+          "case_id": "sealed-02104",
+          "exact_anchor": false,
+          "error_nats": 3.661625669337809e-09,
+          "reference_nats": -7958.5922878091815,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1710,
+        "over_3e9": 380,
+        "worst": {
+          "variant": "aligned/raw/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": 10.007,
+          "case_id": "sealed-02300",
+          "exact_anchor": false,
+          "error_nats": 3.7606805562973022e-06,
+          "reference_nats": 2924453.945932449,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      }
+    },
+    "aligned/raw/log-balanced/degree11": {
+      "all": {
+        "cases": 2112,
+        "over_3e9": 580,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": -1965.16,
+          "case_id": "sealed-02245",
+          "exact_anchor": false,
+          "error_nats": 3.0994415283203125e-06,
+          "reference_nats": 1749542114.7630272,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1368,
+        "over_3e9": 580,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": -1965.16,
+          "case_id": "sealed-02245",
+          "exact_anchor": false,
+          "error_nats": 3.0994415283203125e-06,
+          "reference_nats": 1749542114.7630272,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1022,
+        "over_3e9": 150,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 80,
+          "r": 1045889,
+          "u": -4.013,
+          "case_id": "sealed-01930",
+          "exact_anchor": false,
+          "error_nats": 2.7567148208618164e-07,
+          "reference_nats": 17647651.048145548,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1200,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": -6.984919309616089e-10,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 670,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": 10.007,
+          "case_id": "sealed-02146",
+          "exact_anchor": false,
+          "error_nats": -1.4097167877480388e-10,
+          "reference_nats": -4120.525925013451,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1682,
+        "over_3e9": 199,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": -0.2573,
+          "case_id": "sealed-02254",
+          "exact_anchor": false,
+          "error_nats": 2.4959444999694824e-07,
+          "reference_nats": 12932535.242730789,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      }
+    },
+    "aligned/raw/log-balanced/degree5": {
+      "all": {
+        "cases": 2172,
+        "over_3e9": 1428,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1970.6640460944695,
+          "case_id": "sealed-02288",
+          "exact_anchor": false,
+          "error_nats": 3.3825573921203613,
+          "reference_nats": 1826431663.4221122,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1428,
+        "over_3e9": 1428,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1970.6640460944695,
+          "case_id": "sealed-02288",
+          "exact_anchor": false,
+          "error_nats": 3.3825573921203613,
+          "reference_nats": 1826431663.4221122,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1082,
+        "over_3e9": 608,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": 1.1069124341011047,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1220,
+        "over_3e9": 476,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": -947.3951595455004,
+          "case_id": "sealed-02142",
+          "exact_anchor": false,
+          "error_nats": 0.0020556094823405147,
+          "reference_nats": 815821.7406958208,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 690,
+        "over_3e9": 216,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": -4.013,
+          "case_id": "sealed-02143",
+          "exact_anchor": false,
+          "error_nats": 0.0010552225630817702,
+          "reference_nats": 9892.628030390802,
+          "reference_ulp_nats": 1.8189894035458565e-12,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1722,
+        "over_3e9": 978,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -0.2573,
+          "case_id": "sealed-02298",
+          "exact_anchor": false,
+          "error_nats": 1.1020282190293074,
+          "reference_nats": 13500075.01258982,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      }
+    },
+    "aligned/raw/log-balanced/degree7": {
+      "all": {
+        "cases": 2165,
+        "over_3e9": 1356,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": -0.0052144527435302734,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1421,
+        "over_3e9": 1356,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": -0.0052144527435302734,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1075,
+        "over_3e9": 536,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -4.013,
+          "case_id": "sealed-02297",
+          "exact_anchor": false,
+          "error_nats": -0.0020469091832637787,
+          "reference_nats": 17369686.953332994,
+          "reference_ulp_nats": 3.725290298461914e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1217,
+        "over_3e9": 451,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": -3.3352989703416824e-06,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 687,
+        "over_3e9": 191,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": -4.013,
+          "case_id": "sealed-02143",
+          "exact_anchor": false,
+          "error_nats": -1.9487906683934852e-06,
+          "reference_nats": 9892.628030390802,
+          "reference_ulp_nats": 1.8189894035458565e-12,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1717,
+        "over_3e9": 909,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -0.2573,
+          "case_id": "sealed-02298",
+          "exact_anchor": false,
+          "error_nats": -0.0020399820059537888,
+          "reference_nats": 13500075.01258982,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      }
+    },
+    "aligned/raw/log-balanced/degree9": {
+      "all": {
+        "cases": 2137,
+        "over_3e9": 784,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1914.6770460944695,
+          "case_id": "sealed-02294",
+          "exact_anchor": false,
+          "error_nats": 9.5367431640625e-06,
+          "reference_nats": 1826431663.4040332,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1393,
+        "over_3e9": 784,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1914.6770460944695,
+          "case_id": "sealed-02294",
+          "exact_anchor": false,
+          "error_nats": 9.5367431640625e-06,
+          "reference_nats": 1826431663.4040332,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1047,
+        "over_3e9": 234,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": 10.007,
+          "case_id": "sealed-02300",
+          "exact_anchor": false,
+          "error_nats": 3.7606805562973022e-06,
+          "reference_nats": 2924453.945932449,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1208,
+        "over_3e9": 26,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree9",
+          "depth": 138,
+          "r": 1000,
+          "u": -957.4211595455005,
+          "case_id": "sealed-02140",
+          "exact_anchor": false,
+          "error_nats": 5.3551048040390015e-09,
+          "reference_nats": 815873.6705763672,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 678,
+        "over_3e9": 4,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree9",
+          "depth": 138,
+          "r": 1000,
+          "u": -0.2573,
+          "case_id": "sealed-02144",
+          "exact_anchor": false,
+          "error_nats": 3.423338057473302e-09,
+          "reference_nats": 6138.911326459611,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1698,
+        "over_3e9": 347,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": 10.007,
+          "case_id": "sealed-02300",
+          "exact_anchor": false,
+          "error_nats": 3.7606805562973022e-06,
+          "reference_nats": 2924453.945932449,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      }
+    },
+    "fixed/gamma-residual/adjacent/degree11": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 726,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904071808,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 726,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904071808,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 402,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 59.987,
+          "case_id": "sealed-02259",
+          "exact_anchor": false,
+          "error_nats": -3.1739473342895508e-06,
+          "reference_nats": -46711168.16993277,
+          "reference_ulp_nats": 7.450580596923828e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 140,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.187156904721633,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 69,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree11",
+          "depth": 138,
+          "r": 261,
+          "u": 80.0,
+          "case_id": "sealed-02107",
+          "exact_anchor": false,
+          "error_nats": -3.036984708160162e-08,
+          "reference_nats": -19694.198202977233,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367,
+            397
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 381,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree11",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -33.759902499616146,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            10476,
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269,
+            25202
+          ]
+        }
+      }
+    },
+    "fixed/gamma-residual/adjacent/degree5": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 912,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 16256.220289468765,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 912,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 16256.220289468765,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 664,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 80.0,
+          "case_id": "sealed-02305",
+          "exact_anchor": false,
+          "error_nats": -3.462086647748947,
+          "reference_nats": -69191485.79249361,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 276,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 14.788428556057625,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 216,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": 80.0,
+          "case_id": "sealed-02151",
+          "exact_anchor": false,
+          "error_nats": -0.002140793061698787,
+          "reference_nats": -74098.48581257144,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 626,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree5",
+          "depth": 80,
+          "r": 16248,
+          "u": -775.6559317922222,
+          "case_id": "sealed-01796",
+          "exact_anchor": false,
+          "error_nats": 35.536035388708115,
+          "reference_nats": 11303511.65818445,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836
+          ]
+        }
+      }
+    },
+    "fixed/gamma-residual/adjacent/degree7": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 737,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 14648.738926172256,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 737,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 14648.738926172256,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 487,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 79.993,
+          "case_id": "sealed-02304",
+          "exact_anchor": false,
+          "error_nats": 0.005321323871612549,
+          "reference_nats": -69184273.47590595,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 115,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 13.35215009842068,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 55,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": 80.0,
+          "case_id": "sealed-02151",
+          "exact_anchor": false,
+          "error_nats": 3.450040821917355e-06,
+          "reference_nats": -74098.48581257144,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 451,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree7",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -34.73431819677353,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484
+          ]
+        }
+      }
+    },
+    "fixed/gamma-residual/adjacent/degree9": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 714,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13831.23069691658,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 714,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13831.23069691658,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 424,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": 79.993,
+          "case_id": "sealed-02304",
+          "exact_anchor": false,
+          "error_nats": -9.715557098388672e-06,
+          "reference_nats": -69184273.47590595,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 112,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.62742584652733,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 46,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree9",
+          "depth": 138,
+          "r": 261,
+          "u": 35.0,
+          "case_id": "sealed-02103",
+          "exact_anchor": false,
+          "error_nats": -7.362359610851854e-09,
+          "reference_nats": -7955.202648056381,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 395,
+        "worst": {
+          "variant": "fixed/gamma-residual/adjacent/degree9",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -34.728143855929375,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269
+          ]
+        }
+      }
+    },
+    "fixed/gamma-residual/log-balanced/degree11": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 686,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904071808,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 686,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904071808,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 333,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 59.987,
+          "case_id": "sealed-02259",
+          "exact_anchor": false,
+          "error_nats": -3.1739473342895508e-06,
+          "reference_nats": -46711168.16993277,
+          "reference_ulp_nats": 7.450580596923828e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 100,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.187156904721633,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.013,
+          "case_id": "sealed-02148",
+          "exact_anchor": false,
+          "error_nats": 8.403731044381857e-10,
+          "reference_nats": -29117.808850921832,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 341,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -33.759902499616146,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            10476,
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269,
+            25202
+          ]
+        }
+      }
+    },
+    "fixed/gamma-residual/log-balanced/degree5": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 920,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 16256.220289468765,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 920,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 16256.220289468765,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 672,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 80.0,
+          "case_id": "sealed-02305",
+          "exact_anchor": false,
+          "error_nats": -3.462086647748947,
+          "reference_nats": -69191485.79249361,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 284,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 14.788428556057625,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 224,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": 80.0,
+          "case_id": "sealed-02151",
+          "exact_anchor": false,
+          "error_nats": -0.002140793061698787,
+          "reference_nats": -74098.48581257144,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 634,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree5",
+          "depth": 80,
+          "r": 16248,
+          "u": -775.6559317922222,
+          "case_id": "sealed-01796",
+          "exact_anchor": false,
+          "error_nats": 35.536035388708115,
+          "reference_nats": 11303511.65818445,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836
+          ]
+        }
+      }
+    },
+    "fixed/gamma-residual/log-balanced/degree7": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 900,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 14648.738926172256,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 900,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 14648.738926172256,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 647,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 79.993,
+          "case_id": "sealed-02304",
+          "exact_anchor": false,
+          "error_nats": 0.005321323871612549,
+          "reference_nats": -69184273.47590595,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 278,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 13.35215009842068,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 215,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": 80.0,
+          "case_id": "sealed-02151",
+          "exact_anchor": false,
+          "error_nats": 3.450040821917355e-06,
+          "reference_nats": -74098.48581257144,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 614,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree7",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -34.73431819677353,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484
+          ]
+        }
+      }
+    },
+    "fixed/gamma-residual/log-balanced/degree9": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 701,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13831.23069691658,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 701,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13831.23069691658,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 390,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": 79.993,
+          "case_id": "sealed-02304",
+          "exact_anchor": false,
+          "error_nats": -9.715557098388672e-06,
+          "reference_nats": -69184273.47590595,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 99,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.62742584652733,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 12,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree9",
+          "depth": 138,
+          "r": 1000,
+          "u": 59.987,
+          "case_id": "sealed-02149",
+          "exact_anchor": false,
+          "error_nats": -5.427864380180836e-09,
+          "reference_nats": -54086.97312085521,
+          "reference_ulp_nats": 7.275957614183426e-12,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 382,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree9",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -34.728143855929375,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269
+          ]
+        }
+      }
+    },
+    "fixed/raw/adjacent/degree11": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 856,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904787064,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 856,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904787064,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 265,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree11",
+          "depth": 53,
+          "r": 990031,
+          "u": 79.993,
+          "case_id": "sealed-01093",
+          "exact_anchor": false,
+          "error_nats": -2.3096799850463867e-07,
+          "reference_nats": -66517731.65114756,
+          "reference_ulp_nats": 7.450580596923828e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 168,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.187156904255971,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 53,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree11",
+          "depth": 53,
+          "r": 266,
+          "u": 79.993,
+          "case_id": "sealed-00961",
+          "exact_anchor": false,
+          "error_nats": 2.6957422960549593e-08,
+          "reference_nats": -20073.096254280415,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367,
+            397
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 389,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree11",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -33.75990249030292,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            10476,
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269,
+            25202
+          ]
+        }
+      }
+    },
+    "fixed/raw/adjacent/degree5": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 1523,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 16259.602846384048,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 1523,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 16259.602846384048,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 703,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 80.0,
+          "case_id": "sealed-02305",
+          "exact_anchor": false,
+          "error_nats": -0.07952991127967834,
+          "reference_nats": -69191485.79249361,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 467,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 14.790484161581844,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 207,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": 80.0,
+          "case_id": "sealed-02151",
+          "exact_anchor": false,
+          "error_nats": -8.518753747921437e-05,
+          "reference_nats": -74098.48581257144,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 1021,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree5",
+          "depth": 80,
+          "r": 16248,
+          "u": -775.6559317922222,
+          "case_id": "sealed-01796",
+          "exact_anchor": false,
+          "error_nats": 35.56013744696975,
+          "reference_nats": 11303511.65818445,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836
+          ]
+        }
+      }
+    },
+    "fixed/raw/adjacent/degree7": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 1123,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 14648.733711957932,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 1123,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 14648.733711957932,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 453,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 79.993,
+          "case_id": "sealed-02304",
+          "exact_anchor": false,
+          "error_nats": 0.00010730326175689697,
+          "reference_nats": -69184273.47590595,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 177,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 13.35214676335454,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 67,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": 79.993,
+          "case_id": "sealed-02150",
+          "exact_anchor": false,
+          "error_nats": 1.1491647455841303e-07,
+          "reference_nats": -74091.48599673508,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 621,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree7",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -34.73435634933412,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484
+          ]
+        }
+      }
+    },
+    "fixed/raw/adjacent/degree9": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 864,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13831.230706214905,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 864,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13831.230706214905,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 251,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree9",
+          "depth": 53,
+          "r": 1030331,
+          "u": 79.993,
+          "case_id": "sealed-01137",
+          "exact_anchor": false,
+          "error_nats": -3.129243850708008e-07,
+          "reference_nats": -69184278.93592396,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 95,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree9",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.62742585176602,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 12,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree9",
+          "depth": 53,
+          "r": 261,
+          "u": 79.993,
+          "case_id": "sealed-00939",
+          "exact_anchor": false,
+          "error_nats": 6.792106432840228e-09,
+          "reference_nats": -19700.998939265908,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            252,
+            253,
+            254,
+            255,
+            256,
+            267,
+            289,
+            313,
+            339,
+            367
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 369,
+        "worst": {
+          "variant": "fixed/raw/adjacent/degree9",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -34.728143787011504,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269
+          ]
+        }
+      }
+    },
+    "fixed/raw/log-balanced/degree11": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 788,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904787064,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 788,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904787064,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 212,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 53,
+          "r": 990031,
+          "u": 79.993,
+          "case_id": "sealed-01093",
+          "exact_anchor": false,
+          "error_nats": -2.3096799850463867e-07,
+          "reference_nats": -66517731.65114756,
+          "reference_ulp_nats": 7.450580596923828e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 100,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.187156904255971,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": 35.013,
+          "case_id": "sealed-02148",
+          "exact_anchor": false,
+          "error_nats": 1.1641532182693481e-10,
+          "reference_nats": -29117.808850921832,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 321,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -33.75990249030292,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            10476,
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269,
+            25202
+          ]
+        }
+      }
+    },
+    "fixed/raw/log-balanced/degree5": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 1584,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 16259.602846384048,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 1584,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 16259.602846384048,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 764,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1030331,
+          "u": 80.0,
+          "case_id": "sealed-02305",
+          "exact_anchor": false,
+          "error_nats": -0.07952991127967834,
+          "reference_nats": -69191485.79249361,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 528,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 14.790484161581844,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 268,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree5",
+          "depth": 138,
+          "r": 1000,
+          "u": 80.0,
+          "case_id": "sealed-02151",
+          "exact_anchor": false,
+          "error_nats": -8.518753747921437e-05,
+          "reference_nats": -74098.48581257144,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 1082,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree5",
+          "depth": 80,
+          "r": 16248,
+          "u": -775.6559317922222,
+          "case_id": "sealed-01796",
+          "exact_anchor": false,
+          "error_nats": 35.56013744696975,
+          "reference_nats": 11303511.65818445,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836
+          ]
+        }
+      }
+    },
+    "fixed/raw/log-balanced/degree7": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 1413,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 14648.733711957932,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 1413,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 14648.733711957932,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 593,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1030331,
+          "u": 79.993,
+          "case_id": "sealed-02304",
+          "exact_anchor": false,
+          "error_nats": 0.00010730326175689697,
+          "reference_nats": -69184273.47590595,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 467,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 13.35214676335454,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 207,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree7",
+          "depth": 138,
+          "r": 1000,
+          "u": 79.993,
+          "case_id": "sealed-02150",
+          "exact_anchor": false,
+          "error_nats": 1.1491647455841303e-07,
+          "reference_nats": -74091.48599673508,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 911,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree7",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -34.73435634933412,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484
+          ]
+        }
+      }
+    },
+    "fixed/raw/log-balanced/degree9": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 863,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13831.230706214905,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 863,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree9",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13831.230706214905,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 239,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree9",
+          "depth": 53,
+          "r": 1030331,
+          "u": 79.993,
+          "case_id": "sealed-01137",
+          "exact_anchor": false,
+          "error_nats": -3.129243850708008e-07,
+          "reference_nats": -69184278.93592396,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 94,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree9",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.62742585176602,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree9",
+          "depth": 53,
+          "r": 1000,
+          "u": 79.993,
+          "case_id": "sealed-00983",
+          "exact_anchor": false,
+          "error_nats": -2.1827872842550278e-10,
+          "reference_nats": -74099.5931524056,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 368,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree9",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -34.728143787011504,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269
+          ]
+        }
+      }
+    }
+  },
+  "production_eligible": false,
+  "limits": [
+    "Uses saved same-provider refined double references",
+    "No production source modified",
+    "Aligned cases requiring any anchor query above80 excluded rather than extrapolated",
+    "Longdouble coefficient arithmetic used diagnostically; actual stored payload remains float64"
+  ]
+}

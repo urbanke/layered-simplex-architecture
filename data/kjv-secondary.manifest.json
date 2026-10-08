@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "dataset_id": "kjv-secondary-word-punctuation-v1",
+  "source": "Project Gutenberg eBook #10; recovered historical Overleaf data/kjv_clean.txt",
+  "archive_sha256": "2a338048fafeebf93f03852ddd7ac0425480a42baf31de2d400eb198fc20a495",
+  "archive_member": "data/kjv_clean.txt",
+  "source_member_sha256": "3d2b833068cab2661597c13aeea664ff8e435adf0b8d3240741c07ead9058a56",
+  "recipe": {
+    "encoding": "UTF-8",
+    "token_regex": "\\w+|[^\\w\\s]",
+    "regex_engine": "Python re with Unicode semantics",
+    "join": "single space plus final newline",
+    "case": "preserved",
+    "gzip_mtime": 0
+  },
+  "compressed_file": "data/kjv-secondary.txt.gz",
+  "compressed_sha256": "aa8d5c80dfb47b259e1a9b94abed40dfac104cca9344d05a2e076e884e2958a4",
+  "decompressed_sha256": "b6f472f38d88a2efcfc000295560a92483da3e7b0ade00fe3f30160cf27f9560",
+  "tokens": 917868,
+  "distinct_types": 13554
+}

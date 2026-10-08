@@ -1,0 +1,19 @@
+{"L": 2, "declared_cases": 383, "batched_values": 3114, "matrix_byte_identical": true, "scalar_byte_identical": true, "maximum_difference_nats": 0.0}
+{"L": 22, "declared_cases": 389, "batched_values": 3222, "matrix_byte_identical": true, "scalar_byte_identical": true, "maximum_difference_nats": 0.0}
+{"L": 53, "declared_cases": 389, "batched_values": 3222, "matrix_byte_identical": true, "scalar_byte_identical": true, "maximum_difference_nats": 0.0}
+{"L": 54, "declared_cases": 389, "batched_values": 3222, "matrix_byte_identical": true, "scalar_byte_identical": true, "maximum_difference_nats": 0.0}
+{"L": 80, "declared_cases": 389, "batched_values": 3222, "matrix_byte_identical": true, "scalar_byte_identical": true, "maximum_difference_nats": 0.0}
+{"L": 138, "declared_cases": 389, "batched_values": 3222, "matrix_byte_identical": true, "scalar_byte_identical": true, "maximum_difference_nats": 0.0}
+{"implementation": "python", "repeat": 0, "seconds": 1.7924831670243293, "byte_identical": true}
+{"implementation": "native", "repeat": 0, "seconds": 0.4205383750377223, "byte_identical": true}
+{"implementation": "python", "repeat": 1, "seconds": 1.789066165976692, "byte_identical": true}
+{"implementation": "native", "repeat": 1, "seconds": 0.4195308340131305, "byte_identical": true}
+{"implementation": "python", "repeat": 2, "seconds": 1.7864478750270791, "byte_identical": true}
+{"implementation": "native", "repeat": 2, "seconds": 0.4185147079988383, "byte_identical": true}
+{"implementation": "python", "repeat": 0, "seconds": 2.7427197500364855, "byte_identical": true}
+{"implementation": "native", "repeat": 0, "seconds": 0.650887124997098, "byte_identical": true}
+{"implementation": "python", "repeat": 1, "seconds": 2.7539587080245838, "byte_identical": true}
+{"implementation": "native", "repeat": 1, "seconds": 0.6518078750232235, "byte_identical": true}
+{"implementation": "python", "repeat": 2, "seconds": 2.7666480829939246, "byte_identical": true}
+{"implementation": "native", "repeat": 2, "seconds": 0.6556083339964971, "byte_identical": true}
+{"all_byte_identical": true, "sources_unchanged": true, "medians": [{"python": 1.789066165976692, "native": 0.4195308340131305}, {"python": 2.7539587080245838, "native": 0.6518078750232235}]}

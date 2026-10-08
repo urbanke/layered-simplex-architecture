@@ -1,0 +1,8 @@
+{
+  "kernel": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-001/kernel",
+  "prior": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-001/prior",
+  "depth": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-001/depth",
+  "chain": "/scratch/urbanke/lsa-alt2027/runs/calibration-cc1524a636a5f1996b4fbff1668c477ed0e989b8-001/chain",
+  "power": "/scratch/urbanke/lsa-alt2027/runs/calibration-f0a5ebd0a57d46caeb9bf45407c062f37b8d64bc-001/power",
+  "regressions": "/scratch/urbanke/lsa-alt2027/runs/regressions-9ec82bcef549ad593dee5450e974d83de44ddc77-001"
+}

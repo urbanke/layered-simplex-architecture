@@ -1,0 +1,99 @@
+{
+  "archive": "chain-pilot-20261007-all-depths.tar.gz",
+  "archive_bytes": 1408376,
+  "archive_sha256": "faf1a1aa2e0270905e314c90d9e6e90f050238d3b52f33f1d8f27b0599652615",
+  "files": {
+    "chain-pilot-20261007-all-depths/packaging/archive-metadata.json": {
+      "bytes": 5186,
+      "sha256": "85c0dd8ea8a46c5b29623559bc5cbc449cd581c71eff4bc4f947eabc19499a63"
+    },
+    "chain-pilot-20261007-all-depths/packaging/engine-source-capsule/src/lsa/alt/_vendor/pmwm/__init__.py": {
+      "bytes": 81,
+      "sha256": "f9b6dff640ca43344b6d1d34e291122b189b1b33cfee5f7e2773743c0ba76b6a"
+    },
+    "chain-pilot-20261007-all-depths/packaging/engine-source-capsule/src/lsa/alt/_vendor/pmwm/_runtime.py": {
+      "bytes": 379,
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    },
+    "chain-pilot-20261007-all-depths/packaging/engine-source-capsule/src/lsa/alt/_vendor/pmwm/fast_tables.py": {
+      "bytes": 13306,
+      "sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "chain-pilot-20261007-all-depths/packaging/engine-source-capsule/src/lsa/alt/_vendor/pmwm/kernel.py": {
+      "bytes": 208,
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    "chain-pilot-20261007-all-depths/packaging/engine-source-capsule/src/lsa/alt/_vendor/pmwm/layered.py": {
+      "bytes": 50645,
+      "sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "chain-pilot-20261007-all-depths/packaging/engine-source-capsule/src/lsa/alt/_vendor/pmwm/mellin.py": {
+      "bytes": 35303,
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    "chain-pilot-20261007-all-depths/packaging/engine-source-capsule/src/lsa/alt/_vendor/pmwm/provenance.json": {
+      "bytes": 1695,
+      "sha256": "587b633707e3d25c85d53540426a2b944f141c4f9ce72dc155faf69b3a648d06"
+    },
+    "chain-pilot-20261007-all-depths/packaging/engine-source-capsule/src/lsa/alt/_vendor/pmwm/universal_tables.py": {
+      "bytes": 57599,
+      "sha256": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
+    },
+    "chain-pilot-20261007-all-depths/packaging/engine-source-capsule/src/lsa/alt/depth.py": {
+      "bytes": 31925,
+      "sha256": "bb4fa35e23cd785c4bef5c44bcf616a8565834ac8a4f494571b9ea84e01dbdd5"
+    },
+    "chain-pilot-20261007-all-depths/packaging/source-at-packaging/runner/full.py": {
+      "bytes": 579,
+      "sha256": "3299a1b16f2c934ba6e01120179d31f97b9ea15d9f11b555a562c42a72a43009"
+    },
+    "chain-pilot-20261007-all-depths/packaging/source-at-packaging/src/lsa/alt/artifacts.py": {
+      "bytes": 7191,
+      "sha256": "e417cfb0c00d970acc3dbd146bbfcc33f89efd9de67a01365c2dd111a97fd9f3"
+    },
+    "chain-pilot-20261007-all-depths/packaging/source-at-packaging/src/lsa/alt/baselines.py": {
+      "bytes": 8147,
+      "sha256": "b98cad9223affe92d144695782a2e2d3ef273d966dd35930a971455c58c5b7a8"
+    },
+    "chain-pilot-20261007-all-depths/packaging/source-at-packaging/src/lsa/alt/benchmark.py": {
+      "bytes": 28279,
+      "sha256": "f1e7b086563c63c6bf5cd975b3a401dfa9cde8983707a7d60cacd7a9a98da50e"
+    },
+    "chain-pilot-20261007-all-depths/packaging/source-at-packaging/src/lsa/alt/bible.py": {
+      "bytes": 10172,
+      "sha256": "e398a1bdb084af30b4c43cde331bcb577385ed1200ac6a7e73ab10a0d8df73b3"
+    },
+    "chain-pilot-20261007-all-depths/packaging/source-at-packaging/src/lsa/alt/chain_validation.py": {
+      "bytes": 5487,
+      "sha256": "82d62e07382ab840a1588f3a2e0ad129bd154bc5e22bc7bc3840024bf6e4d08e"
+    },
+    "chain-pilot-20261007-all-depths/run/config.json": {
+      "bytes": 670,
+      "sha256": "df18266d233d65593ff218bc785a9fef713f6fab507b12ea9f2b8a3296907cc5"
+    },
+    "chain-pilot-20261007-all-depths/run/corpus.json": {
+      "bytes": 718,
+      "sha256": "460f8809f64979224ab9b68671b0d91d81b4678b2ad581b3673cbcb8dcfd6852"
+    },
+    "chain-pilot-20261007-all-depths/run/dictionary.json": {
+      "bytes": 6058,
+      "sha256": "8d6b700f0db05a3633c455a7c65d3d9b08821f9a17765cb74990c89f56c12aa4"
+    },
+    "chain-pilot-20261007-all-depths/run/engine.json": {
+      "bytes": 11393,
+      "sha256": "3cbcacf59e8095b0b2e308de9e1c1da834a3aa499904e34ead4c330ef6ee059a"
+    },
+    "chain-pilot-20261007-all-depths/run/summary.json": {
+      "bytes": 937,
+      "sha256": "9fca6186c11c94e19a7ad62f79d7590b34a262e0681d145fa5bef0a1a024b3fa"
+    },
+    "chain-pilot-20261007-all-depths/run/token-ids.npz": {
+      "bytes": 2408,
+      "sha256": "85a4c03b745e9a50afb59d9128ca78955f1208a10c292a07966355b7c9667a43"
+    },
+    "chain-pilot-20261007-all-depths/run/transitions.json": {
+      "bytes": 12618887,
+      "sha256": "d4aa3fe6f837e1c2a82f6c608afa7564f3271094a7a6c633c734c7f8f142e75f"
+    }
+  }
+}

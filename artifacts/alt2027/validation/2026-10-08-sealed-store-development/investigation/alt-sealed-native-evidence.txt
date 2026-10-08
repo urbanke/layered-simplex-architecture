@@ -1,0 +1,32 @@
+Sealed native interpolation: completed local diagnostic and implementation
+
+Production implementation: src/lsa/alt/sealed_native.py, src/lsa/alt/sealed_interp.c, scripts/alt_build_sealed_native.py, tests/test_alt_sealed_native.py.
+NativeInterpolator(path, sha256) requires an existing explicitly pinned binary and its adjacent .json build manifest. Loading checks source/compiler/ABI handshake and fixed compilation flags; each call checks input support and unchanged binary, manifest, C and wrapper fingerprints. No runtime compilation or numerical fallback. Tail bounds/count interpolation stay in SealedKernelTables.
+
+Measured on macOS-26.6.2-arm64-arm-64bit-Mach-O; one computational thread. This is a bounded local diagnostic, not a completed production campaign or an independent accuracy proof.
+All 2,328 declared kernel scalar cases and 19,224 full Cartesian batched values were byte-identical between the actual Python and native APIs. The tested depths were 2,22,53,54,80,138. Both full prediction profiles had byte-identical component evidence, raw predictions, posterior weights, and mixture predictions across three alternating warm repeats.
+An earlier matching-prototype boundary check covered812 exact-node/nextafter/end/tail values across30 real columns; all matched bytewise and above-maximum queries were rejected. Production unit checks additionally stress4,100 actual-coordinate queries, invalid grids/values, rounded upper endpoints and immutable binary metadata.
+
+Warm whole-prediction timings (seconds, median of three alternating repeats, both engines warmed first):
+zipf1p5-n1000: Python 1.789066166; native 0.419530834; speedup 4.26444x. Depths [0, 1, 54, 80, 138]; sample SHA256 838cb9bdea87977b02cb3e1e1cae8cf8d6f047291c88267ba1823983e3481fd3.
+zipf5-n20000: Python 2.753958708; native 0.651807875; speedup 4.22511x. Depths [0, 1, 54, 80, 138]; sample SHA256 b1c31dd45f1477867ce0fe9e1998d7cb57d7cff42329f097849797683c51d938.
+
+These timings include the production NativeInterpolator integrity checks. The smaller private-ctypes prototype was about5x faster than Python; production is about4.2x. Report the production API timings as the relevant result.
+
+Machine-local library: /Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/sealed-native-probe/production-native-001.so
+Binary SHA256: 3de26ae6309ffc96ed7812e60cb790722361b4d57e5fac693b7e5cd941dfbdab
+Flags: -O3 -std=c11 -ffp-contract=off -fno-fast-math -fPIC -shared
+C SHA256: d9246aaa7a6fe09f6db39c8d9fbad24dae1e73d92a1e67aca8adaf74dc885245
+Wrapper SHA256: af14e227920cabde0a4460aaaee4c9c5002dc3f50cad63c2c78f537c213acc09
+Build manifest SHA256: 3f428207eb862b403a5bdc6c9f8328246bed59c8fe642b3da3f0f3192149e530
+All four numerical source identities were unchanged during the integrated diagnostic.
+
+SCITAS: compile once at the beginning of the next validation allocation, on its compute node, to a NEW artifact path; do not compile on the login node or inside the already running store-builder process. Example allocation step:
+srun --nodes=1 --ntasks=1 --cpus-per-task=1 --cpu-bind=cores .venv/bin/python scripts/alt_build_sealed_native.py --out "$native_out" --cc cc
+Capture the emitted SHA256 and use interpolation_backend="native", native_library_path=<output path>, native_library_sha256=<emitted SHA256> in the sealed StoreConfig. Preserve binary+.json together. The binary is machine-specific and stays outside Git. Perform the Linux scalar/matrix/kernel/profile gates using that exact compiled binary; local byte parity does not establish Linux byte parity.
+
+Evidence files:
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/sealed-native-probe/results.json SHA256 966b9138b1a4c91be78a6e472f04c79b38ae92e929b092f498e2183df9e62647
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/sealed-native-probe/boundary-results.json SHA256 dc359f93ef7d29fcd0018736d80e822f65de1da4c329bb1ac679082e89db96cf
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/sealed-native-probe/integrated-results.json SHA256 68fc6cbb8d10f88922126e490238e3d01a54388afc2eb55fbcae2a8f23b0da1e
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/sealed-native-probe/production-native-001.so.json SHA256 3f428207eb862b403a5bdc6c9f8328246bed59c8fe642b3da3f0f3192149e530

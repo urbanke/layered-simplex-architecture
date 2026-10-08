@@ -1,0 +1,87 @@
+{
+  "archive": "kernel-calibration-20261007-declared-grid.tar.gz",
+  "archive_bytes": 155554,
+  "archive_sha256": "4f2194dc4ade8ad0e850862e0e10a411a5274de429305b88acfd0e5e5b685e3f",
+  "files": {
+    "kernel-calibration-20261007-declared-grid/packaging/archive-metadata.json": {
+      "bytes": 4497,
+      "sha256": "0e26577b41b98efe9b9ef9daa5e055cfb3d7f98be3b9ce2616cc29efa0574dda"
+    },
+    "kernel-calibration-20261007-declared-grid/run/README.md": {
+      "bytes": 2752,
+      "sha256": "13043e9706462c1a66ab3e08262fa387c32aba50506e6614825cef9bf6ab056c"
+    },
+    "kernel-calibration-20261007-declared-grid/run/assessment.json": {
+      "bytes": 3349,
+      "sha256": "6c1dff55ccfc27dc6701b074d82750b34d672d8888709bb6aa686d76dd6833d2"
+    },
+    "kernel-calibration-20261007-declared-grid/run/config.json": {
+      "bytes": 5094,
+      "sha256": "a4ea8a12fe92bb101258be10a960d59e358fa5575800a554ac9541ea40abdb73"
+    },
+    "kernel-calibration-20261007-declared-grid/run/implementation.json": {
+      "bytes": 1765,
+      "sha256": "5e5b4206b79f7d46e370a61276783167160f19631cfe21cd47e181795a52c2aa"
+    },
+    "kernel-calibration-20261007-declared-grid/run/resolved-cases.json": {
+      "bytes": 37542,
+      "sha256": "3f45063643d79eddbc9924a571a4183076a9bf115de4439a1b150b687b782517"
+    },
+    "kernel-calibration-20261007-declared-grid/run/rows.jsonl": {
+      "bytes": 474442,
+      "sha256": "ab8539611bc4ec0e0361a60c57885a33d8347101c132a8bfffbe552ca61046ae"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule.json": {
+      "bytes": 1134,
+      "sha256": "e5dd4bfe3f583bd89ddda8cbeef9f10c18f89b667376b91a1282b97eca1208d1"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule/src/lsa/alt/_vendor/pmwm/__init__.py": {
+      "bytes": 81,
+      "sha256": "f9b6dff640ca43344b6d1d34e291122b189b1b33cfee5f7e2773743c0ba76b6a"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule/src/lsa/alt/_vendor/pmwm/_runtime.py": {
+      "bytes": 379,
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule/src/lsa/alt/_vendor/pmwm/fast_tables.py": {
+      "bytes": 13306,
+      "sha256": "04e7e96d9747013e4bda17feeca7da5052eb95541d167189fd2454367f2a58cf"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule/src/lsa/alt/_vendor/pmwm/kernel.py": {
+      "bytes": 208,
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule/src/lsa/alt/_vendor/pmwm/layered.py": {
+      "bytes": 50645,
+      "sha256": "2a038f65f0ce66681cd7e8788fa94f1b594c89ba5779160a7f2c8c5cd514e771"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule/src/lsa/alt/_vendor/pmwm/mellin.py": {
+      "bytes": 35303,
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule/src/lsa/alt/_vendor/pmwm/provenance.json": {
+      "bytes": 1695,
+      "sha256": "587b633707e3d25c85d53540426a2b944f141c4f9ce72dc155faf69b3a648d06"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule/src/lsa/alt/_vendor/pmwm/universal_tables.py": {
+      "bytes": 57599,
+      "sha256": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
+    },
+    "kernel-calibration-20261007-declared-grid/run/source-capsule/src/lsa/alt/kernel_validation.py": {
+      "bytes": 23057,
+      "sha256": "03f3ca55a2cca6c0889611f66e2396f89916853d1d2ed8455353823f564b7813"
+    },
+    "kernel-calibration-20261007-declared-grid/run/special-functions.json": {
+      "bytes": 10997,
+      "sha256": "94d2cf22a03ec71ea111719986c5eef991c2a516c3c096e74810fa0a2b32c9bc"
+    },
+    "kernel-calibration-20261007-declared-grid/run/store-inputs.json": {
+      "bytes": 4248,
+      "sha256": "f8568deca55298276223e84cd3239758cbcc5ede6a92880cf05e98bbcff25c75"
+    },
+    "kernel-calibration-20261007-declared-grid/run/summary.json": {
+      "bytes": 796,
+      "sha256": "b5f6ef59aeb0a2bc16ea2f36c4c82ca18948ea18339d44be7af22bf605c341a3"
+    }
+  }
+}

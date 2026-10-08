@@ -1,0 +1,59 @@
+{
+  "archive": "kernel-40152955.tar.gz",
+  "archive_bytes": 120693,
+  "archive_sha256": "c1309711ba738526b259c7bc5a695205cd82fe81a9564c94a72cd439aeac3e1f",
+  "files": {
+    "kernel/data/config.json": {
+      "bytes": 5089,
+      "sha256": "e96584c19eed18e5a0ce43bac7036f0de9eb3b95a42f5d17fd4a0bdbf83c2c85"
+    },
+    "kernel/data/implementation.json": {
+      "bytes": 1874,
+      "sha256": "efd75d5ab3ed124e1a70317a336b9ced7aef693be524c62bcf98ddac7e2826d5"
+    },
+    "kernel/data/resolved-cases.json": {
+      "bytes": 37542,
+      "sha256": "3f45063643d79eddbc9924a571a4183076a9bf115de4439a1b150b687b782517"
+    },
+    "kernel/data/rows.jsonl": {
+      "bytes": 474235,
+      "sha256": "0dec880a4b216d497ce198f6882e9c45cc9c1b13ad632f39a42b6b0eafc345b4"
+    },
+    "kernel/data/special-functions.json": {
+      "bytes": 10997,
+      "sha256": "94d2cf22a03ec71ea111719986c5eef991c2a516c3c096e74810fa0a2b32c9bc"
+    },
+    "kernel/data/store-inputs.json": {
+      "bytes": 4206,
+      "sha256": "3a48bb3649677e883c9572cf513da9936038fd37366ba6931d10f8762324d970"
+    },
+    "kernel/data/summary.json": {
+      "bytes": 796,
+      "sha256": "1f56e4ad19b637f6653ef1dbd0139494a180bcbd4ad4bdd2c85d38af2711ddf8"
+    },
+    "kernel/manifest.json": {
+      "bytes": 22865,
+      "sha256": "821885996cdacb73189c8324647a97d0cd300fa0c71042c2dc3ab9aacee71570"
+    },
+    "kernel/protocol.json": {
+      "bytes": 5840,
+      "sha256": "39a31859a06bc78c5af2506c904f8cbcbf95c65a70c00bf30fbf3637dc599dc3"
+    },
+    "kernel/result.json": {
+      "bytes": 882,
+      "sha256": "73d95df0a92f3f4467020b21022b4cf4c2ccb05b43f593d9e6e13b7588013d12"
+    },
+    "kernel/started.json": {
+      "bytes": 21374,
+      "sha256": "ed2e96780252667f26403949d6bab5f9a1da7b1616b5d28e2003dcef4ca84547"
+    },
+    "launches/kernel-40152955.json": {
+      "bytes": 20978,
+      "sha256": "7c737e9518979496b981b344501990ff1cb803b78920ff6682e682cc0da2f8fd"
+    },
+    "logs/calibration-40152955.out": {
+      "bytes": 1546,
+      "sha256": "7ddf478cd5caa44a126e657c6df5caf3f38e14d912d2f609e2e7814a2a502195"
+    }
+  }
+}
