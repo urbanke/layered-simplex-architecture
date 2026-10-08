@@ -95,9 +95,10 @@ class StoreConfig:
     level index/data files in the store. Paths are relative to ``path``.
     The legacy key ``saddle_min_depth`` selects the direct-contour provider;
     the inaccurate historical saddle shortcut is not used by this adapter.
-    Only direct-contour levels may extend ``u_max`` after a right-tail failure,
-    by ``upper_window_increment`` up to ``maximum_u_max``. Stored levels keep
-    their configured initial bound. Set maximum_u_max=u_max to disable retries.
+    ``format="sealed"`` selects metadata-addressed precomputed kernels at every
+    declared depth, with no online contour fallback. Those stores may extend
+    ``u_max`` within their pinned coverage. Legacy direct-contour levels retain
+    their existing window retries. Set maximum_u_max=u_max to disable retries.
     All requested depths must be within ``max_depth``; no depth truncation is
     used. A separate passed calibration enables production for this config.
     """
@@ -120,6 +121,7 @@ class StoreConfig:
     significance_gap: float = 40.0
     minimum_right_gap: float = 30.0
     series_tail_nats: float | None = None
+    format: str = "legacy"
 
     def __post_init__(self):
         for name in ("max_depth", "max_d", "max_n", "max_count"):
@@ -128,7 +130,13 @@ class StoreConfig:
         _integer(self.ladder_degree, "ladder_degree", 1)
         if self.saddle_min_depth is not None:
             _integer(self.saddle_min_depth, "saddle_min_depth", 2)
-        if self.max_depth > 70 and self.saddle_min_depth is None:
+        if self.format not in ("legacy", "sealed"):
+            raise ValueError("store format must be legacy or sealed")
+        if self.format == "sealed" and self.saddle_min_depth is not None:
+            raise ValueError("sealed stores require saddle_min_depth=None")
+        if self.format == "sealed" and (self.ladder_every != 1 or self.ladder_degree != 11):
+            raise ValueError("sealed stores use the complete degree-11 anchor plan")
+        if self.format == "legacy" and self.max_depth > 70 and self.saddle_min_depth is None:
             raise UnsupportedDomain("stored-column design ends at depth 70")
         if self.scan_mode not in ("full", "sparse"):
             raise ValueError("scan_mode must be full or sparse")
@@ -199,6 +207,7 @@ class CountPredictionResult:
 
 
 _STORE_LOCK = threading.RLock()
+_VERIFIED_STORE_FILES: dict[tuple, dict[Path, tuple]] = {}
 
 
 class DepthEvaluator:
@@ -262,6 +271,10 @@ class DepthEvaluator:
                 "machine": platform.machine(),
             },
         }
+        if store is not None and store.format == "sealed":
+            self.configuration["sealed_provider_sha256"] = _hash_file(
+                Path(__file__).with_name("sealed_tables.py")
+            )
         self.configuration_sha256 = _json_hash(self.configuration)
         self.production_ready = bool(
             mode == "store"
@@ -282,7 +295,10 @@ class DepthEvaluator:
         if not path.is_dir():
             raise ValueError("store path must be an existing directory")
         required = {"manifest.json"}
-        if config.ladder_every:
+        if config.format == "sealed":
+            required.add("plan.json")
+            required.update(p.name for p in path.glob("level_*.complete.json"))
+        elif config.ladder_every:
             required.add("anchors.json")
         required.update(p.name for p in path.glob("level_*.bin"))
         required.update(p.name for p in path.glob("level_*.index.json"))
@@ -291,15 +307,44 @@ class DepthEvaluator:
             raise NumericalError(
                 f"missing store content hashes: {sorted(required - hashes.keys())}"
             )
-        for name, digest in hashes.items():
-            file = path / name
-            if Path(name).name != name or file.is_symlink() or not file.is_file():
-                raise ValueError(
-                    "store hash entries must name regular files directly in the store"
-                )
-            if _hash_file(file) != digest:
-                raise NumericalError(f"store hash mismatch: {name}")
-            self._fingerprints[file] = self._stat(file)
+        # Persistent distributed workers open many jobs against the same sealed
+        # bytes. Hash them once per process, retaining complete inode/size/time
+        # fingerprints; any filesystem change forces fresh byte verification.
+        # Each evaluation also checks these fingerprints before and after use.
+        cache_key = (str(path), tuple(sorted(hashes.items())))
+        with _STORE_LOCK:
+            observed = {}
+            for name in hashes:
+                file = path / name
+                if Path(name).name != name or file.is_symlink() or not file.is_file():
+                    raise ValueError(
+                        "store hash entries must name regular files directly in the store"
+                    )
+                observed[file] = self._stat(file)
+            if _VERIFIED_STORE_FILES.get(cache_key) != observed:
+                for name, digest in hashes.items():
+                    if _hash_file(path / name) != digest:
+                        raise NumericalError(f"store hash mismatch: {name}")
+                after = {file: self._stat(file) for file in observed}
+                if after != observed:
+                    raise NumericalError("store changed during byte verification")
+                _VERIFIED_STORE_FILES[cache_key] = observed.copy()
+            self._fingerprints = observed
+        if config.format == "sealed":
+            from .sealed_tables import SealedKernelTables
+
+            self._store = SealedKernelTables(path, files_sha256=hashes)
+            try:
+                if config.max_depth not in self._store.coverage_depths:
+                    raise UnsupportedDomain("sealed store does not cover max_depth")
+                if config.max_count + 3 > self._store.supported_count:
+                    raise UnsupportedDomain("sealed store lacks augmented-count coverage")
+                if config.maximum_u_max > self._store.maximum_u:
+                    raise UnsupportedDomain("sealed store does not cover maximum_u_max")
+            except BaseException:
+                self._store.close()
+                raise
+            return
         from ._vendor.pmwm.universal_tables import UniversalTables
 
         class ReadOnlyTables(UniversalTables):
@@ -388,6 +433,10 @@ class DepthEvaluator:
             or max(depths) > config.max_depth
         ):
             raise UnsupportedDomain("request exceeds declared store evaluation domain")
+        if config.format == "sealed" and any(
+            L >= 2 and L not in self._store.coverage_depths for L in depths
+        ):
+            raise UnsupportedDomain("requested depth absent from sealed store")
 
     @staticmethod
     def _analytic(d, parts, L):
@@ -487,7 +536,9 @@ class DepthEvaluator:
                             for c in aug_keys:
                                 rs.update(range(c, c + 4))
                 config = self.store_config
-                if config.saddle_min_depth is None or L < config.saddle_min_depth:
+                if config.format == "sealed":
+                    self._store.ensure_columns(L, sorted(rs))
+                elif config.saddle_min_depth is None or L < config.saddle_min_depth:
                     for name in (f"level_{L:02d}.bin", f"level_{L:02d}.index.json"):
                         if name not in config.files_sha256:
                             raise UnsupportedDomain(
@@ -505,6 +556,7 @@ class DepthEvaluator:
                     config.saddle_min_depth is not None
                     and L >= config.saddle_min_depth
                 )
+                expandable = direct_contour or config.format == "sealed"
                 while True:
                     grid = np.linspace(
                         lo,
@@ -570,7 +622,7 @@ class DepthEvaluator:
                                 self._accept_scan(collect, key, L, result)
                         break
                     except _RightTailError as exc:
-                        if not direct_contour:
+                        if not expandable:
                             raise
                         if upper >= config.maximum_u_max:
                             raise NumericalError(
@@ -636,10 +688,11 @@ class DepthEvaluator:
                 "right_gap": result.right_gap,
                 "left_gap": result.left_gap,
                 "peaks": result.peaks,
-                "kernel_branch": "direct-contour"
-                if self.store_config.saddle_min_depth
-                and L >= self.store_config.saddle_min_depth
-                else "stored",
+                "kernel_branch": (
+                    "sealed-interpolation" if self.store_config.format == "sealed"
+                    else "direct-contour" if self.store_config.saddle_min_depth
+                    and L >= self.store_config.saddle_min_depth else "stored"
+                ),
             },
         )
 

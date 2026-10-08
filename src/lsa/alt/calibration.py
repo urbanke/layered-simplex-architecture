@@ -84,6 +84,9 @@ def kernel_status(summary, out, config):
     def within(value, tolerance):
         return math.isfinite(value) and abs(value) <= tolerance
 
+    sealed_ids = {s["id"] for s in config.get("stores", [])
+                  if s.get("format") == "sealed"}
+
     return (
         "passed"
         if (
@@ -96,6 +99,16 @@ def kernel_status(summary, out, config):
             and all(
                 within(r["batched_direct_column_error_nats"], r["tolerance_nats"])
                 and within(r["direct_column_refined_error_nats"], r["tolerance_nats"])
+                for r in rows
+            )
+            and all(
+                sealed_ids <= r["stores"].keys()
+                and all(
+                    r["stores"][name]["status"] == "evaluated"
+                    and within(r["stores"][name]["error_nats"], r["tolerance_nats"])
+                    and within(r["stores"][name]["matrix_error_nats"], r["tolerance_nats"])
+                    for name in sealed_ids
+                )
                 for r in rows
             )
             and all(
@@ -122,8 +135,20 @@ def kernel_status(summary, out, config):
 
 def execute(suite, config, out, *, repo, engine_config=None, workers=None):
     if suite == "kernel":
-        from .kernel_validation import run_kernel_validation
+        from .kernel_validation import expand_cases, run_kernel_validation
 
+        config = deepcopy(config)
+        if engine_config and engine_config.get("store", {}).get("format") == "sealed":
+            if engine_config.get("mode") != "store":
+                raise ValueError("sealed kernel calibration requires mode=store")
+            cases = expand_cases(config)
+            config["stores"] = [{
+                "id": "sealed_candidate", "format": "sealed",
+                "path": engine_config["store"]["path"],
+                "files_sha256": engine_config["store"]["files_sha256"],
+                "depths": sorted({c["depth"] for c in cases}),
+                "counts": sorted({c["r"] for c in cases}),
+            }]
         result = run_kernel_validation(config, out)
         return {"status": kernel_status(result, out, config), "measurements": result}
     if suite == "prior":

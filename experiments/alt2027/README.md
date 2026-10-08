@@ -107,6 +107,17 @@ direct-contour route. The legacy saddle shortcut was replaced after independent
 reference checks. Every read is checked against the
 pinned store identity, and the adapter cannot build or modify the store.
 
+The new `format="sealed"` backend prepares accurate kernels at every depth
+2–138 offline, then serves predictions by interpolation. Its builder, immutable
+manifest, resumable depth checkpoints, and cluster launch instructions are in
+[the sealed-store guide](../../docs/alt-sealed-store-build.md). Select an explicit
+store specification with `configure-engine --store-spec FILE`. This route adds
+held-out reader checks, independent high-precision kernel comparisons, and
+paired comparisons with the corrected provider to the admission requirements.
+Samples, model grids, and reported losses are governed by the same frozen
+experiment protocol. The original store and evaluator remain available for
+reference comparisons.
+
 Production additionally requires protocol status `frozen`, a clean source tree,
 and `--calibration FILE`. A passed calibration must bind the protocol, source-tree
 hash, complete per-experiment engine hash (including powered settings), runtime,

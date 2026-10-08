@@ -280,6 +280,10 @@ def main(argv=None):
         "configure-engine", help="bind the pinned store to a local path"
     )
     configure.add_argument("--store-directory", type=Path, required=True)
+    configure.add_argument(
+        "--store-spec", type=Path,
+        help="explicit pinned store specification (default: legacy store-candidate.json)",
+    )
     configure.add_argument("--out", type=Path, required=True)
     assess = sub.add_parser(
         "assess-depth", help="check saved depth profiles and actual refinement"
@@ -343,7 +347,9 @@ def main(argv=None):
     if args.command == "configure-engine":
         from .depth import DepthEvaluator, StoreConfig
 
-        spec = read_json(args.repo / "experiments/alt2027/store-candidate.json")
+        spec = read_json(
+            args.store_spec or args.repo / "experiments/alt2027/store-candidate.json"
+        )
         options = {
             "mode": "store",
             "prediction_tolerance": 1e-3,

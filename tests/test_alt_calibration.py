@@ -65,6 +65,35 @@ def test_kernel_acceptance_requires_batched_and_independent_reference_checks(tmp
     assert kernel_status(summary, tmp_path, config) == "failed"
 
 
+def test_sealed_kernel_gate_requires_every_row_and_strict_low_count_accuracy(tmp_path):
+    summary = {"cases": 1, "source_unchanged": True,
+               "reference_converged_cases": 1, "direct_column_nominal_passes": 1}
+    config = {"special_function_cases": [{}], "nominal_tolerance_nats": 3e-9,
+              "reference_convergence_nats": 1e-25,
+              "stores": [{"id": "sealed_candidate", "format": "sealed"}]}
+    row = {"batched_direct_column_error_nats": 0,
+           "direct_column_refined_error_nats": 0, "tolerance_nats": 1e-11,
+           "stores": {}}
+    (tmp_path / "special-functions.json").write_text(
+        json.dumps([{"meijer_error_nats": 0, "recursion_error_nats": 0}]))
+
+    def status():
+        (tmp_path / "rows.jsonl").write_text(json.dumps(row) + "\n")
+        return kernel_status(summary, tmp_path, config)
+
+    assert status() == "failed"
+    row["stores"]["sealed_candidate"] = {"status": "unavailable"}
+    assert status() == "failed"
+    row["stores"]["sealed_candidate"] = {
+        "status": "evaluated", "error_nats": 2e-11, "matrix_error_nats": 0}
+    assert status() == "failed"
+    row["stores"]["sealed_candidate"]["error_nats"] = 0
+    row["stores"]["sealed_candidate"]["matrix_error_nats"] = 2e-11
+    assert status() == "failed"
+    row["stores"]["sealed_candidate"]["matrix_error_nats"] = 0
+    assert status() == "passed"
+
+
 def test_missing_engine_fails_before_creating_calibration_run(tmp_path):
     with pytest.raises(ValueError, match="engine-config"):
         run_suite("chain", tmp_path / "missing.json", tmp_path / "run", repo=tmp_path)

@@ -19,6 +19,14 @@ import mpmath as mp
 import numpy as np
 
 
+def _mp_exact(value):
+    """Lift binary64 inputs exactly; retain explicit decimal reference strings."""
+    if isinstance(value, (float, np.floating)):
+        numerator, denominator = float(value).as_integer_ratio()
+        return mp.mpf(numerator) / denominator
+    return mp.mpf(str(value))
+
+
 def high_precision_log_phi(r, depth, u, *, dps=50, tail_digits=None):
     """Mellin integral on its own high-precision contour, with scaled panels.
 
@@ -29,7 +37,7 @@ def high_precision_log_phi(r, depth, u, *, dps=50, tail_digits=None):
     if r < 0 or depth < 1 or dps < 25:
         raise ValueError("r>=0, depth>=1, dps>=25 required")
     with mp.workdps(dps):
-        r, u = mp.mpf(str(r)), mp.mpf(str(u))
+        r, u = _mp_exact(r), _mp_exact(u)
         tiny = mp.power(10, -dps)
         lo, hi = tiny, r + 1 - tiny
         for _ in range(4 * dps + 20):
@@ -82,7 +90,7 @@ def meijer_log_phi(r, depth, u, *, dps=50):
     if depth > 3:
         raise ValueError("generic Meijer-G is deliberately bounded to depth<=3")
     with mp.workdps(dps):
-        r, u = mp.mpf(str(r)), mp.mpf(str(u))
+        r, u = _mp_exact(r), _mp_exact(u)
         value = mp.meijerg([[-r] * depth, []], [[0], []], mp.exp(u))
         if value <= 0 or not mp.isfinite(value):
             raise ArithmeticError("Meijer-G evaluation is not positive and finite")
@@ -92,7 +100,7 @@ def meijer_log_phi(r, depth, u, *, dps=50):
 def recursion_l2_log_phi(r, u, *, dps=45):
     """Positive, high-precision layer recursion, independent of Mellin inversion."""
     with mp.workdps(dps):
-        r, u = mp.mpf(str(r)), mp.mpf(str(u))
+        r, u = _mp_exact(r), _mp_exact(u)
         t = mp.exp(u)
         xp = 2 * (r + 1) / (1 + mp.sqrt(1 + 4 * t * (r + 1)))
         yp = mp.log(xp)
@@ -181,7 +189,7 @@ def contour_evidence_small(d, partition, depth, step=0.01):
 
 def _decimal_difference(a, b):
     with mp.workdps(90):
-        return float(mp.mpf(str(a)) - mp.mpf(str(b)))
+        return float(_mp_exact(a) - _mp_exact(b))
 
 
 def expand_cases(config):
@@ -228,6 +236,7 @@ def _implementation_identity():
     base = Path(__file__).parent
     sources = [
         Path(__file__),
+        base / "sealed_tables.py",
         *sorted((base / "_vendor/pmwm").glob("*.py")),
         base / "_vendor/pmwm/provenance.json",
     ]
@@ -285,6 +294,8 @@ def _read_only_store(path, *, ladder):
 
 def _store_samples(spec, cases):
     """Read only selected levels and hash every referenced store file."""
+    if spec.get("format") == "sealed":
+        return _sealed_store_samples(spec, cases)
     root = Path(spec["path"])
     selected = [
         case
@@ -349,6 +360,43 @@ def _store_samples(spec, cases):
         "files": before,
         "unchanged_after_read": True,
     }, values
+
+
+def _sealed_store_samples(spec, cases):
+    """Sample the actual sealed reader, binding every declared store byte."""
+    from .sealed_tables import SealedKernelTables
+
+    root = Path(spec["path"]).resolve(strict=True)
+    values = {}
+    # The reader verifies all bytes itself, before we compare its identity with
+    # the engine pin. Passing the pin as already-verified here would skip this.
+    with SealedKernelTables(root) as table:
+        identity = dict(table.files_identity)
+        if identity != spec["files_sha256"]:
+            raise ValueError("sealed kernel sampling differs from the engine store pin")
+        before = {str(root / name): {"sha256": digest,
+                  "bytes": (root / name).stat().st_size,
+                  "mtime_ns": (root / name).stat().st_mtime_ns}
+                  for name, digest in identity.items()}
+        for case in cases:
+            if case["depth"] not in spec["depths"] or case["r"] not in spec["counts"]:
+                continue
+            scalar = float(table.log_phi(case["depth"], case["r"], [case["u"]])[0])
+            matrix = float(table.log_phi_matrix(
+                case["depth"], [case["r"]], [case["u"]])[0, 0])
+            values[case["case_id"]] = {
+                "status": "evaluated", "log_phi_nats": scalar,
+                "matrix_log_phi_nats": matrix,
+            }
+        after = {str(root / name): {"sha256": _sha256(root / name),
+                 "bytes": (root / name).stat().st_size,
+                 "mtime_ns": (root / name).stat().st_mtime_ns}
+                 for name in identity}
+        if before != after:
+            raise RuntimeError("sealed store changed during kernel calibration")
+    return {"id": spec["id"], "path": str(root), "format": "sealed",
+            "files": before, "files_sha256": identity,
+            "unchanged_after_read": True}, values
 
 
 def run_kernel_validation(config, outdir):
@@ -435,6 +483,10 @@ def run_kernel_validation(config, outdir):
                             item["within_nominal_tolerance"] = (
                                 abs(item["error_nats"]) <= tolerance
                             )
+                            if "matrix_log_phi_nats" in item:
+                                item["matrix_error_nats"] = _decimal_difference(
+                                    item["matrix_log_phi_nats"], refined["log_phi_nats"]
+                                )
                         stores[name] = item
                 row = {
                     **case,

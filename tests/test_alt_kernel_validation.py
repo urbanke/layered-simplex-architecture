@@ -1,4 +1,5 @@
 import json
+from decimal import Decimal
 
 import pytest
 
@@ -19,6 +20,12 @@ def test_independent_contour_meijer_and_45_digit_recursion():
     assert (
         abs(_decimal_difference(recursion_l2_log_phi(3, 2, dps=45), reference)) < 1e-35
     )
+
+
+def test_decimal_comparison_preserves_actual_binary64_value():
+    # Shortest decimal printing would hide binary64 rounding here.
+    assert _decimal_difference(0.1, "0.1") == float(Decimal.from_float(0.1) - Decimal("0.1"))
+    assert _decimal_difference(0.1, str(Decimal.from_float(0.1))) == 0
 
 
 def test_high_depth_zero_count_regression_and_real_contour_refinement():
