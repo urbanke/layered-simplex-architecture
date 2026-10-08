@@ -1,6 +1,12 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "purpose": "validation",
+  "reference": {
+    "schema_version": 1,
+    "provider": "corrected-direct-contour",
+    "analytic_depths": [0, 1],
+    "minimum_direct_depth": 2
+  },
   "loss_tolerance_bits": 1e-05,
   "raw_mass_tolerance": 1e-07,
   "scope": "Paired provider comparisons on the same declared depth-validation draws, complete spectrum depth grid, and fixed sparse/concentrated stress profiles. This does not change production sampling.",

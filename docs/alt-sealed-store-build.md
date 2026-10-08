@@ -211,7 +211,7 @@ again after execution.
 | --- | --- | --- |
 | `setup` | Build a new native library and configure a new sealed engine | 1 |
 | `sealed_store` | Declared kernel/interpolation checks for the sealed store | 1–allocated CPUs |
-| `sealed_profile` | Shared-profile comparison with an explicit legacy engine | 1 |
+| `sealed_profile` | Shared-profile comparison with corrected direct kernels at every depth from 2 | 1 |
 | `kernel` | Independent kernel and special-function calibration | 1 |
 | `prior` | Prior identities and independent integration checks | 1 |
 | `power` | Powered-family calibration | 1–allocated CPUs |
@@ -238,7 +238,15 @@ It additionally requires `ALT_KERNEL_STORE`, `ALT_STORE_SPEC` and a new
 `ALT_NATIVE_BINARY`; `ALT_NATIVE_CC` optionally selects the compiler. Its
 `ALT_ENGINE_CONFIG` must be new. Its result records engine setup.
 `sealed_profile` additionally requires `ALT_LEGACY_ENGINE_CONFIG`, pointing
-to the pinned reference engine. The seven numerical modes use their committed
+to the pinned reference engine. The profile protocol v2 declares analytic
+depths 0 and 1 and corrected direct evaluation at every depth from 2. This
+reference uses the `legacy` provider format with `saddle_min_depth=2`, which
+bypasses its stored kernels; the existing environment variable and saved
+`legacy` field names remain unchanged. Both engines use identical outer
+integration settings. The 29 profiles, sampled counts, depth grids, and
+`1e-5`-bit / `1e-7` raw-mass gates are unchanged. Historical comparisons with
+the hybrid cutoff at 54 remain separate immutable records; they cannot satisfy
+the v2 reference requirement. The seven numerical modes use their committed
 specifications under `experiments/alt2027/`; `ALT_VALIDATION_CONFIG` can select
 an explicit specification. Leave that variable unset for `setup` and
 `regressions`.

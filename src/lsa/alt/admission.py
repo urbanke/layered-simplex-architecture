@@ -292,6 +292,12 @@ def sealed_profile_result(root, result, specification):
     """Require all declared same-profile comparisons, using their actual residuals."""
     import numpy as np
 
+    from .sealed_profile_validation import (
+        REFERENCE_PROTOCOL,
+        validate_reference_protocol,
+    )
+
+    validate_reference_protocol(specification)
     loss, mass = (
         specification["loss_tolerance_bits"],
         specification["raw_mass_tolerance"],
@@ -311,6 +317,7 @@ def sealed_profile_result(root, result, specification):
         or not result.get("source_unchanged")
         or not result.get("store_unchanged")
         or result.get("config_sha256") != canonical_hash(specification)
+        or result.get("reference") != specification["reference"]
     ):
         raise ValueError(
             "sealed cross-provider evidence has incomplete or changed declared cases"
@@ -373,7 +380,8 @@ def sealed_profile_result(root, result, specification):
         or result.get("legacy_configuration_sha256") != canonical_hash(legacy)
         or candidate["store"].get("format") != "sealed"
         or legacy["store"].get("format", "legacy") != "legacy"
-        or legacy["store"].get("saddle_min_depth") != 54
+        or legacy["store"].get("saddle_min_depth")
+        != REFERENCE_PROTOCOL["minimum_direct_depth"]
     ):
         raise ValueError(
             "sealed cross-provider engine identities are incomplete or inconsistent"

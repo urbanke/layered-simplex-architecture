@@ -1,4 +1,4 @@
-"""Paired profile validation of sealed kernels against the corrected provider.
+"""Paired profile validation of sealed kernels against corrected direct kernels.
 
 Both engines receive identical saved counts, targets, depths, outer settings,
 and all required augmented count profiles. This checks the change of kernel
@@ -8,30 +8,50 @@ provider; independent high-precision and outer-refinement checks are separate.
 from __future__ import annotations
 
 import argparse
-from collections import Counter
 import gzip
 import json
 import math
-from pathlib import Path
 import time
+from collections import Counter
+from pathlib import Path
 
 import numpy as np
 
 from .artifacts import Run, canonical_hash, read_json, sha256, verify_run, write_json
 from .baselines import validate_probabilities
-from .benchmark import TARGET_IDS, jsonable, make_target
+from .benchmark import jsonable, make_target
 from .bible import load_corpus
 from .depth import DepthEvaluator, StoreConfig
 from .depth_validation import comparison
-
 
 OUTER_SETTINGS = (
     "grid_step", "minimum_grid_step", "u_max", "maximum_u_max",
     "upper_window_increment", "scan_mode", "significance_gap", "minimum_right_gap",
 )
 
+REFERENCE_PROTOCOL = {
+    "schema_version": 1,
+    "provider": "corrected-direct-contour",
+    "analytic_depths": [0, 1],
+    "minimum_direct_depth": 2,
+}
+
+
+def validate_reference_protocol(config):
+    """Require the explicit all-direct reference; historical hybrid runs stay distinct."""
+    if (
+        type(config.get("schema_version")) is not int
+        or config["schema_version"] != 2
+        or canonical_hash(config.get("reference")) != canonical_hash(REFERENCE_PROTOCOL)
+    ):
+        raise ValueError(
+            "sealed profile protocol v2 requires the declared corrected direct "
+            "reference from depth2"
+        )
+
 
 def validate_config(config):
+    validate_reference_protocol(config)
     if config.get("purpose") != "validation":
         raise ValueError("sealed profile checks require purpose=validation")
     for key, maximum in (("loss_tolerance_bits", 1e-5), ("raw_mass_tolerance", 1e-7)):
@@ -170,8 +190,8 @@ def run_sealed_profile_validation(config, output_dir, *, candidate_engine, legac
     candidate_store, legacy_store = StoreConfig(**candidate_engine["store"]), StoreConfig(**legacy_engine["store"])
     if candidate_store.format != "sealed" or legacy_store.format != "legacy":
         raise ValueError("comparison requires explicit sealed and legacy providers")
-    if legacy_store.saddle_min_depth != 54:
-        raise ValueError("legacy comparison must select corrected direct kernels from depth54")
+    if legacy_store.saddle_min_depth != REFERENCE_PROTOCOL["minimum_direct_depth"]:
+        raise ValueError("reference engine must select corrected direct kernels from depth2")
     if any(getattr(candidate_store, key) != getattr(legacy_store, key) for key in OUTER_SETTINGS):
         raise ValueError("paired providers require identical outer integration settings")
     store_inputs = [Path(s.path) / name for s in (candidate_store, legacy_store)
@@ -238,6 +258,7 @@ def run_sealed_profile_validation(config, output_dir, *, candidate_engine, legac
             summary = {
                 "status": "passed" if all(row["status"] == "passed" for row in results) else "failed",
                 "config_sha256": canonical_hash(config), "cases": results,
+                "reference": config["reference"],
                 "candidate_configuration_sha256": canonical_hash(candidate.configuration),
                 "legacy_configuration_sha256": canonical_hash(legacy.configuration),
                 "candidate_evaluator_configuration_sha256": candidate.configuration_sha256,

@@ -591,18 +591,21 @@ def test_same_builder_or_incomplete_kernel_evidence_cannot_satisfy_independent_g
         admission.sealed_independent_kernel(item, pins, engine)
 
 
-def test_cross_provider_profile_checks_actual_residuals_and_raw_mass(tmp_path):
+@pytest.mark.parametrize("reference_cutoff", [2, 54, None])
+def test_cross_provider_profile_checks_actual_residuals_and_raw_mass(tmp_path, reference_cutoff):
     import numpy as np
 
     from lsa.alt.artifacts import sha256
+    from lsa.alt.sealed_profile_validation import REFERENCE_PROTOCOL
 
     (tmp_path / "data").mkdir()
     candidate = {"store": {"format": "sealed"}}
-    legacy = {"store": {"format": "legacy", "saddle_min_depth": 54}}
+    legacy = {"store": {"format": "legacy", "saddle_min_depth": reference_cutoff}}
     write_json(tmp_path / "data/candidate-engine.json", candidate)
     write_json(tmp_path / "data/legacy-engine.json", legacy)
     case = {"id": "predictive", "predictive": True, "d": 2, "n": 2}
-    config = {"cases": [case], "loss_tolerance_bits": 1e-5, "raw_mass_tolerance": 1e-7}
+    config = {"schema_version": 2, "reference": copy.deepcopy(REFERENCE_PROTOCOL),
+              "cases": [case], "loss_tolerance_bits": 1e-5, "raw_mass_tolerance": 1e-7}
     measurements = {
         "maximum_codelength_difference_bits_per_token": 0,
         "mixture_codelength_difference_bits_per_token": 0,
@@ -619,6 +622,7 @@ def test_cross_provider_profile_checks_actual_residuals_and_raw_mass(tmp_path):
         "store_unchanged": True,
         "unavailable_cases": [],
         "config_sha256": canonical_hash(config),
+        "reference": copy.deepcopy(REFERENCE_PROTOCOL),
         "candidate_configuration_sha256": canonical_hash(candidate),
         "legacy_configuration_sha256": canonical_hash(legacy),
         "cases": [
@@ -633,12 +637,20 @@ def test_cross_provider_profile_checks_actual_residuals_and_raw_mass(tmp_path):
             }
         ],
     }
+    if reference_cutoff != 2:
+        with pytest.raises(ValueError, match="engine identities"):
+            admission.sealed_profile_result(tmp_path, result, config)
+        return
     admission.sealed_profile_result(tmp_path, result, config)
     measurements["maximum_raw_mass_error"] = 2e-7
     with pytest.raises(ValueError, match="raw mass"):
         admission.sealed_profile_result(tmp_path, result, config)
     config["raw_mass_tolerance"] = 1e-3
     with pytest.raises(ValueError, match="may not relax"):
+        admission.sealed_profile_result(tmp_path, result, config)
+    config["raw_mass_tolerance"] = 1e-7
+    config["reference"]["minimum_direct_depth"] = 54
+    with pytest.raises(ValueError, match="protocol v2"):
         admission.sealed_profile_result(tmp_path, result, config)
 
 

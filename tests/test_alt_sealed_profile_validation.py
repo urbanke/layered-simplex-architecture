@@ -1,10 +1,10 @@
 """Paired-provider numerical gates and immutable high-depth diagnostic runs."""
 
+import json
+import subprocess
 from copy import deepcopy
 from dataclasses import asdict, replace
-import json
 from pathlib import Path
-import subprocess
 from types import SimpleNamespace
 
 import numpy as np
@@ -13,17 +13,22 @@ import pytest
 from lsa.alt.artifacts import read_json, sha256, verify_run
 from lsa.alt.depth import StoreConfig
 from lsa.alt.sealed_profile_validation import (
-    assess_measurements, compare_profiles, run_sealed_profile_validation, validate_config,
+    REFERENCE_PROTOCOL,
+    assess_measurements,
+    compare_profiles,
+    run_sealed_profile_validation,
+    validate_config,
 )
 from lsa.alt.sealed_store_build import build_store, create_plan, seal_store, write_plan
 
 
 def _config():
-    return {"purpose": "validation", "loss_tolerance_bits": 1e-5,
+    return {"schema_version": 2, "reference": deepcopy(REFERENCE_PROTOCOL),
+            "purpose": "validation", "loss_tolerance_bits": 1e-5,
             "raw_mass_tolerance": 1e-7, "cases": [{
-                "id": "tiny-high-depth", "kind": "explicit", "d": 10000,
+                "id": "tiny-low-and-high-depth", "kind": "explicit", "d": 10000,
                 "n": 3, "profile": [2, 1], "target": "uniform",
-                "depths": [0, 1, 54, 138], "predictive": True,
+                "depths": [0, 1, 2, 9, 54, 138], "predictive": True,
             }]}
 
 
@@ -72,8 +77,9 @@ def test_nominal_validation_tolerances_cannot_be_relaxed(key, value):
 def paired_engines(tmp_path_factory):
     root = tmp_path_factory.mktemp("paired-sealed-profiles")
     sealed = root / "sealed"
-    write_plan(create_plan(levels=[54, 138], support_max_count=8,
-                           anchors={54: list(range(9)), 138: list(range(9))}), sealed)
+    levels = [2, 9, 54, 138]
+    write_plan(create_plan(levels=levels, support_max_count=8,
+                           anchors={L: list(range(9)) for L in levels}), sealed)
     build_store(sealed)
     seal_store(sealed)
     hashes = {p.name: sha256(p) for p in sealed.iterdir()
@@ -84,7 +90,7 @@ def paired_engines(tmp_path_factory):
     legacy.mkdir()
     (legacy / "manifest.json").write_text(json.dumps({"version": "v2", "H": .02, "U_MAX": 35.}))
     direct = replace(candidate, path=str(legacy), format="legacy", ladder_every=0,
-                     saddle_min_depth=54, files_sha256={"manifest.json": sha256(legacy / "manifest.json")})
+                     saddle_min_depth=2, files_sha256={"manifest.json": sha256(legacy / "manifest.json")})
     return ({"mode": "store", "prediction_tolerance": 1e-3, "store": asdict(candidate)},
             {"mode": "store", "prediction_tolerance": 1e-3, "store": asdict(direct)})
 
@@ -99,7 +105,7 @@ def _test_repo(path):
     return path
 
 
-def test_actual_high_depth_pair_saved_as_immutable_normal_run(tmp_path, paired_engines):
+def test_actual_low_and_high_depth_pair_saved_as_immutable_normal_run(tmp_path, paired_engines):
     candidate, legacy = paired_engines
     out, repo = tmp_path / "run", _test_repo(tmp_path / "repo")
     result = run_sealed_profile_validation(_config(), out, candidate_engine=candidate,
@@ -109,12 +115,14 @@ def test_actual_high_depth_pair_saved_as_immutable_normal_run(tmp_path, paired_e
     assert record["experiment"] == "calibration_sealed_profile"
     assert record["purpose"] == "validation"
     assert read_json(out / "result.json") == result
+    assert result["reference"] == REFERENCE_PROTOCOL
     case = result["cases"][0]
     assert case["augmented_profiles"] == {"0": [2, 1, 1], "1": [2, 2], "2": [3, 1]}
     assert case["count_classes"] == [0, 1, 2]
     assert all(case["gates"].values())
     assert case["measurements"]["maximum_raw_mass_error"] < 1e-7
     assert read_json(out / "data/candidate-engine.json")["store"]["format"] == "sealed"
+    assert read_json(out / "data/legacy-engine.json")["store"]["saddle_min_depth"] == 2
     assert (out / "data/evaluation-000.json.gz").is_file()
     with np.load(out / "data/case-000.npz") as sample:
         assert sample["counts"].sum() == 3
@@ -131,6 +139,30 @@ def test_different_outer_settings_are_rejected_before_run(tmp_path, paired_engin
         run_sealed_profile_validation(_config(), tmp_path / "run", candidate_engine=candidate,
                                       legacy_engine=legacy, repo=tmp_path)
     assert not (tmp_path / "run").exists()
+
+
+@pytest.mark.parametrize("cutoff", [54, None])
+def test_historical_hybrid_reference_is_rejected_before_run(tmp_path, paired_engines, cutoff):
+    candidate, legacy = deepcopy(paired_engines)
+    legacy["store"]["saddle_min_depth"] = cutoff
+    legacy["store"]["max_depth"] = 54
+    with pytest.raises(ValueError, match="direct kernels from depth2"):
+        run_sealed_profile_validation(_config(), tmp_path / "run", candidate_engine=candidate,
+                                      legacy_engine=legacy, repo=tmp_path)
+    assert not (tmp_path / "run").exists()
+
+
+@pytest.mark.parametrize("change", ["version", "missing", "hybrid"])
+def test_reference_protocol_must_be_explicit_and_all_direct(change):
+    config = _config()
+    if change == "version":
+        config["schema_version"] = 1
+    elif change == "missing":
+        config.pop("reference")
+    else:
+        config["reference"]["minimum_direct_depth"] = 54
+    with pytest.raises(ValueError, match="protocol v2"):
+        validate_config(config)
 
 
 def test_failed_comparison_keeps_measurements_in_failed_run(tmp_path, paired_engines, monkeypatch):
