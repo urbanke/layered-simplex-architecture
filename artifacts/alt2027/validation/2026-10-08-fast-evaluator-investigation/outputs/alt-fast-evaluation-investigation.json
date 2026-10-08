@@ -1,0 +1,122 @@
+{
+  "time_utc": "2026-10-08T05:05:34.916179+00:00",
+  "production_launch": {
+    "job_id": "40162230",
+    "state": "PENDING (JobHeldUser)",
+    "reason": "User identified the intended fast PMWM implementation; audit confirmed repeated direct high-depth evaluation and benchmarked accurate cached alternative.",
+    "release_condition": "Choose and validate an evaluator, then submit or release a matching frozen production plan; no automatic release of a source-mismatched plan."
+  },
+  "existing_validation": {
+    "job_id": "40160952",
+    "action": "left running unchanged"
+  },
+  "frozen_repository_changes": false,
+  "new_diagnostics_production_eligible": false,
+  "profile_probe": {
+    "purpose": "Diagnostic only; two profile comparisons using unchanged sample/model/integration definitions",
+    "rows": [
+      {
+        "case": "zipf1p5-n1000",
+        "d": 10000,
+        "N": 1000,
+        "alpha": 1.5,
+        "depths": [
+          0,
+          1,
+          54,
+          80,
+          138
+        ],
+        "observed_count_classes": 18,
+        "seed": 2026100802,
+        "direct_seconds": 20.980720125022344,
+        "cold_candidate_seconds": 14.85964670800604,
+        "additional_column_build_seconds": 14.552359712717589,
+        "warm_candidate_seconds": 0.29537633300060406,
+        "warm_speed_ratio": 71.03047123609404,
+        "comparison": {
+          "component_kl_change_bits": [
+            0.0,
+            0.0,
+            -3.8557557775018796e-15,
+            9.992253398852287e-14,
+            1.8916164772951404e-14
+          ],
+          "mixture_kl_change_bits": -3.583393798489644e-15,
+          "component_total_evidence_change_bits": [
+            0.0,
+            0.0,
+            -5.825828322073902e-10,
+            1.2327400244568536e-09,
+            5.904555731831657e-10
+          ],
+          "direct_raw_mass_discrepancy": 6.1384231031524905e-12,
+          "candidate_raw_mass_discrepancy": 6.1384231031524905e-12,
+          "max_absolute_component_probability_change": 1.6542323066914832e-13
+        },
+        "cold_warm_identical": true,
+        "artifact_sha256": "8b2ca5043ae5f47a2d766f1134b38793caed8930fb8fa67b32cbba0d47f4a24c"
+      },
+      {
+        "case": "zipf5-n20000",
+        "d": 10000,
+        "N": 20000,
+        "alpha": 5.0,
+        "depths": [
+          0,
+          1,
+          54,
+          80,
+          138
+        ],
+        "observed_count_classes": 6,
+        "seed": 2026100802,
+        "direct_seconds": 13.337885208020452,
+        "cold_candidate_seconds": 6.1117695000139065,
+        "additional_column_build_seconds": 5.911315995035693,
+        "warm_candidate_seconds": 0.1973268339643255,
+        "warm_speed_ratio": 67.59286073799672,
+        "comparison": {
+          "component_kl_change_bits": [
+            0.0,
+            0.0,
+            1.6555941972164068e-13,
+            -7.026827048805843e-14,
+            1.389506760978301e-13
+          ],
+          "mixture_kl_change_bits": 9.494856734212617e-14,
+          "component_total_evidence_change_bits": [
+            0.0,
+            0.0,
+            -1.2596385561240866e-09,
+            1.3436144598656924e-09,
+            7.55783133674452e-10
+          ],
+          "direct_raw_mass_discrepancy": 3.397626624490613e-11,
+          "candidate_raw_mass_discrepancy": 5.26678700651928e-11,
+          "max_absolute_component_probability_change": 8.4370732622574e-11
+        },
+        "cold_warm_identical": true,
+        "artifact_sha256": "62ee08e66fc45aeca821a657e69e630110f6819fd1f5ab71a6dd1ae7de86c4c9"
+      }
+    ],
+    "prepared_columns": 156,
+    "column_bytes": 63271824,
+    "cumulative_build_seconds": 20.463675707753282,
+    "script_sha256": "c38ae372b25fb651933de11bf17b80832c153ddb17c7652465063c714ee839d9",
+    "production_eligible": false,
+    "limits": [
+      "Selected five-depth diagnostic; not full 81/139-depth benchmark or production gate.",
+      "Cached values prepared for actual count rows; no count-anchor interpolation is exercised.",
+      "Warm timing excludes one-time preparation, which is reported separately.",
+      "Shares the accurate direct kernel evaluator; compares added interpolation effects."
+    ]
+  },
+  "column_probe_summary": {
+    "tested_columns": 12,
+    "minimum_lookup_speed_ratio": 67.38799069298314,
+    "maximum_lookup_speed_ratio": 200.71625188197052,
+    "max_added_log_kernel_difference_nats": 3.4924596548080444e-10
+  },
+  "appendix_revision": "Draft prepared; computational description and runtime table held for the evaluator decision. No Overleaf changes."
+}

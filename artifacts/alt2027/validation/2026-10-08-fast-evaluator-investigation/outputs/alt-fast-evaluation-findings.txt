@@ -1,0 +1,37 @@
+Fast evaluation investigation — 8 October 2026
+
+The original fast implementation exists. It combines the sealed anchor store, interpolation, a high-depth approximation, and C routines for interpolation and peak solving. The ALT adapter retained the anchor store but replaced the approximation above depth 53 with repeated accurate contour evaluation and disabled the native routines. The C stencil is also bypassed by the existing anchor-ladder call path, so a switch alone would not recover its speed.
+
+The high-depth replacement had a concrete accuracy reason: on an identical full-Bible count vector, the old depth-54 approximation and refined computation differ by 4,086.5973 total code bits (0.00446203 bits/token). This is a component-depth comparison, not a claim about the depth mixture's loss. The refined computation provides a useful reference for a faster implementation based on precomputed values.
+
+New diagnostics — accurate precomputation followed by interpolation
+
+Twelve columns at depths 54, 80 and 138, with counts 0, 3, 32 and 1000, were prepared once. On 1,610 query points per column, interpolation was 67–201 times faster than evaluating those kernels directly. The largest additional log-kernel difference was 3.50e-10 nats; for counts 0 and 3 it was 7.11e-13 nats. These measurements cover lookup only.
+
+Two complete profile-level evidence/prediction tests used depths [0, 1, 54, 80, 138] and unchanged outer integration settings:
+
+Profile                         Direct     First table evaluation    Reused tables
+Zipf alpha=1.5, d=10000,N=1000   20.98 s    14.86 s                   0.295 s
+Zipf alpha=5, d=10000,N=20000    13.34 s     6.11 s                   0.197 s
+
+First table evaluation includes preparing missing columns. The second profile reuses columns prepared for the first. Preparation across both tests took 20.46 seconds for 156 columns occupying 60.34 MiB including the stored coordinate arrays. Reused-table evaluations were about 68–71 times faster. Component next-symbol KL changes were below 1.66e-13 bits, and total component evidence changes below 1.35e-9 bits. The largest raw probability-mass discrepancy was 5.27e-11. Cold and warm results were bit-identical. These are two diagnostic profiles on five depths; full experiment grids and count-anchor interpolation still require validation.
+
+A separate C test preserved 670,648 active-ladder values bit-for-bit and improved that provisioning operation by 1.26–1.34 times. A more aggressive batching variant improved provisioning by roughly 2–3.2 times and requires additional validation for its slightly different arithmetic.
+
+Recommended implementation
+
+Extend the sealed store with accurately computed high-depth columns, then use fast interpolation during the experiments. Preserve the current accurate evaluator as the offline builder and independent refinement reference. The original store remains immutable; the extension needs its own grid metadata and checksums. In particular, the old store ends at log(t)=35 while the current high-depth evaluator may use 80. A global endpoint change would misread the old data, so each store must retain its own grid definition. Full model grids, samples, estimators and accuracy targets stay fixed.
+
+Validation must include held-out count anchors, independent high-precision kernel cases, all paper-domain profile checks, evidence and predictive comparisons, and numerical mass diagnostics. Measure preparation cost separately from repeated evaluation; update full-campaign timings after these checks.
+
+Operational state
+
+The pending automatic production launch 40162230 is held (JobHeldUser). The existing numerical validation 40160952 continues unchanged. The frozen repository and original numerical store are unchanged. The appendix draft and its runtime table are held for this evaluator revision; no Overleaf changes were made. Existing measured accuracy evidence remains available with paths, hashes, domains and units.
+
+Evidence
+
+alt-fast-evaluation-investigation.json — diagnostic metrics and operational state.
+alt-upstream-fast-path-review.txt — native call-path and benchmark findings.
+alt-fast-path-correctness-audit.txt — old versus refined comparison, matched inputs and hashes.
+alt-pmwm-fast-route-audit.json — upstream source and archived performance evidence.
+alt-extended-store-design.txt — proposed metadata-aware extension design.

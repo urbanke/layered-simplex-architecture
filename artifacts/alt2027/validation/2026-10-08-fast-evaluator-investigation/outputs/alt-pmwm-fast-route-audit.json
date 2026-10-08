@@ -1,0 +1,554 @@
+{
+  "schema_version": 1,
+  "created_date": "2026-10-08",
+  "purpose": "Read-only reconstruction of the fast PMWM numerical route, existing stores and bounded accuracy evidence; no code or cluster changes. No imports that might compile or mutate caches were executed.",
+  "repository": "/Users/ruediger/Projects/product_model_with_memory",
+  "git_head": "240406d16be0e7c5dcd7d2ee0e14d5ee4f28c915",
+  "result": "The remembered fast implementation exists. It combines C-compiled stored-grid interpolation and outer peak solving with a vectorized high-depth series/saddle shortcut. These are separate optimizations. No local stored levels beyond53 were found.",
+  "intended_configuration": {
+    "source": {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/production_coding.py",
+      "sha256": "6f709444496865ff124fc5bf1849fa6dce442a594f3cc7fe7c53ccfb504560f6",
+      "start_line": 127,
+      "end_line": 155
+    },
+    "environment": {
+      "PMM_UNIVERSAL_TABLES": "tables/anchors_prod",
+      "PMM_PHI_LADDER_EVERY": "1",
+      "PMM_PHI_LADDER_DEGREE": "11",
+      "PMM_PHI_SADDLE_MIN_L": "54"
+    },
+    "compiled_defaults": {
+      "PMM_KERNEL": "1 (default)",
+      "PMM_INTERP_KERNEL": "1 (default)"
+    },
+    "instructions_scope": "PMWM production tokenizer/campaign instructions concern that project. This audit does not substitute BPE tokenization into the ALT canonical Bible experiment."
+  },
+  "stores": [
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod",
+      "metadata": {
+        "version": "v2",
+        "H": 0.02,
+        "U_MAX": 35.0,
+        "L_MAX": 70,
+        "tau_log_margin": -8.0,
+        "builder": "exact (series / contour / right series)",
+        "accuracy": "v2 accuracy: stored values built by certified methods only (series / pole-aware contour / right-pole series); degree-7 interpolation between grid points; off-grid certification over the FULL axis against the independent contour reference.  Measured accuracy is recorded in the certification entries below.",
+        "created": "2026-08-02 02:47:54",
+        "certifications": []
+      },
+      "levels_with_index_files": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "physical_depth_coverage": [
+        2,
+        53
+      ],
+      "total_file_bytes": 2802407082,
+      "sealed_by_anchors_json": true,
+      "manifest_sha256": "cf0449a4b704174890f0a1fb95f20954839dd7266ae307e799d1dc6d0234ffb5",
+      "column_counts": {
+        "2": 475,
+        "3": 475,
+        "4": 475,
+        "5": 475,
+        "6": 475,
+        "7": 475,
+        "8": 475,
+        "9": 475,
+        "10": 475,
+        "11": 475,
+        "12": 475,
+        "13": 475,
+        "14": 475,
+        "15": 475,
+        "16": 475,
+        "17": 475,
+        "18": 475,
+        "19": 475,
+        "20": 475,
+        "21": 475,
+        "22": 475,
+        "23": 475,
+        "24": 475,
+        "25": 475,
+        "26": 475,
+        "27": 475,
+        "28": 475,
+        "29": 475,
+        "30": 475,
+        "31": 475,
+        "32": 475,
+        "33": 475,
+        "34": 475,
+        "35": 475,
+        "36": 475,
+        "37": 475,
+        "38": 475,
+        "39": 475,
+        "40": 475,
+        "41": 475,
+        "42": 475,
+        "43": 475,
+        "44": 475,
+        "45": 475,
+        "46": 475,
+        "47": 475,
+        "48": 475,
+        "49": 475,
+        "50": 475,
+        "51": 475,
+        "52": 475,
+        "53": 475
+      },
+      "anchor_design": {
+        "factor": 0.083071,
+        "pad_anchors": 8,
+        "dense_below": 256,
+        "grid": "r_k = round((1+factor)**k), deduplicated",
+        "note": "targets are TEST points and must never be used as interpolation anchors",
+        "levels_count": 52,
+        "r_max": 200000000
+      },
+      "anchors_sha256": "5c409244487deeba8d597ad66fa13479a8d15476d55d4509c33b2ec797b07c68"
+    },
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/probe_exact",
+      "metadata": {
+        "version": "v2",
+        "H": 0.02,
+        "U_MAX": 35.0,
+        "L_MAX": 70,
+        "tau_log_margin": -8.0,
+        "builder": "exact (series / contour / right series)",
+        "accuracy": "v2 accuracy: stored values built by certified methods only (series / pole-aware contour / right-pole series); degree-7 interpolation between grid points; off-grid certification over the FULL axis against the independent contour reference.  Measured accuracy is recorded in the certification entries below.",
+        "created": "2026-08-02 15:09:21",
+        "certifications": []
+      },
+      "levels_with_index_files": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "physical_depth_coverage": [
+        2,
+        53
+      ],
+      "total_file_bytes": 546271668,
+      "sealed_by_anchors_json": false,
+      "manifest_sha256": "b6d2c671d0d13d7ef4d853f668c93e7b60f0cb9ad48981ab2f30f846fe855cba",
+      "column_counts": {
+        "2": 210,
+        "3": 210,
+        "4": 210,
+        "5": 210,
+        "6": 210,
+        "7": 210,
+        "8": 210,
+        "9": 210,
+        "10": 210,
+        "11": 210,
+        "12": 210,
+        "13": 210,
+        "14": 210,
+        "15": 210,
+        "16": 210,
+        "17": 210,
+        "18": 210,
+        "19": 210,
+        "20": 210,
+        "21": 210,
+        "22": 210,
+        "23": 210,
+        "24": 210,
+        "25": 210,
+        "26": 210,
+        "27": 210,
+        "28": 210,
+        "29": 210,
+        "30": 210,
+        "31": 210,
+        "32": 210,
+        "33": 210,
+        "34": 25,
+        "35": 25,
+        "36": 25,
+        "37": 25,
+        "38": 25,
+        "39": 25,
+        "40": 25,
+        "41": 25,
+        "42": 25,
+        "43": 25,
+        "44": 25,
+        "45": 25,
+        "46": 25,
+        "47": 25,
+        "48": 25,
+        "49": 25,
+        "50": 25,
+        "51": 25,
+        "52": 25,
+        "53": 25
+      }
+    }
+  ],
+  "store_conclusion": "anchors_prod is the sealed production store (52 physical levels2\u201353, 2,802,407,082bytes). probe_exact is the alternative reference instrument (also2\u201353,546,271,668bytes) and has no anchors.json. L_MAX70 in each manifest is the table design range, not proof of stored depths54\u201370. Both certifications lists are empty; inspect saved external verification evidence rather than claiming manifest certification. Historical tables/universal_v2 and anchors_f005 appear in reports but are absent from the local tables directory.",
+  "routes": [
+    {
+      "name": "Stored low/middle-depth interpolation",
+      "depths": "2\u201353",
+      "sources": [
+        {
+          "path": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/universal_tables.py",
+          "sha256": "aef2f63c0ccdb4de58bb8c617dd99aaadc73b803bee67a029f5d89230878d5c2",
+          "start_line": 245,
+          "end_line": 281
+        },
+        {
+          "path": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/universal_tables.py",
+          "sha256": "aef2f63c0ccdb4de58bb8c617dd99aaadc73b803bee67a029f5d89230878d5c2",
+          "start_line": 835,
+          "end_line": 857
+        }
+      ],
+      "method": "Degree7 interpolation in u, with degree11 interpolation in log(r+1) across12 anchors for unstored counts. Dense exact integer counts0\u2013255, geometric anchor spacing factor0.083071 to r_max2e8 plus8 pad anchors. Use C pmm_interp_column when available."
+    },
+    {
+      "name": "Historical high-depth fast kernel",
+      "depths": "L>=54 dispatch; recorded end-to-end test only reaches Lmax54",
+      "sources": [
+        {
+          "path": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/universal_tables.py",
+          "sha256": "aef2f63c0ccdb4de58bb8c617dd99aaadc73b803bee67a029f5d89230878d5c2",
+          "start_line": 196,
+          "end_line": 242
+        },
+        {
+          "path": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/mellin.py",
+          "sha256": "201e2161b98a5b3dcf464930447c02dc22092fe78dec9e49b44bd8b2b931f969",
+          "start_line": 489,
+          "end_line": 552
+        }
+      ],
+      "method": "_saddle_row calls log_phi_column. It uses a small-t series under its threshold, otherwise55 vectorized bisection steps and an order2 saddle correction from F2,F3,F4. This function contains no contour integration fallback. It is NumPy/SciPy code, not the native outer peak solver.",
+      "code_validation_limit": "Function accepts depths beyond the stored design range through early dispatch, but acceptance of138 was not established by the recovered historical reports."
+    },
+    {
+      "name": "Native C interpolation and profile peak solve",
+      "sources": [
+        {
+          "path": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/kernel.py",
+          "sha256": "5dd1b42d05ffcb0b51383c1eaa9e88a0e494192a26215e71809d02b8d06a52d0",
+          "start_line": 1,
+          "end_line": 85
+        },
+        {
+          "path": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/_kernel.c",
+          "sha256": "85e23df27867ee61deaecd200587acd8faf5d57dfb15ce9f7559d315c0577103",
+          "start_line": 212,
+          "end_line": 301
+        },
+        {
+          "path": "/Users/ruediger/Projects/product_model_with_memory/tests/test_interp_kernel.py",
+          "sha256": "3c6a21efab2afc636c3849393a334918432d6190ad35b20c4e108e20bae33461",
+          "start_line": 1,
+          "end_line": 95
+        }
+      ],
+      "exports": [
+        "pmm_solve_peak",
+        "pmm_interp_column"
+      ],
+      "method": "ctypes wrapper builds a platform/source-hash-keyed shared library when imported and defaults to enabling it. If missing/unbuildable, Python fallback is silent. Compiler flags -O3 -ffp-contract=off -fno-fast-math -fPIC -shared. Existing binaries alone do not prove the current ALT process loaded them.",
+      "existing_binaries": [
+        "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/_kernel_linux_aarch64_85e23df27867ee61.so",
+        "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/_kernel_macosx_10_15_universal2_5208f415e5e215f0.so",
+        "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/_kernel_macosx_10_15_universal2_85e23df27867ee61.so",
+        "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/_kernel_macosx_11_0_arm64_85e23df27867ee61.so"
+      ],
+      "accuracy_evidence": "test_interp_kernel compares matrices by exact equality across stencil, small-t and edge regions, levels through26. Handover records stencil exactness and small compiled peak-solve differences from summation/exp order. No test was executed in this audit."
+    }
+  ],
+  "accuracy_and_speed_evidence": [
+    {
+      "name": "Corrected ladder instrument comparison",
+      "source": {
+        "path": "/Users/ruediger/Projects/product_model_with_memory/output/compare_fixed.jsonl",
+        "sha256": "675dcd1d2d8e19dcfbc5473538c0f0d758d301ad655fe778e54658765a787906"
+      },
+      "settings": {
+        "exact": "tables/probe_exact",
+        "ladder": "tables/anchors_prod",
+        "every": 1,
+        "degree": 11,
+        "cutoff": 54
+      },
+      "profile_count": 22,
+      "max_abs_delta_bits": 5.62518835067749e-06,
+      "worst_profile": "c17M",
+      "domain_source": {
+        "path": "/Users/ruediger/Projects/product_model_with_memory/scripts/compare_evaluators.py",
+        "sha256": "fe459a4b9525b12b3f1c4280ec403c560394fadf7a5463b17013044020c0905d",
+        "start_line": 63,
+        "end_line": 95
+      },
+      "domain": "22 profiles; top counts200\u201317,005,209, alphabets up to300,000; maximum tested l_max53. This test exercises the interpolation ladder below high-depth cutoff, not L54\u2013138 saddle accuracy.",
+      "decimation2_worst_abs_delta_bits": 0.0002400614321231842
+    },
+    {
+      "name": "Full BPE text8 high-depth cutoff sensitivity",
+      "source": {
+        "path": "/Users/ruediger/Projects/product_model_with_memory/output/phi_sensitivity_full/results.json",
+        "sha256": "9898f601fcfab0e8b968f5d810fb8959515d9df27a3b357ca6f789f9f5662625"
+      },
+      "selected_rows": [
+        {
+          "tag": "base",
+          "seconds": 28.587141275405884,
+          "bits_per_token": 9.098333818285797,
+          "chars_per_token": null,
+          "results": "output/phi_sensitivity_full/run_base/results.json",
+          "eps": 0.0,
+          "model": "none",
+          "delta": 0.0,
+          "saved_result_workload": {
+            "corpus": "output/streams/bpe_text8",
+            "n_tokens": 19429294,
+            "n_coded": 19429293,
+            "l_max": 54,
+            "vocabulary_size": 100277,
+            "seconds": 28.34531307220459,
+            "family_bits_per_token": 9.098333818285797
+          },
+          "saved_result_path": "/Users/ruediger/Projects/product_model_with_memory/output/phi_sensitivity_full/run_base/results.json"
+        },
+        {
+          "tag": "saddle_L54",
+          "seconds": 32.887696981430054,
+          "bits_per_token": 9.098355524123644,
+          "chars_per_token": null,
+          "results": "output/phi_sensitivity_full/run_saddle_L54/results.json",
+          "model": "saddle",
+          "cutoff": 54,
+          "delta": 2.1705837847108e-05,
+          "n_tokens": null,
+          "saved_result_workload": {
+            "corpus": "output/streams/bpe_text8",
+            "n_tokens": 19429294,
+            "n_coded": 19429293,
+            "l_max": 54,
+            "vocabulary_size": 100277,
+            "seconds": 32.661067962646484,
+            "family_bits_per_token": 9.098355524123644
+          },
+          "saved_result_path": "/Users/ruediger/Projects/product_model_with_memory/output/phi_sensitivity_full/run_saddle_L54/results.json"
+        },
+        {
+          "tag": "saddle_L46",
+          "seconds": 44.159857988357544,
+          "bits_per_token": 9.09857819066708,
+          "chars_per_token": null,
+          "results": "output/phi_sensitivity_full/run_saddle_L46/results.json",
+          "model": "saddle",
+          "cutoff": 46,
+          "delta": 0.0002443723812834975,
+          "n_tokens": null,
+          "saved_result_workload": {
+            "corpus": "output/streams/bpe_text8",
+            "n_tokens": 19429294,
+            "n_coded": 19429293,
+            "l_max": 54,
+            "vocabulary_size": 100277,
+            "seconds": 43.83331894874573,
+            "family_bits_per_token": 9.09857819066708
+          },
+          "saved_result_path": "/Users/ruediger/Projects/product_model_with_memory/output/phi_sensitivity_full/run_saddle_L46/results.json"
+        }
+      ],
+      "interpretation": "Lmax54 means cutoff54 substitutes only the highest depth; this is a corpus-average comparison and does not certify every count/kernel or ALT KL. Older baseline store/evaluator issues are documented in the subsequent handover and limit interpretation as current ground truth."
+    },
+    {
+      "name": "Combined production configuration on BPE text8",
+      "source": {
+        "path": "/Users/ruediger/Projects/product_model_with_memory/output/prod_endtoend/results.json",
+        "sha256": "3c9090175e9228e410c0e1933d07ffd09313d03420f7d16d9337d2ba17606317"
+      },
+      "selected_rows": [
+        {
+          "tag": "base",
+          "seconds": 28.53389310836792,
+          "bits_per_token": 9.098333818285797,
+          "chars_per_token": null,
+          "results": "output/prod_endtoend/run_base/results.json",
+          "eps": 0.0,
+          "model": "none",
+          "delta": 0.0
+        },
+        {
+          "tag": "ladder_every1",
+          "seconds": 45.11631989479065,
+          "bits_per_token": 9.098355541366105,
+          "chars_per_token": null,
+          "results": "output/prod_endtoend/run_ladder_every1/results.json",
+          "model": "ladder",
+          "every": 1,
+          "delta": 2.1723080308788667e-05,
+          "degree": 11
+        }
+      ],
+      "interpretation": "Combined ladder+cutoff54 delta2.172308e-5 bits/token. The value is historical, not a fresh independent ALT validation."
+    },
+    {
+      "name": "Native speed history",
+      "source": {
+        "path": "/Users/ruediger/Projects/product_model_with_memory/HANDOVER.md",
+        "sha256": "b46b817deebf7c405ecd2e79cf977f39392ead9eca57ff3f25aafb0c0b117a75",
+        "start_line": 1840,
+        "end_line": 1906
+      },
+      "reported_measurements": [
+        "Same1M-token command: wall17.2s before,13.8s with compiled peak solve,10.9s with compiled stencil; CPU144s\u219266s.",
+        "Compiled stencil10.4x isolated; peak solver17\u201331x isolated. Full enwik8 first-order cell103s\u219242.3s,321CPU-s."
+      ],
+      "accuracy_scope": "Handover reports native differences up to1e-9bits on sparse subword profiles and1.5e-4bits on heavy byte profiles, roughly1.1e-9relative. These are historical measurements, not a new complete ALT error certificate."
+    }
+  ],
+  "history_and_pitfalls": [
+    {
+      "source": {
+        "path": "/Users/ruediger/Projects/product_model_with_memory/HANDOVER.md",
+        "sha256": "b46b817deebf7c405ecd2e79cf977f39392ead9eca57ff3f25aafb0c0b117a75",
+        "start_line": 2365,
+        "end_line": 2478
+      },
+      "fact": "Evening correction exonerated ladder after fixing noisy Laplace curvature; dense trapezoidal peak integration agrees where old node/solve-curvature logic failed. It also identified contaminated large-r columns in old universal_v2; do not use that historical cache as an unquestioned exact reference."
+    },
+    {
+      "source": {
+        "path": "/Users/ruediger/Projects/product_model_with_memory/HANDOVER.md",
+        "sha256": "b46b817deebf7c405ecd2e79cf977f39392ead9eca57ff3f25aafb0c0b117a75",
+        "start_line": 2533,
+        "end_line": 2582
+      },
+      "fact": "Right-pole series cancellation bug was fixed by differential exponent assembly and cancellation-aware certificate; commit4267ff6. The reference probe_exact store was then frozen read-only in the historical workflow."
+    },
+    {
+      "source": {
+        "path": "/Users/ruediger/Projects/product_model_with_memory/HANDOVER.md",
+        "sha256": "b46b817deebf7c405ecd2e79cf977f39392ead9eca57ff3f25aafb0c0b117a75",
+        "start_line": 3299,
+        "end_line": 3320
+      },
+      "fact": "The later phrase \u201ctables-free evaluator\u201d describes pairwise prediction-table construction, with792of802s still spent in layered-table work; it is not evidence of a new universal higher-depth phi interpolation store."
+    }
+  ],
+  "recoverable_next_actions_without_changing_model": [
+    "Compare native availability/configuration in the ALT vendor wrapper with PMWM kernel.py; restoring C stencil/peak implementations can preserve the stored-grid arithmetic independently of any change to the high-depth kernel approximation.",
+    "Use the recorded four-variable configuration and unmodified PMWM source as the historical fast-route reference, with the independent contour/reference path as its numerical comparator; do not treat the C peak solver as the Mellin high-depth saddle shortcut.",
+    "If every ALT high-depth kernel must be served from interpolation, the audit found no ready local store above53. A separate offline-built immutable extension would be required; the current UniversalTables.column design guard is70, so mere configuration does not supply138-depth stored coverage.",
+    "Select acceptance from the existing ALT required accuracy metrics and saved profiles. The recovered historical speed and corpus-average agreements establish the intended design, but their domains do not by themselves establish the required L80/L138 results."
+  ],
+  "changes_made": "Only this task output JSON and companion text; project source, stores, current runs, and cluster untouched."
+}

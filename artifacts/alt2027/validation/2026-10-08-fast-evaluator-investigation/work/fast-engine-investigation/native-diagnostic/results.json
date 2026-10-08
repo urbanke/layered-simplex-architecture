@@ -1,0 +1,582 @@
+{
+  "description": "DIAGNOSTIC ONLY: stored row interpolation, no model evaluation, single thread, read-only production store",
+  "python": "3.14.6 (v3.14.6:c63aec69bd5, Jun 10 2026, 08:07:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "numpy": "2.5.1",
+  "scipy": "1.18.0",
+  "sources": [
+    {
+      "source": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/kernel.py",
+      "copy": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/product_model_with_memory/kernel.py",
+      "sha256": "5dd1b42d05ffcb0b51383c1eaa9e88a0e494192a26215e71809d02b8d06a52d0"
+    },
+    {
+      "source": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/_kernel.c",
+      "copy": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/product_model_with_memory/_kernel.c",
+      "sha256": "85e23df27867ee61deaecd200587acd8faf5d57dfb15ce9f7559d315c0577103"
+    },
+    {
+      "source": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/mellin.py",
+      "copy": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/product_model_with_memory/mellin.py",
+      "sha256": "201e2161b98a5b3dcf464930447c02dc22092fe78dec9e49b44bd8b2b931f969"
+    },
+    {
+      "source": "/Users/ruediger/Projects/product_model_with_memory/src/product_model_with_memory/universal_tables.py",
+      "copy": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/product_model_with_memory/universal_tables.py",
+      "sha256": "aef2f63c0ccdb4de58bb8c617dd99aaadc73b803bee67a029f5d89230878d5c2"
+    },
+    {
+      "source": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/_vendor/pmwm/kernel.py",
+      "copy": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/lsa/alt/_vendor/pmwm/kernel.py",
+      "sha256": "bf87081617867d047a48bb7e56e14776ba50d0ba441b9ef7477c87c20112944f"
+    },
+    {
+      "source": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/_vendor/pmwm/mellin.py",
+      "copy": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/lsa/alt/_vendor/pmwm/mellin.py",
+      "sha256": "9f1b905df43956949caaa382d9dc517af5a5c575bea6cef88e62315e5c849a8e"
+    },
+    {
+      "source": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/_vendor/pmwm/universal_tables.py",
+      "copy": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/lsa/alt/_vendor/pmwm/universal_tables.py",
+      "sha256": "031b8c080d46a3a00ac6e408e3ec9072641fa69eaf2974c72e0efaba06dd915e"
+    },
+    {
+      "source": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/_vendor/pmwm/_runtime.py",
+      "copy": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/lsa/alt/_vendor/pmwm/_runtime.py",
+      "sha256": "7a531ea58c9c614d56c47ed7861f211b08ef614fdf472263a2fc3fef4caff6b8"
+    }
+  ],
+  "compiled_library": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/native-diagnostic/copies/product_model_with_memory/_kernel_macosx_10_15_universal2_85e23df27867ee61.so",
+  "compiled_library_sha256": "c271fcc6b49ae8070c5755e6dc020e55ab2cba7dca214cd79abc8314cba03a2c",
+  "flags": [
+    "-O3",
+    "-ffp-contract=off",
+    "-fno-fast-math",
+    "-fPIC",
+    "-shared"
+  ],
+  "rs": [
+    0,
+    1,
+    2,
+    3,
+    17,
+    251,
+    256,
+    300,
+    4001,
+    67465,
+    200000
+  ],
+  "repeats": 3,
+  "cases": [
+    {
+      "L": 2,
+      "grid_min": -70.0,
+      "grid_max": 35.0,
+      "grid_points": 5251,
+      "grid_step": 0.01999999999999602,
+      "alt_ladder_native_off": {
+        "seconds": [
+          0.02854654099792242,
+          0.02211116603575647,
+          0.0217062080046162
+        ],
+        "median_seconds": 0.02211116603575647
+      },
+      "alt_ladder_native_on": {
+        "seconds": [
+          0.02183604199672118,
+          0.021766374993603677,
+          0.021695833012927324
+        ],
+        "median_seconds": 0.021766374993603677,
+        "native_calls": 0
+      },
+      "alt_toggle_values": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 57761,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ]
+      },
+      "upstream_ladder_native_on": {
+        "seconds": [
+          0.023654582968447357,
+          0.021749042032752186,
+          0.021843374997843057
+        ],
+        "median_seconds": 0.021843374997843057,
+        "native_calls": 0
+      },
+      "upstream_vs_alt": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 57761,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ]
+      },
+      "unique_anchor_count": 54,
+      "anchors": [
+        0,
+        1,
+        2,
+        3,
+        17,
+        251,
+        253,
+        254,
+        255,
+        256,
+        267,
+        289,
+        313,
+        339,
+        367,
+        397,
+        430,
+        466,
+        2491,
+        2698,
+        2922,
+        3165,
+        3428,
+        3712,
+        4021,
+        4355,
+        4717,
+        5108,
+        5533,
+        5992,
+        44058,
+        47718,
+        51682,
+        55976,
+        60626,
+        65662,
+        71116,
+        77024,
+        83423,
+        90353,
+        97858,
+        105987,
+        124328,
+        134656,
+        145842,
+        157957,
+        171079,
+        185290,
+        200683,
+        217354,
+        235409,
+        254965,
+        276145,
+        299085
+      ],
+      "anchor_matrix_numpy": {
+        "seconds": [
+          0.02040770900202915,
+          0.020159750012680888,
+          0.01976754202041775
+        ],
+        "median_seconds": 0.020159750012680888
+      },
+      "anchor_matrix_native": {
+        "seconds": [
+          0.011074458016082644,
+          0.011298875033389777,
+          0.010893833008594811
+        ],
+        "median_seconds": 0.011074458016082644,
+        "native_calls": 162
+      },
+      "native_vs_batched_numpy": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 283554,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ]
+      },
+      "prototype_batched_anchor_ladder": {
+        "seconds": [
+          0.011516415979713202,
+          0.011179416964296252,
+          0.011203208996448666
+        ],
+        "median_seconds": 0.011203208996448666
+      },
+      "prototype_vs_active_alt": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 57761,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ],
+        "worst_r": 0,
+        "worst_u": -70.0
+      }
+    },
+    {
+      "L": 26,
+      "grid_min": -357.3580187834595,
+      "grid_max": 35.0,
+      "grid_points": 19619,
+      "grid_step": 0.01999989901025856,
+      "alt_ladder_native_off": {
+        "seconds": [
+          0.08152212499408051,
+          0.07311483396915719,
+          0.07366145798005164
+        ],
+        "median_seconds": 0.07366145798005164
+      },
+      "alt_ladder_native_on": {
+        "seconds": [
+          0.07350237498758361,
+          0.07338575000176206,
+          0.07344508299138397
+        ],
+        "median_seconds": 0.07344508299138397,
+        "native_calls": 0
+      },
+      "alt_toggle_values": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 215809,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ]
+      },
+      "upstream_ladder_native_on": {
+        "seconds": [
+          0.07557958300458267,
+          0.07368154200958088,
+          0.07336987502640113
+        ],
+        "median_seconds": 0.07368154200958088,
+        "native_calls": 0
+      },
+      "upstream_vs_alt": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 215809,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ]
+      },
+      "unique_anchor_count": 54,
+      "anchors": [
+        0,
+        1,
+        2,
+        3,
+        17,
+        251,
+        253,
+        254,
+        255,
+        256,
+        267,
+        289,
+        313,
+        339,
+        367,
+        397,
+        430,
+        466,
+        2491,
+        2698,
+        2922,
+        3165,
+        3428,
+        3712,
+        4021,
+        4355,
+        4717,
+        5108,
+        5533,
+        5992,
+        44058,
+        47718,
+        51682,
+        55976,
+        60626,
+        65662,
+        71116,
+        77024,
+        83423,
+        90353,
+        97858,
+        105987,
+        124328,
+        134656,
+        145842,
+        157957,
+        171079,
+        185290,
+        200683,
+        217354,
+        235409,
+        254965,
+        276145,
+        299085
+      ],
+      "anchor_matrix_numpy": {
+        "seconds": [
+          0.05670650000683963,
+          0.05624820897355676,
+          0.0555189999868162
+        ],
+        "median_seconds": 0.05624820897355676
+      },
+      "anchor_matrix_native": {
+        "seconds": [
+          0.024191208998672664,
+          0.025167542044073343,
+          0.02406691701617092
+        ],
+        "median_seconds": 0.024191208998672664,
+        "native_calls": 162
+      },
+      "native_vs_batched_numpy": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 1059426,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ]
+      },
+      "prototype_batched_anchor_ladder": {
+        "seconds": [
+          0.02538608299801126,
+          0.025155374954920262,
+          0.025244541990105063
+        ],
+        "median_seconds": 0.025244541990105063
+      },
+      "prototype_vs_active_alt": {
+        "bit_identical": false,
+        "unequal_values": 58217,
+        "total_values": 215809,
+        "max_absolute_difference_nats": 3.725290298461914e-08,
+        "worst_index": [
+          10,
+          5744
+        ],
+        "worst_r": 200000,
+        "worst_u": -242.4785988684737
+      }
+    },
+    {
+      "L": 53,
+      "grid_min": -686.9221152124367,
+      "grid_max": 35.0,
+      "grid_points": 36098,
+      "grid_step": 0.019999504535348933,
+      "alt_ladder_native_off": {
+        "seconds": [
+          0.1410411670221947,
+          0.12917345901951194,
+          0.12864279199857265
+        ],
+        "median_seconds": 0.12917345901951194
+      },
+      "alt_ladder_native_on": {
+        "seconds": [
+          0.1274413749924861,
+          0.13202962500508875,
+          0.13735262502450496
+        ],
+        "median_seconds": 0.13202962500508875,
+        "native_calls": 0
+      },
+      "alt_toggle_values": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 397078,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ]
+      },
+      "upstream_ladder_native_on": {
+        "seconds": [
+          0.13081570802023634,
+          0.12898908299393952,
+          0.12938200001372024
+        ],
+        "median_seconds": 0.12938200001372024,
+        "native_calls": 0
+      },
+      "upstream_vs_alt": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 397078,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ]
+      },
+      "unique_anchor_count": 54,
+      "anchors": [
+        0,
+        1,
+        2,
+        3,
+        17,
+        251,
+        253,
+        254,
+        255,
+        256,
+        267,
+        289,
+        313,
+        339,
+        367,
+        397,
+        430,
+        466,
+        2491,
+        2698,
+        2922,
+        3165,
+        3428,
+        3712,
+        4021,
+        4355,
+        4717,
+        5108,
+        5533,
+        5992,
+        44058,
+        47718,
+        51682,
+        55976,
+        60626,
+        65662,
+        71116,
+        77024,
+        83423,
+        90353,
+        97858,
+        105987,
+        124328,
+        134656,
+        145842,
+        157957,
+        171079,
+        185290,
+        200683,
+        217354,
+        235409,
+        254965,
+        276145,
+        299085
+      ],
+      "anchor_matrix_numpy": {
+        "seconds": [
+          0.09934095799690112,
+          0.09898116602562368,
+          0.0973033340414986
+        ],
+        "median_seconds": 0.09898116602562368
+      },
+      "anchor_matrix_native": {
+        "seconds": [
+          0.03852241695858538,
+          0.03973716602195054,
+          0.038273332989774644
+        ],
+        "median_seconds": 0.03852241695858538,
+        "native_calls": 162
+      },
+      "native_vs_batched_numpy": {
+        "bit_identical": true,
+        "unequal_values": 0,
+        "total_values": 1949292,
+        "max_absolute_difference_nats": 0.0,
+        "worst_index": [
+          0,
+          0
+        ]
+      },
+      "prototype_batched_anchor_ladder": {
+        "seconds": [
+          0.04027045797556639,
+          0.04080287500983104,
+          0.04020054102875292
+        ],
+        "median_seconds": 0.04027045797556639
+      },
+      "prototype_vs_active_alt": {
+        "bit_identical": false,
+        "unequal_values": 94444,
+        "total_values": 397078,
+        "max_absolute_difference_nats": 7.450580596923828e-08,
+        "worst_index": [
+          10,
+          4870
+        ],
+        "worst_r": 200000,
+        "worst_u": -589.5245281252946
+      }
+    }
+  ],
+  "store_files": [
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod/manifest.json",
+      "sha256": "cf0449a4b704174890f0a1fb95f20954839dd7266ae307e799d1dc6d0234ffb5"
+    },
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod/anchors.json",
+      "sha256": "5c409244487deeba8d597ad66fa13479a8d15476d55d4509c33b2ec797b07c68"
+    },
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod/level_02.bin",
+      "sha256": "3cad37b6e74664ec034e92c0b6974a09fa49c4767068189ed20b1e10ae67f7f0"
+    },
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod/level_02.index.json",
+      "sha256": "151f2fc796b6ee184eb229529ffd069a88b684f4755d74a1f6f857894cca0035"
+    },
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod/level_26.bin",
+      "sha256": "21f9e62a0308429abe4c80c900711c62661dc9561acacff345647d19af7a5814"
+    },
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod/level_26.index.json",
+      "sha256": "8b11b3af6ed786f478de0f3e78e27788d05bd3ea1c93042c36b6f35c9e4a2c75"
+    },
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod/level_53.bin",
+      "sha256": "c377c0aaa2642a53dbeb56fd811dd28d41d2b1e3a5af32c893b471a13974a4a8"
+    },
+    {
+      "path": "/Users/ruediger/Projects/product_model_with_memory/tables/anchors_prod/level_53.index.json",
+      "sha256": "6634a9520cd72a291c299737c03552d4e6b69d2ba1c29aaa788710fb512dd0a1"
+    }
+  ],
+  "source_copies_identical_at_end": true,
+  "benchmark_sha256": "f4bb6cd8e0c050515e650f12afc7f6bf9af45d745098337cc23aede0ded3d3ce"
+}

@@ -1,0 +1,88 @@
+{
+  "description": "DIAGNOSTIC ONLY: existing C stencil with weights/coordinate arithmetic exactly matching active scalar path; single thread; 3 repeats; no source edits",
+  "cases": [
+    {
+      "L": 2,
+      "points": 5251,
+      "timings": {
+        "scalar_numpy": {
+          "seconds": [
+            0.024633249966427684,
+            0.02199012495111674,
+            0.021728374995291233
+          ],
+          "median_seconds": 0.02199012495111674
+        },
+        "scalar_native_exact_coordinates": {
+          "seconds": [
+            0.017546167015098035,
+            0.01747666602022946,
+            0.01742470805766061
+          ],
+          "median_seconds": 0.01747666602022946
+        }
+      },
+      "bit_identical": true,
+      "unequal_values": 0,
+      "max_absolute_difference_nats": 0.0,
+      "value_count": 57761,
+      "native_calls_cumulative": 162
+    },
+    {
+      "L": 26,
+      "points": 19619,
+      "timings": {
+        "scalar_numpy": {
+          "seconds": [
+            0.07634895900264382,
+            0.07273237500339746,
+            0.07273333298508078
+          ],
+          "median_seconds": 0.07273333298508078
+        },
+        "scalar_native_exact_coordinates": {
+          "seconds": [
+            0.0546509160194546,
+            0.054808791959658265,
+            0.05470195802627131
+          ],
+          "median_seconds": 0.05470195802627131
+        }
+      },
+      "bit_identical": true,
+      "unequal_values": 0,
+      "max_absolute_difference_nats": 0.0,
+      "value_count": 215809,
+      "native_calls_cumulative": 324
+    },
+    {
+      "L": 53,
+      "points": 36098,
+      "timings": {
+        "scalar_numpy": {
+          "seconds": [
+            0.1388907500077039,
+            0.12921879097120836,
+            0.12944116699509323
+          ],
+          "median_seconds": 0.12944116699509323
+        },
+        "scalar_native_exact_coordinates": {
+          "seconds": [
+            0.0964135829708539,
+            0.09663141699275002,
+            0.09637662500608712
+          ],
+          "median_seconds": 0.0964135829708539
+        }
+      },
+      "bit_identical": true,
+      "unequal_values": 0,
+      "max_absolute_difference_nats": 0.0,
+      "value_count": 397078,
+      "native_calls_cumulative": 486
+    }
+  ],
+  "script_sha256": "939e158f507f74ebd693eedf566f738374dfa6fe6318ce573b25da62a7faa829",
+  "parent_manifest_sha256": "6d2b2a3121ce9525427af589487d8c725e648b6577911839319197f234f28213"
+}

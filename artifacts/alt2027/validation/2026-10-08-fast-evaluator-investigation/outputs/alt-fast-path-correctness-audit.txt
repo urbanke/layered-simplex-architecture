@@ -1,0 +1,164 @@
+ALT fast-path correctness audit — author notes, 8 October 2026
+
+Conclusion
+The replacement of the old high-depth saddle/series shortcut was justified by
+numerical failures, including an actual full-Bible component-evidence difference.
+It does not establish that online contour integration is necessary. Accurately
+precomputed kernels, interpolation, reuse, and native evaluation are independent
+ways to recover speed. The user's recollection of a fast permanent-table engine
+is consistent with the upstream design.
+
+Scope and evidence
+Read-only inspection of source, Git history, existing calibration and saved
+profile outputs. This audit recomputed hashes, compared saved count arrays, and
+reconstructed the deterministic outer grid; it ran no estimator or numerical
+integration, submitted no job, and changed no scientific source or saved run.
+Frozen scientific source: 0399cb28b973e5550fcbcbce082e8d36c95c2e1e.
+Current artifact-only repository HEAD: 2a66928e6febac6f4f22879fd6f1e9d615299d6e.
+Repository base R:
+/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup
+Paths below beginning with output/, src/, tests/, docs/ or experiments/ are
+relative to R. Upstream base U:
+/Users/ruediger/Projects/product_model_with_memory
+
+Why the route changed
+Commit d1e4d2693610595d43434a6079e2162176e3c149 (7 October) deliberately replaced
+universal_tables._saddle_row's call to log_phi_column with exact_log_phi_column,
+using oversample=8, checked-series tolerance 1e-13 and contour tail 40 nats.
+The inherited cutoff saddle_min_depth=54 and private function name were kept;
+diagnostics correctly identify the new route as direct-contour. Existing pinned
+store files cover depths 2–53. This was not an accidental environment selection.
+The initial adapter's hashes match Git revision 6378e36 for depth.py, mellin.py
+and universal_tables.py, including the old pilot's recorded implementation hash.
+
+Relevant current code:
+- src/lsa/alt/_vendor/pmwm/universal_tables.py:218–231: corrected provider.
+- The same file:879–882: the high-depth route returns before the count-anchor
+  interpolation branch at 894–923. Every requested count row is evaluated directly.
+- src/lsa/alt/depth.py:480–514: provisions each requested depth on a shared grid;
+  uses counts r, r+1, r+2 (and extra family counts), including r=0.
+- src/lsa/alt/_vendor/pmwm/mellin.py:489–552: legacy vectorized shortcut. Despite
+  its historical docstring, the small-t selection does not test a truncation
+  certificate; the remaining region uses an order-2 saddle approximation.
+
+Concrete failure cases
+Saved independent 45/60-digit Mellin checks in
+output/alt2027/kernel-calibration-20261007-declared-grid/rows.jsonl:
+case          L    r       u        legacy error (nats)     corrected error (nats)
+kernel-0081   54   0      -4        -0.018449550233950247    4.0953e-14
+kernel-0083   54   0      10        -0.031900941217513610   -1.6857e-14
+kernel-0104   80   0      35        -0.024587041206188365   -2.8746e-14
+kernel-0124  138   0      35        -0.018858168970670462   -2.1750e-14
+Both the unchecked small-t branch and the saddle branch therefore have failures.
+All 263 declared corrected direct cases pass their saved gates; this finite set
+does not prove a uniform bound over every u. Low counts matter because a profile
+can contain many unused alphabet symbols. Multiplicity times row error alone is
+only a sensitivity calculation, not an observed evidence error.
+The upstream saddle_accuracy.py:104 starts its requested count probes at r=1,
+and its default levels end at 43. It compares the pure saddle with stored values
+outside the far-left tail. That harness is not validation of the ALT r=0 shortcut
+at depths 54–138. The regression is also preserved in
+tests/test_alt_kernel_validation.py:24–39.
+
+Actual saved full-Bible comparison at depth 54
+Old record: output/alt2027/depth-pilot-20261007-01/results.jsonl,
+name=bible_915860, depth=54, kernel_branch=saddle.
+Corrected record:
+output/alt2027/bible-full-original-parallel-20261007/checkpoints/depth-54-default.json,
+kernel_branch=direct-contour, source revision d1e4d26.
+
+Both saved count arrays are elementwise identical, not only equal as multisets:
+d=100000, n=915860, 13550 nonzero counts, 86450 zeros, maximum count 70579.
+Old input: output/alt2027/depth-pilot-20261007-01/bible_915860.npz
+Corrected input:
+output/alt2027/bible-full-original-parallel-20261007/inputs/case-006.npz
+SHA256 of sorted counts as little-endian int64 bytes:
+d2ffb9f141fadc11b6e02e3f1a445948a75e4dd699ee7c7fd3740ae73bfb1973
+
+The engine records have identical stored-file hashes and runtime versions,
+full scan, requested grid spacing 0.02, upper limit 35, and cutoff 54.
+The corrected configuration adds minimum_grid_step=0.0025, but this component
+records grid_refinements=0. The old and corrected source grid formulas agree.
+With maximum required r=70581, their reconstructed common grid has 33896 points,
+lower=-642.8846434072212, upper=35, spacing=0.01999954693633299.
+SHA256 of the reconstructed grid as little-endian float64 bytes:
+c13dd579fce0c55c1f397225c2208be36a4bbdc15dd0de0876128ea3040cc90a
+The grid itself was not archived in those two records: identity is established
+from the inputs, configurations and source formulas, and agrees with the
+corrected recorded spacing and both recorded leftmost diagnostic coordinates.
+
+Old log evidence:       -5448008.8054923145 nats
+Corrected log evidence: -5445176.192097183  nats
+Old minus corrected, exact subtraction of the saved decimal representations:
+                        -2832.6133951315 nats
+Float64 subtraction:    -2832.613395131193 nats
+Thus the old component assigns an extra 4086.597297911422 code bits,
+or 0.00446203273198024 bits/token, on this actual saved profile.
+This is a component-evidence/codelength comparison, not a measured difference
+of the complete depth mixture or its predictive KL. The artifacts came from
+different source revisions, not a controlled one-line A/B execution; matching
+inputs/grids plus independent kernel failures make the old shortcut unsuitable.
+The recorded 42.90 s versus 163.53 s timings are not a controlled speed benchmark.
+
+Checksums of comparison evidence (SHA256)
+Old results.jsonl:
+a067f39f57fe0aa3458e4e03c4da26296db5b97c9ede879e319804fa354ea4e2
+Old bible_915860.npz:
+2052eb4c9d929b83e5a08cd91848384e00b311a7c21ff4954fc51d4a58a1cd38
+Old engine.json:
+4d8989e4abe987036584f9613002dc49a42f2298d7f73945ecac8eacddc52b5e
+Corrected checkpoints/depth-54-default.json:
+1f6e53618b9d767d61b8caa9abdcc7186c5edbb707cf9b2602270adcb2dfe146
+Corrected inputs/case-006.npz:
+c34bcf581de44d8df9e3a49860e56e37ba539152571a437973d00b0db2a1e158
+Corrected inputs/default-engine.json:
+953927d1b90cafaea9f42cb2a119ddd18cb2557dc4232f83e117ebd16a9a5710
+Corrected request.json:
+825c4e43335289ec9d85ae2eab2a24f25354c3d764cfc44ef13ed70a79e8520d
+Declared kernel rows.jsonl:
+ab8539611bc4ec0e0361a60c57885a33d8347101c132a8bfffbe552ca61046ae
+
+Independent opportunities to recover speed
+1. Accurate pretabulation and reuse. U/paper/complexity.tex:311–338 describes
+   a permanent exact-formula store, degree-7 interpolation, shared-contour work,
+   and guarded build-stride interpolation. These do not require the failed
+   saddle/series approximation. ALT already keeps degree-7 interpolation in u
+   and degree-11 count-anchor interpolation below 54. Its 111 declared sampled
+   anchor rows passed the original 3e-9-nat gate; one L=53,r=0,u=-24 row missed
+   the stricter 1e-11 low-count gate at -1.416e-11. Extending accurate tables or
+   a persistent cache above 53 is the most direct way to amortize contour work.
+   No previously admitted high-depth ALT store was identified in this audit.
+
+2. Native scans/interpolation. ALT's kernel.py explicitly supplies None fallbacks
+   to avoid import-time compilation/source writes; depth.py:345–350 also disables
+   PMM_INTERP_KERNEL. This is separate from the failed high-depth approximation.
+   universal_tables.py:939–945 documents upstream exact-value comparisons of
+   2.9 million interpolation values and a repaired historical native defect.
+   Those claims are inspected upstream evidence, not a new native-platform test.
+   Merely switching the environment flag cannot activate the absent native shim;
+   moreover, the current high-depth and ladder branches return before the native
+   matrix-interpolation branch. Integration must target the actual hot path.
+
+3. Exact-low-count / asymptotic-large-count hybrids remain candidates, not
+   validated replacements. Saved high-depth large-count legacy errors can be
+   around 1e-6 nats, above the current 3e-9 row gate. Success for low counts alone
+   would not validate such a hybrid. Precomputed corrected kernels avoid that
+   approximation question entirely.
+
+Conditions on any replacement
+Preserve all declared depths, equal prior weights, samples, targets, endpoints,
+family grids, units and normalization checks. Do not recover time by depth-tail
+truncation: ALT intentionally evaluates every declared component. A high-depth
+store must support the ALT range through 138, count/augmentation coverage,
+left tails and upper-window retries through 80; the inherited generic column
+interface currently rejects L>70. Validate off-grid/off-anchor values and actual
+profile/augmentation/mixture outputs, not only table nodes. Retain the agreed
+predictive KL refinement criterion of 1e-5 bits and raw-mass diagnostics; the
+1e-3 raw normalization rejection guard is not an accuracy certificate. Pin new
+store/source/runtime identities and complete the corresponding calibration and
+admission checks before production. Existing records must remain unchanged.
+
+Any new high-depth pretabulation prototype being evaluated concurrently is not
+certified by this read-only audit; its numerical and end-to-end checks should be
+archived separately. The result here supports rejecting the old approximation,
+while actively pursuing exact-kernel table reuse and verified native execution.

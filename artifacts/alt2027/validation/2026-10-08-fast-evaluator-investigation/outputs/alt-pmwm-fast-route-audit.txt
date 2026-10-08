@@ -1,0 +1,67 @@
+PMWM fast numerical route — local read-only audit, 8 October 2026
+
+The user's remembered fast implementation exists. It has TWO independent parts:
+(1) native C grid interpolation and profile peak solving; (2) a fast vectorized
+series/saddle kernel at depths 54 and above. The latter is not the native C solver.
+
+Recorded production configuration
+  PMM_UNIVERSAL_TABLES=tables/anchors_prod
+  PMM_PHI_LADDER_EVERY=1
+  PMM_PHI_LADDER_DEGREE=11
+  PMM_PHI_SADDLE_MIN_L=54
+Native defaults are PMM_KERNEL=1 and PMM_INTERP_KERNEL=1.
+Source: src/product_model_with_memory/production_coding.py127–155.
+
+Existing stores
+  anchors_prod: 2,802,407,082 bytes; physical levels 2–53; sealed by anchors.json.
+  probe_exact: 546,271,668 bytes; physical levels 2–53; reference instrument.
+No store above 53 exists in this project's local tables directory. Manifest
+L_MAX=70 is the design range; both certification arrays are empty. Historical
+universal_v2 and anchors_f005 occur in reports but are no longer present locally.
+
+Native implementation
+  src/product_model_with_memory/_kernel.c
+  src/product_model_with_memory/kernel.py
+Exports pmm_solve_peak and pmm_interp_column. Source-hash/platform-keyed binaries
+exist for macOS arm64/universal2 and Linux aarch64. A failed native load silently
+falls back to Python; binary presence alone does not prove ALT uses the C code.
+Flags explicitly prohibit fast math and floating-point contraction.
+
+The interpolation tests require exact matrix equality across stencil, tail and
+edge regions (tests/test_interp_kernel.py). Historical handover reports isolated
+stencil speedup 10.4x, peak-solver speedup 17–31x, and a full corpus cell 103→42.3s.
+Restoring this native machinery is separate from changing high-depth numerics.
+
+High-depth fast route
+  universal_tables.py196–242: _saddle_row → mellin.log_phi_column.
+  mellin.py489–552: small-t series; otherwise 55 vectorized bisections and an
+  order 2 saddle correction. There is NO contour fallback in this function.
+This is the intended high-depth shortcut remembered by the user. The current ALT
+vendor changed _saddle_row to exact_log_phi_column, so it is a different route.
+
+What the recovered accuracy evidence actually covers
+• output/compare_fixed.jsonl: 22 profiles, degree 11/every1, worst 5.625188e−6 bits
+  versus probe_exact; maximum tested l_max 53. It validates the ladder below the
+  saddle cutoff, not depths 54–138. Decimation 2 worsens maximum to 2.400614e−4 bits.
+• output/phi_sensitivity_full/results.json: full BPE text8, Lmax 54. Cutoff 54 changes
+  corpus-average loss by 2.170584e−5 bits/token. It substitutes only depth 54 here.
+• output/prod_endtoend/results.json: combined ladder plus cutoff 54 changes the
+  historical corpus-average loss by 2.172308e−5 bits/token.
+• HANDOVER.md2365–2582 documents corrected outer curvature and right-series
+  cancellation, plus contamination of the old universal_v2 cache. These historical
+  agreements must not be mistaken for new full-domain ALT certification.
+
+Recovery path
+First establish whether ALT lost the native C interpolation/peak machinery;
+recovering it need not alter the mathematical model or high-depth accuracy route.
+Separately compare the historical vectorized series/saddle branch to the already
+available ALT reference checks. If all higher depths must instead use tables,
+there is no ready local extension beyond 53: that requires an offline immutable
+extension and a design-range change beyond 70. No such changes were made here.
+
+The phrase “tables-free evaluator” in later PMWM history refers to the pairwise
+prediction-table workflow; it is not another stored high-depth phi implementation.
+
+Exact source paths, checksums, bounded report fields and numeric evidence are in
+alt-pmwm-fast-route-audit.json. No project code was imported, compiled, edited or executed;
+all project stores and cluster state remain untouched.
