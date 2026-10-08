@@ -330,3 +330,504 @@ def test_host_local_paths_and_worker_counts_are_the_only_normalized_fields():
     assert admission.normalized_specification(
         "power", {"workers": 2, "tolerance": 1e-5}
     ) == admission.normalized_specification("power", {"workers": 72, "tolerance": 1e-5})
+
+
+def test_sealed_engine_requires_its_own_committed_candidate_and_extra_evidence(bundle):
+    arguments, _ = bundle
+    arguments["engine"]["store"]["format"] = "sealed"
+    with pytest.raises(ValueError, match="sealed-store-candidate"):
+        admission.assemble(**arguments)
+    pins = {"plan.json": "b" * 64, "manifest.json": "a" * 64}
+    arguments["engine"]["store"]["files_sha256"] = pins
+    write_json(
+        arguments["repo"] / "experiments/alt2027/sealed-store-candidate.json",
+        {"format": "sealed", "files_sha256": pins},
+    )
+    result = admission.assemble(**arguments)
+    assert not result["required_checks_complete"]
+    assert result["gates"]["sealed_store"]["status"] == "pending"
+    assert result["gates"]["sealed_profile"]["status"] == "pending"
+    assert "sealed_independent_kernel" in result["gates"]
+    assert "engine_sha256_by_experiment" not in result
+
+
+@pytest.fixture
+def sealed_reader_evidence(tmp_path):
+    from lsa.alt.sealed_store_validation import (
+        accuracy_contract,
+        assess_measurement,
+        summarize_measurements,
+    )
+
+    root = tmp_path / "sealed-reader"
+    (root / "data").mkdir(parents=True)
+    levels = list(range(2, 139))
+    plan = {
+        "format": "lsa-sealed-kernels-v1",
+        "levels": levels,
+        "support_max_count": 1045889,
+        "u_max": 80.0,
+        "left_drop": 60.0,
+        "grid_step": 0.02,
+        "interpolation_degree": 7,
+        "count_degree": 11,
+        "anchors": {str(L): list(range(257)) + [1045889] for L in levels},
+    }
+    write_json(root / "store-plan.json", plan)
+    files = {
+        f"level_{L:03d}.{suffix}": "a" * 64
+        for L in levels
+        for suffix in ("bin", "index.json")
+    }
+    from lsa.alt.artifacts import sha256
+
+    files["plan.json"] = sha256(root / "store-plan.json")
+    manifest = {
+        "format": "lsa-sealed-kernels-v1",
+        "sealed": True,
+        "levels": levels,
+        "plan_sha256": files["plan.json"],
+        "files": files,
+    }
+    write_json(root / "store-manifest.json", manifest)
+    specification = {
+        "cases": [{"depth": 2, "r": 0, "u": 0.007}],
+        "accuracy_contract": accuracy_contract(),
+    }
+    cases, missing = admission._sealed_declared_cases(plan, specification)
+    assert not missing
+    rows = [{**cases[0], **assess_measurement(0, 0, 0, 0, 0)}]
+    write_json(root / "data/config.json", specification)
+    write_json(root / "data/resolved-cases.json", cases)
+    write_json(root / "data/unavailable-strata.json", [])
+    write_json(
+        root / "data/reader-backend.json",
+        {"interpolation_backend": "python", "native_identity": None},
+    )
+    write_json(root / "data/independent-reference-cases.json", [])
+    (root / "data/independent-references.jsonl").write_text("")
+    (root / "data/direct-rows.jsonl").write_text(json.dumps(rows[0]) + "\n")
+    (root / "data/rows.jsonl").write_text(json.dumps(rows[0]) + "\n")
+    result = {
+        "status": "passed",
+        "unavailable_strata": [],
+        "resolved_cases_sha256": canonical_hash(cases),
+        "config_sha256": canonical_hash(specification),
+        **summarize_measurements(rows),
+        "accuracy_contract": accuracy_contract(),
+        "independent_high_precision_reference": False,
+        "reader_backend": {"interpolation_backend": "python", "native_identity": None},
+        "reader_backend_unchanged": True,
+        "source_unchanged": True,
+        "store_unchanged": True,
+        "gates_nats": {"general": 3e-9, "counts_0_to_3": 1e-11},
+    }
+    write_json(root / "data/summary.json", result)
+    return (
+        root,
+        result,
+        specification,
+        {**files, "manifest.json": sha256(root / "store-manifest.json")},
+    )
+
+
+def test_complete_sealed_metadata_requires_every_manifest_pin(sealed_reader_evidence):
+    root, result, specification, pins = sealed_reader_evidence
+    admission._sealed_plan(root, pins)
+    admission.sealed_store_result(root, result, specification)
+    with pytest.raises(ValueError, match="pins"):
+        admission._sealed_plan(root, {**pins, "level_138.bin": "f" * 64})
+    manifest = read_json(root / "store-manifest.json")
+    del manifest["files"]["level_138.index.json"]
+    (root / "store-manifest.json").write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match="omits"):
+        admission._sealed_plan(root)
+
+
+@pytest.mark.parametrize(
+    "mutation", ["unavailable", "precision", "relaxed", "missing_row", "forged_error"]
+)
+def test_sealed_reader_status_cannot_hide_missing_or_failed_measurements(
+    sealed_reader_evidence, mutation
+):
+    root, result, specification, _ = sealed_reader_evidence
+    if mutation == "unavailable":
+        result["unavailable_strata"] = [{"depth": 138}]
+    elif mutation == "precision":
+        result["unresolved_reference_cases"] = 1
+    elif mutation == "relaxed":
+        result["gates_nats"]["counts_0_to_3"] = 3e-9
+    elif mutation == "missing_row":
+        (root / "data/rows.jsonl").write_text("")
+    else:
+        row = json.loads((root / "data/rows.jsonl").read_text())
+        row["scalar_log_phi_nats"] = 1e-4
+        (root / "data/rows.jsonl").write_text(json.dumps(row) + "\n")
+    with pytest.raises(ValueError):
+        admission.sealed_store_result(root, result, specification)
+
+
+@pytest.fixture
+def sealed_independent_evidence(tmp_path):
+    root = tmp_path / "independent"
+    (root / "data").mkdir(parents=True)
+    config = {
+        "groups": [{"id": "tiny", "depths": [2], "counts": [0], "u_values": [0.0]}],
+        "reference_dps": 45,
+        "refined_reference_dps": 60,
+        "reference_convergence_nats": 1e-25,
+        "nominal_tolerance_nats": 3e-9,
+        "special_function_cases": [{}],
+        "stores": [],
+    }
+    pins = {"plan.json": "a" * 64, "manifest.json": "b" * 64}
+    engine = {
+        "mode": "store",
+        "store": {
+            "format": "sealed",
+            "path": "/store",
+            "files_sha256": pins,
+            "max_depth": 138,
+            "max_d": 1000000,
+            "max_n": 915861,
+            "max_count": 915861,
+        },
+    }
+    resolved = {
+        **config,
+        "stores": [
+            {
+                "id": "sealed_candidate",
+                "format": "sealed",
+                "path": "/store",
+                "files_sha256": pins,
+                "depths": [2],
+                "counts": [0],
+            }
+        ],
+    }
+    write_json(root / "data/config.json", resolved)
+    write_json(
+        root / "data/store-inputs.json",
+        [
+            {
+                "id": "sealed_candidate",
+                "format": "sealed",
+                "files_sha256": pins,
+                "unchanged_after_read": True,
+            }
+        ],
+    )
+    write_json(root / "data/special-functions.json", [{"meijer_error_nats": 0}])
+    row = {
+        **expand_cases(config)[0],
+        "tolerance_nats": 1e-11,
+        "reference": {"dps": 45, "log_phi_nats": "0.0"},
+        "refined_reference": {"dps": 60, "log_phi_nats": "0.0"},
+        "batched_direct_column_error_nats": 0,
+        "direct_column_refined_error_nats": 0,
+        "stores": {
+            "sealed_candidate": {
+                "status": "evaluated",
+                "log_phi_nats": 0,
+                "matrix_log_phi_nats": 0,
+                "error_nats": 0,
+                "matrix_error_nats": 0,
+            }
+        },
+    }
+    (root / "data/rows.jsonl").write_text(json.dumps(row) + "\n")
+    item = {
+        "path": str(root),
+        "record": {"engine": engine},
+        "specification": {"config": config},
+        "result": {
+            "measurements": {
+                "cases": 1,
+                "source_unchanged": True,
+                "reference_converged_cases": 1,
+                "direct_column_nominal_passes": 1,
+            }
+        },
+    }
+    return item, pins, engine
+
+
+def test_independent_sealed_gate_requires_actual_decimal_reference_measurements(
+    sealed_independent_evidence,
+):
+    item, pins, engine = sealed_independent_evidence
+    admission.sealed_independent_kernel(item, pins, engine)
+    path = Path(item["path"]) / "data/rows.jsonl"
+    row = json.loads(path.read_text())
+    row["stores"]["sealed_candidate"]["log_phi_nats"] = 2e-11
+    # A declared pass and a forged zero residual cannot hide low-count failure.
+    path.write_text(json.dumps(row) + "\n")
+    with pytest.raises(ValueError, match="residual"):
+        admission.sealed_independent_kernel(item, pins, engine)
+
+
+@pytest.mark.parametrize(
+    "mutation", ["unavailable", "low_precision", "wrong_store", "legacy_only"]
+)
+def test_same_builder_or_incomplete_kernel_evidence_cannot_satisfy_independent_gate(
+    sealed_independent_evidence, mutation
+):
+    item, pins, engine = sealed_independent_evidence
+    root = Path(item["path"])
+    row = json.loads((root / "data/rows.jsonl").read_text())
+    if mutation == "unavailable":
+        row["stores"]["sealed_candidate"]["status"] = "unavailable"
+    elif mutation == "low_precision":
+        row["refined_reference"]["dps"] = 45
+    elif mutation == "wrong_store":
+        pins = {**pins, "manifest.json": "c" * 64}
+    else:
+        config = read_json(root / "data/config.json")
+        config["stores"] = []
+        (root / "data/config.json").write_text(json.dumps(config))
+    (root / "data/rows.jsonl").write_text(json.dumps(row) + "\n")
+    with pytest.raises(ValueError):
+        admission.sealed_independent_kernel(item, pins, engine)
+
+
+def test_cross_provider_profile_checks_actual_residuals_and_raw_mass(tmp_path):
+    import numpy as np
+
+    from lsa.alt.artifacts import sha256
+
+    (tmp_path / "data").mkdir()
+    candidate = {"store": {"format": "sealed"}}
+    legacy = {"store": {"format": "legacy", "saddle_min_depth": 54}}
+    write_json(tmp_path / "data/candidate-engine.json", candidate)
+    write_json(tmp_path / "data/legacy-engine.json", legacy)
+    case = {"id": "predictive", "predictive": True, "d": 2, "n": 2}
+    config = {"cases": [case], "loss_tolerance_bits": 1e-5, "raw_mass_tolerance": 1e-7}
+    measurements = {
+        "maximum_codelength_difference_bits_per_token": 0,
+        "mixture_codelength_difference_bits_per_token": 0,
+        "maximum_predictive_kl_change_bits": 0,
+        "mixture_predictive_kl_change_bits": 0,
+        "maximum_raw_mass_error": 0,
+        "maximum_augmented_codelength_difference_bits_per_token": 0,
+    }
+    sample = tmp_path / "data/case-000.npz"
+    np.savez_compressed(sample, counts=np.array([2, 0]), target=np.array([0.5, 0.5]))
+    result = {
+        "status": "passed",
+        "source_unchanged": True,
+        "store_unchanged": True,
+        "unavailable_cases": [],
+        "config_sha256": canonical_hash(config),
+        "candidate_configuration_sha256": canonical_hash(candidate),
+        "legacy_configuration_sha256": canonical_hash(legacy),
+        "cases": [
+            {
+                "id": "predictive",
+                "case": case,
+                "status": "passed",
+                "measurements": measurements,
+                "sample_sha256": sha256(sample),
+                "counts_sha256": canonical_hash([2, 0]),
+                "target_sha256": canonical_hash([0.5, 0.5]),
+            }
+        ],
+    }
+    admission.sealed_profile_result(tmp_path, result, config)
+    measurements["maximum_raw_mass_error"] = 2e-7
+    with pytest.raises(ValueError, match="raw mass"):
+        admission.sealed_profile_result(tmp_path, result, config)
+    config["raw_mass_tolerance"] = 1e-3
+    with pytest.raises(ValueError, match="may not relax"):
+        admission.sealed_profile_result(tmp_path, result, config)
+
+
+@pytest.fixture
+def qualified_reader_evidence(sealed_reader_evidence):
+    from decimal import Decimal
+
+    from lsa.alt.sealed_store_validation import (
+        assess_measurement,
+        finalize_measurement,
+        summarize_measurements,
+    )
+
+    root, result, specification, pins = sealed_reader_evidence
+    specification["cases"] = [{"depth": 138, "r": 1000000, "u": 80.0}]
+    cases, missing = admission._sealed_declared_cases(
+        read_json(root / "store-plan.json"), specification
+    )
+    assert not missing
+    case = cases[0]
+    reference = {
+        "case": {key: case[key] for key in ("depth", "r", "u")},
+        "input_u_hex": float(case["u"]).hex(),
+        "input_u_exact_decimal": str(Decimal.from_float(float(case["u"]))),
+        "method": "independent_mpmath_mellin",
+        "settings": {"dps": [45, 60], "tail_digits": [65, 80]},
+        "status": "complete",
+        "references": [
+            {"dps": 45, "log_phi_nats": "1000000000.00000003"},
+            {"dps": 60, "log_phi_nats": "1000000000.00000003"},
+        ],
+    }
+    measured = assess_measurement(case["r"], 1e9, 1e9, 1e9, 1e9)
+    row = {**case, **finalize_measurement(case, measured, reference)}
+    result.update(
+        **summarize_measurements([row]),
+        independent_high_precision_reference=True,
+        config_sha256=canonical_hash(specification),
+        resolved_cases_sha256=canonical_hash(cases),
+    )
+    (root / "data/config.json").write_text(json.dumps(specification))
+    (root / "data/resolved-cases.json").write_text(json.dumps(cases))
+    (root / "data/independent-reference-cases.json").write_text(json.dumps(cases))
+    (root / "data/independent-references.jsonl").write_text(
+        json.dumps(reference) + "\n"
+    )
+    (root / "data/direct-rows.jsonl").write_text(
+        json.dumps({**case, **measured}) + "\n"
+    )
+    (root / "data/rows.jsonl").write_text(json.dumps(row) + "\n")
+    (root / "data/summary.json").write_text(json.dumps(result))
+    return root, result, specification, pins
+
+
+def test_sealed_admission_accepts_separately_counted_qualified_evidence(
+    qualified_reader_evidence,
+):
+    root, result, specification, _ = qualified_reader_evidence
+    admission.sealed_store_result(root, result, specification)
+    assert result["precision_qualified_cases"] == 1
+    assert result["nominal_pass_cases"] == 0
+    assert not result["all_cases_meet_nominal_limits"]
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "missing_reference",
+        "wrong_case",
+        "five_ulps",
+        "forged_decimal_error",
+        "summary",
+        "selection",
+        "relaxed_contract",
+    ],
+)
+def test_qualified_admission_recalculates_references_and_rejects_forged_accounting(
+    qualified_reader_evidence, mutation
+):
+    import math
+
+    root, result, specification, _ = qualified_reader_evidence
+    row = json.loads((root / "data/rows.jsonl").read_text())
+    if mutation == "missing_reference":
+        del row["independent_reference"]
+    elif mutation == "wrong_case":
+        row["independent_reference"]["case"]["r"] -= 1
+    elif mutation == "five_ulps":
+        row["scalar_log_phi_nats"] += 5 * math.ulp(1e9)
+        row["matrix_log_phi_nats"] = row["scalar_log_phi_nats"]
+    elif mutation == "forged_decimal_error":
+        row["independent_assessment"]["scalar"]["true_error_decimal_nats"] = "0"
+    elif mutation == "summary":
+        result["nominal_pass_cases"] = 1
+    elif mutation == "selection":
+        (root / "data/independent-reference-cases.json").write_text("[]")
+    else:
+        specification["accuracy_contract"]["qualified_arithmetic_budget_ulps"] = 5
+    (root / "data/rows.jsonl").write_text(json.dumps(row) + "\n")
+    with pytest.raises(ValueError):
+        admission.sealed_store_result(root, result, specification)
+
+
+@pytest.fixture
+def native_independent_evidence(sealed_independent_evidence):
+    from lsa.alt.artifacts import sha256
+    from lsa.alt.sealed_native import ABI_VERSION, COMPILE_FLAGS, FORMAT, SOURCE_PATH
+
+    item, pins, engine = sealed_independent_evidence
+    engine["store"].update(
+        interpolation_backend="native",
+        native_library_path="/host/library.so",
+        native_library_sha256="c" * 64,
+    )
+    root = Path(item["path"])
+    config = read_json(root / "data/config.json")
+    config["stores"][0]["native_library"] = {
+        "path": "/host/library.so",
+        "sha256": "c" * 64,
+    }
+    (root / "data/config.json").write_text(json.dumps(config))
+    metadata = read_json(root / "data/store-inputs.json")
+    metadata[0]["native_identity"] = {
+        "format": FORMAT,
+        "abi_version": ABI_VERSION,
+        "flags": list(COMPILE_FLAGS),
+        "binary_sha256": "c" * 64,
+        "source_sha256": sha256(SOURCE_PATH),
+        "wrapper_sha256": sha256(SOURCE_PATH.with_name("sealed_native.py")),
+    }
+    (root / "data/store-inputs.json").write_text(json.dumps(metadata))
+    return item, pins, engine
+
+
+def test_native_independent_kernel_gate_binds_actual_backend(
+    native_independent_evidence,
+):
+    item, pins, engine = native_independent_evidence
+    admission.sealed_independent_kernel(item, pins, engine)
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "missing_native_metadata",
+        "source",
+        "wrapper",
+        "binary",
+        "spec_binary",
+        "python_disguised",
+    ],
+)
+def test_native_independent_gate_rejects_mismatched_provider_evidence(
+    native_independent_evidence, mutation
+):
+    item, pins, engine = native_independent_evidence
+    root = Path(item["path"])
+    metadata = read_json(root / "data/store-inputs.json")
+    if mutation == "missing_native_metadata":
+        del metadata[0]["native_identity"]
+    elif mutation in ("source", "wrapper", "binary"):
+        metadata[0]["native_identity"][mutation + "_sha256"] = "d" * 64
+    elif mutation == "spec_binary":
+        config = read_json(root / "data/config.json")
+        config["stores"][0]["native_library"]["sha256"] = "d" * 64
+        (root / "data/config.json").write_text(json.dumps(config))
+    else:
+        engine["store"].update(
+            interpolation_backend="python",
+            native_library_path=None,
+            native_library_sha256=None,
+        )
+    (root / "data/store-inputs.json").write_text(json.dumps(metadata))
+    with pytest.raises(ValueError):
+        admission.sealed_independent_kernel(item, pins, engine)
+
+
+def test_native_reader_identity_must_match_complete_chain_identity(
+    native_independent_evidence,
+):
+    item, _, engine = native_independent_evidence
+    root = Path(item["path"])
+    identity = read_json(root / "data/store-inputs.json")[0]["native_identity"]
+    engine["sealed_native_identity"] = {**identity, "compiled_compiler": "one"}
+    with pytest.raises(ValueError, match="identity"):
+        admission._validate_sealed_backend(
+            {
+                "interpolation_backend": "native",
+                "native_identity": {**identity, "compiled_compiler": "other"},
+            },
+            engine,
+        )

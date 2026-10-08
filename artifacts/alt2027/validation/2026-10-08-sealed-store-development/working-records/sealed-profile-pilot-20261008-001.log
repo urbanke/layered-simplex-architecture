@@ -1,0 +1,5 @@
+sealed profile 1/2: zipf1p5-n1000
+passed (20.061s)
+sealed profile 2/2: zipf5-n20000
+passed (13.813s)
+{"status": "passed", "cases": 2}

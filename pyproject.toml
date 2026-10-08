@@ -33,6 +33,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 lsa = ["_kernel.c"]
+"lsa.alt" = ["sealed_interp.c"]
 "lsa.alt._vendor.pmwm" = ["provenance.json", "README.md"]
 
 [tool.pytest.ini_options]

@@ -150,16 +150,8 @@ class SealedKernelTables:
     Without that mapping, all sealed file hashes are checked on opening.
     """
 
-    def __init__(self, path: str | Path, *, files_sha256: Mapping | None = None,
-                 native_interpolator=None):
+    def __init__(self, path: str | Path, *, files_sha256: Mapping | None = None):
         self.path = Path(path).resolve(strict=True)
-        self._native_interpolator = native_interpolator
-        if native_interpolator is not None:
-            from .sealed_native import NativeInterpolator
-
-            if not isinstance(native_interpolator, NativeInterpolator):
-                raise TypeError("native_interpolator must be a verified NativeInterpolator")
-            native_interpolator.check_unchanged()
         if not self.path.is_dir():
             raise SealedTableError("sealed-store path must be a directory")
         self._closed = False
@@ -256,8 +248,6 @@ class SealedKernelTables:
     def _check_open(self, L=None):
         if self._closed:
             raise SealedTableError("sealed table reader is closed")
-        if self._native_interpolator is not None:
-            self._native_interpolator.check_unchanged()
         names = ["plan.json", "manifest.json"]
         if L is not None:
             names.extend((f"level_{L:03d}.bin", f"level_{L:03d}.index.json"))
@@ -405,11 +395,6 @@ class SealedKernelTables:
         inside = ~left
         if inside.any():
             query = u[inside]
-            if self._native_interpolator is not None:
-                out[inside] = self._native_interpolator.interpolate(
-                    vals, col.u_min, self.grid_step, query
-                )
-                return out
             s = (query - col.u_min) / self.grid_step
             starts = np.clip(np.floor(s).astype(np.int64) - 3, 0, len(vals) - _STENCIL)
             indices = starts[:, None] + np.arange(_STENCIL)[None, :]

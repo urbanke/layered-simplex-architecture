@@ -1,0 +1,21 @@
+sealed reader L=2: 383 cases, 0.25s
+sealed reader L=22: 389 cases, 0.19s
+sealed reader L=53: 389 cases, 0.19s
+sealed reader L=54: 389 cases, 0.19s
+sealed reader L=80: 389 cases, 0.20s
+sealed reader L=138: 389 cases, 0.19s
+Traceback (most recent call last):
+  File "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/scripts/alt_validate_kernel_store.py", line 7, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/sealed_store_validation.py", line 523, in main
+    summary = run_sealed_store_validation(
+        store,
+    ...<5 lines>...
+        engine_path=args.engine_config,
+    )
+  File "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/sealed_store_validation.py", line 494, in run_sealed_store_validation
+    raise ArithmeticError(
+        "sealed-store calibration has failed or precision-limited declared checks"
+    )
+ArithmeticError: sealed-store calibration has failed or precision-limited declared checks

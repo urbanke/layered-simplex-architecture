@@ -1,0 +1,818 @@
+....................................................FFFFFFFFF.........   [100%]
+=================================== FAILURES ===================================
+_ test_two_process_smoke_matches_saved_samples_and_restart_is_read_only[False] _
+
+tmp_path = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_two_process_smoke_matches0')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_two_process_smoke_matches0/repo')
+split_benchmark_n = False
+
+    @pytest.mark.parametrize("split_benchmark_n", [False, True])
+    def test_two_process_smoke_matches_saved_samples_and_restart_is_read_only(
+        tmp_path, repo, split_benchmark_n
+    ):
+        specification = protocol()
+        plan = plan_for(repo, protocol=specification, split_benchmark_n=split_benchmark_n)
+        root = tmp_path / "parallel"
+>       result = distributed.work(plan, root, repo=repo, workers=2)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_alt_distributed.py:492: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plan = {'schema_version': 1, 'purpose': 'smoke', 'protocol': {'schema_version': 1, 'protocol_id': 'alt2027-smoke-v1', 'status...7-alt-start/alt.tex', ...}, 'protocol_sha256': 'f289e21c9b969125cc4e96d4fbf21a0265074cceae1c209eaaa4d7b4b1e0259a', ...}
+out = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_two_process_smoke_matches0/parallel')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_two_process_smoke_matches0/repo')
+workers = 2, worker_index = 0, worker_count = 1, host_profile = 'laptop'
+engine_config = None, power_settings = None, calibration = None
+
+    def work(
+        plan,
+        out,
+        *,
+        repo,
+        workers,
+        worker_index=0,
+        worker_count=1,
+        host_profile="laptop",
+        engine_config=None,
+        power_settings=None,
+        calibration=None,
+    ):
+        validate_plan(plan)
+        check_resources(workers, host_profile)
+        positive_integer(worker_count, "worker count")
+        if (
+            isinstance(worker_index, bool)
+            or not isinstance(worker_index, int)
+            or not 0 <= worker_index < worker_count
+        ):
+            raise ValueError("worker index is outside the worker count")
+        source = source_identity(repo)
+        if (
+            source["tree_sha256"] != plan["source_tree_sha256"]
+            or source["commit"] != plan["source_commit"]
+            or (plan["purpose"] == "production" and source["dirty"])
+        ):
+            raise ValueError("worker source differs from the plan")
+        options = read_json(engine_config) if engine_config else {"mode": "reference"}
+        powers = read_json(power_settings) if power_settings else {}
+        if (
+            canonical_hash(engine_options(options)) != plan["engine_options_sha256"]
+            or canonical_hash(power_options(powers)) != plan["power_settings_sha256"]
+        ):
+            raise ValueError("worker numerical settings differ from the plan")
+        if plan["purpose"] == "production" and not calibration:
+            raise ValueError("production worker requires parent calibration")
+        assigned = [
+            job for i, job in enumerate(plan["jobs"]) if i % worker_count == worker_index
+        ]
+        if calibration:
+            for job in assigned:
+                derive_calibration(plan, job, read_json(calibration))
+        root = Path(out).resolve()
+        root.mkdir(parents=True, exist_ok=True)
+        for name in ("jobs", "attempts", "claims", "specs", "workers"):
+            (root / name).mkdir(exist_ok=True)
+        _same_or_create(root / "plan.json", plan)
+        _same_or_create(root / "runtime.json", runtime_identity(plan))
+        parent_calibration = read_json(calibration) if calibration else None
+        _same_or_create(
+            root / "admission.json",
+            {
+                "calibration_sha256": canonical_hash(parent_calibration)
+                if calibration
+                else None,
+                "purpose": plan["purpose"],
+            },
+        )
+        if parent_calibration is not None:
+            calibration = root / "parent-calibration.json"
+            _same_or_create(calibration, parent_calibration)
+        run_id = uuid4().hex
+        record = {
+            "started_utc": utc_now(),
+            "host": socket.gethostname(),
+            "worker_index": worker_index,
+            "worker_count": worker_count,
+            "processes": workers,
+            "plan_sha256": canonical_hash(plan),
+            "assigned_jobs": [job["id"] for job in assigned],
+        }
+        write_json(root / "workers" / f"{run_id}-started.json", record)
+        results, failures = [], []
+        queue = iter(assigned)
+        with ProcessPoolExecutor(max_workers=workers) as pool:
+            pending = {}
+    
+            def submit():
+                job = next(queue, None)
+                if job is not None:
+                    future = pool.submit(
+                        _execute_job,
+                        plan,
+                        job,
+                        root,
+                        repo,
+                        engine_config,
+                        power_settings,
+                        calibration,
+                    )
+                    pending[future] = job["id"]
+                return job is not None
+    
+            for _ in range(workers):
+                if not submit():
+                    break
+            while pending:
+                done, _ = wait(pending, return_when=FIRST_COMPLETED)
+                for future in done:
+                    job_id = pending.pop(future)
+                    try:
+                        results.append(future.result())
+                    except Exception as error:  # noqa: BLE001 -- persist every worker failure
+                        failures.append(
+                            {
+                                "id": job_id,
+                                "type": type(error).__name__,
+                                "message": str(error),
+                            }
+                        )
+                if not failures:
+                    for _ in done:
+                        submit()
+        record.update(
+            finished_utc=utc_now(),
+            results=results,
+            failures=failures,
+            status="failed" if failures else "complete",
+        )
+        write_json(root / "workers" / f"{run_id}-finished.json", record)
+        if failures:
+>           raise RuntimeError(
+                f"{len(failures)} job(s) failed; inspect immutable worker and attempt records"
+            )
+E           RuntimeError: 2 job(s) failed; inspect immutable worker and attempt records
+
+src/lsa/alt/distributed.py:603: RuntimeError
+_ test_two_process_smoke_matches_saved_samples_and_restart_is_read_only[True] __
+
+tmp_path = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_two_process_smoke_matches1')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_two_process_smoke_matches1/repo')
+split_benchmark_n = True
+
+    @pytest.mark.parametrize("split_benchmark_n", [False, True])
+    def test_two_process_smoke_matches_saved_samples_and_restart_is_read_only(
+        tmp_path, repo, split_benchmark_n
+    ):
+        specification = protocol()
+        plan = plan_for(repo, protocol=specification, split_benchmark_n=split_benchmark_n)
+        root = tmp_path / "parallel"
+>       result = distributed.work(plan, root, repo=repo, workers=2)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_alt_distributed.py:492: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plan = {'schema_version': 1, 'purpose': 'smoke', 'protocol': {'schema_version': 1, 'protocol_id': 'alt2027-smoke-v1', 'status...7-alt-start/alt.tex', ...}, 'protocol_sha256': 'f289e21c9b969125cc4e96d4fbf21a0265074cceae1c209eaaa4d7b4b1e0259a', ...}
+out = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_two_process_smoke_matches1/parallel')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_two_process_smoke_matches1/repo')
+workers = 2, worker_index = 0, worker_count = 1, host_profile = 'laptop'
+engine_config = None, power_settings = None, calibration = None
+
+    def work(
+        plan,
+        out,
+        *,
+        repo,
+        workers,
+        worker_index=0,
+        worker_count=1,
+        host_profile="laptop",
+        engine_config=None,
+        power_settings=None,
+        calibration=None,
+    ):
+        validate_plan(plan)
+        check_resources(workers, host_profile)
+        positive_integer(worker_count, "worker count")
+        if (
+            isinstance(worker_index, bool)
+            or not isinstance(worker_index, int)
+            or not 0 <= worker_index < worker_count
+        ):
+            raise ValueError("worker index is outside the worker count")
+        source = source_identity(repo)
+        if (
+            source["tree_sha256"] != plan["source_tree_sha256"]
+            or source["commit"] != plan["source_commit"]
+            or (plan["purpose"] == "production" and source["dirty"])
+        ):
+            raise ValueError("worker source differs from the plan")
+        options = read_json(engine_config) if engine_config else {"mode": "reference"}
+        powers = read_json(power_settings) if power_settings else {}
+        if (
+            canonical_hash(engine_options(options)) != plan["engine_options_sha256"]
+            or canonical_hash(power_options(powers)) != plan["power_settings_sha256"]
+        ):
+            raise ValueError("worker numerical settings differ from the plan")
+        if plan["purpose"] == "production" and not calibration:
+            raise ValueError("production worker requires parent calibration")
+        assigned = [
+            job for i, job in enumerate(plan["jobs"]) if i % worker_count == worker_index
+        ]
+        if calibration:
+            for job in assigned:
+                derive_calibration(plan, job, read_json(calibration))
+        root = Path(out).resolve()
+        root.mkdir(parents=True, exist_ok=True)
+        for name in ("jobs", "attempts", "claims", "specs", "workers"):
+            (root / name).mkdir(exist_ok=True)
+        _same_or_create(root / "plan.json", plan)
+        _same_or_create(root / "runtime.json", runtime_identity(plan))
+        parent_calibration = read_json(calibration) if calibration else None
+        _same_or_create(
+            root / "admission.json",
+            {
+                "calibration_sha256": canonical_hash(parent_calibration)
+                if calibration
+                else None,
+                "purpose": plan["purpose"],
+            },
+        )
+        if parent_calibration is not None:
+            calibration = root / "parent-calibration.json"
+            _same_or_create(calibration, parent_calibration)
+        run_id = uuid4().hex
+        record = {
+            "started_utc": utc_now(),
+            "host": socket.gethostname(),
+            "worker_index": worker_index,
+            "worker_count": worker_count,
+            "processes": workers,
+            "plan_sha256": canonical_hash(plan),
+            "assigned_jobs": [job["id"] for job in assigned],
+        }
+        write_json(root / "workers" / f"{run_id}-started.json", record)
+        results, failures = [], []
+        queue = iter(assigned)
+        with ProcessPoolExecutor(max_workers=workers) as pool:
+            pending = {}
+    
+            def submit():
+                job = next(queue, None)
+                if job is not None:
+                    future = pool.submit(
+                        _execute_job,
+                        plan,
+                        job,
+                        root,
+                        repo,
+                        engine_config,
+                        power_settings,
+                        calibration,
+                    )
+                    pending[future] = job["id"]
+                return job is not None
+    
+            for _ in range(workers):
+                if not submit():
+                    break
+            while pending:
+                done, _ = wait(pending, return_when=FIRST_COMPLETED)
+                for future in done:
+                    job_id = pending.pop(future)
+                    try:
+                        results.append(future.result())
+                    except Exception as error:  # noqa: BLE001 -- persist every worker failure
+                        failures.append(
+                            {
+                                "id": job_id,
+                                "type": type(error).__name__,
+                                "message": str(error),
+                            }
+                        )
+                if not failures:
+                    for _ in done:
+                        submit()
+        record.update(
+            finished_utc=utc_now(),
+            results=results,
+            failures=failures,
+            status="failed" if failures else "complete",
+        )
+        write_json(root / "workers" / f"{run_id}-finished.json", record)
+        if failures:
+>           raise RuntimeError(
+                f"{len(failures)} job(s) failed; inspect immutable worker and attempt records"
+            )
+E           RuntimeError: 2 job(s) failed; inspect immutable worker and attempt records
+
+src/lsa/alt/distributed.py:603: RuntimeError
+__ test_restart_rejects_corrupted_existing_job_without_overwriting[raw_bytes] __
+
+tmp_path = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted0')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted0/repo')
+mutation = 'raw_bytes'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "raw_bytes",
+            "engine_settings",
+            "batch_settings",
+            "source",
+            "depth_runtime",
+            "run_runtime",
+        ],
+    )
+    def test_restart_rejects_corrupted_existing_job_without_overwriting(
+        tmp_path, repo, mutation
+    ):
+        plan = plan_for(repo)
+        root = work_root(tmp_path / "runs")
+        job = plan["jobs"][0]
+>       distributed._execute_job(plan, job, root, repo, None, None, None)
+
+tests/test_alt_distributed.py:564: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lsa/alt/distributed.py:429: in _execute_job
+    record = _verify_job(plan, job, attempt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lsa/alt/distributed.py:379: in _verify_job
+    validate_record_engine(plan, job["experiment"], record["engine"], runtime=runtime)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plan = {'schema_version': 1, 'purpose': 'smoke', 'protocol': {'schema_version': 1, 'protocol_id': 'alt2027-smoke-v1', 'status...7-alt-start/alt.tex', ...}, 'protocol_sha256': 'f289e21c9b969125cc4e96d4fbf21a0265074cceae1c209eaaa4d7b4b1e0259a', ...}
+experiment = 'benchmark_primary'
+engine = {'depth': {'depth_truncation': False, 'implementation_sha256': '779403365a1000fc254037435700eea8865a5de27d79fb38639800...: {'batch_implementation_sha256': '1f8a6f471b75cac3b9231cf3a1a865531c9d27456475b9f8b74670c5be4acd80', 'batch_size': 2}}
+runtime = {'python': '3.14.6', 'system': 'Darwin', 'machine': 'arm64', 'numpy': '2.5.1', ...}
+
+    def validate_record_engine(plan, experiment, engine, *, runtime=None):
+        """Check scientific settings again when resuming or collecting saved jobs."""
+        has_depth = experiment not in ("architecture", "bible_secondary")
+        if not isinstance(engine, dict):
+            raise ValueError("missing saved engine identity")  # noqa: TRY004
+        expected_keys = {"depth"}
+        depth = engine.get("depth")
+        if has_depth:
+            if not isinstance(depth, dict):
+                raise ValueError("saved engine lacks depth configuration")
+            options = {key: depth[key] for key in ("mode", "store", "prediction_tolerance")}
+            if options["store"] is not None:
+                options["store"] = {**options["store"], "path": "/host-local-store"}
+            if canonical_hash(engine_options(options)) != plan["engine_options_sha256"]:
+                raise ValueError("saved depth engine differs from plan settings")
+            vendor = Path(__file__).parent / "_vendor" / "pmwm"
+            expected = {
+                "implementation_sha256": sha256(Path(__file__).with_name("depth.py")),
+                "vendor_provenance_sha256": sha256(vendor / "provenance.json"),
+                "vendor_source_sha256": {
+                    p.name: sha256(p) for p in sorted(vendor.glob("*.py"))
+                },
+                "native_kernel": False,
+                "depth_truncation": False,
+            }
+>           if depth.get("store", {}).get("format") == "sealed":
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src/lsa/alt/distributed.py:321: AttributeError
+_ test_restart_rejects_corrupted_existing_job_without_overwriting[engine_settings] _
+
+tmp_path = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted1')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted1/repo')
+mutation = 'engine_settings'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "raw_bytes",
+            "engine_settings",
+            "batch_settings",
+            "source",
+            "depth_runtime",
+            "run_runtime",
+        ],
+    )
+    def test_restart_rejects_corrupted_existing_job_without_overwriting(
+        tmp_path, repo, mutation
+    ):
+        plan = plan_for(repo)
+        root = work_root(tmp_path / "runs")
+        job = plan["jobs"][0]
+>       distributed._execute_job(plan, job, root, repo, None, None, None)
+
+tests/test_alt_distributed.py:564: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lsa/alt/distributed.py:429: in _execute_job
+    record = _verify_job(plan, job, attempt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lsa/alt/distributed.py:379: in _verify_job
+    validate_record_engine(plan, job["experiment"], record["engine"], runtime=runtime)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plan = {'schema_version': 1, 'purpose': 'smoke', 'protocol': {'schema_version': 1, 'protocol_id': 'alt2027-smoke-v1', 'status...7-alt-start/alt.tex', ...}, 'protocol_sha256': 'f289e21c9b969125cc4e96d4fbf21a0265074cceae1c209eaaa4d7b4b1e0259a', ...}
+experiment = 'benchmark_primary'
+engine = {'depth': {'depth_truncation': False, 'implementation_sha256': '779403365a1000fc254037435700eea8865a5de27d79fb38639800...: {'batch_implementation_sha256': '1f8a6f471b75cac3b9231cf3a1a865531c9d27456475b9f8b74670c5be4acd80', 'batch_size': 2}}
+runtime = {'python': '3.14.6', 'system': 'Darwin', 'machine': 'arm64', 'numpy': '2.5.1', ...}
+
+    def validate_record_engine(plan, experiment, engine, *, runtime=None):
+        """Check scientific settings again when resuming or collecting saved jobs."""
+        has_depth = experiment not in ("architecture", "bible_secondary")
+        if not isinstance(engine, dict):
+            raise ValueError("missing saved engine identity")  # noqa: TRY004
+        expected_keys = {"depth"}
+        depth = engine.get("depth")
+        if has_depth:
+            if not isinstance(depth, dict):
+                raise ValueError("saved engine lacks depth configuration")
+            options = {key: depth[key] for key in ("mode", "store", "prediction_tolerance")}
+            if options["store"] is not None:
+                options["store"] = {**options["store"], "path": "/host-local-store"}
+            if canonical_hash(engine_options(options)) != plan["engine_options_sha256"]:
+                raise ValueError("saved depth engine differs from plan settings")
+            vendor = Path(__file__).parent / "_vendor" / "pmwm"
+            expected = {
+                "implementation_sha256": sha256(Path(__file__).with_name("depth.py")),
+                "vendor_provenance_sha256": sha256(vendor / "provenance.json"),
+                "vendor_source_sha256": {
+                    p.name: sha256(p) for p in sorted(vendor.glob("*.py"))
+                },
+                "native_kernel": False,
+                "depth_truncation": False,
+            }
+>           if depth.get("store", {}).get("format") == "sealed":
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src/lsa/alt/distributed.py:321: AttributeError
+_ test_restart_rejects_corrupted_existing_job_without_overwriting[batch_settings] _
+
+tmp_path = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted2')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted2/repo')
+mutation = 'batch_settings'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "raw_bytes",
+            "engine_settings",
+            "batch_settings",
+            "source",
+            "depth_runtime",
+            "run_runtime",
+        ],
+    )
+    def test_restart_rejects_corrupted_existing_job_without_overwriting(
+        tmp_path, repo, mutation
+    ):
+        plan = plan_for(repo)
+        root = work_root(tmp_path / "runs")
+        job = plan["jobs"][0]
+>       distributed._execute_job(plan, job, root, repo, None, None, None)
+
+tests/test_alt_distributed.py:564: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lsa/alt/distributed.py:429: in _execute_job
+    record = _verify_job(plan, job, attempt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lsa/alt/distributed.py:379: in _verify_job
+    validate_record_engine(plan, job["experiment"], record["engine"], runtime=runtime)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plan = {'schema_version': 1, 'purpose': 'smoke', 'protocol': {'schema_version': 1, 'protocol_id': 'alt2027-smoke-v1', 'status...7-alt-start/alt.tex', ...}, 'protocol_sha256': 'f289e21c9b969125cc4e96d4fbf21a0265074cceae1c209eaaa4d7b4b1e0259a', ...}
+experiment = 'benchmark_primary'
+engine = {'depth': {'depth_truncation': False, 'implementation_sha256': '779403365a1000fc254037435700eea8865a5de27d79fb38639800...: {'batch_implementation_sha256': '1f8a6f471b75cac3b9231cf3a1a865531c9d27456475b9f8b74670c5be4acd80', 'batch_size': 2}}
+runtime = {'python': '3.14.6', 'system': 'Darwin', 'machine': 'arm64', 'numpy': '2.5.1', ...}
+
+    def validate_record_engine(plan, experiment, engine, *, runtime=None):
+        """Check scientific settings again when resuming or collecting saved jobs."""
+        has_depth = experiment not in ("architecture", "bible_secondary")
+        if not isinstance(engine, dict):
+            raise ValueError("missing saved engine identity")  # noqa: TRY004
+        expected_keys = {"depth"}
+        depth = engine.get("depth")
+        if has_depth:
+            if not isinstance(depth, dict):
+                raise ValueError("saved engine lacks depth configuration")
+            options = {key: depth[key] for key in ("mode", "store", "prediction_tolerance")}
+            if options["store"] is not None:
+                options["store"] = {**options["store"], "path": "/host-local-store"}
+            if canonical_hash(engine_options(options)) != plan["engine_options_sha256"]:
+                raise ValueError("saved depth engine differs from plan settings")
+            vendor = Path(__file__).parent / "_vendor" / "pmwm"
+            expected = {
+                "implementation_sha256": sha256(Path(__file__).with_name("depth.py")),
+                "vendor_provenance_sha256": sha256(vendor / "provenance.json"),
+                "vendor_source_sha256": {
+                    p.name: sha256(p) for p in sorted(vendor.glob("*.py"))
+                },
+                "native_kernel": False,
+                "depth_truncation": False,
+            }
+>           if depth.get("store", {}).get("format") == "sealed":
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src/lsa/alt/distributed.py:321: AttributeError
+___ test_restart_rejects_corrupted_existing_job_without_overwriting[source] ____
+
+tmp_path = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted3')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted3/repo')
+mutation = 'source'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "raw_bytes",
+            "engine_settings",
+            "batch_settings",
+            "source",
+            "depth_runtime",
+            "run_runtime",
+        ],
+    )
+    def test_restart_rejects_corrupted_existing_job_without_overwriting(
+        tmp_path, repo, mutation
+    ):
+        plan = plan_for(repo)
+        root = work_root(tmp_path / "runs")
+        job = plan["jobs"][0]
+>       distributed._execute_job(plan, job, root, repo, None, None, None)
+
+tests/test_alt_distributed.py:564: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lsa/alt/distributed.py:429: in _execute_job
+    record = _verify_job(plan, job, attempt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lsa/alt/distributed.py:379: in _verify_job
+    validate_record_engine(plan, job["experiment"], record["engine"], runtime=runtime)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plan = {'schema_version': 1, 'purpose': 'smoke', 'protocol': {'schema_version': 1, 'protocol_id': 'alt2027-smoke-v1', 'status...7-alt-start/alt.tex', ...}, 'protocol_sha256': 'f289e21c9b969125cc4e96d4fbf21a0265074cceae1c209eaaa4d7b4b1e0259a', ...}
+experiment = 'benchmark_primary'
+engine = {'depth': {'depth_truncation': False, 'implementation_sha256': '779403365a1000fc254037435700eea8865a5de27d79fb38639800...: {'batch_implementation_sha256': '1f8a6f471b75cac3b9231cf3a1a865531c9d27456475b9f8b74670c5be4acd80', 'batch_size': 2}}
+runtime = {'python': '3.14.6', 'system': 'Darwin', 'machine': 'arm64', 'numpy': '2.5.1', ...}
+
+    def validate_record_engine(plan, experiment, engine, *, runtime=None):
+        """Check scientific settings again when resuming or collecting saved jobs."""
+        has_depth = experiment not in ("architecture", "bible_secondary")
+        if not isinstance(engine, dict):
+            raise ValueError("missing saved engine identity")  # noqa: TRY004
+        expected_keys = {"depth"}
+        depth = engine.get("depth")
+        if has_depth:
+            if not isinstance(depth, dict):
+                raise ValueError("saved engine lacks depth configuration")
+            options = {key: depth[key] for key in ("mode", "store", "prediction_tolerance")}
+            if options["store"] is not None:
+                options["store"] = {**options["store"], "path": "/host-local-store"}
+            if canonical_hash(engine_options(options)) != plan["engine_options_sha256"]:
+                raise ValueError("saved depth engine differs from plan settings")
+            vendor = Path(__file__).parent / "_vendor" / "pmwm"
+            expected = {
+                "implementation_sha256": sha256(Path(__file__).with_name("depth.py")),
+                "vendor_provenance_sha256": sha256(vendor / "provenance.json"),
+                "vendor_source_sha256": {
+                    p.name: sha256(p) for p in sorted(vendor.glob("*.py"))
+                },
+                "native_kernel": False,
+                "depth_truncation": False,
+            }
+>           if depth.get("store", {}).get("format") == "sealed":
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src/lsa/alt/distributed.py:321: AttributeError
+_ test_restart_rejects_corrupted_existing_job_without_overwriting[depth_runtime] _
+
+tmp_path = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted4')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted4/repo')
+mutation = 'depth_runtime'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "raw_bytes",
+            "engine_settings",
+            "batch_settings",
+            "source",
+            "depth_runtime",
+            "run_runtime",
+        ],
+    )
+    def test_restart_rejects_corrupted_existing_job_without_overwriting(
+        tmp_path, repo, mutation
+    ):
+        plan = plan_for(repo)
+        root = work_root(tmp_path / "runs")
+        job = plan["jobs"][0]
+>       distributed._execute_job(plan, job, root, repo, None, None, None)
+
+tests/test_alt_distributed.py:564: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lsa/alt/distributed.py:429: in _execute_job
+    record = _verify_job(plan, job, attempt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lsa/alt/distributed.py:379: in _verify_job
+    validate_record_engine(plan, job["experiment"], record["engine"], runtime=runtime)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plan = {'schema_version': 1, 'purpose': 'smoke', 'protocol': {'schema_version': 1, 'protocol_id': 'alt2027-smoke-v1', 'status...7-alt-start/alt.tex', ...}, 'protocol_sha256': 'f289e21c9b969125cc4e96d4fbf21a0265074cceae1c209eaaa4d7b4b1e0259a', ...}
+experiment = 'benchmark_primary'
+engine = {'depth': {'depth_truncation': False, 'implementation_sha256': '779403365a1000fc254037435700eea8865a5de27d79fb38639800...: {'batch_implementation_sha256': '1f8a6f471b75cac3b9231cf3a1a865531c9d27456475b9f8b74670c5be4acd80', 'batch_size': 2}}
+runtime = {'python': '3.14.6', 'system': 'Darwin', 'machine': 'arm64', 'numpy': '2.5.1', ...}
+
+    def validate_record_engine(plan, experiment, engine, *, runtime=None):
+        """Check scientific settings again when resuming or collecting saved jobs."""
+        has_depth = experiment not in ("architecture", "bible_secondary")
+        if not isinstance(engine, dict):
+            raise ValueError("missing saved engine identity")  # noqa: TRY004
+        expected_keys = {"depth"}
+        depth = engine.get("depth")
+        if has_depth:
+            if not isinstance(depth, dict):
+                raise ValueError("saved engine lacks depth configuration")
+            options = {key: depth[key] for key in ("mode", "store", "prediction_tolerance")}
+            if options["store"] is not None:
+                options["store"] = {**options["store"], "path": "/host-local-store"}
+            if canonical_hash(engine_options(options)) != plan["engine_options_sha256"]:
+                raise ValueError("saved depth engine differs from plan settings")
+            vendor = Path(__file__).parent / "_vendor" / "pmwm"
+            expected = {
+                "implementation_sha256": sha256(Path(__file__).with_name("depth.py")),
+                "vendor_provenance_sha256": sha256(vendor / "provenance.json"),
+                "vendor_source_sha256": {
+                    p.name: sha256(p) for p in sorted(vendor.glob("*.py"))
+                },
+                "native_kernel": False,
+                "depth_truncation": False,
+            }
+>           if depth.get("store", {}).get("format") == "sealed":
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src/lsa/alt/distributed.py:321: AttributeError
+_ test_restart_rejects_corrupted_existing_job_without_overwriting[run_runtime] _
+
+tmp_path = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted5')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_restart_rejects_corrupted5/repo')
+mutation = 'run_runtime'
+
+    @pytest.mark.parametrize(
+        "mutation",
+        [
+            "raw_bytes",
+            "engine_settings",
+            "batch_settings",
+            "source",
+            "depth_runtime",
+            "run_runtime",
+        ],
+    )
+    def test_restart_rejects_corrupted_existing_job_without_overwriting(
+        tmp_path, repo, mutation
+    ):
+        plan = plan_for(repo)
+        root = work_root(tmp_path / "runs")
+        job = plan["jobs"][0]
+>       distributed._execute_job(plan, job, root, repo, None, None, None)
+
+tests/test_alt_distributed.py:564: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lsa/alt/distributed.py:429: in _execute_job
+    record = _verify_job(plan, job, attempt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lsa/alt/distributed.py:379: in _verify_job
+    validate_record_engine(plan, job["experiment"], record["engine"], runtime=runtime)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plan = {'schema_version': 1, 'purpose': 'smoke', 'protocol': {'schema_version': 1, 'protocol_id': 'alt2027-smoke-v1', 'status...7-alt-start/alt.tex', ...}, 'protocol_sha256': 'f289e21c9b969125cc4e96d4fbf21a0265074cceae1c209eaaa4d7b4b1e0259a', ...}
+experiment = 'benchmark_primary'
+engine = {'depth': {'depth_truncation': False, 'implementation_sha256': '779403365a1000fc254037435700eea8865a5de27d79fb38639800...: {'batch_implementation_sha256': '1f8a6f471b75cac3b9231cf3a1a865531c9d27456475b9f8b74670c5be4acd80', 'batch_size': 2}}
+runtime = {'python': '3.14.6', 'system': 'Darwin', 'machine': 'arm64', 'numpy': '2.5.1', ...}
+
+    def validate_record_engine(plan, experiment, engine, *, runtime=None):
+        """Check scientific settings again when resuming or collecting saved jobs."""
+        has_depth = experiment not in ("architecture", "bible_secondary")
+        if not isinstance(engine, dict):
+            raise ValueError("missing saved engine identity")  # noqa: TRY004
+        expected_keys = {"depth"}
+        depth = engine.get("depth")
+        if has_depth:
+            if not isinstance(depth, dict):
+                raise ValueError("saved engine lacks depth configuration")
+            options = {key: depth[key] for key in ("mode", "store", "prediction_tolerance")}
+            if options["store"] is not None:
+                options["store"] = {**options["store"], "path": "/host-local-store"}
+            if canonical_hash(engine_options(options)) != plan["engine_options_sha256"]:
+                raise ValueError("saved depth engine differs from plan settings")
+            vendor = Path(__file__).parent / "_vendor" / "pmwm"
+            expected = {
+                "implementation_sha256": sha256(Path(__file__).with_name("depth.py")),
+                "vendor_provenance_sha256": sha256(vendor / "provenance.json"),
+                "vendor_source_sha256": {
+                    p.name: sha256(p) for p in sorted(vendor.glob("*.py"))
+                },
+                "native_kernel": False,
+                "depth_truncation": False,
+            }
+>           if depth.get("store", {}).get("format") == "sealed":
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src/lsa/alt/distributed.py:321: AttributeError
+______ test_failed_attempt_survives_successful_retry_and_lock_is_released ______
+
+tmp_path = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_failed_attempt_survives_s0')
+repo = PosixPath('/private/var/folders/y3/sk_bbsxn5dq9w6sy0bl5nr5m0000gq/T/pytest-of-ruediger/pytest-108/test_failed_attempt_survives_s0/repo')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10d3cfaf0>
+
+    def test_failed_attempt_survives_successful_retry_and_lock_is_released(
+        tmp_path, repo, monkeypatch
+    ):
+        plan = plan_for(repo)
+        job = plan["jobs"][0]
+        root = work_root(tmp_path / "runs")
+        real_run_one = cli.run_one
+    
+        def fail_with_diagnostic(name, local_protocol, args, directory):
+            with Run(
+                directory,
+                repo=args.repo,
+                protocol=local_protocol,
+                experiment=name,
+                purpose=args.purpose,
+            ) as run:
+                write_json(
+                    run.path / "diagnostic.json", {"failure": "injected numerical check"}
+                )
+                raise ArithmeticError("injected numerical check")
+    
+        monkeypatch.setattr(cli, "run_one", fail_with_diagnostic)
+        with pytest.raises(ArithmeticError, match="injected numerical check"):
+            distributed._execute_job(plan, job, root, repo, None, None, None)
+        attempts = list((root / "attempts").iterdir())
+        assert len(attempts) == 1
+        assert verify_run(attempts[0], require_complete=False)["status"] == "failed"
+        assert not (root / "jobs" / job["id"]).exists()
+        saved = snapshot(attempts[0])
+        monkeypatch.setattr(cli, "run_one", real_run_one)
+>       result = distributed._execute_job(plan, job, root, repo, None, None, None)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_alt_distributed.py:619: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lsa/alt/distributed.py:429: in _execute_job
+    record = _verify_job(plan, job, attempt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lsa/alt/distributed.py:379: in _verify_job
+    validate_record_engine(plan, job["experiment"], record["engine"], runtime=runtime)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+plan = {'schema_version': 1, 'purpose': 'smoke', 'protocol': {'schema_version': 1, 'protocol_id': 'alt2027-smoke-v1', 'status...7-alt-start/alt.tex', ...}, 'protocol_sha256': 'f289e21c9b969125cc4e96d4fbf21a0265074cceae1c209eaaa4d7b4b1e0259a', ...}
+experiment = 'benchmark_primary'
+engine = {'depth': {'depth_truncation': False, 'implementation_sha256': '779403365a1000fc254037435700eea8865a5de27d79fb38639800...: {'batch_implementation_sha256': '1f8a6f471b75cac3b9231cf3a1a865531c9d27456475b9f8b74670c5be4acd80', 'batch_size': 2}}
+runtime = {'python': '3.14.6', 'system': 'Darwin', 'machine': 'arm64', 'numpy': '2.5.1', ...}
+
+    def validate_record_engine(plan, experiment, engine, *, runtime=None):
+        """Check scientific settings again when resuming or collecting saved jobs."""
+        has_depth = experiment not in ("architecture", "bible_secondary")
+        if not isinstance(engine, dict):
+            raise ValueError("missing saved engine identity")  # noqa: TRY004
+        expected_keys = {"depth"}
+        depth = engine.get("depth")
+        if has_depth:
+            if not isinstance(depth, dict):
+                raise ValueError("saved engine lacks depth configuration")
+            options = {key: depth[key] for key in ("mode", "store", "prediction_tolerance")}
+            if options["store"] is not None:
+                options["store"] = {**options["store"], "path": "/host-local-store"}
+            if canonical_hash(engine_options(options)) != plan["engine_options_sha256"]:
+                raise ValueError("saved depth engine differs from plan settings")
+            vendor = Path(__file__).parent / "_vendor" / "pmwm"
+            expected = {
+                "implementation_sha256": sha256(Path(__file__).with_name("depth.py")),
+                "vendor_provenance_sha256": sha256(vendor / "provenance.json"),
+                "vendor_source_sha256": {
+                    p.name: sha256(p) for p in sorted(vendor.glob("*.py"))
+                },
+                "native_kernel": False,
+                "depth_truncation": False,
+            }
+>           if depth.get("store", {}).get("format") == "sealed":
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src/lsa/alt/distributed.py:321: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_alt_distributed.py::test_two_process_smoke_matches_saved_samples_and_restart_is_read_only[False]
+FAILED tests/test_alt_distributed.py::test_two_process_smoke_matches_saved_samples_and_restart_is_read_only[True]
+FAILED tests/test_alt_distributed.py::test_restart_rejects_corrupted_existing_job_without_overwriting[raw_bytes]
+FAILED tests/test_alt_distributed.py::test_restart_rejects_corrupted_existing_job_without_overwriting[engine_settings]
+FAILED tests/test_alt_distributed.py::test_restart_rejects_corrupted_existing_job_without_overwriting[batch_settings]
+FAILED tests/test_alt_distributed.py::test_restart_rejects_corrupted_existing_job_without_overwriting[source]
+FAILED tests/test_alt_distributed.py::test_restart_rejects_corrupted_existing_job_without_overwriting[depth_runtime]
+FAILED tests/test_alt_distributed.py::test_restart_rejects_corrupted_existing_job_without_overwriting[run_runtime]
+FAILED tests/test_alt_distributed.py::test_failed_attempt_survives_successful_retry_and_lock_is_released
+9 failed, 61 passed in 15.72s

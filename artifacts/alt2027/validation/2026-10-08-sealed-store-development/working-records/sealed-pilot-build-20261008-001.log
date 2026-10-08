@@ -1,0 +1,7 @@
+{"completed_level": 22, "seconds": 32.25503812497482, "bytes": 40860192}
+{"completed_level": 2, "seconds": 51.9488850000198, "bytes": 22504032}
+{"completed_level": 53, "seconds": 54.967802083003335, "bytes": 69312560}
+{"completed_level": 54, "seconds": 55.49675541702891, "bytes": 70230280}
+{"completed_level": 80, "seconds": 72.2829958749935, "bytes": 94093464}
+{"completed_level": 138, "seconds": 109.96776858298108, "bytes": 147326760}
+{"built_levels": [2, 22, 53, 54, 80, 138], "completed_levels": [2, 22, 53, 54, 80, 138], "format": "lsa-sealed-kernels-v1", "pending_levels": [], "plan_sha256": "ce34b645f00e6055a94e6f5f0e987422d3b277024cf7cadabd3ca56b9feab6f9", "resumed_levels": [], "sealed": true, "workers": 6}

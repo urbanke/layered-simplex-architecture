@@ -122,6 +122,9 @@ class StoreConfig:
     minimum_right_gap: float = 30.0
     series_tail_nats: float | None = None
     format: str = "legacy"
+    interpolation_backend: str = "python"
+    native_library_path: str | None = None
+    native_library_sha256: str | None = None
 
     def __post_init__(self):
         for name in ("max_depth", "max_d", "max_n", "max_count"):
@@ -132,6 +135,17 @@ class StoreConfig:
             _integer(self.saddle_min_depth, "saddle_min_depth", 2)
         if self.format not in ("legacy", "sealed"):
             raise ValueError("store format must be legacy or sealed")
+        if self.interpolation_backend not in ("python", "native"):
+            raise ValueError("interpolation_backend must be python or native")
+        if self.interpolation_backend == "native":
+            if self.format != "sealed" or not self.native_library_path:
+                raise ValueError("native interpolation requires a sealed store and explicit library")
+            digest = self.native_library_sha256
+            if (not isinstance(digest, str) or len(digest) != 64
+                    or any(c not in "0123456789abcdef" for c in digest)):
+                raise ValueError("native interpolation requires an explicit library SHA256")
+        elif self.native_library_path is not None or self.native_library_sha256 is not None:
+            raise ValueError("native library settings require interpolation_backend=native")
         if self.format == "sealed" and self.saddle_min_depth is not None:
             raise ValueError("sealed stores require saddle_min_depth=None")
         if self.format == "sealed" and (self.ladder_every != 1 or self.ladder_degree != 11):
@@ -245,12 +259,15 @@ class DepthEvaluator:
         self.prediction_tolerance = float(prediction_tolerance)
         self.purpose = purpose
         self._store = None
+        self._native = None
         self._fingerprints = {}
         self._reference_cache = {}
         config = None if store is None else asdict(store)
         if config is not None:
             config.pop("path")  # store identity is portable and content-based
             config["files_sha256"] = dict(store.files_sha256)
+            if store.native_library_path is not None:
+                config["native_library_path"] = "/host-local-native"
         vendor = Path(__file__).parent / "_vendor" / "pmwm" / "provenance.json"
         self.configuration = {
             "mode": mode,
@@ -275,6 +292,13 @@ class DepthEvaluator:
             self.configuration["sealed_provider_sha256"] = _hash_file(
                 Path(__file__).with_name("sealed_tables.py")
             )
+            if store.interpolation_backend == "native":
+                from .sealed_native import NativeInterpolator
+
+                self._native = NativeInterpolator(
+                    store.native_library_path, store.native_library_sha256
+                )
+                self.configuration["sealed_native_identity"] = self._native.identity
         self.configuration_sha256 = _json_hash(self.configuration)
         self.production_ready = bool(
             mode == "store"
@@ -333,7 +357,9 @@ class DepthEvaluator:
         if config.format == "sealed":
             from .sealed_tables import SealedKernelTables
 
-            self._store = SealedKernelTables(path, files_sha256=hashes)
+            self._store = SealedKernelTables(
+                path, files_sha256=hashes, native_interpolator=self._native
+            )
             try:
                 if config.max_depth not in self._store.coverage_depths:
                     raise UnsupportedDomain("sealed store does not cover max_depth")
@@ -365,6 +391,8 @@ class DepthEvaluator:
         return s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns
 
     def _check_store_unchanged(self):
+        if self._native is not None:
+            self._native.check_unchanged()
         for path, expected in self._fingerprints.items():
             if self._stat(path) != expected:
                 raise NumericalError(

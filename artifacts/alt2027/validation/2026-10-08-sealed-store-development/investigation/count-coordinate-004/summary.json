@@ -1,0 +1,718 @@
+{
+  "source": "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/output/alt2027/sealed-pilot-validation-20261008-001/data/rows.jsonl",
+  "source_sha256": "0917a0109b7e39c21c18685e341dc3e13802b6d1c28d67ecf20505e4a5e473ab",
+  "seconds": 0.4801454590051435,
+  "variants": {
+    "aligned/gamma-residual/log-balanced/degree11": {
+      "all": {
+        "cases": 2112,
+        "over_3e9": 182,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": -7.152557373046875e-07,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1368,
+        "over_3e9": 182,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": -7.152557373046875e-07,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1022,
+        "over_3e9": 145,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": 5.187466740608215e-07,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1200,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": -2.3283064365386963e-10,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 670,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -4.013,
+          "case_id": "sealed-02143",
+          "exact_anchor": false,
+          "error_nats": -9.094947017729282e-11,
+          "reference_nats": 9892.628030390802,
+          "reference_ulp_nats": 1.8189894035458565e-12,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1682,
+        "over_3e9": 77,
+        "worst": {
+          "variant": "aligned/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": 10.007,
+          "case_id": "sealed-02256",
+          "exact_anchor": false,
+          "error_nats": 5.187466740608215e-07,
+          "reference_nats": 2770565.4628121434,
+          "reference_ulp_nats": 4.656612873077393e-10,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      }
+    },
+    "aligned/raw/log-balanced/degree11": {
+      "all": {
+        "cases": 2112,
+        "over_3e9": 283,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": -4.76837158203125e-07,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1368,
+        "over_3e9": 283,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": -4.76837158203125e-07,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1022,
+        "over_3e9": 67,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 2,
+          "r": 990031,
+          "u": 59.987,
+          "case_id": "sealed-00314",
+          "exact_anchor": false,
+          "error_nats": 7.450580596923828e-09,
+          "reference_nats": -46711204.36540971,
+          "reference_ulp_nats": 7.450580596923828e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1200,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 53,
+          "r": 1000,
+          "u": -366.1570033037067,
+          "case_id": "sealed-00974",
+          "exact_anchor": false,
+          "error_nats": -1.1641532182693481e-10,
+          "reference_nats": 313341.8125712796,
+          "reference_ulp_nats": 5.820766091346741e-11,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 670,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 22,
+          "r": 1000,
+          "u": 35.0,
+          "case_id": "sealed-00591",
+          "exact_anchor": false,
+          "error_nats": -7.275957614183426e-12,
+          "reference_nats": -29100.487585981897,
+          "reference_ulp_nats": 3.637978807091713e-12,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1682,
+        "over_3e9": 19,
+        "worst": {
+          "variant": "aligned/raw/log-balanced/degree11",
+          "depth": 54,
+          "r": 1000000,
+          "u": -0.2573,
+          "case_id": "sealed-01498",
+          "exact_anchor": false,
+          "error_nats": -5.587935447692871e-09,
+          "reference_nats": 13072786.678615864,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      }
+    },
+    "fixed/gamma-residual/log-balanced/degree11": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 509,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.73790383339,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 509,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.73790383339,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 212,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 990031,
+          "u": -0.2573,
+          "case_id": "sealed-02254",
+          "exact_anchor": false,
+          "error_nats": 5.438923835754395e-07,
+          "reference_nats": 12932535.242730789,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 100,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.187156904605217,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 53,
+          "r": 1000,
+          "u": 10.007,
+          "case_id": "sealed-00979",
+          "exact_anchor": false,
+          "error_nats": 9.458744898438454e-11,
+          "reference_nats": -4109.79403840952,
+          "reference_ulp_nats": 9.094947017729282e-13,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 232,
+        "worst": {
+          "variant": "fixed/gamma-residual/log-balanced/degree11",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -33.759902499616146,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            10476,
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269,
+            25202
+          ]
+        }
+      }
+    },
+    "fixed/raw/log-balanced/degree11": {
+      "all": {
+        "cases": 2328,
+        "over_3e9": 491,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904071808,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "nonanchor": {
+        "cases": 1584,
+        "over_3e9": 491,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1030331,
+          "u": -1904.6510460944696,
+          "case_id": "sealed-02296",
+          "exact_anchor": false,
+          "error_nats": 13335.737904071808,
+          "reference_nats": 1826431265.331835,
+          "reference_ulp_nats": 2.384185791015625e-07,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "u_ge_minus80": {
+        "cases": 1238,
+        "over_3e9": 88,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 54,
+          "r": 1000000,
+          "u": 79.993,
+          "case_id": "sealed-01504",
+          "exact_anchor": false,
+          "error_nats": 2.9802322387695312e-08,
+          "reference_nats": -67177504.63359143,
+          "reference_ulp_nats": 1.4901161193847656e-08,
+          "anchors": [
+            664299,
+            719483,
+            779252,
+            843985,
+            914095,
+            990030,
+            1072273,
+            1161348,
+            1257822,
+            1362311,
+            1475479,
+            1598049
+          ]
+        }
+      },
+      "r_le_1000": {
+        "cases": 1272,
+        "over_3e9": 100,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 138,
+          "r": 1000,
+          "u": -953.4011595455005,
+          "case_id": "sealed-02141",
+          "exact_anchor": false,
+          "error_nats": 12.187156904605217,
+          "reference_nats": 815872.7468653802,
+          "reference_ulp_nats": 1.1641532182693481e-10,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "r_le_1000_u_ge_minus80": {
+        "cases": 742,
+        "over_3e9": 0,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 2,
+          "r": 1000,
+          "u": 79.993,
+          "case_id": "sealed-00205",
+          "exact_anchor": false,
+          "error_nats": -2.9103830456733704e-11,
+          "reference_nats": -74156.58912372991,
+          "reference_ulp_nats": 1.4551915228366852e-11,
+          "anchors": [
+            642,
+            695,
+            753,
+            815,
+            883,
+            956,
+            1036,
+            1122,
+            1215,
+            1316,
+            1425,
+            1543
+          ]
+        }
+      },
+      "representable_gate": {
+        "cases": 1826,
+        "over_3e9": 151,
+        "worst": {
+          "variant": "fixed/raw/log-balanced/degree11",
+          "depth": 80,
+          "r": 16248,
+          "u": -779.6759317922222,
+          "case_id": "sealed-01795",
+          "exact_anchor": false,
+          "error_nats": -33.759902499616146,
+          "reference_nats": 11303512.64464059,
+          "reference_ulp_nats": 1.862645149230957e-09,
+          "anchors": [
+            10476,
+            11346,
+            12289,
+            13310,
+            14416,
+            15613,
+            16910,
+            18315,
+            19836,
+            21484,
+            23269,
+            25202
+          ]
+        }
+      }
+    }
+  },
+  "production_eligible": false,
+  "limits": [
+    "Uses saved same-provider refined double references",
+    "No production source modified",
+    "Aligned cases requiring any anchor query above80 excluded rather than extrapolated",
+    "Longdouble coefficient arithmetic used diagnostically; actual stored payload remains float64"
+  ]
+}

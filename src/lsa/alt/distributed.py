@@ -48,6 +48,8 @@ def engine_options(options):
     if store:
         store = asdict(StoreConfig(**store))
         store.pop("path")
+        if store["native_library_path"] is not None:
+            store["native_library_path"] = "/host-local-native"
     return {
         "mode": mode,
         "store": store,
@@ -316,6 +318,16 @@ def validate_record_engine(plan, experiment, engine, *, runtime=None):
             "native_kernel": False,
             "depth_truncation": False,
         }
+        if (depth.get("store") or {}).get("format") == "sealed":
+            expected["sealed_provider_sha256"] = sha256(
+                Path(__file__).with_name("sealed_tables.py")
+            )
+            if depth["store"].get("interpolation_backend") == "native":
+                identity = depth.get("sealed_native_identity", {})
+                if (identity.get("binary_sha256") != depth["store"]["native_library_sha256"]
+                        or identity.get("source_sha256") != sha256(Path(__file__).with_name("sealed_interp.c"))
+                        or identity.get("wrapper_sha256") != sha256(Path(__file__).with_name("sealed_native.py"))):
+                    raise ValueError("saved native interpolation identity differs from current source or pin")
         if any(depth.get(key) != value for key, value in expected.items()):
             raise ValueError("saved depth implementation differs from current source")
         if runtime is not None and depth.get("runtime") != {

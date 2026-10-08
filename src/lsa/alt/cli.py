@@ -285,6 +285,8 @@ def main(argv=None):
         help="explicit pinned store specification (default: legacy store-candidate.json)",
     )
     configure.add_argument("--out", type=Path, required=True)
+    configure.add_argument("--native-library-path", type=Path)
+    configure.add_argument("--native-library-sha256")
     assess = sub.add_parser(
         "assess-depth", help="check saved depth profiles and actual refinement"
     )
@@ -359,6 +361,14 @@ def main(argv=None):
                 **spec["settings"],
             },
         }
+        if bool(args.native_library_path) != bool(args.native_library_sha256):
+            raise ValueError("native interpolation requires both library path and SHA256")
+        if args.native_library_path:
+            options["store"].update(
+                interpolation_backend="native",
+                native_library_path=str(args.native_library_path.resolve()),
+                native_library_sha256=args.native_library_sha256,
+            )
         # Opening performs complete identity checks and permits no store writes.
         with DepthEvaluator(
             mode="store",

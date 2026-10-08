@@ -130,3 +130,30 @@ def test_independent_kernel_sampling_uses_actual_sealed_reader(sealed_config):
     spec["files_sha256"] = dict(spec["files_sha256"], **{"plan.json": "0" * 64})
     with pytest.raises(ValueError, match="engine store pin"):
         _store_samples(spec, cases)
+
+
+def test_explicit_native_engine_matches_python_and_binds_compiled_identity(sealed_config, tmp_path):
+    from lsa.alt.distributed import engine_options
+    from lsa.alt.sealed_native import build_native
+
+    library = tmp_path / "sealed-interp.so"
+    built = build_native(library)
+    config = replace(sealed_config, interpolation_backend="native",
+                     native_library_path=str(library),
+                     native_library_sha256=built["binary_sha256"])
+    with (
+        DepthEvaluator(mode="store", store=sealed_config) as python,
+        DepthEvaluator(mode="store", store=config) as native,
+    ):
+        a = python.prediction_by_count(10000, (2, 1), depths=(0, 1, 54, 138))
+        b = native.prediction_by_count(10000, (2, 1), depths=(0, 1, 54, 138))
+        assert a.component_log_evidence.tobytes() == b.component_log_evidence.tobytes()
+        assert a.component_probabilities.tobytes() == b.component_probabilities.tobytes()
+        assert native.configuration["sealed_native_identity"]["binary_sha256"] == built["binary_sha256"]
+        assert native.configuration["store"]["native_library_path"] == "/host-local-native"
+        options = {"mode": "store", "store": {**native.configuration["store"], "path": "local"}}
+        first = engine_options(options)
+        options["store"]["native_library_path"] = "/different/host/location"
+        assert engine_options(options) == first
+    with pytest.raises(ValueError, match="explicit library"):
+        replace(sealed_config, interpolation_backend="native")

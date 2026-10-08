@@ -237,6 +237,8 @@ def _implementation_identity():
     sources = [
         Path(__file__),
         base / "sealed_tables.py",
+        base / "sealed_native.py",
+        base / "sealed_interp.c",
         *sorted((base / "_vendor/pmwm").glob("*.py")),
         base / "_vendor/pmwm/provenance.json",
     ]
@@ -368,9 +370,14 @@ def _sealed_store_samples(spec, cases):
 
     root = Path(spec["path"]).resolve(strict=True)
     values = {}
+    native = None
+    if spec.get("native_library") is not None:
+        from .sealed_native import NativeInterpolator
+
+        native = NativeInterpolator(**spec["native_library"])
     # The reader verifies all bytes itself, before we compare its identity with
     # the engine pin. Passing the pin as already-verified here would skip this.
-    with SealedKernelTables(root) as table:
+    with SealedKernelTables(root, native_interpolator=native) as table:
         identity = dict(table.files_identity)
         if identity != spec["files_sha256"]:
             raise ValueError("sealed kernel sampling differs from the engine store pin")
@@ -394,9 +401,12 @@ def _sealed_store_samples(spec, cases):
                  for name in identity}
         if before != after:
             raise RuntimeError("sealed store changed during kernel calibration")
-    return {"id": spec["id"], "path": str(root), "format": "sealed",
+    metadata = {"id": spec["id"], "path": str(root), "format": "sealed",
             "files": before, "files_sha256": identity,
-            "unchanged_after_read": True}, values
+            "unchanged_after_read": True}
+    if native is not None:
+        metadata["native_identity"] = native.identity
+    return metadata, values
 
 
 def run_kernel_validation(config, outdir):

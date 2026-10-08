@@ -10,10 +10,12 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 import os
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 from .artifacts import (
     Run,
@@ -38,6 +40,8 @@ SPECIFICATIONS = {
     "depth": "depth-validation.json",
     "power": "power-validation.json",
     "chain": "bible-chain-validation.json",
+    "sealed_store": "sealed-store-validation.json",
+    "sealed_profile": "sealed-profile-validation.json",
 }
 REGRESSION_COMMANDS = {
     "pytest": ["-m", "pytest", "-q"],
@@ -58,8 +62,439 @@ def normalized_specification(suite, config):
         result.pop("workers", None)
     if suite == "kernel":
         for store in result["stores"]:
-            store.pop("path")
+            store.pop("path", None)
     return result
+
+
+def _configuration_options(configuration):
+    """Extract path-independent options from a complete evaluator identity."""
+    options = {
+        key: copy.deepcopy(configuration[key])
+        for key in ("mode", "store", "prediction_tolerance")
+    }
+    if options["store"] is not None:
+        options["store"]["path"] = "/host-local-store"
+    return engine_options(options)
+
+
+def _within(value, tolerance):
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(value)
+        and abs(value) <= tolerance
+    )
+
+
+def _sealed_plan(root, pins=None):
+    """Check bound metadata, complete production coverage and every manifest pin."""
+    plan_path, manifest_path = root / "store-plan.json", root / "store-manifest.json"
+    plan, manifest = read_json(plan_path), read_json(manifest_path)
+    if pins is not None and (
+        sha256(plan_path) != pins.get("plan.json")
+        or sha256(manifest_path) != pins.get("manifest.json")
+        or manifest.get("files")
+        != {k: v for k, v in pins.items() if k != "manifest.json"}
+    ):
+        raise ValueError(
+            "sealed metadata or complete manifest pins differ from production store"
+        )
+    required_levels = list(range(2, 139))
+    if (
+        plan.get("format") != "lsa-sealed-kernels-v1"
+        or manifest.get("format") != "lsa-sealed-kernels-v1"
+        or manifest.get("sealed") is not True
+        or manifest.get("plan_sha256") != sha256(plan_path)
+        or plan.get("levels") != required_levels
+        or manifest.get("levels") != required_levels
+        or plan.get("support_max_count", -1) < 1045889
+        or plan.get("u_max", -math.inf) < 80
+        or plan.get("left_drop", -math.inf) < 60
+        or plan.get("interpolation_degree") != 7
+        or plan.get("count_degree") != 11
+    ):
+        raise ValueError(
+            "sealed production store requires complete depths 2..138, count 1045889 and u<=80 coverage"
+        )
+    files = manifest["files"]
+    required_files = {"plan.json"} | {
+        f"level_{L:03d}.{suffix}"
+        for L in required_levels
+        for suffix in ("bin", "index.json")
+    }
+    if not required_files <= files.keys():
+        raise ValueError("sealed manifest omits planned level files")
+    if set(plan["anchors"]) != {str(L) for L in required_levels}:
+        raise ValueError("sealed plan anchor levels are incomplete")
+    for anchors in plan["anchors"].values():
+        if (
+            anchors != sorted(set(anchors))
+            or anchors[:257] != list(range(257))
+            or anchors[-1] < plan["support_max_count"]
+        ):
+            raise ValueError(
+                "sealed plan must retain the complete dense floor and upper count coverage"
+            )
+    return plan
+
+
+def _sealed_declared_cases(plan, specification):
+    from .sealed_store_validation import resolve_validation_cases
+
+    metadata = SimpleNamespace(
+        coverage_depths=tuple(plan["levels"]),
+        supported_count=plan["support_max_count"],
+        maximum_u=plan["u_max"],
+        grid_step=plan["grid_step"],
+        plan=plan,
+        count_anchors=lambda L: tuple(plan["anchors"][str(L)]),
+        column_metadata=lambda L, r: {
+            "u_min": math.floor(
+                (-plan["left_drop"] - L * math.log(r + 1)) / plan["grid_step"]
+            )
+            * plan["grid_step"]
+        },
+    )
+    return resolve_validation_cases(metadata, specification)
+
+
+def _validate_sealed_backend(backend, engine):
+    """Bind the executed interpolation provider to its source and binary pins."""
+    requested = engine["store"].get("interpolation_backend", "python")
+    if backend.get("interpolation_backend") != requested:
+        raise ValueError("measured sealed interpolation backend differs from engine")
+    identity = backend.get("native_identity")
+    if requested == "python":
+        if identity is not None or engine.get("sealed_native_identity") is not None:
+            raise ValueError("Python sealed evidence must not claim a native identity")
+        return
+    from .sealed_native import ABI_VERSION, COMPILE_FLAGS, FORMAT, SOURCE_PATH
+
+    if (
+        requested != "native"
+        or not isinstance(identity, dict)
+        or identity.get("format") != FORMAT
+        or identity.get("abi_version") != ABI_VERSION
+        or identity.get("flags") != list(COMPILE_FLAGS)
+        or identity.get("binary_sha256") != engine["store"].get("native_library_sha256")
+        or identity.get("source_sha256") != sha256(SOURCE_PATH)
+        or identity.get("wrapper_sha256")
+        != sha256(Path(__file__).with_name("sealed_native.py"))
+        or (
+            engine.get("sealed_native_identity") is not None
+            and identity != engine["sealed_native_identity"]
+        )
+    ):
+        raise ValueError(
+            "measured sealed native identity differs from engine/source pins"
+        )
+
+
+def sealed_store_result(root, result, specification):
+    """Recalculate nominal/qualified classes from exact stored reference decimals."""
+    from .sealed_store_validation import (
+        accuracy_contract,
+        assess_measurement,
+        finalize_measurement,
+        summarize_measurements,
+    )
+
+    plan = _sealed_plan(root)
+    cases, unavailable = _sealed_declared_cases(plan, specification)
+    rows = [
+        json.loads(line) for line in (root / "data/rows.jsonl").read_text().splitlines()
+    ]
+    if (
+        specification.get("accuracy_contract") != accuracy_contract()
+        or result.get("accuracy_contract") != accuracy_contract()
+        or read_json(root / "data/config.json") != specification
+        or unavailable
+        or result.get("unavailable_strata") != []
+        or read_json(root / "data/unavailable-strata.json") != []
+        or read_json(root / "data/resolved-cases.json") != cases
+        or result.get("resolved_cases_sha256") != canonical_hash(cases)
+        or result.get("config_sha256") != canonical_hash(specification)
+        or result.get("cases") != len(cases)
+        or result.get("passed_cases") != len(cases)
+        or result.get("failed_cases") != 0
+        or result.get("unresolved_reference_cases") != 0
+        or result.get("status") != "passed"
+        or not result.get("source_unchanged")
+        or not result.get("store_unchanged")
+        or result.get("reader_backend_unchanged") is not True
+        or result.get("reader_backend") != read_json(root / "data/reader-backend.json")
+        or result.get("gates_nats") != {"general": 3e-9, "counts_0_to_3": 1e-11}
+        or len(rows) != len(cases)
+    ):
+        raise ValueError(
+            "sealed reader validation has incomplete, unavailable, failed or unresolved cases"
+        )
+    direct_rows, selected, references, assessed_rows = [], [], [], []
+    for case, row in zip(cases, rows, strict=True):
+        if any(row.get(key) != value for key, value in case.items()):
+            raise ValueError("sealed reader measured cases differ from declared cases")
+        measured = assess_measurement(
+            row["r"],
+            row["scalar_log_phi_nats"],
+            row["matrix_log_phi_nats"],
+            row["direct_reference_log_phi_nats"],
+            row["refined_reference_log_phi_nats"],
+        )
+        direct_rows.append({**case, **measured})
+        if measured["requires_independent_reference"]:
+            selected.append(case)
+            references.append(row.get("independent_reference"))
+        assessed = finalize_measurement(
+            case, measured, row.get("independent_reference")
+        )
+        expected = {**case, **assessed}
+        if (
+            assessed["status"] not in ("passed", "precision_qualified")
+            or row != expected
+        ):
+            raise ValueError(
+                "sealed reader residuals fail the declared nominal/four-ULP contract or stored accounting differs"
+            )
+        assessed_rows.append(expected)
+    if (
+        read_json(root / "data/independent-reference-cases.json") != selected
+        or [
+            json.loads(line)
+            for line in (root / "data/independent-references.jsonl")
+            .read_text()
+            .splitlines()
+        ]
+        != references
+        or [
+            json.loads(line)
+            for line in (root / "data/direct-rows.jsonl").read_text().splitlines()
+        ]
+        != direct_rows
+    ):
+        raise ValueError(
+            "sealed reader independent reference selection or direct record differs"
+        )
+    metrics = summarize_measurements(assessed_rows)
+    if any(result.get(key) != value for key, value in metrics.items()):
+        raise ValueError(
+            "sealed reader measured classes or error metrics differ from summary"
+        )
+    if result.get("independent_high_precision_reference") is not bool(selected):
+        raise ValueError(
+            "sealed reader independent reference coverage differs from summary"
+        )
+    summary = read_json(root / "data/summary.json")
+    if any(result.get(k) != v for k, v in summary.items()):
+        raise ValueError("sealed reader result and measured summary differ")
+
+
+def sealed_profile_result(root, result, specification):
+    """Require all declared same-profile comparisons, using their actual residuals."""
+    import numpy as np
+
+    loss, mass = (
+        specification["loss_tolerance_bits"],
+        specification["raw_mass_tolerance"],
+    )
+    if not (0 < loss <= 1e-5 and 0 < mass <= 1e-7):
+        raise ValueError(
+            "sealed profile gates may not relax 1e-5-bit / 1e-7 raw-mass tolerances"
+        )
+    expected = {c["id"]: c for c in specification["cases"]}
+    cases = result["cases"]
+    if (
+        not expected
+        or len(expected) != len(specification["cases"])
+        or len(cases) != len(expected)
+        or {c["id"] for c in cases} != expected.keys()
+        or result.get("unavailable_cases") != []
+        or not result.get("source_unchanged")
+        or not result.get("store_unchanged")
+        or result.get("config_sha256") != canonical_hash(specification)
+    ):
+        raise ValueError(
+            "sealed cross-provider evidence has incomplete or changed declared cases"
+        )
+    for row in cases:
+        case = expected[row["id"]]
+        if row.get("status") != "passed" or row.get("case") != case:
+            raise ValueError(
+                "sealed cross-provider case failed or differs from specification"
+            )
+        position = list(expected).index(row["id"])
+        sample = root / f"data/case-{position:03d}.npz"
+        if sha256(sample) != row.get("sample_sha256"):
+            raise ValueError("sealed cross-provider saved sample hash differs")
+        with np.load(sample, allow_pickle=False) as saved:
+            counts, target = saved["counts"], saved["target"]
+            if (
+                counts.shape != (case["d"],)
+                or target.shape != (case["d"],)
+                or int(counts.sum()) != case["n"]
+                or canonical_hash(counts.tolist()) != row.get("counts_sha256")
+                or canonical_hash(target.tolist()) != row.get("target_sha256")
+            ):
+                raise ValueError(
+                    "sealed cross-provider saved counts/target differ from the declared case"
+                )
+        measurements = row["measurements"]
+        for name in (
+            "maximum_codelength_difference_bits_per_token",
+            "mixture_codelength_difference_bits_per_token",
+        ):
+            if not _within(measurements[name], loss):
+                raise ValueError(
+                    "sealed cross-provider codelength residual exceeds gate"
+                )
+        if case["predictive"]:
+            if not _within(
+                measurements["maximum_augmented_codelength_difference_bits_per_token"],
+                loss,
+            ):
+                raise ValueError(
+                    "sealed cross-provider augmented codelength residual exceeds gate"
+                )
+            for name in (
+                "maximum_predictive_kl_change_bits",
+                "mixture_predictive_kl_change_bits",
+            ):
+                if not _within(measurements[name], loss):
+                    raise ValueError(
+                        "sealed cross-provider predictive residual exceeds gate"
+                    )
+            if not _within(measurements["maximum_raw_mass_error"], mass):
+                raise ValueError(
+                    "sealed cross-provider raw mass exceeds validation gate"
+                )
+    candidate = read_json(root / "data/candidate-engine.json")
+    legacy = read_json(root / "data/legacy-engine.json")
+    if (
+        result.get("candidate_configuration_sha256") != canonical_hash(candidate)
+        or result.get("legacy_configuration_sha256") != canonical_hash(legacy)
+        or candidate["store"].get("format") != "sealed"
+        or legacy["store"].get("format", "legacy") != "legacy"
+        or legacy["store"].get("saddle_min_depth") != 54
+    ):
+        raise ValueError(
+            "sealed cross-provider engine identities are incomplete or inconsistent"
+        )
+    for key in (
+        "grid_step",
+        "minimum_grid_step",
+        "u_max",
+        "maximum_u_max",
+        "upper_window_increment",
+        "scan_mode",
+        "significance_gap",
+        "minimum_right_gap",
+    ):
+        if candidate["store"].get(key) != legacy["store"].get(key):
+            raise ValueError("sealed cross-provider outer integration settings differ")
+
+
+def sealed_independent_kernel(item, pins, engine):
+    """Check the sealed reader against the independent decimal Mellin references."""
+    from .kernel_validation import _decimal_difference, expand_cases
+
+    root = Path(item["path"])
+    config = read_json(root / "data/config.json")
+    declared = item["specification"]["config"]
+    if {k: v for k, v in config.items() if k != "stores"} != {
+        k: v for k, v in declared.items() if k != "stores"
+    }:
+        raise ValueError(
+            "independent sealed kernel cases/settings differ from the committed grid"
+        )
+    stores = config["stores"]
+    cases = expand_cases(declared)
+    if len(stores) != 1:
+        raise ValueError("independent kernel suite requires exactly one sealed store")
+    expected_store = {
+        "id": "sealed_candidate",
+        "format": "sealed",
+        "path": stores[0].get("path"),
+        "files_sha256": pins,
+        "depths": sorted({c["depth"] for c in cases}),
+        "counts": sorted({c["r"] for c in cases}),
+    }
+    native_requested = (
+        engine["store"].get("interpolation_backend", "python") == "native"
+    )
+    if native_requested:
+        expected_store["native_library"] = {
+            "path": stores[0].get("native_library", {}).get("path"),
+            "sha256": engine["store"]["native_library_sha256"],
+        }
+        if not expected_store["native_library"]["path"]:
+            raise ValueError(
+                "independent kernel suite lacks its actual native library path"
+            )
+    if stores[0] != expected_store:
+        raise ValueError(
+            "independent kernel suite does not bind the complete sealed store/domain/backend"
+        )
+    if engine_options(item["record"]["engine"]) != engine_options(engine):
+        raise ValueError("independent kernel suite engine differs from production")
+    metadata = read_json(root / "data/store-inputs.json")
+    if (
+        len(metadata) != 1
+        or metadata[0].get("id") != "sealed_candidate"
+        or metadata[0].get("format") != "sealed"
+        or metadata[0].get("files_sha256") != pins
+        or metadata[0].get("unchanged_after_read") is not True
+    ):
+        raise ValueError(
+            "independent kernel suite lacks unchanged complete store identity"
+        )
+    _validate_sealed_backend(
+        {
+            "interpolation_backend": "native" if native_requested else "python",
+            "native_identity": metadata[0].get("native_identity"),
+        },
+        engine,
+    )
+    if (
+        declared["reference_dps"] < 45
+        or declared["refined_reference_dps"] < 60
+        or declared["reference_convergence_nats"] > 1e-25
+    ):
+        raise ValueError("independent kernel precision settings are insufficient")
+    rows = [
+        json.loads(line) for line in (root / "data/rows.jsonl").read_text().splitlines()
+    ]
+    if len(rows) != len(cases):
+        raise ValueError("independent sealed kernel rows are incomplete")
+    for case, row in zip(cases, rows, strict=True):
+        tolerance = 1e-11 if row["r"] <= 3 else 3e-9
+        if (
+            any(row.get(k) != v for k, v in case.items())
+            or row["tolerance_nats"] != tolerance
+        ):
+            raise ValueError("independent sealed kernel case or absolute gate differs")
+        reference, refined = row["reference"], row["refined_reference"]
+        if (
+            reference["dps"] != declared["reference_dps"]
+            or refined["dps"] != declared["refined_reference_dps"]
+            or not _within(
+                _decimal_difference(reference["log_phi_nats"], refined["log_phi_nats"]),
+                declared["reference_convergence_nats"],
+            )
+        ):
+            raise ValueError("independent kernel references did not converge")
+        value = row["stores"]["sealed_candidate"]
+        if value.get("status") != "evaluated":
+            raise ValueError("independent sealed kernel value is unavailable")
+        for key, error_key in (
+            ("log_phi_nats", "error_nats"),
+            ("matrix_log_phi_nats", "matrix_error_nats"),
+        ):
+            error = _decimal_difference(value[key], refined["log_phi_nats"])
+            if not _within(error, tolerance) or value[error_key] != error:
+                raise ValueError(
+                    "independent sealed kernel residual exceeds unchanged row gate"
+                )
+    if kernel_status(item["result"]["measurements"], root / "data", config) != "passed":
+        raise ValueError("independent sealed kernel suite has failed measured checks")
 
 
 def source_reuse(suite, saved, current, repo):
@@ -135,7 +570,11 @@ def suite_result(suite, root, result, specification):
     """Check completion using existing suite results, never relaxed tolerances."""
     if result.get("status") != "passed":
         raise ValueError(f"{suite} result is not passed")
-    if suite == "kernel":
+    if suite == "sealed_store":
+        sealed_store_result(root, result, specification)
+    elif suite == "sealed_profile":
+        sealed_profile_result(root, result, specification)
+    elif suite == "kernel":
         from .kernel_validation import expand_cases
 
         if read_json(root / "data/resolved-cases.json") != expand_cases(specification):
@@ -277,16 +716,38 @@ def assemble(*, repo, protocol, engine, evidence, batch_size=20, powers=None):
         else "pending",
         "reason": "supplied protocol must equal the committed frozen protocol",
     }
-    candidate = read_json(repo / "experiments/alt2027/store-candidate.json")
+    sealed = engine.get("store", {}).get("format", "legacy") == "sealed"
+    candidate_path = (
+        repo
+        / "experiments/alt2027"
+        / ("sealed-store-candidate.json" if sealed else "store-candidate.json")
+    )
+    if sealed and not candidate_path.is_file():
+        raise ValueError(
+            "sealed production requires committed sealed-store-candidate.json"
+        )
+    candidate = read_json(candidate_path)
     if (
         engine.get("mode") != "store"
         or engine.get("store", {}).get("files_sha256") != candidate["files_sha256"]
     ):
         raise ValueError("production requires the complete pinned store identity")
-    unknown = set(evidence) - {*SUITES, "regressions"}
+    if sealed and (
+        candidate.get("format") != "sealed"
+        or not {"plan.json", "manifest.json"} <= candidate["files_sha256"].keys()
+    ):
+        raise ValueError(
+            "sealed store specification must identify format and pin plan plus manifest"
+        )
+    required_suites = (
+        *SUITES,
+        *(("sealed_store", "sealed_profile") if sealed else ()),
+        "regressions",
+    )
+    unknown = set(evidence) - set(required_suites)
     if unknown:
         raise ValueError(f"unknown evidence keys: {sorted(unknown)}")
-    for suite in (*SUITES, "regressions"):
+    for suite in required_suites:
         path = evidence.get(suite)
         if path is None or not (Path(path) / "manifest.json").exists():
             gates[suite] = {
@@ -309,13 +770,83 @@ def assemble(*, repo, protocol, engine, evidence, batch_size=20, powers=None):
                 },
             }
         except (
+            ArithmeticError,
             ValueError,
             OSError,
             KeyError,
+            IndexError,
             TypeError,
             subprocess.CalledProcessError,
         ) as error:
             gates[suite] = {"status": "failed", "reason": str(error)}
+    if sealed:
+        if "sealed_store" not in accepted:
+            gates["sealed_store_identity"] = {
+                "status": "pending",
+                "reason": "verified full-coverage sealed reader evidence required",
+            }
+        else:
+            try:
+                item = accepted["sealed_store"]
+                plan = _sealed_plan(Path(item["path"]), candidate["files_sha256"])
+                from .sealed_store_build import source_identity as builder_identity
+
+                if (
+                    item["result"]["store_files_sha256"] != candidate["files_sha256"]
+                    or item["result"]["engine_sha256"]
+                    != canonical_hash(item["record"]["engine"])
+                    or _configuration_options(item["record"]["engine"])
+                    != engine_options(engine)
+                    or plan["source_sha256"] != builder_identity()
+                    or engine["store"]["max_depth"] < 138
+                    or engine["store"]["max_count"] + 3 > plan["support_max_count"]
+                    or engine_options(engine)["store"]["maximum_u_max"] > plan["u_max"]
+                ):
+                    raise ValueError(
+                        "sealed reader evidence does not bind the production engine/store/builder"
+                    )
+                _validate_sealed_backend(
+                    item["result"]["reader_backend"], item["record"]["engine"]
+                )
+                gates["sealed_store_identity"] = {
+                    "status": "passed",
+                    "store_spec_sha256": sha256(candidate_path),
+                }
+            except (
+                ArithmeticError,
+                ValueError,
+                OSError,
+                KeyError,
+                IndexError,
+                TypeError,
+            ) as error:
+                gates["sealed_store_identity"] = {
+                    "status": "failed",
+                    "reason": str(error),
+                }
+        if "kernel" not in accepted:
+            gates["sealed_independent_kernel"] = {
+                "status": "pending",
+                "reason": "independent sealed reader values in the kernel suite are required",
+            }
+        else:
+            try:
+                sealed_independent_kernel(
+                    accepted["kernel"], candidate["files_sha256"], engine
+                )
+                gates["sealed_independent_kernel"] = {"status": "passed"}
+            except (
+                ArithmeticError,
+                ValueError,
+                OSError,
+                KeyError,
+                IndexError,
+                TypeError,
+            ) as error:
+                gates["sealed_independent_kernel"] = {
+                    "status": "failed",
+                    "reason": str(error),
+                }
     engines, runtime, depth = None, None, None
     if "chain" in accepted:
         try:
@@ -341,6 +872,56 @@ def assemble(*, repo, protocol, engine, evidence, batch_size=20, powers=None):
                     raise ValueError(
                         f"{suite} numerical engine differs from requested production engine"
                     )
+            if sealed:
+                if "kernel" in accepted:
+                    kernel_metadata = read_json(
+                        Path(accepted["kernel"]["path"]) / "data/store-inputs.json"
+                    )
+                    _validate_sealed_backend(
+                        {
+                            "interpolation_backend": depth["store"].get(
+                                "interpolation_backend", "python"
+                            ),
+                            "native_identity": kernel_metadata[0].get(
+                                "native_identity"
+                            ),
+                        },
+                        depth,
+                    )
+                if (
+                    "sealed_store" in accepted
+                    and accepted["sealed_store"]["record"]["engine"] != depth
+                ):
+                    raise ValueError(
+                        "sealed reader validation differs from the full chain engine identity"
+                    )
+                if "sealed_profile" in accepted:
+                    path = Path(accepted["sealed_profile"]["path"])
+                    candidate_engine = read_json(path / "data/candidate-engine.json")
+                    legacy_engine = read_json(path / "data/legacy-engine.json")
+                    legacy_pins = read_json(
+                        repo / "experiments/alt2027/store-candidate.json"
+                    )["files_sha256"]
+                    if (
+                        candidate_engine != depth
+                        or accepted["sealed_profile"]["record"]["engine"]
+                        != {"candidate": candidate_engine, "legacy": legacy_engine}
+                        or legacy_engine["store"]["files_sha256"] != legacy_pins
+                        or any(
+                            legacy_engine.get(k) != depth.get(k)
+                            for k in (
+                                "runtime",
+                                "implementation_sha256",
+                                "vendor_provenance_sha256",
+                                "vendor_source_sha256",
+                                "native_kernel",
+                                "depth_truncation",
+                            )
+                        )
+                    ):
+                        raise ValueError(
+                            "cross-provider engines differ from admitted sealed/corrected-direct identities"
+                        )
             if (
                 "power" in accepted
                 and power_options(

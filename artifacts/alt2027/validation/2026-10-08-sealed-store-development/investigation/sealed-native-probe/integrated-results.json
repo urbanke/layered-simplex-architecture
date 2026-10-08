@@ -1,0 +1,845 @@
+{
+  "scope": "actual explicit production NativeInterpolator, SealedKernelTables and DepthEvaluator APIs; no source/store mutation",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "source_sha256": {
+    "src/lsa/alt/sealed_tables.py": "70294a10a04e0922486e5171d665f2f1559425ec8e4724461d1d45e3675ff0fd",
+    "src/lsa/alt/sealed_native.py": "af14e227920cabde0a4460aaaee4c9c5002dc3f50cad63c2c78f537c213acc09",
+    "src/lsa/alt/sealed_interp.c": "d9246aaa7a6fe09f6db39c8d9fbad24dae1e73d92a1e67aca8adaf74dc885245",
+    "src/lsa/alt/depth.py": "779403365a1000fc254037435700eea8865a5de27d79fb38639800669dc57723"
+  },
+  "script_sha256": "36163a655ce60a0e7fe9929d07f76f1147de26ff54332c0d50fba4a303140b9d",
+  "kernel_cases_sha256": "804afb37771b78a40c1471789ddd523ffb7f4c9be76d2a6bc1fee7065fc4c14c",
+  "kernels": [
+    {
+      "L": 2,
+      "declared_cases": 383,
+      "batched_values": 3114,
+      "matrix_byte_identical": true,
+      "scalar_byte_identical": true,
+      "maximum_difference_nats": 0.0
+    },
+    {
+      "L": 22,
+      "declared_cases": 389,
+      "batched_values": 3222,
+      "matrix_byte_identical": true,
+      "scalar_byte_identical": true,
+      "maximum_difference_nats": 0.0
+    },
+    {
+      "L": 53,
+      "declared_cases": 389,
+      "batched_values": 3222,
+      "matrix_byte_identical": true,
+      "scalar_byte_identical": true,
+      "maximum_difference_nats": 0.0
+    },
+    {
+      "L": 54,
+      "declared_cases": 389,
+      "batched_values": 3222,
+      "matrix_byte_identical": true,
+      "scalar_byte_identical": true,
+      "maximum_difference_nats": 0.0
+    },
+    {
+      "L": 80,
+      "declared_cases": 389,
+      "batched_values": 3222,
+      "matrix_byte_identical": true,
+      "scalar_byte_identical": true,
+      "maximum_difference_nats": 0.0
+    },
+    {
+      "L": 138,
+      "declared_cases": 389,
+      "batched_values": 3222,
+      "matrix_byte_identical": true,
+      "scalar_byte_identical": true,
+      "maximum_difference_nats": 0.0
+    }
+  ],
+  "profiles": [
+    {
+      "id": "zipf1p5-n1000",
+      "sample_sha256": "838cb9bdea87977b02cb3e1e1cae8cf8d6f047291c88267ba1823983e3481fd3",
+      "depths": [
+        0,
+        1,
+        54,
+        80,
+        138
+      ],
+      "runs": [
+        {
+          "implementation": "python",
+          "repeat": 0,
+          "seconds": 1.7924831670243293,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 6.1384231031524905e-12,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "candidate_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999997873,
+            "candidate_mixture_raw_mass": 0.9999999999997873,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "native",
+          "repeat": 0,
+          "seconds": 0.4205383750377223,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 6.1384231031524905e-12,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "candidate_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999997873,
+            "candidate_mixture_raw_mass": 0.9999999999997873,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "python",
+          "repeat": 1,
+          "seconds": 1.789066165976692,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 6.1384231031524905e-12,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "candidate_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999997873,
+            "candidate_mixture_raw_mass": 0.9999999999997873,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "native",
+          "repeat": 1,
+          "seconds": 0.4195308340131305,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 6.1384231031524905e-12,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "candidate_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999997873,
+            "candidate_mixture_raw_mass": 0.9999999999997873,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "python",
+          "repeat": 2,
+          "seconds": 1.7864478750270791,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 6.1384231031524905e-12,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "candidate_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999997873,
+            "candidate_mixture_raw_mass": 0.9999999999997873,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "native",
+          "repeat": 2,
+          "seconds": 0.4185147079988383,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 6.1384231031524905e-12,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "candidate_component_raw_mass": [
+              0.999999999998674,
+              1.0000000000061384,
+              0.9999999999998619,
+              0.9999999999997162,
+              1.000000000000258
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999997873,
+            "candidate_mixture_raw_mass": 0.9999999999997873,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        }
+      ],
+      "median_seconds": {
+        "python": 1.789066165976692,
+        "native": 0.4195308340131305
+      },
+      "speedup": 4.264444996480754
+    },
+    {
+      "id": "zipf5-n20000",
+      "sample_sha256": "b1c31dd45f1477867ce0fe9e1998d7cb57d7cff42329f097849797683c51d938",
+      "depths": [
+        0,
+        1,
+        54,
+        80,
+        138
+      ],
+      "runs": [
+        {
+          "implementation": "python",
+          "repeat": 0,
+          "seconds": 2.7427197500364855,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 2.1528445692808873e-11,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "candidate_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999899324,
+            "candidate_mixture_raw_mass": 0.9999999999899324,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "native",
+          "repeat": 0,
+          "seconds": 0.650887124997098,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 2.1528445692808873e-11,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "candidate_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999899324,
+            "candidate_mixture_raw_mass": 0.9999999999899324,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "python",
+          "repeat": 1,
+          "seconds": 2.7539587080245838,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 2.1528445692808873e-11,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "candidate_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999899324,
+            "candidate_mixture_raw_mass": 0.9999999999899324,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "native",
+          "repeat": 1,
+          "seconds": 0.6518078750232235,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 2.1528445692808873e-11,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "candidate_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999899324,
+            "candidate_mixture_raw_mass": 0.9999999999899324,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "python",
+          "repeat": 2,
+          "seconds": 2.7666480829939246,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 2.1528445692808873e-11,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "candidate_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999899324,
+            "candidate_mixture_raw_mass": 0.9999999999899324,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        },
+        {
+          "implementation": "native",
+          "repeat": 2,
+          "seconds": 0.6556083339964971,
+          "byte_identical": true,
+          "metrics": {
+            "maximum_evidence_difference_bits": 0.0,
+            "maximum_codelength_difference_bits_per_token": 0.0,
+            "mixture_codelength_difference_bits_per_token": 0.0,
+            "maximum_predictive_kl_change_bits": 0.0,
+            "mixture_predictive_kl_change_bits": 0.0,
+            "maximum_raw_mass_error": 2.1528445692808873e-11,
+            "maximum_posterior_change": 0.0,
+            "component_log_evidence_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_codelength_change_bits_per_token": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "component_predictive_kl_change_bits": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "signed_mixture_predictive_kl_change_bits": 0.0,
+            "legacy_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "candidate_component_raw_mass": [
+              0.9999999999804842,
+              1.0000000000158318,
+              0.9999999999955748,
+              0.9999999999784716,
+              0.9999999999931865
+            ],
+            "legacy_mixture_raw_mass": 0.9999999999899324,
+            "candidate_mixture_raw_mass": 0.9999999999899324,
+            "maximum_augmented_evidence_difference_bits": 0.0,
+            "maximum_augmented_codelength_difference_bits_per_token": 0.0,
+            "maximum_normalized_component_probability_change": 0.0,
+            "maximum_normalized_mixture_probability_change": 0.0
+          }
+        }
+      ],
+      "median_seconds": {
+        "python": 2.7539587080245838,
+        "native": 0.6518078750232235
+      },
+      "speedup": 4.225108062596608
+    }
+  ],
+  "native_identity": {
+    "format": "lsa-sealed-native-v1",
+    "abi_version": 1,
+    "binary_sha256": "3de26ae6309ffc96ed7812e60cb790722361b4d57e5fac693b7e5cd941dfbdab",
+    "source_sha256": "d9246aaa7a6fe09f6db39c8d9fbad24dae1e73d92a1e67aca8adaf74dc885245",
+    "wrapper_sha256": "af14e227920cabde0a4460aaaee4c9c5002dc3f50cad63c2c78f537c213acc09",
+    "build_manifest_sha256": "3f428207eb862b403a5bdc6c9f8328246bed59c8fe642b3da3f0f3192149e530",
+    "flags": [
+      "-O3",
+      "-std=c11",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fPIC",
+      "-shared"
+    ],
+    "platform": {
+      "machine": "arm64",
+      "system": "Darwin"
+    },
+    "compiler": {
+      "executable": "/usr/bin/cc",
+      "sha256": "b8763cf250e607a778bb4603cecb5b90338814d0a3dfcba0d57b1de242f610e9",
+      "version": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin"
+    },
+    "compiled_compiler": "Apple LLVM 21.0.0 (clang-2100.3.34.2)"
+  },
+  "store_plan_sha256": "ce34b645f00e6055a94e6f5f0e987422d3b277024cf7cadabd3ca56b9feab6f9",
+  "store_manifest_sha256": "aa3ea5a10fbac5f8ccfbe108e61a62d5a062a57776b8cfb7ac0d83b23d77eaa5",
+  "engine_native_identity": {
+    "format": "lsa-sealed-native-v1",
+    "abi_version": 1,
+    "binary_sha256": "3de26ae6309ffc96ed7812e60cb790722361b4d57e5fac693b7e5cd941dfbdab",
+    "source_sha256": "d9246aaa7a6fe09f6db39c8d9fbad24dae1e73d92a1e67aca8adaf74dc885245",
+    "wrapper_sha256": "af14e227920cabde0a4460aaaee4c9c5002dc3f50cad63c2c78f537c213acc09",
+    "build_manifest_sha256": "3f428207eb862b403a5bdc6c9f8328246bed59c8fe642b3da3f0f3192149e530",
+    "flags": [
+      "-O3",
+      "-std=c11",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-fPIC",
+      "-shared"
+    ],
+    "platform": {
+      "machine": "arm64",
+      "system": "Darwin"
+    },
+    "compiler": {
+      "executable": "/usr/bin/cc",
+      "sha256": "b8763cf250e607a778bb4603cecb5b90338814d0a3dfcba0d57b1de242f610e9",
+      "version": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin"
+    },
+    "compiled_compiler": "Apple LLVM 21.0.0 (clang-2100.3.34.2)"
+  },
+  "source_unchanged": {
+    "src/lsa/alt/sealed_tables.py": true,
+    "src/lsa/alt/sealed_native.py": true,
+    "src/lsa/alt/sealed_interp.c": true,
+    "src/lsa/alt/depth.py": true
+  },
+  "all_byte_identical": true
+}

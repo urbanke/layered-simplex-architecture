@@ -1,0 +1,43 @@
+{
+  "purpose": "validation",
+  "loss_tolerance_bits": 1e-05,
+  "raw_mass_tolerance": 1e-07,
+  "cases": [
+    {
+      "id": "zipf1p5-n1000",
+      "kind": "synthetic",
+      "target": "zipf_1.5",
+      "d": 10000,
+      "n": 1000,
+      "depths": [
+        0,
+        1,
+        54,
+        80,
+        138
+      ],
+      "predictive": true,
+      "seed_coordinates": [
+        2026100802
+      ]
+    },
+    {
+      "id": "zipf5-n20000",
+      "kind": "synthetic",
+      "target": "zipf_5",
+      "d": 10000,
+      "n": 20000,
+      "depths": [
+        0,
+        1,
+        54,
+        80,
+        138
+      ],
+      "predictive": true,
+      "seed_coordinates": [
+        2026100802
+      ]
+    }
+  ]
+}

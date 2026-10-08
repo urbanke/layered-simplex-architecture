@@ -1,0 +1,41 @@
+{
+  "abi_version": 1,
+  "binary_sha256": "3de26ae6309ffc96ed7812e60cb790722361b4d57e5fac693b7e5cd941dfbdab",
+  "command": [
+    "/usr/bin/cc",
+    "-O3",
+    "-std=c11",
+    "-ffp-contract=off",
+    "-fno-fast-math",
+    "-fPIC",
+    "-shared",
+    "-DLSA_SEALED_SOURCE_SHA256=\"d9246aaa7a6fe09f6db39c8d9fbad24dae1e73d92a1e67aca8adaf74dc885245\"",
+    "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/github-cleanup/src/lsa/alt/sealed_interp.c",
+    "-o",
+    "/Users/ruediger/Documents/Codex/2026-10-06/i-ha/work/fast-engine-investigation/sealed-native-probe/.sealed-native-mnerldb4/production-native-001.so",
+    "-lm"
+  ],
+  "compiled_compiler": "Apple LLVM 21.0.0 (clang-2100.3.34.2)",
+  "compiler": {
+    "executable": "/usr/bin/cc",
+    "sha256": "b8763cf250e607a778bb4603cecb5b90338814d0a3dfcba0d57b1de242f610e9",
+    "version": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin25.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin"
+  },
+  "flags": [
+    "-O3",
+    "-std=c11",
+    "-ffp-contract=off",
+    "-fno-fast-math",
+    "-fPIC",
+    "-shared"
+  ],
+  "format": "lsa-sealed-native-v1",
+  "platform": {
+    "machine": "arm64",
+    "system": "Darwin"
+  },
+  "schema_version": 1,
+  "source_sha256": "d9246aaa7a6fe09f6db39c8d9fbad24dae1e73d92a1e67aca8adaf74dc885245",
+  "stderr": "",
+  "stdout": ""
+}

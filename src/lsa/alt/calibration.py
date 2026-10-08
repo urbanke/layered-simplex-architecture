@@ -149,6 +149,11 @@ def execute(suite, config, out, *, repo, engine_config=None, workers=None):
                 "depths": sorted({c["depth"] for c in cases}),
                 "counts": sorted({c["r"] for c in cases}),
             }]
+            if engine_config["store"].get("interpolation_backend") == "native":
+                config["stores"][0]["native_library"] = {
+                    "path": engine_config["store"]["native_library_path"],
+                    "sha256": engine_config["store"]["native_library_sha256"],
+                }
         result = run_kernel_validation(config, out)
         return {"status": kernel_status(result, out, config), "measurements": result}
     if suite == "prior":
