@@ -87,6 +87,11 @@
       "path": "work/fast-engine-investigation/native-diagnostic/scalar-exact-results.json",
       "sha256": "2c863bfdd42c7a6e218bde531fc5ba7868a8c115c4f5b8ca09cfd915503ef64c",
       "bytes": 2470
+    },
+    {
+      "path": "outputs/alt-extended-store-design.txt",
+      "sha256": "ec7f087ee8ada400d19a73a37fcc64ed3e9a2edf864f3048e404e4cbacf60780",
+      "bytes": 16673
     }
   ]
 }
