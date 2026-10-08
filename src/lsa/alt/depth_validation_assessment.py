@@ -209,6 +209,9 @@ def assess_depth_run(
         Path(__file__),
         Path(__file__).with_name("depth_validation.py"),
         Path(__file__).with_name("depth.py"),
+        Path(__file__).with_name("sealed_tables.py"),
+        Path(__file__).with_name("sealed_native.py"),
+        Path(__file__).with_name("sealed_interp.c"),
     ]
     source_files += sorted((Path(__file__).parent / "_vendor/pmwm").glob("*.py"))
     source_files.append(Path(__file__).parent / "_vendor/pmwm/provenance.json")
@@ -223,6 +226,7 @@ def assess_depth_run(
     roots = sorted(run_dir.glob("shard-*")) or [run_dir]
     completed_paths = {shard: sorted(shard.glob("result-*.json")) for shard in roots}
     records, seen = [], set()
+    native = None
     for shard in roots:
         for result_path in completed_paths[shard]:
             # A live writer may have created a file before completing its JSON.
@@ -270,9 +274,43 @@ def assess_depth_run(
             supplied = StoreConfig(**engine_config["store"])
             supplied_settings = asdict(supplied)
             supplied_settings.pop("path")
+            if supplied.native_library_path is not None:
+                supplied_settings["native_library_path"] = "/host-local-native"
             if supplied_settings != base_engine["store"]:
                 raise ValueError(
                     "explicit engine does not match saved default store settings"
+                )
+            if supplied.format == "sealed":
+                provider = sha256(Path(__file__).with_name("sealed_tables.py"))
+                if any(
+                    saved_engine.get("sealed_provider_sha256") != provider
+                    for saved_engine in (base_engine, fine_engine)
+                ):
+                    raise ValueError(
+                        "saved sealed provider differs from current source"
+                    )
+            if supplied.interpolation_backend == "native":
+                if native is None:
+                    from .sealed_native import NativeInterpolator
+
+                    native = NativeInterpolator(
+                        supplied.native_library_path, supplied.native_library_sha256
+                    )
+                    for source in (native.path, native.manifest_path):
+                        _snapshot(source, out / "native-inputs" / source.name, inputs)
+                if any(
+                    saved_engine.get("sealed_native_identity") != native.identity
+                    for saved_engine in (base_engine, fine_engine)
+                ):
+                    raise ValueError(
+                        "saved native interpolation identity differs from supplied library"
+                    )
+            elif any(
+                saved_engine.get("sealed_native_identity") is not None
+                for saved_engine in (base_engine, fine_engine)
+            ):
+                raise ValueError(
+                    "saved native identity differs from the supplied Python provider"
                 )
             assessed = {
                 "id": case["id"],
@@ -321,6 +359,10 @@ def assess_depth_run(
                     settings = dict(
                         fine_engine["store"], path=engine_config["store"]["path"]
                     )
+                    if supplied.interpolation_backend == "native":
+                        # Saved identities use a portable sentinel. Execution
+                        # restores only the supplied, independently pinned path.
+                        settings["native_library_path"] = supplied.native_library_path
                     settings["grid_step"] = step
                     settings["minimum_grid_step"] = min(
                         settings["minimum_grid_step"], step
@@ -339,8 +381,12 @@ def assess_depth_run(
                                 "vendor_provenance_sha256",
                                 "vendor_source_sha256",
                                 "runtime",
+                                "sealed_provider_sha256",
+                                "sealed_native_identity",
                             ):
-                                if evaluator.configuration[key] != fine_engine[key]:
+                                if evaluator.configuration.get(key) != fine_engine.get(
+                                    key
+                                ):
                                     raise RuntimeError(
                                         f"supplemental engine differs: {key}"
                                     )
@@ -411,6 +457,8 @@ def assess_depth_run(
             )
             write_json(out / f"assessment-{case['id']}.json", assessed)
             records.append(assessed)
+    if native is not None:
+        native.check_unchanged()
     pending_ids = [c for c in expected if c not in seen]
     unchanged = all(sha256(Path(p)) == digest for p, digest in source_hashes.items())
     summary = {

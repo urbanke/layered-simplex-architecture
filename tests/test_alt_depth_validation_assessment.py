@@ -233,3 +233,166 @@ def test_saved_case_supplements_only_missing_depth_and_keeps_pending_cases(
     assert summary["status"] == "pending"
     assert summary["pending_case_ids"] == ["pending"]
     assert sha256(shard / "evaluation-000.json.gz") == before
+
+
+@pytest.fixture(scope="module")
+def real_native_depth_case(tmp_path_factory):
+    """Use actual stored kernels, a compiled reader and a saved depth comparison."""
+    import shutil
+
+    from lsa.alt.depth_validation import run_depth_validation
+    from lsa.alt.sealed_native import build_native
+    from lsa.alt.sealed_store_build import (
+        build_store,
+        create_plan,
+        seal_store,
+        write_plan,
+    )
+
+    if shutil.which("cc") is None:
+        pytest.skip("native depth assessment requires an explicit C build")
+    root = tmp_path_factory.mktemp("native-depth-assessment")
+    store_path = root / "store"
+    write_plan(
+        create_plan(levels=[2], support_max_count=8, anchors={2: list(range(9))}),
+        store_path,
+    )
+    build_store(store_path)
+    seal_store(store_path)
+    library = root / "sealed.so"
+    built = build_native(library)
+    files = {p.name: sha256(p) for p in store_path.iterdir() if p.is_file()}
+    store = StoreConfig(
+        path=str(store_path),
+        files_sha256=files,
+        max_depth=2,
+        max_d=3,
+        max_n=4,
+        max_count=4,
+        format="sealed",
+        interpolation_backend="native",
+        native_library_path=str(library),
+        native_library_sha256=built["binary_sha256"],
+    )
+    config = {
+        "seed": 7,
+        "loss_tolerance_bits": 1e-5,
+        "raw_mass_tolerance": 1e-7,
+        # The same actual spacing deliberately leaves one required halving.
+        "refinement": {"grid_step": store.grid_step},
+        "cases": [
+            {
+                "id": "native",
+                "kind": "synthetic",
+                "target": "uniform",
+                "d": 3,
+                "n": 3,
+                "predictive": False,
+                "depths": [0, 1, 2],
+                "seed_coordinates": [7, 0, 0],
+            }
+        ],
+    }
+    engine = {"mode": "store", "store": asdict(store)}
+    run = root / "saved-depth"
+    result = run_depth_validation(
+        config, run, engine_config=engine, repo=Path(__file__).resolve().parents[1]
+    )
+    assert result["status"] == "passed"
+    return run, engine
+
+
+def test_native_depth_assessment_restores_relocated_real_path_and_halves_grid(
+    real_native_depth_case,
+    tmp_path,
+    monkeypatch,
+):
+    import copy
+    import shutil
+
+    from lsa.alt.sealed_native import NativeInterpolator, manifest_path
+
+    run, original_engine = real_native_depth_case
+    engine = copy.deepcopy(original_engine)
+    original_library = Path(engine["store"]["native_library_path"])
+    library = tmp_path / "relocated.so"
+    shutil.copyfile(original_library, library)
+    shutil.copyfile(manifest_path(original_library), manifest_path(library))
+    engine["store"]["native_library_path"] = str(library)
+    before = {str(p): sha256(p) for p in run.iterdir() if p.is_file()}
+    paths = []
+    initialize = NativeInterpolator.__init__
+
+    def recorded_init(self, path, sha256):
+        paths.append(str(path))
+        initialize(self, path, sha256)
+
+    monkeypatch.setattr(NativeInterpolator, "__init__", recorded_init)
+    out = tmp_path / "assessment"
+    summary = assess_depth_run(run, out, engine_config=engine, run_supplemental=True)
+    assert summary["status"] == "passed"
+    row = summary["cases"][0]
+    assert row["original_grid_checks"][2]["status"] == "pending"
+    assert row["final_grid_checks"][2]["status"] == "halved"
+    assert row["supplements"][0]["status"] == "evaluated"
+    assert len(paths) >= 2 and set(paths) == {str(library)}
+    supplemental = json.loads((out / "supplement-native-00-engine.json").read_text())
+    saved = json.loads((run / "refined-engine.json").read_text())
+    assert supplemental["store"]["native_library_path"] == "/host-local-native"
+    assert supplemental["sealed_native_identity"] == saved["sealed_native_identity"]
+    assert (out / "native-inputs/relocated.so").read_bytes() == library.read_bytes()
+    assert before == {str(p): sha256(p) for p in run.iterdir() if p.is_file()}
+
+
+@pytest.mark.parametrize(
+    "which,field",
+    [
+        ("default", "binary_sha256"),
+        ("refined", "wrapper_sha256"),
+        ("refined", "build_manifest_sha256"),
+        ("refined", "source_sha256"),
+    ],
+)
+def test_native_depth_assessment_rejects_mismatched_saved_identity(
+    real_native_depth_case,
+    tmp_path,
+    which,
+    field,
+):
+    import shutil
+
+    original, engine = real_native_depth_case
+    run = tmp_path / "altered-record"
+    shutil.copytree(original, run)
+    path = run / f"{which}-engine.json"
+    saved = json.loads(path.read_text())
+    saved["sealed_native_identity"][field] = "0" * 64
+    path.write_text(json.dumps(saved))
+    with pytest.raises(ValueError, match="native interpolation identity"):
+        assess_depth_run(
+            run, tmp_path / "assessment", engine_config=engine, run_supplemental=True
+        )
+
+
+def test_native_supplement_rejects_changed_actual_identity(
+    real_native_depth_case,
+    tmp_path,
+    monkeypatch,
+):
+    run, engine = real_native_depth_case
+
+    class ChangedEvaluator(DepthEvaluator):
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
+            self.configuration["sealed_native_identity"]["compiled_compiler"] = (
+                "changed"
+            )
+
+    monkeypatch.setattr(assessment_module, "DepthEvaluator", ChangedEvaluator)
+    summary = assess_depth_run(
+        run, tmp_path / "assessment", engine_config=engine, run_supplemental=True
+    )
+    assert summary["status"] == "failed"
+    supplement = summary["cases"][0]["supplements"][0]
+    assert supplement["status"] == "failed"
+    assert "sealed_native_identity" in supplement["error"]

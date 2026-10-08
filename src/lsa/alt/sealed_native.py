@@ -222,6 +222,18 @@ class NativeInterpolator:
         return out
 
 
+def _compiler_command(command, *, timeout):
+    try:
+        return subprocess.run(
+            command, check=True, capture_output=True, text=True, timeout=timeout
+        )
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stderr or exc.stdout or "no compiler diagnostic").strip()
+        raise SealedNativeError(
+            f"compiler command failed with exit {exc.returncode}: {detail}"
+        ) from exc
+
+
 def build_native(out, *, compiler="cc"):
     """Compile once to a NEW binary path, then publish its immutable manifest."""
     out = Path(out).absolute()
@@ -233,18 +245,15 @@ def build_native(out, *, compiler="cc"):
     executable = shutil.which(str(compiler))
     if executable is None:
         raise SealedNativeError(f"compiler is unavailable: {compiler}")
-    executable = str(Path(executable).resolve())
+    # Preserve argv[0]: compiler-dispatch symlinks such as cc -> ccache depend
+    # on the selected name. Record and fingerprint the target separately.
+    executable = str(Path(executable).absolute())
+    resolved_executable = str(Path(executable).resolve(strict=True))
     source_before = _fingerprint(SOURCE_PATH)
     source_hash = _sha256(SOURCE_PATH)
     compiler_before = _fingerprint(executable)
     compiler_hash = _sha256(executable)
-    version = subprocess.run(
-        [executable, "--version"],
-        check=True,
-        capture_output=True,
-        text=True,
-        timeout=30,
-    ).stdout.strip()
+    version = _compiler_command([executable, "--version"], timeout=30).stdout.strip()
     out.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".sealed-native-", dir=out.parent) as temp:
         temp = Path(temp)
@@ -258,12 +267,11 @@ def build_native(out, *, compiler="cc"):
             str(binary),
             "-lm",
         ]
-        result = subprocess.run(
-            command, check=True, capture_output=True, text=True, timeout=120
-        )
+        result = _compiler_command(command, timeout=120)
         if (
             _fingerprint(SOURCE_PATH) != source_before
             or _fingerprint(executable) != compiler_before
+            or str(Path(executable).resolve(strict=True)) != resolved_executable
         ):
             raise SealedNativeError("source/compiler changed during native build")
         _, _, embedded_source, embedded_compiler = _load_library(binary)
@@ -280,6 +288,7 @@ def build_native(out, *, compiler="cc"):
             "flags": list(COMPILE_FLAGS),
             "compiler": {
                 "executable": executable,
+                "resolved_executable": resolved_executable,
                 "sha256": compiler_hash,
                 "version": version,
             },

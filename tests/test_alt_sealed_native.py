@@ -2,7 +2,9 @@
 
 import hashlib
 import json
+import shlex
 import shutil
+import subprocess
 from types import SimpleNamespace
 
 import numpy as np
@@ -55,6 +57,42 @@ def test_explicit_build_is_immutable_and_has_fixed_identity(compiled):
     assert native.identity["flags"] == list(COMPILE_FLAGS)
     with pytest.raises(FileExistsError):
         build_native(path)
+
+
+def test_compiler_dispatch_symlink_retains_selected_name(compiled, tmp_path):
+    # Like cc -> ccache, this wrapper works only when invoked as "cc".
+    # Resolving the link before exec would make the real compilation fail.
+    real_compiler = shutil.which("cc")
+    dispatcher = tmp_path / "compiler-dispatch"
+    dispatcher.write_text(
+        '#!/bin/sh\n'
+        'test "${0##*/}" = cc || { echo "compiler name lost" >&2; exit 71; }\n'
+        f'exec {shlex.quote(real_compiler)} "$@"\n'
+    )
+    dispatcher.chmod(0o755)
+    compiler = tmp_path / "cc"
+    compiler.symlink_to(dispatcher)
+    binary = tmp_path / "symlink-build.so"
+    metadata = build_native(binary, compiler=compiler)
+    assert metadata["command"][0] == str(compiler)
+    assert metadata["compiler"]["executable"] == str(compiler)
+    assert metadata["compiler"]["resolved_executable"] == str(dispatcher)
+    native = NativeInterpolator(binary, metadata["binary_sha256"])
+    np.testing.assert_array_equal(native.interpolate(np.arange(8.), 0., 1., [3.]), [3.])
+
+
+def test_compiler_failure_reports_captured_diagnostic(compiled, tmp_path, monkeypatch):
+    def failed(command, **kwargs):
+        raise subprocess.CalledProcessError(
+            23, command, output="", stderr="unsupported numerical compiler flag"
+        )
+
+    monkeypatch.setattr("lsa.alt.sealed_native.subprocess.run", failed)
+    binary = tmp_path / "failed-build.so"
+    with pytest.raises(SealedNativeError, match="exit 23: unsupported numerical compiler flag"):
+        build_native(binary)
+    assert not binary.exists()
+    assert not manifest_path(binary).exists()
 
 
 @pytest.mark.parametrize(

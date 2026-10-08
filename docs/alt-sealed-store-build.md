@@ -144,3 +144,128 @@ completed levels are skipped. Never use two simultaneous coordinators or a Slurm
 array against one store. Scratch is temporary: archive the sealed store, its
 hashes, source/environment identities and passed numerical reports to durable
 storage before final paper results depend on it.
+
+## Select the compiled interpolator
+
+Build the native interpolation library explicitly on the execution platform,
+from the final clean checkout. Keep the library, its adjacent `.json` build
+manifest and engine configuration outside Git. Choose new output paths.
+Prediction loads the selected library and verifies its identity; compilation is
+an explicit preparation step.
+
+```sh
+export PYTHONPATH="$ALT_REPO/src"
+export ALT_NATIVE_BINARY=/absolute/path/to/new-native-interpolator.so
+export ALT_STORE_SPEC=/absolute/path/to/pinned-sealed-store-spec.json
+export ALT_ENGINE_CONFIG=/absolute/path/to/new-sealed-engine.json
+
+"$ALT_PYTHON" "$ALT_REPO/scripts/alt_build_sealed_native.py" \
+  --out "$ALT_NATIVE_BINARY" --cc cc
+```
+
+Set `ALT_NATIVE_SHA256` to the `sha256` printed by this command, then configure
+the engine:
+
+```sh
+export ALT_NATIVE_SHA256=EXACT_64_CHARACTER_BINARY_SHA256
+"$ALT_PYTHON" "$ALT_REPO/scripts/alt_experiments.py" --repo "$ALT_REPO" \
+  configure-engine --store-directory "$ALT_KERNEL_STORE" \
+  --store-spec "$ALT_STORE_SPEC" \
+  --native-library-path "$ALT_NATIVE_BINARY" \
+  --native-library-sha256 "$ALT_NATIVE_SHA256" \
+  --out "$ALT_ENGINE_CONFIG"
+```
+
+The store specification supplies `files_sha256` and `settings`, including
+`format: "sealed"`, declared domain limits and `saddle_min_depth: null`. Its
+hash mapping covers the sealed manifest itself and every file bound by that
+manifest. Both native command options are required together. They select
+`interpolation_backend: "native"`; the library path, binary hash, C-source hash,
+build manifest, compiler and floating-point flags enter the recorded identity.
+Configuration opens and verifies the selected store and library. It does not
+provide a numerical admission certificate.
+
+## Validate the selected engine on SCITAS
+
+`cluster/alt2027/sealed-validation.sbatch` runs one explicit mode in one node
+and one Slurm task. It uses account `lthc`, partition `standard`, QOS `serial`,
+and one thread per numerical library. Set these common variables:
+
+```sh
+export ALT_REPO=/absolute/path/to/final-clean-checkout
+export ALT_EXPECTED_COMMIT=FULL_40_CHARACTER_COMMIT
+export ALT_PYTHON=/absolute/path/to/Linux-virtualenv/bin/python
+export ALT_ENGINE_CONFIG=/absolute/path/to/selected-sealed-engine.json
+export ALT_VALIDATION_MODE=sealed_store
+export ALT_WORKERS=MEASURED_PROCESS_COUNT
+export ALT_OUT=/absolute/path/to/new-validation-run
+```
+
+Keep the virtualenv interpreter path as written, including its symlink into
+the environment. `ALT_OUT` and its sibling `ALT_OUT.launch` must both be new
+and outside the checkout. The wrapper verifies the clean commit, interpreter,
+allocated node, CPU allowance and input identities; it checks source and inputs
+again after execution.
+
+| Mode | Work performed | `ALT_WORKERS` |
+| --- | --- | --- |
+| `setup` | Build a new native library and configure a new sealed engine | 1 |
+| `sealed_store` | Declared kernel/interpolation checks for the sealed store | 1–allocated CPUs |
+| `sealed_profile` | Shared-profile comparison with an explicit legacy engine | 1 |
+| `kernel` | Independent kernel and special-function calibration | 1 |
+| `prior` | Prior identities and independent integration checks | 1 |
+| `power` | Powered-family calibration | 1–allocated CPUs |
+| `depth` | Depth-family calibration and required refinement checks | 1–allocated CPUs |
+| `chain` | Declared Bible predictive-chain checks | 1 |
+| `regressions` | Full pytest suite and full Appendix checks | 1 |
+
+All process counts are capped at 72 and at the allocated CPUs. Choose memory
+and wall time from measured requirements; engine verification reads the full
+store. Set `ALT_ALLOCATED_CPUS` to at least `ALT_WORKERS`. On the observed standard
+partition, requested memory is limited to 7,000 MB per allocated CPU; a serial
+20G validation job therefore reserves four CPUs while retaining one worker.
+Supply the resource and log options explicitly:
+
+```sh
+sbatch --cpus-per-task="$ALT_ALLOCATED_CPUS" \
+  --mem=MEASURED_MEMORY --time=MEASURED_WALL_TIME \
+  --output=/absolute/path/to/logs/sealed-check-%j.out \
+  "$ALT_REPO/cluster/alt2027/sealed-validation.sbatch"
+```
+
+`setup` is the wrapper alternative to the manual build/configure commands.
+It additionally requires `ALT_KERNEL_STORE`, `ALT_STORE_SPEC` and a new
+`ALT_NATIVE_BINARY`; `ALT_NATIVE_CC` optionally selects the compiler. Its
+`ALT_ENGINE_CONFIG` must be new. Its result records engine setup.
+`sealed_profile` additionally requires `ALT_LEGACY_ENGINE_CONFIG`, pointing
+to the pinned reference engine. The seven numerical modes use their committed
+specifications under `experiments/alt2027/`; `ALT_VALIDATION_CONFIG` can select
+an explicit specification. Leave that variable unset for `setup` and
+`regressions`.
+
+## Assemble numerical admission
+
+Finalize and commit the source first. Build/configure the selected library,
+then complete the eight validation modes using the same finalized source,
+selected engine and execution environment. Preserve the identical selected
+binary and adjacent build manifest for subsequent execution. Platform-specific
+native builds have separate identities and require matching evidence.
+
+Create an evidence index with complete immutable Run directories for `kernel`,
+`prior`, `power`, `depth`, `chain`, `sealed_store`, `sealed_profile` and
+`regressions`. Retain failed runs separately. Use the existing assembly command
+with the frozen protocol and selected engine:
+
+```sh
+"$ALT_PYTHON" "$ALT_REPO/scripts/alt_admission.py" assemble \
+  --repo "$ALT_REPO" \
+  --protocol "$ALT_REPO/experiments/alt2027/protocol.json" \
+  --engine-config "$ALT_ENGINE_CONFIG" \
+  --evidence /absolute/path/to/evidence-index.json \
+  --batch-size 20 --out /absolute/path/to/new-admission
+```
+
+Inspect `assessment.json`; a passed assembly writes `calibration.json`.
+Use that certificate, the same engine and matching batch settings in campaign
+preparation and launch, following `cluster/alt2027/PRODUCTION.md`. Store sealing,
+engine setup and numerical admission each retain their own records.
